@@ -1,8 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
+import logo from '../logo.svg';
 import './App.css';
+import {callBackendHealth} from "../api";
 
 function App() {
+  const[test,setTest] = useState("test");
+
+  useEffect(() => {
+    Promise.all([callBackendHealth()])
+        .then(([backendHealthData]) => {
+            setTest(backendHealthData)
+          console.log(test)
+        })
+  }, [test]);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -21,6 +32,8 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={() => setTest(callBackendHealth().data)}>Test</button>
+        <p>{test}</p>
       </header>
     </div>
   );
