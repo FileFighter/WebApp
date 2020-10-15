@@ -3,7 +3,7 @@ name: Latest Release
 on:
   push:
     branches:
-      - 'master'
+      - 'feature/**'
     paths:
       - 'webapp_frontend/**'
       - 'webapp_provider/**'
@@ -36,5 +36,5 @@ jobs:
       -
         name: Build and push
         run: |
-          docker build -t filefighter/frontend:latest webapp_provider/
-          docker push filefighter/frontend:latest
+          docker build -t filefighter/frontend:feature webapp_provider/
+          docker push filefighter/frontend:feature
