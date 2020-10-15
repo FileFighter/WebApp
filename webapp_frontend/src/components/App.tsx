@@ -9,8 +9,7 @@ function App() {
   useEffect(() => {
     Promise.all([callBackendHealth()])
         .then(([backendHealthData]) => {
-            setTest(backendHealthData)
-          console.log(test)
+          setTest(backendHealthData.uptimeInSeconds)
         })
   }, [test]);
 

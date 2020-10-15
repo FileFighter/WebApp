@@ -5,15 +5,15 @@ import {
     AxiosError,
 } from "axios";
 
-const uri = "localhost:8080";
+const uri = "http://localhost:8080";
 
 interface BackendHealthData {
-    time: number
+    uptimeInSeconds: number
 }
 
 function callBackendHealth():any{//BackendHealthData{
     return new Promise((resolve, reject) => {
-        Axios.get("localhost:8080/health")//`${uri}/health`)
+        Axios.get(`${uri}/health`)
             .then((data) => {
                 resolve(data.data);
             })
