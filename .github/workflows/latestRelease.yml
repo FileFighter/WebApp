@@ -2,7 +2,7 @@ name: Latest Release
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
     paths:
       - 'webapp_frontend/**'
       - 'webapp_provider/**'
