@@ -8,8 +8,7 @@ on:
       - 'webapp_frontend/**'
       - 'webapp_provider/**'
   create:
-    tag:
-      - 'v*.*.*
+    tag: [ v*.*.* ]
 
 jobs:
   Build_Docker_Image_on_Push:
