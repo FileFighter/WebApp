@@ -2,6 +2,7 @@ import React, {ReactElement, useEffect, useState} from 'react';
 import logo from '../logo.svg';
 import './App.css';
 import {callBackendHealth} from "../api";
+import {Button} from 'react-bootstrap';
 
 function App():ReactElement {
     const [backendLiveTime, setBackendLiveTime] = useState<number | string>("Init");
@@ -23,6 +24,8 @@ function App():ReactElement {
                 <p>
                     Hello World
                 </p>
+
+
                 <img src={logo} className="App-logo" alt="logo"/>
                 <p>
                     Edit <code>src/App.tsx</code> and save to reload.
