@@ -2,13 +2,8 @@ name: Stable Release
 
 on:
   push:
-    branches:
-      - 'master'
     tags:
       - 'v*.*.*'
-    paths:
-      - 'webapp_frontend/**'
-      - 'webapp_provider/**'
 
 jobs:
   Build_Docker_Image_on_new_Tag:
