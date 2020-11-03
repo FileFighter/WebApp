@@ -1,15 +1,25 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import logo from '../logo.svg';
 import './App.css';
-import {callBackendHealth} from "../api";
+import {setBackendPort, callBackendHealth} from "../api";
 
-function App():ReactElement {
+function App(): ReactElement {
     const [backendLiveTime, setBackendLiveTime] = useState<number | string>("Init");
 
     useEffect(() => {
-        updateVariables()
+        Promise.resolve(setBackendPort())
+            .then((backendPort:string) => {
+                console.log("[APP] Backend-Port = " + backendPort)
+                callInitialBackendRequests()
+            })
+            .catch((error:any) => {
+                alert("Error: Problems with backend.cfg - " + error)
+            })
     });
 
+    function callInitialBackendRequests():void {
+        updateVariables()
+    }
     function updateVariables(): void {
         Promise.all([callBackendHealth()])
             .then(([backendHealthData]) => {
