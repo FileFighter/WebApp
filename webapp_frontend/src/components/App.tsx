@@ -10,12 +10,12 @@ function App(): ReactElement {
         Promise.resolve(setBackendPort())
             .then((backendPort:string) => {
                 console.log("[APP] Backend-Port = " + backendPort)
-                // eslint-disable-next-line react-hooks/exhaustive-deps
                 callInitialBackendRequests()
             })
             .catch((error:any) => {
                 alert("Error: Problems with backend.cfg - " + error)
             })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     function callInitialBackendRequests():void {
