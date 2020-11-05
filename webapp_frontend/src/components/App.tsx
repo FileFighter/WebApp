@@ -39,6 +39,7 @@ function App():ReactElement {
                     Learn React
                 </a>
                 <button style={{marginTop: "20px"}} onClick={() => updateVariables()}>Test</button>
+                <Button>Dieser Bootstrap-Button funktioniert</Button>
                 <p>{backendLiveTime}</p>
             </header>
         </div>
