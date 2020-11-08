@@ -3,7 +3,8 @@ import Axios from "axios";
 const uri = "http://localhost:8080";
 
 interface BackendHealthData {
-    uptimeInSeconds: number
+    uptimeInSeconds: number;
+    userCount: number
 }
 
 function callBackendHealth():Promise<BackendHealthData>{
