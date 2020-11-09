@@ -19,7 +19,8 @@ function setBackendPort():Promise<string>{
 }
 
 interface BackendHealthData {
-    uptimeInSeconds: number
+    uptimeInSeconds: number;
+    userCount: number
 }
 
 function callBackendHealth():Promise<BackendHealthData>{
