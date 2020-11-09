@@ -1,16 +1,34 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import logo from '../assets/images/logos/logo.png';
 import './App.css';
-import {callBackendHealth} from "../api";
+import {setBackendPort, callBackendHealth} from "../api";
+
+
 import {Button, Table, Container} from 'react-bootstrap';
 
 function App():ReactElement {
     const [backendLiveTime, setBackendLiveTime] = useState<number | string>("not reachable");
     const [backendUserCount, setBackendUserCount] = useState<number | string>("not reachable");
 
+
+
+
+
     useEffect(() => {
+        Promise.resolve(setBackendPort())
+            .then((backendPort:string) => {
+                console.log("[APP] Backend-Port = " + backendPort)
+                callInitialBackendRequests()
+            })
+            .catch((error:any) => {
+                alert("Error: Problems with backend.cfg - " + error)
+            })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
+
+    function callInitialBackendRequests():void {
         updateVariables()
-    });
+    }
 
     function updateVariables(): void {
         Promise.all([callBackendHealth()])
