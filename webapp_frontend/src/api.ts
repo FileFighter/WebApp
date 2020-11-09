@@ -1,6 +1,22 @@
-import Axios from "axios";
+import Axios, {AxiosResponse} from "axios";
 
-const uri = "http://localhost:8080";
+let uri:string;
+const localhost:string = "http://localhost:";
+const backendPortFilePath:string = "./backend.cfg";
+
+function setBackendPort():Promise<string>{
+    return new Promise((resolve, reject) => {
+        Axios.get(backendPortFilePath)
+            .then((data:AxiosResponse<string>) => {
+                uri = localhost + data.data;
+                console.log(`[API] ${uri}`)
+                resolve(data.data);
+            })
+            .catch(((error:any) => {
+                reject(error);
+            }));
+    });
+}
 
 interface BackendHealthData {
     uptimeInSeconds: number;
@@ -19,4 +35,4 @@ function callBackendHealth():Promise<BackendHealthData>{
     });
 }
 
-export {callBackendHealth}
+export {setBackendPort, callBackendHealth}
