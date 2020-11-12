@@ -1,12 +1,16 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import logo from '../assets/images/logos/logo.png';
 import './App.css';
-import {setBackendPort, callBackendHealth} from "../api";
+import {setBackendPort, callBackendHealth} from "../background/api/api";
 
 
 import {Button, Table, Container} from 'react-bootstrap';
+import Header from "./basicElements/Header";
 
 function App():ReactElement {
+
+
+
     const [backendLiveTime, setBackendLiveTime] = useState<number | string>("not reachable");
     const [backendUserCount, setBackendUserCount] = useState<number | string>("not reachable");
 
@@ -40,7 +44,7 @@ function App():ReactElement {
 
     return (
         <div className="App">
-            <header className=""> </header>
+            <Header></Header>
                 <Container>
                 <h1>
                     FileFighter
