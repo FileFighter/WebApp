@@ -1,22 +1,8 @@
 import Axios, {AxiosResponse} from "axios";
 
-let uri:string;
+let uri:string = 'api';
 const hostname:string = window.location.hostname;
-const backendPortFilePath:string = "./backend.cfg";
 
-function setBackendPort():Promise<string>{
-    return new Promise((resolve, reject) => {
-        Axios.get(backendPortFilePath)
-            .then((data:AxiosResponse<string>) => {
-                uri = hostname + ":" + data.data;
-                console.log(`[API] ${uri}`)
-                resolve(data.data);
-            })
-            .catch(((error:any) => {
-                reject(error);
-            }));
-    });
-}
 
 interface BackendHealthData {
     uptimeInSeconds: number;
@@ -35,4 +21,4 @@ function callBackendHealth():Promise<BackendHealthData>{
     });
 }
 
-export {setBackendPort, callBackendHealth}
+export { callBackendHealth}

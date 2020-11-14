@@ -1,7 +1,7 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import logo from '../assets/images/logos/logo.png';
 import './App.css';
-import {setBackendPort, callBackendHealth} from "../background/api/api";
+import {callBackendHealth} from "../background/api/api";
 
 
 import {Button, Table, Container} from 'react-bootstrap';
@@ -19,14 +19,7 @@ function App():ReactElement {
 
 
     useEffect(() => {
-        Promise.resolve(setBackendPort())
-            .then((backendPort:string) => {
-                console.log("[APP] Backend-Port = " + backendPort)
-                callInitialBackendRequests()
-            })
-            .catch((error:any) => {
-                alert("Error: Problems with backend.cfg - " + error)
-            })
+        callInitialBackendRequests()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
