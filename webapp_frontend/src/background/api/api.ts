@@ -1,7 +1,6 @@
-import Axios, {AxiosResponse} from "axios";
+import Axios, {} from "axios";
 
-let uri:string = 'api';
-const hostname:string = window.location.hostname;
+const hostname:string = window.location.hostname+'/api';
 
 
 interface BackendHealthData {
@@ -11,7 +10,7 @@ interface BackendHealthData {
 
 function callBackendHealth():Promise<BackendHealthData>{
     return new Promise((resolve, reject) => {
-        Axios.get(`${uri}/health`)
+        Axios.get(`${hostname}/health`)
             .then((data) => {
                 resolve(data.data);
             })
