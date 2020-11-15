@@ -12,4 +12,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 5000
-CMD echo $REST_PORT > /usr/src/app/public/backend.cfg && npx serve -s public
+CMD npx serve -s public

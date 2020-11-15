@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style/custom.scss';
-import App from './components/App';
 import * as serviceWorker from './serviceWorker';
+import Constants from "./components/Constants";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+   <Constants></Constants>
   </React.StrictMode>,
   document.getElementById('root')
 );
