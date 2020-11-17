@@ -1,7 +1,7 @@
 import React, {ReactElement} from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
 import Health from "../pages/Health";
-import Error404 from "../pages/Error404";
+import Error404 from "../pages/errors/Error404";
 import Login from "../basicElements/Login";
 
 export default function Router(props: Object): ReactElement {
