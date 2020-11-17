@@ -4,9 +4,7 @@ import Health from "../pages/Health";
 import Error404 from "../pages/errors/Error404";
 import Login from "../basicElements/Login";
 
-export default function Router(props: Object): ReactElement {
-    const {} = props;
-
+export default function Router(): ReactElement {
 
     return (
         <Switch>
