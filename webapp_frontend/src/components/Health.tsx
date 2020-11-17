@@ -4,23 +4,19 @@ import Header from "./basicElements/Header";
 import {Button, Container, Table} from "react-bootstrap";
 import logo from "../assets/images/logos/logo.png";
 
-function Health():ReactElement{
-
+function Health(): ReactElement {
 
 
     const [backendLiveTime, setBackendLiveTime] = useState<number | string>("not reachable");
     const [backendUserCount, setBackendUserCount] = useState<number | string>("not reachable");
 
 
-
-
-
     useEffect(() => {
         callInitialBackendRequests()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
+    }, []);
 
-    function callInitialBackendRequests():void {
+    function callInitialBackendRequests(): void {
         updateVariables()
     }
 
@@ -41,13 +37,12 @@ function Health():ReactElement{
                 </h1>
 
 
-                <img src={logo}  alt="logo"/>
-
+                <img src={logo} alt="logo"/>
 
 
                 <div>
-                    <Button  className={"mt-3 mb-2 float-right"} onClick={() => updateVariables()}>Refresh</Button>
-                    <Table striped bordered hover variant="dark" >
+                    <Button className={"mt-3 mb-2 float-right"} onClick={() => updateVariables()}>Refresh</Button>
+                    <Table striped bordered hover variant="dark">
                         <thead>
                         <tr>
                             <th>Backend information</th>
