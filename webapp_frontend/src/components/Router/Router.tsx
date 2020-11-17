@@ -1,15 +1,17 @@
 import React, {ReactElement} from "react";
-import {useLocation, Redirect, Route, BrowserRouter, Switch} from "react-router-dom";
-import {Health} from "../health/Health";
-import {Error404} from "../pages/Error404";
+import {Redirect, Route, Switch} from "react-router-dom";
+import Health from "../pages/Health";
+import Error404 from "../pages/Error404";
+import Login from "../basicElements/Login";
 
-export function Router(props: Object): ReactElement {
+export default function Router(props: Object): ReactElement {
     const {} = props;
 
 
     return (
         <Switch>
             <Route path={"/health"} component={Health}/>
+            <Route path={"/login"} component={Login}/>
             <Route exact path={"/"}>
                 <Redirect to={"/health"}/>
             </Route>

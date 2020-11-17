@@ -1,8 +1,6 @@
 import React, {ReactElement} from 'react';
 
-function Login():ReactElement {
+export default function Login():ReactElement {
     return(<div>hallo</div>);
 }
-
-export default Login;
 
