@@ -8,7 +8,7 @@ function Constants():ReactElement{
 
 
 
-    return(<App></App>)
+    return(<App/>)
 
 
 }
