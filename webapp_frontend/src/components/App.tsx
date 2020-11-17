@@ -1,20 +1,21 @@
 import React, {ReactElement} from 'react';
 import './App.css';
-
-
 import {Container} from 'react-bootstrap';
 import Header from "./basicElements/Header";
-import {Health} from "./health/Health";
+import {BrowserRouter} from "react-router-dom";
+import {Router} from "./Router/Router";
 
 function App(): ReactElement {
 
 
     return (
         <div className="App">
-            <Header/>
-            <Container>
-                <Health/>
-            </Container>
+            <BrowserRouter>
+                <Header/>
+                <Container>
+                    <Router/>
+                </Container>
+            </BrowserRouter>
         </div>
     );
 }
