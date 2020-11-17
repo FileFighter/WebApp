@@ -1,6 +1,10 @@
 import React, {ReactElement} from "react";
 import App from "./App";
 
+import { Provider } from 'react-redux'
+import store from '../background/redux/store'
+
+
 function Constants():ReactElement{
     // userinfos
     // url + host of backend
@@ -8,7 +12,7 @@ function Constants():ReactElement{
 
 
 
-    return(<App></App>)
+    return(  <Provider store={store}><App/></Provider>);
 
 
 }
