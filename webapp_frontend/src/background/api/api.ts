@@ -1,7 +1,7 @@
 import Axios, {} from "axios";
 import {constants} from "../constants";
 
-const hostname:string =constants.url.API_URL;
+const hostname:string =constants.url.API_URL+'/api';
 
 
 interface BackendHealthData {
