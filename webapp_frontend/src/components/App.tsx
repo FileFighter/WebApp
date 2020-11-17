@@ -3,7 +3,7 @@ import './App.css';
 import {Container} from 'react-bootstrap';
 import Header from "./basicElements/Header";
 import {BrowserRouter} from "react-router-dom";
-import {Router} from "./Router/Router";
+import Router from "./Router/Router";
 
 function App(): ReactElement {
 

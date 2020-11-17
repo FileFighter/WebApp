@@ -3,7 +3,7 @@ import logo from "../../assets/images/logos/logo.png";
 import {Button, Table} from "react-bootstrap";
 import {callBackendHealth} from "../../background/api/api";
 
-export function Health() {
+export default function Health() {
 
     const [backendLiveTime, setBackendLiveTime] = useState<number | string>("not reachable");
     const [backendUserCount, setBackendUserCount] = useState<number | string>("not reachable");
