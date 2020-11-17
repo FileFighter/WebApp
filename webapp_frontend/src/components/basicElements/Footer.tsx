@@ -1,12 +1,10 @@
 import React, {ReactElement} from 'react';
 
-function Footers():ReactElement {
+export default function Footers():ReactElement {
     return(
         <div>
-            hallo
+            Footer
         </div>
     );
 }
-
-export default Footers;
 
