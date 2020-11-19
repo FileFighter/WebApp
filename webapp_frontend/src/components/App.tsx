@@ -31,7 +31,8 @@ function App(props: Props): ReactElement {
 
     return (
         <div className="App">
-            <Button onClick={() => props.addRefreshToken(12433)}>test (look in the console)</Button>
+            <Button onClick={() => props.addAccessToken({token:"bva",timestamp:1243})}>test (look in the console)</Button>
+            <Button onClick={() => props.addRefreshToken("bgsgfhz")}>Refreshtoken (look in the console)</Button>
         </div>
     );
 }

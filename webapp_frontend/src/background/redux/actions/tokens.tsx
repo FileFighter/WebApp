@@ -1,12 +1,12 @@
-import {ADD_REFRESH_TOKEN, ADD_ACCESS_TOKEN} from "./tokenTypes";
+import {ADD_REFRESH_TOKEN, ADD_ACCESS_TOKEN, AccessToken} from "./tokenTypes";
 
 
-export const addRefreshToken = (content: number) => ({
+export const addRefreshToken = (content: string) => ({
     type: ADD_REFRESH_TOKEN,
     payload: content
 });
 
-export const addAccessToken = (content: number) => ({
+export const addAccessToken = (content: AccessToken) => ({
     type: ADD_ACCESS_TOKEN,
     payload: content
 });
