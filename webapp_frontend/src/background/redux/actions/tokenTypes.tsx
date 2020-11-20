@@ -1,8 +1,9 @@
 export const ADD_REFRESH_TOKEN = "ADD_REFRESH_TOKEN";
 export const ADD_ACCESS_TOKEN = "ADD_ACCESS_TOKEN";
+export const CHECKED_COOKIES = "CHECKED_COOKIES";
 
 
-export interface AccessToken{
+export interface AccessToken {
     token: string | null;
     timestamp: number | null;
 }
@@ -11,6 +12,7 @@ export interface AccessToken{
 export interface TokensState {
     refreshToken: string | null;
     accessToken: AccessToken | null;
+    checkedCookies: boolean;
 }
 
 
@@ -24,5 +26,10 @@ interface AddAccessToken {
     payload: AccessToken
 }
 
-export type TokenActionsTypes = AddRefreshToken | AddAccessToken;
+interface CheckedCookies{
+    type: typeof CHECKED_COOKIES,
+    payload: boolean
+}
+
+export type TokenActionsTypes = AddRefreshToken | AddAccessToken|CheckedCookies;
 

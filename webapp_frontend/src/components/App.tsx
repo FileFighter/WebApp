@@ -16,7 +16,8 @@ import {Button} from "react-bootstrap";
 
 // this takes the redux store and maps everything that is needed to the function props
 const mapState = (state: SystemState) => ({
-    tokens: {refreshToken: state.tokens.refreshToken, accessToken: state.tokens.accessToken}
+    tokens: {refreshToken: state.tokens.refreshToken, accessToken: state.tokens.accessToken},
+    user: state.user
 })
 
 // this takes the redux actions and maps them to the props
