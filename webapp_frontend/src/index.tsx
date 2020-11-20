@@ -6,7 +6,7 @@ import Constants from "./components/Constants";
 
 ReactDOM.render(
   <React.StrictMode>
-   <Constants></Constants>
+   <Constants/>
   </React.StrictMode>,
   document.getElementById('root')
 );
