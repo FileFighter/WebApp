@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement, useEffect, useState} from 'react';
 import './App.css';
 import {Container} from 'react-bootstrap';
 import Header from "./basicElements/Header";
@@ -7,8 +7,7 @@ import {BrowserRouter} from "react-router-dom";
 import Router from "./Router/Router";
 import PermanentAssets from "./basicElements/PermanentAssets";
 
-function App(): ReactElement {
-import React, {ReactElement, useEffect, useState} from 'react';
+
 import {connect, ConnectedProps} from 'react-redux'
 import {addAccessToken, addRefreshToken} from "../background/redux/actions/tokens";
 import {SystemState} from "../background/redux/actions/sytemState";
