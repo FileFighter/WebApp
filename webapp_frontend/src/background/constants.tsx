@@ -1,4 +1,3 @@
-
 interface constants {
     url: { API_URL: string }
 }
