@@ -1,7 +1,7 @@
 import {ADD_USER, UserActionTypes, UserState} from "../actions/userTypes";
 
 const initialState: UserState = {
-    groups: [], id: -1, username: ""
+    groups: [], id: null, username: null
 
 };
 

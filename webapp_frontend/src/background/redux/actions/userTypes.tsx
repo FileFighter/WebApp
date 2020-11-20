@@ -2,8 +2,8 @@ export const ADD_USER = "ADD_USER";
 
 export interface UserState{
     groups: number[],
-    id: number,
-    username:string,
+    id: number | null,
+    username:string | null,
 }
 
 
