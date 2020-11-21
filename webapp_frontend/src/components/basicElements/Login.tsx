@@ -1,7 +1,7 @@
 import React, {FormEvent, ReactElement, useState} from 'react';
 import {Button, Form, Container} from "react-bootstrap";
 import user from "../../background/redux/reducers/user";
-import {loginWithUsernameAndPassword} from "../../background/api/login";
+import {getAccesstokenWithRefreshToken, loginWithUsernameAndPassword} from "../../background/api/login";
 import {addAccessToken, addRefreshToken, checkedCookies} from "../../background/redux/actions/tokens";
 import {connect, ConnectedProps} from "react-redux";
 import {SystemState} from "../../background/redux/actions/sytemState";
@@ -12,6 +12,7 @@ const mapState = (state: SystemState) => ({})
 
 const mapDispatch = {
     addRefreshToken,
+    addAccessToken,
     addUser
 }
 
@@ -34,8 +35,13 @@ function Login(props: Props): ReactElement {
         loginWithUsernameAndPassword(userName, password)
             .then(backendLoginData => {
                 props.addRefreshToken(backendLoginData.refreshToken);
-                props.addUser(backendLoginData.user)
-            });
+                props.addUser(backendLoginData.user);
+
+                return getAccesstokenWithRefreshToken(backendLoginData.refreshToken)
+
+            }).then(backendAuthData=>{
+                props.addAccessToken({token:backendAuthData.token,timestamp:backendAuthData.validUntil})
+        })
 
     };
 

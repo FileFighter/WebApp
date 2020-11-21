@@ -18,6 +18,7 @@ export default function (state = initialState, action: TokenActionsTypes) {
             };
         }
         case ADD_ACCESS_TOKEN: {
+            console.log('[Redux] adding accessToken')
             const accessToken: AccessToken = action.payload;
             return {
                 refreshToken: state.refreshToken,

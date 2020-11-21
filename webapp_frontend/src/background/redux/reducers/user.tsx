@@ -9,6 +9,7 @@ const initialState: UserState = {
 export default function (state = initialState, action: UserActionTypes) {
     switch (action.type) {
         case ADD_USER: {
+            console.log('[Redux] adding user')
             return action.payload;
         }
         default:

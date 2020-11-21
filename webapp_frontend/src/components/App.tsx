@@ -38,6 +38,7 @@ function App(props: Props): ReactElement {
 
     console.log(props.tokens.refreshToken)
     console.log(props.tokens)
+    console.log(props.user)
 
 if (props.tokens.checkedCookies){
 
