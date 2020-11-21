@@ -4,7 +4,13 @@ import Axios from "axios";
 import {hostname, userPath} from "./api";
 
 import {UserState} from "../redux/actions/userTypes";
+import store from "../redux/store";
+import {addAccessToken, addRefreshToken} from "../redux/actions/tokens";
+import {addUser} from "../redux/actions/user";
+import {Action} from "redux";
 
+
+// reference: https://daveceddia.com/access-redux-store-outside-react/
 
 export interface BackendLoginData {
     refreshToken: string,
@@ -23,11 +29,18 @@ export const loginWithUsernameAndPassword = (userName: string, password: string)
 
         return Axios.get(hostname + userPath + '/login', config)
             .then((data) => {
-                resolve(data.data)
+                // @ts-ignore
+                store.dispatch(addRefreshToken(data.data.refreshToken))
+                // @ts-ignore
+                store.dispatch(addUser(data.data.user))
+                // resolve(data.data)
+                getAccessTokenWithRefreshToken()
             })
             .catch(((error) => {
                 reject(error);
-            }));
+            }))
+
+
     })
 }
 
@@ -38,22 +51,33 @@ export interface BackendAuthData {
 }
 
 
-export const getAccessTokenWithRefreshToken = (refreshToken: string): Promise<BackendAuthData> => {
+export const getAccessTokenWithRefreshToken = () => {
+    console.log("getAccessTokenWithRefreshToken")
+    // @ts-ignore
+    let refreshToken: string = store.getState().tokens.refreshToken;
 
-    return new Promise<BackendAuthData>((resolve, reject) => {
-        let config = {
-            headers: {
-                Authorization: `Bearer ${refreshToken}`,
-            },
-        };
+    let config = {
+        headers: {
+            Authorization: `Bearer ${refreshToken}`,
+        },
+    };
 
-        return Axios.get(hostname + userPath + '/auth', config)
-            .then((data) => {
-                resolve(data.data)
-            })
-            .catch(((error) => {
-                reject(error);
-            }));
-    })
+    Axios.get(hostname + userPath + '/auth', config)
+        .then((data) => {
+            setAuthHeaderToAxios(data.data.token)
+            // @ts-ignore
+            store.dispatch(addAccessToken({token: data.data.token, timestamp: data.data.validUntil}))
+
+        })
+        .catch(((error) => {
+
+        }));
+
 }
+
+function setAuthHeaderToAxios(accessToken: string) {
+    Axios.defaults.headers.common['Authorization'] =
+        `Bearer ${accessToken}`;
+}
+
 

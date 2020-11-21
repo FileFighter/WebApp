@@ -32,14 +32,9 @@ function Login(props: Props): ReactElement {
         event.preventDefault();
         loginWithUsernameAndPassword(userName, password)
             .then(backendLoginData => {
-                props.addRefreshToken(backendLoginData.refreshToken);
-                props.addUser(backendLoginData.user);
+             //nothing to do here:)
 
-                return getAccessTokenWithRefreshToken(backendLoginData.refreshToken)
-
-            }).then(backendAuthData => {
-            props.addAccessToken({token: backendAuthData.token, timestamp: backendAuthData.validUntil})
-        })
+            })
 
     };
 
