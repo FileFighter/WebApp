@@ -36,6 +36,7 @@ export const loginWithUsernameAndPassword = (userName: string, password: string)
                 getAccessTokenWithRefreshToken()
             })
             .catch(((error) => {
+
                 reject(error);
             }))
 
