@@ -7,7 +7,6 @@ import {UserState} from "../redux/actions/userTypes";
 import store from "../redux/store";
 import {addAccessToken, addRefreshToken} from "../redux/actions/tokens";
 import {addUser} from "../redux/actions/user";
-import {Action} from "redux";
 
 
 // reference: https://daveceddia.com/access-redux-store-outside-react/
@@ -44,11 +43,11 @@ export const loginWithUsernameAndPassword = (userName: string, password: string)
     })
 }
 
-export interface BackendAuthData {
+/*export interface BackendAuthData {
     token: string,
     userId: number,
     validUntil: number
-}
+}*/
 
 
 export const getAccessTokenWithRefreshToken = () => {
@@ -70,7 +69,7 @@ export const getAccessTokenWithRefreshToken = () => {
 
         })
         .catch(((error) => {
-
+            console.log(error)
         }));
 
 }
