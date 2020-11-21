@@ -11,7 +11,9 @@ import PermanentAssets from "./basicElements/PermanentAssets";
 import {connect, ConnectedProps} from 'react-redux'
 import {addAccessToken, addRefreshToken, checkedCookies} from "../background/redux/actions/tokens";
 import {SystemState} from "../background/redux/actions/sytemState";
+
 import Login from "./basicElements/Login";
+
 
 
 // this takes the redux store and maps everything that is needed to the function props
@@ -35,6 +37,7 @@ type Props = PropsFromRedux & {}
 function App(props: Props): ReactElement {
 
 
+    console.log("[App] props.tokens: ")
     console.log(props.tokens.refreshToken)
     console.log(props.tokens)
     console.log(props.user)
