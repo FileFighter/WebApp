@@ -1,4 +1,3 @@
-
 import {ADD_USER, UserState} from "./userTypes";
 
 export const addUser = (content: UserState) => ({

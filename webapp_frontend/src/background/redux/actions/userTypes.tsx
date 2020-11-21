@@ -1,13 +1,12 @@
 export const ADD_USER = "ADD_USER";
 
-export interface UserState{
+export interface UserState {
     id: number | null,
-    username:string | null,
+    username: string | null,
     groups: number[],
 
 
 }
-
 
 
 interface AddUser {
@@ -16,5 +15,4 @@ interface AddUser {
 }
 
 
-
-export type UserActionTypes=AddUser;
+export type UserActionTypes = AddUser;

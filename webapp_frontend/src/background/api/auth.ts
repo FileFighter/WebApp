@@ -1,14 +1,10 @@
 import Axios from "axios";
-import {constants} from "../constants";
+
 
 import {hostname, userPath} from "./api";
-import {addRefreshToken} from "../redux/actions/tokens";
+
 import {UserState} from "../redux/actions/userTypes";
 
-
-function test() {
-    return null
-}
 
 export interface BackendLoginData {
     refreshToken: string,
@@ -42,7 +38,7 @@ export interface BackendAuthData {
 }
 
 
-export const getAccesstokenWithRefreshToken = (refreshToken: string): Promise<BackendAuthData> => {
+export const getAccessTokenWithRefreshToken = (refreshToken: string): Promise<BackendAuthData> => {
 
     return new Promise<BackendAuthData>((resolve, reject) => {
         let config = {
@@ -61,4 +57,3 @@ export const getAccesstokenWithRefreshToken = (refreshToken: string): Promise<Ba
     })
 }
 
-export default test;

@@ -1,14 +1,12 @@
 import React, {FormEvent, ReactElement, useState} from 'react';
 import {Button, Form, Container} from "react-bootstrap";
-import user from "../../background/redux/reducers/user";
-import {getAccesstokenWithRefreshToken, loginWithUsernameAndPassword} from "../../background/api/login";
-import {addAccessToken, addRefreshToken, checkedCookies} from "../../background/redux/actions/tokens";
+import {getAccessTokenWithRefreshToken, loginWithUsernameAndPassword} from "../../background/api/auth";
+import {addAccessToken, addRefreshToken} from "../../background/redux/actions/tokens";
 import {connect, ConnectedProps} from "react-redux";
-import {SystemState} from "../../background/redux/actions/sytemState";
 import {addUser} from "../../background/redux/actions/user";
 
 //why is this needed? because connect needs this?
-const mapState = (state: SystemState) => ({})
+const mapState = () => ({})
 
 const mapDispatch = {
     addRefreshToken,
@@ -37,10 +35,10 @@ function Login(props: Props): ReactElement {
                 props.addRefreshToken(backendLoginData.refreshToken);
                 props.addUser(backendLoginData.user);
 
-                return getAccesstokenWithRefreshToken(backendLoginData.refreshToken)
+                return getAccessTokenWithRefreshToken(backendLoginData.refreshToken)
 
-            }).then(backendAuthData=>{
-                props.addAccessToken({token:backendAuthData.token,timestamp:backendAuthData.validUntil})
+            }).then(backendAuthData => {
+            props.addAccessToken({token: backendAuthData.token, timestamp: backendAuthData.validUntil})
         })
 
     };

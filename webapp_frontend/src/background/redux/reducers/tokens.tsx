@@ -3,7 +3,7 @@ import {ADD_REFRESH_TOKEN, ADD_ACCESS_TOKEN, TokenActionsTypes, TokensState, Acc
 const initialState: TokensState = {
     refreshToken: null,
     accessToken: null,
-    checkedCookies:false,
+    checkedCookies: false,
 };
 
 export default function (state = initialState, action: TokenActionsTypes) {
@@ -27,10 +27,10 @@ export default function (state = initialState, action: TokenActionsTypes) {
             };
         }
         case CHECKED_COOKIES: {
-            return  {
+            return {
                 refreshToken: state.refreshToken,
                 accessToken: state.refreshToken,
-                checkedCookies:action.payload
+                checkedCookies: action.payload
             };
         }
         default:
