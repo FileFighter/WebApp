@@ -9,25 +9,26 @@ const initialState: TokensState = {
 export default function (state = initialState, action: TokenActionsTypes) {
     switch (action.type) {
         case ADD_REFRESH_TOKEN: {
+            console.log('[Redux] adding refreshToken')
             const refreshToken: string = action.payload;
             return {
                 refreshToken: refreshToken,
-                accessToken: initialState.accessToken,
-                checkedCookies: initialState.checkedCookies
+                accessToken: state.accessToken,
+                checkedCookies: state.checkedCookies
             };
         }
         case ADD_ACCESS_TOKEN: {
             const accessToken: AccessToken = action.payload;
             return {
-                refreshToken: initialState.refreshToken,
+                refreshToken: state.refreshToken,
                 accessToken: accessToken,
-                checkedCookies: initialState.checkedCookies
+                checkedCookies: state.checkedCookies
             };
         }
         case CHECKED_COOKIES: {
             return  {
-                refreshToken: initialState.refreshToken,
-                accessToken: initialState.refreshToken,
+                refreshToken: state.refreshToken,
+                accessToken: state.refreshToken,
                 checkedCookies:action.payload
             };
         }

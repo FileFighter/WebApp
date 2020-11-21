@@ -56,7 +56,10 @@ if (props.tokens.checkedCookies){
         </div>
     );}
 
-    else return (<Login/>)
+    else {
+        console.log("[APP] showing login");
+        return (<Login/>)
+        }
 }
     else {
         props.checkedCookies(true)

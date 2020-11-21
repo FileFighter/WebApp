@@ -3,6 +3,8 @@ import {constants} from "../constants";
 
 export const hostname:string =constants.url.API_URL+'/api';
 
+export const userPath:string='/v1/users';
+
 
 interface BackendHealthData {
     uptimeInSeconds: number;
