@@ -13,4 +13,8 @@ function stringReplaceSubstringOneTimeFromBeginningAndEnd(string:string, substri
     return string;
 }
 
-export {reverseString, stringReplaceSubstringOneTimeFromBeginningAndEnd}
+function deleteSpaces(string:string):string {
+    return string.replace(/\s/,"")
+}
+
+export {reverseString, stringReplaceSubstringOneTimeFromBeginningAndEnd, deleteSpaces}
