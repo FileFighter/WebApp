@@ -22,6 +22,7 @@ export default function Registration(): ReactElement {
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
 
+        setErrorMessage("test");
     }
 
     const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -61,22 +62,22 @@ export default function Registration(): ReactElement {
                                           value={password}
                                           onChange={(event: ChangeEvent<HTMLInputElement>) => handlePasswordChange(event)}/>
                             <div>
-                                <img alt={"status image password length"} src={passwordInformationLength ? check_svg : info_svg}/>
+                                <img alt={"status icon password length"} src={passwordInformationLength ? check_svg : info_svg}/>
                                 <span className={"sr-only"}>{passwordInformationLength ? "Done: " : "Missing: "}</span>
                                 <span className={passwordInformationLength ? "text-success" : "text-muted"}>Passwords must be at least 8 characters.</span>
                             </div>
                             <div>
-                                <img alt={"status image password contains uppercase character"} src={passwordInformationUppercase ? check_svg : info_svg}/>
+                                <img alt={"status icon password contains uppercase character"} src={passwordInformationUppercase ? check_svg : info_svg}/>
                                 <span className={"sr-only"}>{passwordInformationUppercase ? "Done: " : "Missing: "}</span>
                                 <span className={passwordInformationUppercase ? "text-success" : "text-muted"}>Passwords must be at least contain 1 uppercase character.</span>
                             </div>
                             <div>
-                                <img alt={"status image password contains lowercase character"} src={passwordInformationLowercase ? check_svg : info_svg}/>
+                                <img alt={"status icon password contains lowercase character"} src={passwordInformationLowercase ? check_svg : info_svg}/>
                                 <span className={"sr-only"}>{passwordInformationLowercase ? "Done: " : "Missing: "}</span>
                                 <span className={passwordInformationLowercase ? "text-success" : "text-muted"}>Passwords must be at least contain 1 lowercase character.</span>
                             </div>
                             <div>
-                                <img alt={"status image password contains number"} src={passwordInformationNumber ? check_svg : info_svg}/>
+                                <img alt={"status icon password contains number"} src={passwordInformationNumber ? check_svg : info_svg}/>
                                 <span className={"sr-only"}>{passwordInformationNumber ? "Done: " : "Missing: "}</span>
                                 <span className={passwordInformationNumber ? "text-success" : "text-muted"}>Passwords must be at least contain 1 number.</span>
                             </div>
@@ -87,7 +88,7 @@ export default function Registration(): ReactElement {
                                           value={passwordConfirmation}
                                           onChange={(event: ChangeEvent<HTMLInputElement>) => handlePasswordConfirmationChange(event)}/>
                             <div>
-                                <img alt={"status image passwords match"} src={!passwordConfirmation ? info_svg : passwordsMatch ? check_svg : error_svg}/>
+                                <img alt={"status icon passwords match"} src={!passwordConfirmation ? info_svg : passwordsMatch ? check_svg : error_svg}/>
                                 <span className={"sr-only"}>{passwordsMatch ? "Done: " : "Missing: "}</span>
                                 <span className={!passwordConfirmation ? "text-muted" : passwordsMatch ? "text-success" : "text-danger"}>Passwords must match.</span>
                             </div>
