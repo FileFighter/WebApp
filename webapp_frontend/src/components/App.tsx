@@ -13,6 +13,7 @@ import {addAccessToken, addRefreshToken, checkedCookies} from "../background/red
 import {SystemState} from "../background/redux/actions/sytemState";
 
 import Login from "./basicElements/Login";
+import {checkForCookie} from "../background/api/auth";
 
 
 
@@ -63,7 +64,7 @@ function App(props: Props): ReactElement {
             return (<Login/>)
         }
     } else {
-        props.checkedCookies(true)
+        checkForCookie();
 
         return (<div>Loading</div>)
     }

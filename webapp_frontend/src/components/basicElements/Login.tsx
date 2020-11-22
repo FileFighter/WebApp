@@ -12,14 +12,15 @@ function Login(): ReactElement {
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
-        loginWithUsernameAndPassword(userName, password)
+        loginWithUsernameAndPassword(userName, password,stayLoggedIn)
             .then(() => {
                 //nothing to do here :)
                 setErrorMessage("");
             })
             .catch(((error) => {
                 console.log(error);
-                setErrorMessage(error.response.data.message);
+
+                setErrorMessage(error.response?.data.message);
             }))
 
 

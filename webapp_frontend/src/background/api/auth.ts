@@ -5,12 +5,16 @@ import {hostname, userPath} from "./api";
 
 import {AddUser, UserState} from "../redux/actions/userTypes";
 import store from "../redux/store";
-import {addAccessToken, addRefreshToken} from "../redux/actions/tokens";
+import {addAccessToken, addRefreshToken, checkedCookies, removeTokens} from "../redux/actions/tokens";
 import {addUser} from "../redux/actions/user";
-import {AccessToken, AddAccessToken, AddRefreshToken, TokensState} from "../redux/actions/tokenTypes";
+import {AccessToken, AddAccessToken, AddRefreshToken, CheckedCookies, RemoveTokens, TokensState} from "../redux/actions/tokenTypes";
+import {deleteCookie, getCookie, setCookie} from "../methods/cookies";
 
 
 // reference: https://daveceddia.com/access-redux-store-outside-react/
+
+
+const cookieName:string='refreshToken';
 
 export interface BackendLoginData {
     refreshToken: string,
@@ -18,7 +22,21 @@ export interface BackendLoginData {
 
 }
 
-export const loginWithUsernameAndPassword = (userName: string, password: string): Promise<BackendLoginData> => {
+
+export const checkForCookie=()=>{
+    let refreshTokenCookieValue=getCookie(cookieName)
+    if (refreshTokenCookieValue){
+        store.dispatch(addRefreshToken(refreshTokenCookieValue) as AddRefreshToken)
+        getAccessTokenWithRefreshToken();
+    }
+    store.dispatch(checkedCookies(true) as CheckedCookies)
+
+
+}
+
+
+
+export const loginWithUsernameAndPassword = (userName: string, password: string,stayLoggedIn:boolean): Promise<BackendLoginData> => {
 
     return new Promise<BackendLoginData>((resolve, reject) => {
         let config = {
@@ -31,6 +49,11 @@ export const loginWithUsernameAndPassword = (userName: string, password: string)
             .then((data) => {
                 store.dispatch(addRefreshToken(data.data.refreshToken) as AddRefreshToken)
                 store.dispatch(addUser(data.data.user as UserState) as AddUser)
+
+                if (stayLoggedIn){
+                    setCookie(cookieName,data.data.refreshToken,60)
+                }
+
 
                 getAccessTokenWithRefreshToken()
             })
@@ -63,9 +86,16 @@ export const getAccessTokenWithRefreshToken = () => {
 
         })
         .catch(((error) => {
+            store.dispatch(removeTokens()as RemoveTokens);
+
             console.log(error)
         }));
 
+}
+
+export const logout=()=>{
+    store.dispatch(removeTokens()as RemoveTokens);
+    deleteCookie(cookieName);
 }
 
 function setAuthHeaderToAxios(accessToken: string) {
