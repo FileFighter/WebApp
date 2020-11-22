@@ -45,7 +45,7 @@ function App(props: Props): ReactElement {
 
     if (props.tokens.checkedCookies) {
 
-        if (props.tokens.refreshToken) {
+        if (props.tokens.refreshToken && props.tokens.accessToken) {
 
             return (
                 <div className="App">

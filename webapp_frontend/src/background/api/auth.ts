@@ -89,6 +89,7 @@ export const getAccessTokenWithRefreshToken = () => {
             store.dispatch(removeTokens()as RemoveTokens);
 
             console.log(error)
+            //you probably want to notify the user, maybe with a toast or similar
         }));
 
 }

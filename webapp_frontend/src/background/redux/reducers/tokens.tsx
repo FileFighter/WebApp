@@ -30,7 +30,7 @@ export default function (state = initialState, action: TokenActionsTypes) {
             return {
                 refreshToken: null,
                 accessToken: null,
-                checkedCookies: false
+                checkedCookies: true
             }
         }
         case CHECKED_COOKIES: {
