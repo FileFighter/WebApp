@@ -25,7 +25,7 @@ jobs:
         run: |
           cd webapp_frontend
           npm i
-      - 
+      -
         name: Update Sonar
         run: |
           cd webapp_frontend
@@ -33,7 +33,7 @@ jobs:
         env:
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
           SONAR_PASSWORD: ${{ secrets.SONAR_PASSWORD }}
-      -  
+      -
         name: Build Frontend
         run: |
           cd webapp_frontend
