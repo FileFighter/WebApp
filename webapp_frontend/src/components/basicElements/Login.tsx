@@ -1,8 +1,6 @@
 import React, {FormEvent, ReactElement, useState} from 'react';
 import {Button, Form, Container, Row,Col,Spinner} from "react-bootstrap";
 import {loginWithUsernameAndPassword} from "../../background/api/auth";
-import {Simulate} from "react-dom/test-utils";
-
 
 function Login(): ReactElement {
     const [userName, setUsername] = useState<string>("");
