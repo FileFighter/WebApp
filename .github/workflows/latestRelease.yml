@@ -3,12 +3,10 @@ name: Latest Release
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: "master"
     paths:
       - 'webapp_frontend/**'
       - 'webapp_provider/**'
-  create:
-    tag: [ v*.*.* ]
 
 jobs:
   Build_Docker_Image_on_Push:
