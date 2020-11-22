@@ -9,7 +9,7 @@ export interface UserState {
 }
 
 
-interface AddUser {
+export interface AddUser {
     type: typeof ADD_USER,
     payload: UserState
 }

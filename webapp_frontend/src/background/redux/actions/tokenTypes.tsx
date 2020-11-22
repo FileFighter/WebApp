@@ -16,17 +16,17 @@ export interface TokensState {
 }
 
 
-interface AddRefreshToken {
+export interface AddRefreshToken {
     type: typeof ADD_REFRESH_TOKEN
     payload: string
 }
 
-interface AddAccessToken {
+export interface AddAccessToken {
     type: typeof ADD_ACCESS_TOKEN
     payload: AccessToken
 }
 
-interface CheckedCookies{
+export interface CheckedCookies{
     type: typeof CHECKED_COOKIES,
     payload: boolean
 }
