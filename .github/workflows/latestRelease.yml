@@ -28,7 +28,7 @@ jobs:
       - 
         name: Update Sonar
         run: |
-          echo $(pwd)
+          cd webapp_frontend
           npm run-script sonar
         env:
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
@@ -36,6 +36,7 @@ jobs:
       -  
         name: Build Frontend
         run: |
+          cd webapp_frontend
           npm run-script build
           cp -r build ../webapp_provider/public
       -
