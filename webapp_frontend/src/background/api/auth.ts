@@ -37,7 +37,7 @@ export const checkForCookie=()=>{
 
 
 export const loginWithUsernameAndPassword = (userName: string, password: string,stayLoggedIn:boolean): Promise<BackendLoginData> => {
-
+console.log("[Auth] loginWithUsernameAndPassword")
     return new Promise<BackendLoginData>((resolve, reject) => {
         let config = {
             headers: {
@@ -47,11 +47,12 @@ export const loginWithUsernameAndPassword = (userName: string, password: string,
 
         return Axios.get(hostname + userPath + '/login', config)
             .then((data) => {
-                store.dispatch(addRefreshToken(data.data.refreshToken) as AddRefreshToken)
+                console.log(data.data)
+                store.dispatch(addRefreshToken(data.data.tokenValue) as AddRefreshToken)
                 store.dispatch(addUser(data.data.user as UserState) as AddUser)
 
                 if (stayLoggedIn){
-                    setCookie(cookieName,data.data.refreshToken,60)
+                    setCookie(cookieName,data.data.tokenValue,60)
                 }
 
 
@@ -80,9 +81,9 @@ export const getAccessTokenWithRefreshToken = () => {
 
     Axios.get(hostname + userPath + '/auth', config)
         .then((data) => {
-            setAuthHeaderToAxios(data.data.token)
+            setAuthHeaderToAxios(data.data.tokenValue)
 
-            store.dispatch(addAccessToken({token: data.data.token, timestamp: data.data.validUntil}as AccessToken) as AddAccessToken);
+            store.dispatch(addAccessToken({token: data.data.tokenValue, timestamp: data.data.validUntil}as AccessToken) as AddAccessToken);
 
         })
         .catch(((error) => {
