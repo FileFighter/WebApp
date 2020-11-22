@@ -27,7 +27,9 @@ jobs:
           npm i
       - 
         name: Update Sonar
-        run: npm run-script sonar
+        run: |
+          echo $(pwd)
+          npm run-script sonar
         env:
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
           SONAR_PASSWORD: ${{ secrets.SONAR_PASSWORD }}
