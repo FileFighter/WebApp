@@ -77,7 +77,7 @@ export default function Registration(): ReactElement {
             <Row>
                 <Col md={{span: 6, offset: 3}}>
                     <h1>Create new account</h1>
-                    <Form onSubmit={() => handleSubmit}>
+                    <Form onSubmit={handleSubmit}>
                         <FormGroup controlId="formBasicUsername">
                             <Form.Label>Username</Form.Label>
                             <Form.Control type={"name"} value={username}
