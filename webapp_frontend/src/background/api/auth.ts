@@ -1,4 +1,4 @@
-import Axios, {AxiosError, AxiosResponse} from "axios";
+import Axios from "axios";
 
 
 import {hostname, userPath} from "./api";
