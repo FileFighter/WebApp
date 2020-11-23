@@ -24,6 +24,7 @@ export default function Registration(): ReactElement {
 
     useEffect(() => {
         reviewPasswordMatch()
+        // eslint-disable-next-line
     },[passwordConfirmation, password])
 
     const handleSubmit = async (event: FormEvent) => {
