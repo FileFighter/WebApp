@@ -5,12 +5,16 @@ import {hostname, userPath} from "./api";
 
 import {AddUser, UserState} from "../redux/actions/userTypes";
 import store from "../redux/store";
-import {addAccessToken, addRefreshToken} from "../redux/actions/tokens";
+import {addAccessToken, addRefreshToken, checkedCookies, removeTokens} from "../redux/actions/tokens";
 import {addUser} from "../redux/actions/user";
-import {AccessToken, AddAccessToken, AddRefreshToken, TokensState} from "../redux/actions/tokenTypes";
+import {AccessToken, AddAccessToken, AddRefreshToken, CheckedCookies, RemoveTokens, TokensState} from "../redux/actions/tokenTypes";
+import {deleteCookie, getCookie, setCookie} from "../methods/cookies";
 
 
 // reference: https://daveceddia.com/access-redux-store-outside-react/
+
+
+const cookieName:string='refreshToken';
 
 export interface BackendLoginData {
     refreshToken: string,
@@ -18,8 +22,22 @@ export interface BackendLoginData {
 
 }
 
-export const loginWithUsernameAndPassword = (userName: string, password: string): Promise<BackendLoginData> => {
 
+export const checkForCookie=()=>{
+    let refreshTokenCookieValue=getCookie(cookieName)
+    if (refreshTokenCookieValue){
+        store.dispatch(addRefreshToken(refreshTokenCookieValue) as AddRefreshToken)
+        getAccessTokenWithRefreshToken();
+    }
+    store.dispatch(checkedCookies(true) as CheckedCookies)
+
+
+}
+
+
+
+export const loginWithUsernameAndPassword = (userName: string, password: string,stayLoggedIn:boolean): Promise<BackendLoginData> => {
+console.log("[Auth] loginWithUsernameAndPassword")
     return new Promise<BackendLoginData>((resolve, reject) => {
         let config = {
             headers: {
@@ -29,8 +47,14 @@ export const loginWithUsernameAndPassword = (userName: string, password: string)
 
         return Axios.get(hostname + userPath + '/login', config)
             .then((data) => {
-                store.dispatch(addRefreshToken(data.data.refreshToken) as AddRefreshToken)
+                console.log(data.data)
+                store.dispatch(addRefreshToken(data.data.tokenValue) as AddRefreshToken)
                 store.dispatch(addUser(data.data.user as UserState) as AddUser)
+
+                if (stayLoggedIn){
+                    setCookie(cookieName,data.data.tokenValue,60)
+                }
+
 
                 getAccessTokenWithRefreshToken()
             })
@@ -57,15 +81,23 @@ export const getAccessTokenWithRefreshToken = () => {
 
     Axios.get(hostname + userPath + '/auth', config)
         .then((data) => {
-            setAuthHeaderToAxios(data.data.token)
+            setAuthHeaderToAxios(data.data.tokenValue)
 
-            store.dispatch(addAccessToken({token: data.data.token, timestamp: data.data.validUntil}as AccessToken) as AddAccessToken);
+            store.dispatch(addAccessToken({token: data.data.tokenValue, timestamp: data.data.validUntil}as AccessToken) as AddAccessToken);
 
         })
         .catch(((error) => {
+            store.dispatch(removeTokens()as RemoveTokens);
+
             console.log(error)
+            //you probably want to notify the user, maybe with a toast or similar
         }));
 
+}
+
+export const logout=()=>{
+    store.dispatch(removeTokens()as RemoveTokens);
+    deleteCookie(cookieName);
 }
 
 function setAuthHeaderToAxios(accessToken: string) {
