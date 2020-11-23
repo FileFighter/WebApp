@@ -7,7 +7,7 @@ Frontend Web Application for FileFighter.
 ![Docker Pulls](https://img.shields.io/docker/pulls/filefighter/frontend?logo=docker&style=for-the-badge)  
 [![Quality Gate Status](http://filefighter.ddns.net:9000/api/project_badges/measure?project=de.filefighter.frontend&metric=alert_status)](http://filefighter.ddns.net:9000/dashboard?id=de.filefighter.frontend)
 [![Coverage](http://filefighter.ddns.net:9000/api/project_badges/measure?project=de.filefighter.frontend&metric=coverage)](http://filefighter.ddns.net:9000/dashboard?id=de.filefighter.frontend)
-[![Lines of Code](http://filefighter.ddns.net:9000/api/project_badges/measure?project=de.filefighter.frontend&metric=ncloc)](http://filefighter.ddns.net:9000/dashboard?id=de.filefighter.frontend)
+[![Lines of Code](http://filefighter.ddns.net:9000/api/project_badges/measure?project=de.filefighter.frontend&metric=ncloc)](http://filefighter.ddns.net:9000/dashboard?id=de.filefighter.frontend)  
 [![Security Rating](http://filefighter.ddns.net:9000/api/project_badges/measure?project=de.filefighter.frontend&metric=security_rating)](http://filefighter.ddns.net:9000/dashboard?id=de.filefighter.frontend)
 [![Bugs](http://filefighter.ddns.net:9000/api/project_badges/measure?project=de.filefighter.frontend&metric=bugs)](http://filefighter.ddns.net:9000/dashboard?id=de.filefighter.frontend)
 [![Code Smells](http://filefighter.ddns.net:9000/api/project_badges/measure?project=de.filefighter.frontend&metric=code_smells)](http://filefighter.ddns.net:9000/dashboard?id=de.filefighter.frontend)
