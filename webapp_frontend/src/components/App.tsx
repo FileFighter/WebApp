@@ -13,6 +13,7 @@ import {addAccessToken, addRefreshToken, checkedCookies} from "../background/red
 import {SystemState} from "../background/redux/actions/sytemState";
 
 import Login from "./basicElements/Login";
+import {checkForCookie} from "../background/api/auth";
 
 
 
@@ -44,7 +45,7 @@ function App(props: Props): ReactElement {
 
     if (props.tokens.checkedCookies) {
 
-        if (props.tokens.refreshToken) {
+        if (props.tokens.refreshToken && props.tokens.accessToken) {
 
             return (
                 <div className="App">
@@ -63,7 +64,7 @@ function App(props: Props): ReactElement {
             return (<Login/>)
         }
     } else {
-        props.checkedCookies(true)
+        checkForCookie();
 
         return (<div>Loading</div>)
     }

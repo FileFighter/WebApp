@@ -1,6 +1,7 @@
 export const ADD_REFRESH_TOKEN = "ADD_REFRESH_TOKEN";
 export const ADD_ACCESS_TOKEN = "ADD_ACCESS_TOKEN";
 export const CHECKED_COOKIES = "CHECKED_COOKIES";
+export const REMOVE_TOKENS = "REMOVE_TOKENS";
 
 
 export interface AccessToken {
@@ -26,10 +27,14 @@ export interface AddAccessToken {
     payload: AccessToken
 }
 
-export interface CheckedCookies{
+export interface RemoveTokens {
+    type: typeof REMOVE_TOKENS
+}
+
+export interface CheckedCookies {
     type: typeof CHECKED_COOKIES,
     payload: boolean
 }
 
-export type TokenActionsTypes = AddRefreshToken | AddAccessToken|CheckedCookies;
+export type TokenActionsTypes = AddRefreshToken | AddAccessToken | RemoveTokens | CheckedCookies;
 

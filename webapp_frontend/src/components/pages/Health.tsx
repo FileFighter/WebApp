@@ -3,6 +3,7 @@ import logo from "../../assets/images/logos/logo.png";
 import {Button, Table} from "react-bootstrap";
 import {callBackendHealth} from "../../background/api/api";
 import {audioOnOff, setAudioVolumeByID} from "../../background/methods/sound"
+import {logout} from "../../background/api/auth";
 
 export default function Health() {
 
@@ -11,7 +12,7 @@ export default function Health() {
 
     useEffect(() => {
         updateVariables()
-    },[]);
+    }, []);
 
     function updateVariables(): void {
         Promise.all([callBackendHealth()])
@@ -58,6 +59,7 @@ export default function Health() {
                     </tbody>
                 </Table>
             </div>
+            <Button onClick={() => logout()}>Logout</Button>
         </>
     )
 }
