@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, ReactElement, useState} from "react";
+import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from "react";
 import {Container, Row, Col, Form, FormGroup, Button, Alert} from "react-bootstrap";
 import {deleteSpaces} from "../../background/methods/strings";
 import {notMinStrLength} from "../../background/methods/checkInput";
@@ -17,30 +17,42 @@ export default function Registration(): ReactElement {
     const [passwordInformationLowercase, setPasswordInformationLowercase] = useState<boolean>(false);
     const [passwordInformationUppercase, setPasswordInformationUppercase] = useState<boolean>(false);
     const [passwordInformationNumber, setPasswordInformationNumber] = useState<boolean>(false);
-    const [passwordsMatch, setPasswordsMatch] = useState<boolean>(false);
+    const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
     const [alertMessage, setAlertMessage] = useState<string>("Error 404: No Message found.");
     const [alertVariant, setAlertColor] = useState<"primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark">("success");
     const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
 
+    useEffect(() => {
+        reviewPasswordMatch()
+    },[passwordConfirmation, password])
+
     const handleSubmit = async (event: FormEvent) => {
         console.log("[REGISTRATION] handleSubmit")
         event.preventDefault();
-        if (password !== passwordConfirmation) {
+        reviewPasswordMatch();
+        if (!username){
+            setAlertColor("danger");
+            setAlertMessage("Error: Please choose an username.")
+            handleAlertVisibility(3500)
+        } else if (!passwordsMatch) {
             setAlertColor("danger");
             setAlertMessage("Error: Password and password confirmation must match.")
+            handleAlertVisibility(3500)
+        } else if (!passwordInformationNumber || !passwordInformationLowercase || !passwordInformationUppercase || !passwordInformationLength){
+            setAlertColor("danger");
+            setAlertMessage("Error: Please pay attention to the notes below the input field.");
             handleAlertVisibility(3500)
         } else {
             await registerNewUser(username, password, passwordConfirmation)
                 .then(res => {
-                    setAlertMessage("Worked: " + res.user.username);
+                    setAlertMessage("Worked: " + (res.outputMessage ? res.outputMessage : (res.httpStatus + " " + res.httpMessage)));
                     setAlertColor("success");
                     console.table(res);
-                    console.log(res.user)
                 })
                 .catch(err => {
                     setAlertColor("danger");
-                    setAlertMessage("Some error occurred: " + err)
-                    console.log(err)
+                    setAlertMessage("Error: " + (err.outputMessage ? err.outputMessage : (err.httpStatus + " " + err.httpMessage)))
+                    console.table(err)
                 })
                 .finally(() => handleAlertVisibility(3500))
         }
@@ -66,12 +78,15 @@ export default function Registration(): ReactElement {
         setPassword(value)
     }
 
-    const handlePasswordConfirmationChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handlePasswordConfirmationChange = async (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         let value = event.target.value;
         value = deleteSpaces(value);
-        setPasswordsMatch(password === value);
         setPasswordConfirmation(value);
+    }
+
+    const reviewPasswordMatch = ():void => {
+        setPasswordsMatch(password === passwordConfirmation);
     }
 
     return (
