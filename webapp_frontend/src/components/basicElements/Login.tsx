@@ -1,25 +1,28 @@
 import React, {FormEvent, ReactElement, useState} from 'react';
-import {Button, Form, Container, Row,Col} from "react-bootstrap";
+import {Button, Form, Container, Row,Col,Spinner} from "react-bootstrap";
 import {loginWithUsernameAndPassword} from "../../background/api/auth";
-
 
 function Login(): ReactElement {
     const [userName, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [stayLoggedIn, setStayLoggedIn] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const [loading,setLoading]=useState<boolean>(false);
 
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
-        loginWithUsernameAndPassword(userName, password)
+        setLoading(true)
+        loginWithUsernameAndPassword(userName, password,stayLoggedIn)
             .then(() => {
                 //nothing to do here :)
                 setErrorMessage("");
+                setLoading(false);
             })
             .catch(((error) => {
                 console.log(error);
-                setErrorMessage(error.response.data.message);
+                setLoading(false)
+                setErrorMessage(error.response?.data.message);
             }))
 
 
@@ -44,11 +47,19 @@ function Login(): ReactElement {
                             </Form.Text>
                         </Form.Group>
                         <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Check me out" onChange={() => setStayLoggedIn(!stayLoggedIn)}/>
+                            <Form.Check type="checkbox" label="Stay logged in. (By clicking this you accept the usage of cookies.)" onChange={() => setStayLoggedIn(!stayLoggedIn)}/>
                         </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit
+                        <Button variant="primary" type="submit" >
+                            <Spinner
+                                as="span"
+                                animation="grow"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                                className={loading? "" :"d-none"}
+                            />   <span className={loading? "sr-only" :"d-none"}>Loading...</span>Submit
                         </Button>
+
                         <p className="text-danger">{errorMessage}</p>
                     </Form>
                 </Col>

@@ -1,4 +1,4 @@
-import {ADD_REFRESH_TOKEN, ADD_ACCESS_TOKEN, TokenActionsTypes, TokensState, AccessToken, CHECKED_COOKIES} from "../actions/tokenTypes";
+import {ADD_REFRESH_TOKEN, ADD_ACCESS_TOKEN, TokenActionsTypes, TokensState, AccessToken, CHECKED_COOKIES, REMOVE_TOKENS} from "../actions/tokenTypes";
 
 const initialState: TokensState = {
     refreshToken: null,
@@ -25,6 +25,13 @@ export default function (state = initialState, action: TokenActionsTypes) {
                 accessToken: accessToken,
                 checkedCookies: state.checkedCookies
             };
+        }
+        case REMOVE_TOKENS:{
+            return {
+                refreshToken: null,
+                accessToken: null,
+                checkedCookies: true
+            }
         }
         case CHECKED_COOKIES: {
             return {

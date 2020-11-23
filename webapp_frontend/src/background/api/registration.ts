@@ -24,7 +24,7 @@ export const registerNewUser = (username: string, password: string, passwordConf
             }
         };
 
-        return Axios.get(hostname + username + "/register", config)
+        return Axios.get(hostname +'/users' + "/register", config)
             .then((data:AxiosResponse<object>) => {
                 console.log(data.status + ": " + data.statusText);
                 alert(data.status + ": " + data.statusText);
