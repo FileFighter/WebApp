@@ -3,12 +3,10 @@ name: Latest Release
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: "master"
     paths:
       - 'webapp_frontend/**'
       - 'webapp_provider/**'
-  create:
-    tag: [ v*.*.* ]
 
 jobs:
   Build_Docker_Image_on_Push:
@@ -16,17 +14,29 @@ jobs:
     steps:
       -
         name: Set up Project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
       -
         name: Set up Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
           node-version: 12
       -
-        name: Build frontend
+        name: Checkout frontend
         run: |
           cd webapp_frontend
           npm i
+      -
+        name: Update Sonar
+        run: |
+          cd webapp_frontend
+          npm run-script sonar
+        env:
+          SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
+          SONAR_PASSWORD: ${{ secrets.SONAR_PASSWORD }}
+      -
+        name: Build Frontend
+        run: |
+          cd webapp_frontend
           npm run-script build
           cp -r build ../webapp_provider/public
       -
