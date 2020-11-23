@@ -47,10 +47,12 @@ export default function Registration(): ReactElement {
     }
 
     const handleAlertVisibility = (duration: number) => {
-        setAlertVisibility(true);
-        setTimeout(() => {
-            setAlertVisibility(false)
-        }, duration)
+        if (!alertVisibility) {
+            setAlertVisibility(true);
+            setTimeout(() => {
+                setAlertVisibility(false)
+            }, duration)
+        }
     }
 
     const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
