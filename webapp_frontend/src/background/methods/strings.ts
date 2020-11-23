@@ -16,3 +16,11 @@ export function stringReplaceSubstringOneTimeFromBeginningAndEnd(string:string, 
 export function deleteSpaces(string:string):string {
     return string.replace(/\s/,"")
 }
+
+export function trimString(string:string, maxLength: number):string {
+    return string.length > maxLength ? string.substr(0, maxLength-1) : string;
+}
+
+export function trimStringWithDotsAtEnd(string:string, maxLength: number):string {
+    return trimString(string, maxLength) + '&hellip;';
+}

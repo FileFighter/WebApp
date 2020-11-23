@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from "react";
 import {Container, Row, Col, Form, FormGroup, Button, Alert} from "react-bootstrap";
 import {deleteSpaces} from "../../background/methods/strings";
-import {notMinStrLength} from "../../background/methods/checkInput";
+import {biggerMaxStrLength, notMinStrLength} from "../../background/methods/checkInput";
 import info_svg from "../../assets/images/icons/material.io/info-24px.svg";
 import check_svg from "../../assets/images/icons/material.io/check_circle-24px.svg";
 import error_svg from "../../assets/images/icons/material.io/error-24px.svg";
@@ -9,6 +9,7 @@ import {registerNewUser} from "../../background/api/registration";
 
 export default function Registration(): ReactElement {
     const MIN_PASSWORD_LENGTH = 8;
+    const MAX_PASSWORD_LENGTH = 20;
 
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -68,10 +69,20 @@ export default function Registration(): ReactElement {
         }
     }
 
+    const makePasswordInputFitRules = (input:string):string|null => {
+        input = deleteSpaces(input);
+        if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)){
+            return null
+        }
+        return input;
+    }
+
     const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let value = event.target.value;
-        value = deleteSpaces(value);
+        let value:string|null = makePasswordInputFitRules(event.target.value);
+        if (!value){
+            value = password;
+        }
         setPasswordInformationLength(!notMinStrLength(value, MIN_PASSWORD_LENGTH));
         setPasswordInformationLowercase(value.match(/[a-z]/) !== null);
         setPasswordInformationUppercase(value.match(/[A-Z]/) !== null);
@@ -81,8 +92,10 @@ export default function Registration(): ReactElement {
 
     const handlePasswordConfirmationChange = async (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let value = event.target.value;
-        value = deleteSpaces(value);
+        let value:string|null = makePasswordInputFitRules(event.target.value);
+        if (!value){
+            value = passwordConfirmation;
+        }
         setPasswordConfirmation(value);
     }
 

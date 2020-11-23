@@ -18,6 +18,7 @@ export const registerNewUser = (username: string, password: string, passwordConf
 
         return Axios.post(hostname + userPath + '/register', newUser)
             .then((data: AxiosResponse<object>) => {
+                console.log(data)
                 const response: IRegisterServerResponse = {
                     httpStatus: data.status,
                     httpMessage: data.statusText
@@ -28,12 +29,11 @@ export const registerNewUser = (username: string, password: string, passwordConf
                 resolve(response);
             })
             .catch((error: AxiosError) => {
+                console.log(error.response)
                 const response: IRegisterServerResponse = {
                     httpStatus: error.response!.status,
-                    httpMessage: error.response!.statusText
-                }
-                if (error.response!.status === 409) {
-                    response.outputMessage = "Username is already taken."
+                    httpMessage: error.response!.statusText,
+                    outputMessage: error.response!.data.message
                 }
                 reject(response);
             })
