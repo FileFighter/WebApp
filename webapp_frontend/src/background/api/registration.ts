@@ -16,6 +16,7 @@ export const registerNewUser = (username: string, password: string, passwordConf
             confirmationPassword: passwordConfirmation
         }
 
+
         return Axios.post(hostname + userPath + '/register', newUser)
             .then((data: AxiosResponse<object>) => {
                 const response: IRegisterServerResponse = {
