@@ -16,13 +16,10 @@ import Login from "./basicElements/Login";
 import {checkForCookie} from "../background/api/auth";
 
 
+
 // this takes the redux store and maps everything that is needed to the function props
 const mapState = (state: SystemState) => ({
-    tokens: {
-        refreshToken: state.tokens.refreshToken,
-        accessToken: state.tokens.accessToken,
-        checkedCookies: state.tokens.checkedCookies
-    },
+    tokens: {refreshToken: state.tokens.refreshToken, accessToken: state.tokens.accessToken, checkedCookies: state.tokens.checkedCookies},
     user: state.user
 })
 
@@ -48,20 +45,16 @@ function App(props: Props): ReactElement {
 
     if (props.tokens.checkedCookies) {
 
-        if ((props.tokens.refreshToken && props.tokens.accessToken)) {
+        if (props.tokens.refreshToken && props.tokens.accessToken) {
 
             return (
-                <div className="App h-100 d-flex flex-column">
+                <div className="App">
                     <BrowserRouter>
-                        <header>
-                            <Header/>
-                        </header>
-                        <main role='main' className={"flex-shrink-0 flex-grow-1"}>
+                        <Header/>
+                        <Container>
                             <Router/>
-                        </main>
-                        <footer className='footer mt-auto py-3 bg-dark text-white'>
-                            <Footer/>
-                        </footer>
+                        </Container>
+                        <Footer/>
                         <PermanentAssets/>
                     </BrowserRouter>
                 </div>
