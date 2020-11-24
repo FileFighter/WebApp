@@ -1,6 +1,5 @@
 import React, {ReactElement} from 'react';
 import './App.css';
-import {Container} from 'react-bootstrap';
 import Header from "./basicElements/Header";
 import Footer from "./basicElements/Footer";
 import {BrowserRouter} from "react-router-dom";
