@@ -1,9 +1,16 @@
 import React, {ReactElement} from 'react';
 
-export default function Footers():ReactElement {
-    return(
+export default function Footer(): ReactElement {
+    return (
         <div>
-            Footer
+            <table>
+                <tbody>
+                <tr>
+                    <td>Footer</td>
+                    <td>Footer</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     );
 }
