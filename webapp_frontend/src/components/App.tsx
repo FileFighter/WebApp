@@ -57,9 +57,7 @@ function App(props: Props): ReactElement {
                             <Header/>
                         </header>
                         <main role='main' className={"flex-shrink-0 flex-grow-1"}>
-                            <Container>
-                                <Router/>
-                            </Container>
+                            <Router/>
                         </main>
                         <footer className='footer mt-auto py-3 bg-dark text-white'>
                             <Footer/>

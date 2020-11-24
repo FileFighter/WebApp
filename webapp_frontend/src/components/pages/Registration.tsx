@@ -5,6 +5,7 @@ import {biggerMaxStrLength, notMinStrLength} from "../../background/methods/chec
 import info_svg from "../../assets/images/icons/material.io/info-24px.svg";
 import check_svg from "../../assets/images/icons/material.io/check_circle-24px.svg";
 import error_svg from "../../assets/images/icons/material.io/error-24px.svg";
+import fileFighter from "../../assets/images/logos/logo.png";
 import {registerNewUser} from "../../background/api/registration";
 
 export default function Registration(): ReactElement {
@@ -97,7 +98,7 @@ export default function Registration(): ReactElement {
     }
 
     return (
-        <Container>
+        <Container className="h-100" style={{position: "relative"}}>
             <Row>
                 <Col md={{span: 6, offset: 3}}>
                     <h1>Create new account</h1>
@@ -163,6 +164,9 @@ export default function Registration(): ReactElement {
                     </Form>
                 </Col>
             </Row>
+            <div style={{bottom: 0, position: "absolute", left: 0, visibility: "hidden"}}>
+                <img src={fileFighter} alt="logo"/>
+            </div>
         </Container>
     )
 }
