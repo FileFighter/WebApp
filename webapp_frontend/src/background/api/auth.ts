@@ -3,11 +3,11 @@ import Axios from "axios";
 
 import {hostname, userPath} from "./api";
 
-import {AddUser, UserState} from "../redux/actions/userTypes";
+import {UserState} from "../redux/actions/userTypes";
 import store from "../redux/store";
 import {addAccessToken, addRefreshToken, checkedCookies, removeTokens} from "../redux/actions/tokens";
 import {addUser} from "../redux/actions/user";
-import {AccessToken, AddAccessToken, AddRefreshToken, CheckedCookies, RemoveTokens, TokensState} from "../redux/actions/tokenTypes";
+import {AccessToken, RemoveTokens, TokensState} from "../redux/actions/tokenTypes";
 import {deleteCookie, getCookie, setCookie} from "../methods/cookies";
 
 
@@ -26,10 +26,10 @@ export interface BackendLoginData {
 export const checkForCookie=()=>{
     let refreshTokenCookieValue=getCookie(cookieName)
     if (refreshTokenCookieValue){
-        store.dispatch(addRefreshToken(refreshTokenCookieValue) as AddRefreshToken)
+        store.dispatch(addRefreshToken(refreshTokenCookieValue))
         getAccessTokenWithRefreshToken();
     }
-    store.dispatch(checkedCookies(true) as CheckedCookies)
+    store.dispatch(checkedCookies(true))
 
 
 }
@@ -48,8 +48,8 @@ console.log("[Auth] loginWithUsernameAndPassword")
         return Axios.get(hostname + userPath + '/login', config)
             .then((data) => {
                 console.log(data.data)
-                store.dispatch(addRefreshToken(data.data.tokenValue) as AddRefreshToken)
-                store.dispatch(addUser(data.data.user as UserState) as AddUser)
+                store.dispatch(addRefreshToken(data.data.tokenValue))
+                store.dispatch(addUser(data.data.user as UserState))
 
                 if (stayLoggedIn){
                     setCookie(cookieName,data.data.tokenValue,60)
@@ -67,7 +67,6 @@ console.log("[Auth] loginWithUsernameAndPassword")
     })
 }
 
-
 export const getAccessTokenWithRefreshToken = () => {
     console.log("getAccessTokenWithRefreshToken")
 
@@ -83,7 +82,7 @@ export const getAccessTokenWithRefreshToken = () => {
         .then((data) => {
             setAuthHeaderToAxios(data.data.tokenValue)
 
-            store.dispatch(addAccessToken({token: data.data.tokenValue, timestamp: data.data.validUntil}as AccessToken) as AddAccessToken);
+            store.dispatch(addAccessToken({token: data.data.tokenValue, timestamp: data.data.validUntil}as AccessToken));
 
         })
         .catch(((error) => {
@@ -96,7 +95,7 @@ export const getAccessTokenWithRefreshToken = () => {
 }
 
 export const logout=()=>{
-    store.dispatch(removeTokens()as RemoveTokens);
+    store.dispatch(removeTokens());
     deleteCookie(cookieName);
 }
 
@@ -104,5 +103,3 @@ function setAuthHeaderToAxios(accessToken: string) {
     Axios.defaults.headers.common['Authorization'] =
         `Bearer ${accessToken}`;
 }
-
-
