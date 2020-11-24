@@ -1,7 +1,9 @@
 import Axios, {} from "axios";
 import {constants} from "../constants";
 
-const hostname:string =constants.url.API_URL+'/api';
+export const hostname:string =constants.url.API_URL+'/api';
+
+export const userPath:string='/v1/users';
 
 
 interface BackendHealthData {

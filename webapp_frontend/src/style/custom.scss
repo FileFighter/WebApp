@@ -1,7 +1,7 @@
 //read this: https://getbootstrap.com/docs/4.1/getting-started/theming
 
 // Override default variables before the import (see node_modules/bootstrap/scss/_variables.scss for all)
-$body-bg: #000;
+$body-bg: #2a313d;;
 $body-color: #FFF;
 $blue: #1a4965;
 
@@ -20,5 +20,11 @@ $blue: #1a4965;
 @import "~bootstrap/scss/code";
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/close";
 @import "~bootstrap/scss/tables";
 @import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/spinners";
+@import "~bootstrap/scss/alert";
+
+

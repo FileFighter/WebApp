@@ -1,77 +1,73 @@
-import React, {ReactElement, useEffect, useState} from 'react';
-import logo from '../assets/images/logos/logo.png';
+import React, {ReactElement} from 'react';
 import './App.css';
-import {callBackendHealth} from "../background/api/api";
-
-
-import {Button, Table, Container} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import Header from "./basicElements/Header";
-
-function App():ReactElement {
-
-
-
-    const [backendLiveTime, setBackendLiveTime] = useState<number | string>("not reachable");
-    const [backendUserCount, setBackendUserCount] = useState<number | string>("not reachable");
+import Footer from "./basicElements/Footer";
+import {BrowserRouter} from "react-router-dom";
+import Router from "./Router/Router";
+import PermanentAssets from "./basicElements/PermanentAssets";
 
 
+import {connect, ConnectedProps} from 'react-redux'
+import {addAccessToken, addRefreshToken, checkedCookies} from "../background/redux/actions/tokens";
+import {SystemState} from "../background/redux/actions/sytemState";
 
-
-
-    useEffect(() => {
-        callInitialBackendRequests()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
-
-    function callInitialBackendRequests():void {
-        updateVariables()
-    }
-
-    function updateVariables(): void {
-        Promise.all([callBackendHealth()])
-            .then(([backendHealthData]) => {
-                setBackendLiveTime(backendHealthData.uptimeInSeconds);
-                setBackendUserCount(backendHealthData.userCount)
-            })
-    }
-
-    return (
-        <div className="App">
-            <Header></Header>
-                <Container>
-                <h1>
-                    FileFighter
-                </h1>
-
-
-                <img src={logo}  alt="logo"/>
+import Login from "./basicElements/Login";
+import {checkForCookie} from "../background/api/auth";
 
 
 
-                <div>
-                    <Button  className={"mt-3 mb-2 float-right"} onClick={() => updateVariables()}>Refresh</Button>
-                    <Table striped bordered hover variant="dark" >
-                        <thead>
-                        <tr>
-                            <th>Backend information</th>
+// this takes the redux store and maps everything that is needed to the function props
+const mapState = (state: SystemState) => ({
+    tokens: {refreshToken: state.tokens.refreshToken, accessToken: state.tokens.accessToken, checkedCookies: state.tokens.checkedCookies},
+    user: state.user
+})
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Uptime</td>
-                            <td>{backendLiveTime}</td>
-                        </tr>
-                        <tr>
-                            <td>Usercount</td>
-                            <td>{backendUserCount}</td>
-                        </tr>
-                        </tbody>
-                    </Table>
-                </div>
-                </Container>
-        </div>
-    );
+// this takes the redux actions and maps them to the props
+const mapDispatch = {
+    addRefreshToken, addAccessToken, checkedCookies
 }
 
-export default App;
+const connector = connect(mapState, mapDispatch)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+// this defines the component props and also adds the redux imported props
+type Props = PropsFromRedux & {}
+
+function App(props: Props): ReactElement {
+
+
+    console.log("[App] props.tokens: ")
+    console.log(props.tokens.refreshToken)
+    console.log(props.tokens)
+    console.log(props.user)
+
+    if (props.tokens.checkedCookies) {
+
+        if (props.tokens.refreshToken && props.tokens.accessToken) {
+
+            return (
+                <div className="App">
+                    <BrowserRouter>
+                        <Header/>
+                        <Container>
+                            <Router/>
+                        </Container>
+                        <Footer/>
+                        <PermanentAssets/>
+                    </BrowserRouter>
+                </div>
+            );
+        } else {
+            console.log("[APP] showing login");
+            return (<Login/>)
+        }
+    } else {
+        checkForCookie();
+
+        return (<div>Loading</div>)
+    }
+}
+
+export default connector(App);
