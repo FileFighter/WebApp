@@ -11,6 +11,10 @@ export default function Health() {
     const [backendUserCount, setBackendUserCount] = useState<number | "not reachable">("not reachable");
 
     useEffect(() => {
+        updateVariables();
+    }, [])
+
+    useEffect(() => {
         const timer = setTimeout(() => {
             updateVariables()
         }, 60000)
