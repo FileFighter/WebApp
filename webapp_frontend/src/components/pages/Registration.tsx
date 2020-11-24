@@ -69,19 +69,21 @@ export default function Registration(): ReactElement {
         }
     }
 
-    const makePasswordInputFitRules = (input:string):string|null => {
+    const makePasswordInputFitRules = (input:string):[string,boolean] => {
         input = deleteSpaces(input);
         if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)){
-            return null
+            return [input,false];
         }
-        return input;
+        return [input,true];
     }
 
     const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let value:string|null = makePasswordInputFitRules(event.target.value);
-        if (!value){
+        let value:[string,boolean]|string = makePasswordInputFitRules(event.target.value);
+        if (!value[1]){
             value = password;
+        } else {
+            value = value[0]
         }
         setPasswordInformationLength(!notMinStrLength(value, MIN_PASSWORD_LENGTH));
         setPasswordInformationLowercase(value.match(/[a-z]/) !== null);
@@ -92,9 +94,11 @@ export default function Registration(): ReactElement {
 
     const handlePasswordConfirmationChange = async (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let value:string|null = makePasswordInputFitRules(event.target.value);
-        if (!value){
+        let value:[string,boolean]|string = makePasswordInputFitRules(event.target.value);
+        if (!value[1]){
             value = passwordConfirmation;
+        } else {
+            value = value[0]
         }
         setPasswordConfirmation(value);
     }
