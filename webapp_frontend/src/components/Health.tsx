@@ -1,5 +1,6 @@
 import React, {ReactElement, useEffect, useState} from "react";
 import {callBackendHealth} from "../background/api/api";
+import Header from "./basicElements/Header";
 import {Button, Container, Table} from "react-bootstrap";
 import logo from "../assets/images/logos/logo.png";
 
@@ -29,6 +30,7 @@ function Health(): ReactElement {
 
     return (
         <div className="App">
+            <Header></Header>
             <Container>
                 <h1>
                     FileFighter

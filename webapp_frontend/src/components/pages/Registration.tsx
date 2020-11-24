@@ -5,13 +5,11 @@ import {biggerMaxStrLength, notMinStrLength} from "../../background/methods/chec
 import info_svg from "../../assets/images/icons/material.io/info-24px.svg";
 import check_svg from "../../assets/images/icons/material.io/check_circle-24px.svg";
 import error_svg from "../../assets/images/icons/material.io/error-24px.svg";
-import fileFighter from "../../assets/images/logos/logo.png";
 import {registerNewUser} from "../../background/api/registration";
 
 export default function Registration(): ReactElement {
     const MIN_PASSWORD_LENGTH = 8;
     const MAX_PASSWORD_LENGTH = 20;
-    const DEFAULT_ALERT_DURATION = 3500;
 
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -28,45 +26,52 @@ export default function Registration(): ReactElement {
     useEffect(() => {
         reviewPasswordMatch()
         // eslint-disable-next-line
-    }, [passwordConfirmation, password])
+    },[passwordConfirmation, password])
 
     const handleSubmit = async (event: FormEvent) => {
         console.log("[REGISTRATION] handleSubmit")
         event.preventDefault();
         reviewPasswordMatch();
-        if (!username) {
-            handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")
+        if (!username){
+            setAlertColor("danger");
+            setAlertMessage("Error: Please choose an username.")
+            handleAlertVisibility(3500)
         } else if (!passwordsMatch) {
-            handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Password and password confirmation must match.")
-        } else if (!passwordInformationNumber || !passwordInformationLowercase || !passwordInformationUppercase || !passwordInformationLength) {
-            handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please pay attention to the notes below the input fields.")
+            setAlertColor("danger");
+            setAlertMessage("Error: Password and password confirmation must match.")
+            handleAlertVisibility(3500)
+        } else if (!passwordInformationNumber || !passwordInformationLowercase || !passwordInformationUppercase || !passwordInformationLength){
+            setAlertColor("danger");
+            setAlertMessage("Error: Please pay attention to the notes below the input field.");
+            handleAlertVisibility(3500)
         } else {
             await registerNewUser(username, password, passwordConfirmation)
                 .then(res => {
-                    handleAlertVisibility(DEFAULT_ALERT_DURATION, "success", "Worked: " + (res.outputMessage ? res.outputMessage : (res.httpStatus + " " + res.httpMessage)));
+                    setAlertMessage("Worked: " + (res.outputMessage ? res.outputMessage : (res.httpStatus + " " + res.httpMessage)));
+                    setAlertColor("success");
+                    console.table(res);
                 })
                 .catch(err => {
-                    handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: " + (err.outputMessage ? err.outputMessage : (err.httpStatus + " " + err.httpMessage)))
+                    setAlertColor("danger");
+                    setAlertMessage("Error: " + (err.outputMessage ? err.outputMessage : (err.httpStatus + " " + err.httpMessage)))
+                    console.table(err)
                 })
+                .finally(() => handleAlertVisibility(3500))
         }
     }
 
-    const handleAlertVisibility = (duration: number, color: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark", message: string) => {
+    const handleAlertVisibility = (duration: number) => {
         if (!alertVisibility) {
-            setAlertMessage(message);
-            setAlertColor(color);
             setAlertVisibility(true);
             setTimeout(() => {
-                setAlertVisibility(false);
-            }, duration);
+                setAlertVisibility(false)
+            }, duration)
         }
     }
-
 
     const makePasswordInputFitRules = (input:string):[string,boolean] => {
         input = deleteSpaces(input);
         if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)){
-          handleAlertVisibility(DEFAULT_ALERT_DURATION, "warning", "Maximum password length exceeded. Input was undone.");
             return [input,false];
         }
         return [input,true];
@@ -98,12 +103,12 @@ export default function Registration(): ReactElement {
         setPasswordConfirmation(value);
     }
 
-    const reviewPasswordMatch = (): void => {
+    const reviewPasswordMatch = ():void => {
         setPasswordsMatch(password === passwordConfirmation);
     }
 
     return (
-        <Container className="h-100" style={{position: "relative"}}>
+        <Container>
             <Row>
                 <Col md={{span: 6, offset: 3}}>
                     <h1>Create new account</h1>
@@ -169,9 +174,6 @@ export default function Registration(): ReactElement {
                     </Form>
                 </Col>
             </Row>
-            <div style={{bottom: 0, position: "absolute", left: 0, visibility: "hidden"}}>
-                <img src={fileFighter} alt="logo"/>
-            </div>
         </Container>
     )
 }
