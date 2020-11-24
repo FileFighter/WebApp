@@ -7,12 +7,20 @@ import {logout} from "../../background/api/auth";
 
 export default function Health() {
 
-    const [backendLiveTime, setBackendLiveTime] = useState<number | string>("not reachable");
-    const [backendUserCount, setBackendUserCount] = useState<number | string>("not reachable");
+    const [backendLiveTime, setBackendLiveTime] = useState<number | "not reachable">("not reachable");
+    const [backendUserCount, setBackendUserCount] = useState<number | "not reachable">("not reachable");
 
     useEffect(() => {
-        updateVariables()
-    }, []);
+        updateVariables();
+    }, [])
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            updateVariables()
+        }, 60000)
+        // Clear timeout if the component is unmounted
+        return () => clearTimeout(timer);
+    });
 
     function updateVariables(): void {
         Promise.all([callBackendHealth()])
@@ -39,7 +47,7 @@ export default function Health() {
 
 
             <div>
-                <Button className={"mt-3 mb-2 float-right"} onClick={() => updateVariables()}>Refresh</Button>
+                {/*<Button className={"mt-3 mb-2 float-right"} onClick={() => updateVariables()}>Refresh</Button>*/}
                 <Table striped bordered hover variant="dark">
                     <thead>
                     <tr>

@@ -1,8 +1,9 @@
 import React, {ReactElement} from 'react';
+import { Container } from 'react-bootstrap';
 
 export default function Footer(): ReactElement {
     return (
-        <div>
+        <Container>
             <table>
                 <tbody>
                 <tr>
@@ -11,7 +12,7 @@ export default function Footer(): ReactElement {
                 </tr>
                 </tbody>
             </table>
-        </div>
+        </Container>
     );
 }
 
