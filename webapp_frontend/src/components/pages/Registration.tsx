@@ -62,20 +62,23 @@ export default function Registration(): ReactElement {
         }
     }
 
-    const makePasswordInputFitRules = (input: string): string | null => {
+
+    const makePasswordInputFitRules = (input:string):[string,boolean] => {
         input = deleteSpaces(input);
-        if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)) {
-            handleAlertVisibility(DEFAULT_ALERT_DURATION, "warning", "Maximum password length exceeded. Input was undone.");
-            return null
+        if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)){
+          handleAlertVisibility(DEFAULT_ALERT_DURATION, "warning", "Maximum password length exceeded. Input was undone.");
+            return [input,false];
         }
-        return input;
+        return [input,true];
     }
 
     const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let value: string | null = makePasswordInputFitRules(event.target.value);
-        if (!value) {
+        let value:[string,boolean]|string = makePasswordInputFitRules(event.target.value);
+        if (!value[1]){
             value = password;
+        } else {
+            value = value[0]
         }
         setPasswordInformationLength(!notMinStrLength(value, MIN_PASSWORD_LENGTH));
         setPasswordInformationLowercase(value.match(/[a-z]/) !== null);
@@ -86,9 +89,11 @@ export default function Registration(): ReactElement {
 
     const handlePasswordConfirmationChange = async (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let value: string | null = makePasswordInputFitRules(event.target.value);
-        if (!value) {
+        let value:[string,boolean]|string = makePasswordInputFitRules(event.target.value);
+        if (!value[1]){
             value = passwordConfirmation;
+        } else {
+            value = value[0]
         }
         setPasswordConfirmation(value);
     }
@@ -118,7 +123,7 @@ export default function Registration(): ReactElement {
                                 <img alt={"status icon password length"}
                                      src={passwordInformationLength ? check_svg : info_svg}/>
                                 <span className={"sr-only"}>{passwordInformationLength ? "Done: " : "Missing: "}</span>
-                                <span className={passwordInformationLength ? "text-success" : "text-muted"}>Passwords must be at least 8 characters.</span>
+                                <span className={passwordInformationLength ? "text-success" : "text-muted"}>Passwords must be between 8 and 20 characters.</span>
                             </div>
                             <div>
                                 <img alt={"status icon password contains uppercase character"}
