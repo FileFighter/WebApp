@@ -11,7 +11,8 @@ const prod: constants = {
 
 const dev: constants = {
     url: {
-       API_URL: 'https://cors-anywhere.herokuapp.com/http://filefighter.ddns.net:3001',
+        API_URL: 'http://filefighter.ddns.net:1081/http://filefighter.ddns.net:3001',
+       //API_URL: 'https://cors-anywhere.herokuapp.com/http://filefighter.ddns.net:3001',
        // API_URL: 'http://localhost:8080',
     }
 };
