@@ -6,8 +6,8 @@ import logo from "../assets/images/logos/logo.png";
 function Health(): ReactElement {
 
 
-    const [backendLiveTime, setBackendLiveTime] = useState<number | string>("not reachable");
-    const [backendUserCount, setBackendUserCount] = useState<number | string>("not reachable");
+    const [backendLiveTime, setBackendLiveTime] = useState<number | "not reachable">("not reachable");
+    const [backendUserCount, setBackendUserCount] = useState<number | "not reachable">("not reachable");
 
 
     useEffect(() => {
@@ -28,39 +28,37 @@ function Health(): ReactElement {
     }
 
     return (
-        <div className="App">
-            <Container>
-                <h1>
-                    FileFighter
-                </h1>
+        <Container>
+            <h1>
+                FileFighter
+            </h1>
 
 
-                <img src={logo} alt="logo"/>
+            <img src={logo} alt="logo"/>
 
 
-                <div>
-                    <Button className={"mt-3 mb-2 float-right"} onClick={() => updateVariables()}>Refresh</Button>
-                    <Table striped bordered hover variant="dark">
-                        <thead>
-                        <tr>
-                            <th>Backend information</th>
+            <div>
+                <Button className={"mt-3 mb-2 float-right"} onClick={() => updateVariables()}>Refresh</Button>
+                <Table striped bordered hover variant="dark">
+                    <thead>
+                    <tr>
+                        <th>Backend information</th>
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Uptime</td>
-                            <td>{backendLiveTime}</td>
-                        </tr>
-                        <tr>
-                            <td>Usercount</td>
-                            <td>{backendUserCount}</td>
-                        </tr>
-                        </tbody>
-                    </Table>
-                </div>
-            </Container>
-        </div>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Uptime</td>
+                        <td>{backendLiveTime}</td>
+                    </tr>
+                    <tr>
+                        <td>Usercount</td>
+                        <td>{backendUserCount}</td>
+                    </tr>
+                    </tbody>
+                </Table>
+            </div>
+        </Container>
     );
 }
 

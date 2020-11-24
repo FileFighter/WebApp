@@ -28,6 +28,10 @@ export default function Health() {
                 setBackendLiveTime(backendHealthData.uptimeInSeconds);
                 setBackendUserCount(backendHealthData.userCount)
             })
+            .catch(() => {
+                setBackendLiveTime("not reachable");
+                setBackendUserCount("not reachable");
+            })
     }
 
     return (
