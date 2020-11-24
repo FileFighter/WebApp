@@ -128,7 +128,7 @@ export default function Registration(): ReactElement {
                                 <img alt={"status icon password length"}
                                      src={passwordInformationLength ? check_svg : info_svg}/>
                                 <span className={"sr-only"}>{passwordInformationLength ? "Done: " : "Missing: "}</span>
-                                <span className={passwordInformationLength ? "text-success" : "text-muted"}>Passwords must be at least 8 characters.</span>
+                                <span className={passwordInformationLength ? "text-success" : "text-muted"}>Passwords must be between 8 and 20 characters.</span>
                             </div>
                             <div>
                                 <img alt={"status icon password contains uppercase character"}
