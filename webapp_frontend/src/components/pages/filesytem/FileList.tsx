@@ -3,6 +3,8 @@ import {getFolderContents} from "../../../background/api/filesystem";
 import {Folder, File, BackendFolderContentsData} from "../../../background/api/filesystemTypes";
 import {Row} from "react-bootstrap";
 import FileListItem from "./FileListItem";
+import FileListFolder from "./FileListFolder";
+import FileListFile from "./FileListFile";
 
 
 type Props = {}
@@ -29,8 +31,8 @@ export default function FileList(props: Props): ReactElement {
     }
 
     return (<Row>
-        {folders?.map((folder:Folder,i:number)=>{return(<FileListItem folder={folder}/>)})}
-        {files?.map((file:File,i:number)=>{return(<FileListItem file={file}/>)})}
+        {folders?.map((folder:Folder,i:number)=>{return(<FileListFolder folder={folder}/>)})}
+        {files?.map((file:File,i:number)=>{return(<FileListFile file={file}/>)})}
     </Row>)
 
 }

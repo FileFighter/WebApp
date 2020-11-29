@@ -1,14 +1,14 @@
 import {Folder, File, PermissionSet} from "../../../background/api/filesystemTypes";
 import React, {ReactElement} from "react";
+import {Col} from "react-bootstrap";
 
 
 type Props = {
-    file?: File
-    folder?: Folder
+    fileListItem:FileListEntity;
 }
 
 
-type fileOrFolder={
+export interface FileListEntity{
     createdByUserId:number
     id:number
     lastUpdated:number
@@ -16,8 +16,8 @@ type fileOrFolder={
     permissionSet:PermissionSet
     size:number;
     type:string;
-    path?:string;
     isFolder:boolean
+
 
 }
 
@@ -25,22 +25,18 @@ export default function FileListItem(props: Props): ReactElement {
 
 
 
-    // this is really ugly :(
+
+
+
     // @ts-ignore
-    let fileOrFolder:fileOrFolder={};
-    if (props.file){
-        for(let k in props.file) { // @ts-ignore
-            fileOrFolder[k]=props.file[k];
-        }
-        fileOrFolder.isFolder=false;
-    }
-    else {
-        for(let k in props.folder) { // @ts-ignore
-            fileOrFolder[k]=props.folder[k];
-        }
-        fileOrFolder.isFolder=true;
-    }
-
-
-    return (<div> dsad</div>)
+    return (
+    <>
+        <Col xs={2}>Checkbox</Col>
+        <Col xs={1}>{props.fileListItem.type}</Col>
+        <Col xs={3}>{props.fileListItem.name}</Col>
+        <Col xs={4}>{props.fileListItem.createdByUserId}</Col>
+        <Col xs={1}>{props.fileListItem.lastUpdated}</Col>
+        <Col xs={1}>{props.fileListItem.size}</Col>
+    </>
+    )
 }
