@@ -35,7 +35,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public --no-dll",
     "build-storybook": "build-storybook -s public --no-dll",
-    "sonar": "SONAR_LOGIN=$SONAR_LOGIN SONAR_PASSWORD=$SONAR_PASSWORD node src/sonar-scanner.js" 
+    "sonar": "SONAR_LOGIN=$SONAR_LOGIN SONAR_PASSWORD=$SONAR_PASSWORD node src/sonar-scanner.js"
   },
   "eslintConfig": {
     "extends": "react-app"
