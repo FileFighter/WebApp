@@ -51,7 +51,42 @@ const exampleValue:BackendFolderContentsData={
             "id": 0,
             "lastUpdated": 0,
             "name": "string",
-            "path": "string",
+            "path": "/bla",
+            "permissionSet": {
+                "editableForGroups": [
+                    "ADMIN"
+                ],
+                "editableForUsers": [
+                    {
+                        "groups": [
+                            "ADMIN"
+                        ],
+                        "id": 0,
+                        "username": "string"
+                    }
+                ],
+                "visibleForGroups": [
+                    "ADMIN"
+                ],
+                "visibleForUsers": [
+                    {
+                        "groups": [
+                            "ADMIN"
+                        ],
+                        "id": 0,
+                        "username": "string"
+                    }
+                ]
+            },
+            "size": 0,
+            "type": "FOLDER"
+        },
+        {
+            "createdByUserId": 0,
+            "id": 0,
+            "lastUpdated": 0,
+            "name": "string",
+            "path": "/fasel",
             "permissionSet": {
                 "editableForGroups": [
                     "ADMIN"

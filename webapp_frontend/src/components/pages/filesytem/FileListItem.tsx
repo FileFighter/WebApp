@@ -1,10 +1,11 @@
 import {Folder, File, PermissionSet} from "../../../background/api/filesystemTypes";
 import React, {ReactElement} from "react";
-import {Col} from "react-bootstrap";
+import {Button, Col} from "react-bootstrap";
 
 
 type Props = {
     fileListItem:FileListEntity;
+    SetPath?:Function,
 }
 
 
@@ -17,6 +18,7 @@ export interface FileListEntity{
     size:number;
     type:string;
     isFolder:boolean
+    path?:string
 
 
 }
@@ -24,15 +26,19 @@ export interface FileListEntity{
 export default function FileListItem(props: Props): ReactElement {
 
 
+const onClick=()=>{
+    if (props.fileListItem.isFolder && props.SetPath){
+        props.SetPath(props.fileListItem.path)
+    }
+
+}
 
 
 
-
-    // @ts-ignore
     return (
     <>
-        <Col xs={2}>Checkbox</Col>
-        <Col xs={1}>{props.fileListItem.type}</Col>
+        <Col xs={1}>Checkbox</Col>
+        <Col xs={2} ><Button onClick={()=>onClick()}>{props.fileListItem.type}</Button></Col>
         <Col xs={3}>{props.fileListItem.name}</Col>
         <Col xs={4}>{props.fileListItem.createdByUserId}</Col>
         <Col xs={1}>{props.fileListItem.lastUpdated}</Col>

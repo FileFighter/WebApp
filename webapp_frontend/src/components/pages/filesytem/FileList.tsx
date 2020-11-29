@@ -15,6 +15,8 @@ export default function FileList(props: Props): ReactElement {
     const [files, setFiles] = useState<File[] | null>(null)
     const [folders, setFolders] = useState<Folder[] | null>(null)
 
+
+    console.log("[FileList path]" + path)
     useEffect(() => {
         updateStates()
     }, []);
@@ -31,8 +33,8 @@ export default function FileList(props: Props): ReactElement {
     }
 
     return (<Row>
-        {folders?.map((folder:Folder,i:number)=>{return(<FileListFolder folder={folder}/>)})}
-        {files?.map((file:File,i:number)=>{return(<FileListFile file={file}/>)})}
+        {folders?.map((folder:Folder,i:number)=>{return(<FileListFolder key={i.toString()} SetPath={SetPath} folder={folder}/>)})}
+        {files?.map((file:File,i:number)=>{return(<FileListFile key={i.toString()}  file={file}/>)})}
     </Row>)
 
 }
