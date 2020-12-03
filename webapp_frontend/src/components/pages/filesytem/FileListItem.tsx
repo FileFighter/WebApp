@@ -1,11 +1,12 @@
 import {Folder, File, PermissionSet} from "../../../background/api/filesystemTypes";
 import React, {ReactElement} from "react";
-import {Button, Col} from "react-bootstrap";
+import {Button, Col, Form} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 
 type Props = {
     fileListItem:FileListEntity;
-    SetPath?:Function,
+    setPath?:Function,
 }
 
 
@@ -27,8 +28,8 @@ export default function FileListItem(props: Props): ReactElement {
 
 
 const onClick=()=>{
-    if (props.fileListItem.isFolder && props.SetPath){
-        props.SetPath(props.fileListItem.path)
+    if (props.fileListItem.isFolder && props.setPath){
+        props.setPath(props.fileListItem.path)
     }
 
 }
@@ -37,9 +38,11 @@ const onClick=()=>{
 
     return (
     <>
-        <Col xs={1}>Checkbox</Col>
-        <Col xs={2} ><Button onClick={()=>onClick()}>{props.fileListItem.type}</Button></Col>
-        <Col xs={3}>{props.fileListItem.name}</Col>
+        <Col xs={1}> <Form.Group controlId="formBasicCheckbox">
+            <Form.Check type="checkbox"  onChange={() => console.log(`[files] selected ${props.fileListItem.id}`)}/>
+        </Form.Group></Col>
+        <Col xs={2} >{props.fileListItem.type}</Col>
+        <Col xs={3}><Link to={`/file${props.fileListItem.path?? ""}`}  onClick={()=>onClick()}>{props.fileListItem.name}</Link></Col>
         <Col xs={4}>{props.fileListItem.createdByUserId}</Col>
         <Col xs={1}>{props.fileListItem.lastUpdated}</Col>
         <Col xs={1}>{props.fileListItem.size}</Col>

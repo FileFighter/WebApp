@@ -1,17 +1,21 @@
 import React, {ReactElement, useEffect, useState} from "react";
 import {getFolderContents} from "../../../background/api/filesystem";
 import {Folder, File, BackendFolderContentsData} from "../../../background/api/filesystemTypes";
-import {Row} from "react-bootstrap";
+import {Row, Container} from "react-bootstrap";
+import { useLocation } from 'react-router-dom'
 import FileListItem from "./FileListItem";
 import FileListFolder from "./FileListFolder";
 import FileListFile from "./FileListFile";
+import {FilesBreadcrumb} from "./FilesBreadcrumb";
+import {filesBaseUrl} from "./Filesystem";
 
 
 type Props = {}
 
 
 export default function FileList(props: Props): ReactElement {
-    const [path,SetPath] = useState<string>("/")
+
+    const [path, setPath] = useState<string>(useLocation().pathname.slice(filesBaseUrl.length) || "/")
     const [files, setFiles] = useState<File[] | null>(null)
     const [folders, setFolders] = useState<Folder[] | null>(null)
 
@@ -19,12 +23,12 @@ export default function FileList(props: Props): ReactElement {
     console.log("[FileList path]" + path)
     useEffect(() => {
         updateStates()
-    }, []);
+    }, [path]);
 
     function updateStates(): void {
-        getFolderContents()
+        getFolderContents(path)
             .then(
-                (response:BackendFolderContentsData) => {
+                (response: BackendFolderContentsData) => {
                     setFiles(response.files)
                     setFolders(response.folders)
                 }
@@ -32,9 +36,17 @@ export default function FileList(props: Props): ReactElement {
 
     }
 
-    return (<Row>
-        {folders?.map((folder:Folder,i:number)=>{return(<FileListFolder key={i.toString()} SetPath={SetPath} folder={folder}/>)})}
-        {files?.map((file:File,i:number)=>{return(<FileListFile key={i.toString()}  file={file}/>)})}
-    </Row>)
+    return (
+        <Container fluid>
+            <FilesBreadcrumb path={path} setPath={setPath}/>
+            <Row>
+                {folders?.map((folder: Folder, i: number) => {
+                    return (<FileListFolder key={i.toString()} setPath={setPath} folder={folder}/>)
+                })}
+                {files?.map((file: File, i: number) => {
+                    return (<FileListFile key={i.toString()} file={file}/>)
+                })}
+            </Row>
+        </Container>)
 
 }

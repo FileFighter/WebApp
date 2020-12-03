@@ -16,7 +16,6 @@ import Login from "./basicElements/Login";
 import {checkForCookie} from "../background/api/auth";
 
 
-
 // this takes the redux store and maps everything that is needed to the function props
 const mapState = (state: SystemState) => ({
     tokens: {refreshToken: state.tokens.refreshToken, accessToken: state.tokens.accessToken, checkedCookies: state.tokens.checkedCookies},
@@ -51,9 +50,7 @@ function App(props: Props): ReactElement {
                 <div className="App">
                     <BrowserRouter>
                         <Header/>
-                        <Container>
-                            <Router/>
-                        </Container>
+                        <Router/>
                         <Footer/>
                         <PermanentAssets/>
                     </BrowserRouter>

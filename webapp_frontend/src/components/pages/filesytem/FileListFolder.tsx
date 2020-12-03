@@ -5,7 +5,8 @@ import FileListItem, {FileListEntity} from "./FileListItem";
 
 type Props = {
     folder: Folder
-    SetPath:Function
+    setPath: Function
+
 }
 
 export default function FileListFolder(props: Props): ReactElement {
@@ -19,14 +20,12 @@ export default function FileListFolder(props: Props): ReactElement {
         permissionSet: props.folder.permissionSet,
         size: props.folder.size,
         type: props.folder.type,
-        isFolder:true,
-        path:props.folder.path,
-
-
+        isFolder: true,
+        path: props.folder.path,
 
 
     };
 
-    return (<FileListItem SetPath={props.SetPath} fileListItem={fileListEntity}/>)
+    return (<FileListItem setPath={props.setPath} fileListItem={fileListEntity}/>)
 }
 

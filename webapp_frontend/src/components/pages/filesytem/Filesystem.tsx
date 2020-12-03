@@ -1,1 +1,1 @@
-export const bla = false;
+export const filesBaseUrl = '/file';
