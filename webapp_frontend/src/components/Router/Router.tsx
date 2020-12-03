@@ -17,7 +17,7 @@ export default function Router(): ReactElement {
             <Route exact path={"/"}>
                 <Redirect to={"/health"}/>
             </Route>
-            <Route path={"/registration"} component={Registration} />
+            <Route path={"/registration"} component={Registration}/>
             <Route path={"*"} component={Error404}/>
         </Switch>
     )
