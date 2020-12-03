@@ -1,6 +1,6 @@
-import {Folder, File, PermissionSet} from "../../../background/api/filesystemTypes";
+import {PermissionSet} from "../../../background/api/filesystemTypes";
 import React, {ReactElement} from "react";
-import {Button, Col, Form} from "react-bootstrap";
+import {Col, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 

@@ -21,19 +21,20 @@ export default function FileList(props: Props): ReactElement {
 
     console.log("[FileList path]" + path)
     useEffect(() => {
+        function updateStates(): void {
+            getFolderContents(path)
+                .then(
+                    (response: BackendFolderContentsData) => {
+                        setFiles(response.files)
+                        setFolders(response.folders)
+                    }
+                )
+
+        }
+
         updateStates()
+
     }, [path]);
-
-    function updateStates(): void {
-        getFolderContents(path)
-            .then(
-                (response: BackendFolderContentsData) => {
-                    setFiles(response.files)
-                    setFolders(response.folders)
-                }
-            )
-
-    }
 
     return (
         <Container fluid>

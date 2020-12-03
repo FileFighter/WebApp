@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from "react";
+import React, {ChangeEvent, FormEvent, ReactElement, useCallback, useEffect, useState} from "react";
 import {Container, Row, Col, Form, FormGroup, Button, Alert} from "react-bootstrap";
 import {deleteSpaces} from "../../background/methods/strings";
 import {biggerMaxStrLength, notMinStrLength} from "../../background/methods/checkInput";
@@ -23,10 +23,13 @@ export default function Registration(): ReactElement {
     const [alertVariant, setAlertColor] = useState<"primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark">("success");
     const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
 
+    const reviewPasswordMatch = useCallback(():void => {
+        setPasswordsMatch(password === passwordConfirmation);
+    },[password, passwordConfirmation]);
+
     useEffect(() => {
         reviewPasswordMatch()
-        // eslint-disable-next-line
-    },[passwordConfirmation, password])
+    },[reviewPasswordMatch])
 
     const handleSubmit = async (event: FormEvent) => {
         console.log("[REGISTRATION] handleSubmit")
@@ -101,10 +104,6 @@ export default function Registration(): ReactElement {
             value = value[0]
         }
         setPasswordConfirmation(value);
-    }
-
-    const reviewPasswordMatch = ():void => {
-        setPasswordsMatch(password === passwordConfirmation);
     }
 
     return (
