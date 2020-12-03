@@ -3,7 +3,6 @@ import {getFolderContents} from "../../../background/api/filesystem";
 import {Folder, File, BackendFolderContentsData} from "../../../background/api/filesystemTypes";
 import {Row, Container} from "react-bootstrap";
 import { useLocation } from 'react-router-dom'
-import FileListItem from "./FileListItem";
 import FileListFolder from "./FileListFolder";
 import FileListFile from "./FileListFile";
 import {FilesBreadcrumb} from "./FilesBreadcrumb";

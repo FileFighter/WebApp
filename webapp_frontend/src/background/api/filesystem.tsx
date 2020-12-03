@@ -261,7 +261,79 @@ const exampleValue=(path:string) :BackendFolderContentsData=> {
                   ]
               },
               "size": 0,
-              "type": "FOLDER"
+              "type": "file"
+          }
+      ],
+      "folders": [{
+          "createdByUserId": 0,
+          "id": 0,
+          "lastUpdated": 0,
+          "name": "unterBla",
+          "path": "/bla/unterBla",
+          "permissionSet": {
+              "editableForGroups": [
+                  "ADMIN"
+              ],
+              "editableForUsers": [
+                  {
+                      "groups": [
+                          "ADMIN"
+                      ],
+                      "id": 0,
+                      "username": "string"
+                  }
+              ],
+              "visibleForGroups": [
+                  "ADMIN"
+              ],
+              "visibleForUsers": [
+                  {
+                      "groups": [
+                          "ADMIN"
+                      ],
+                      "id": 0,
+                      "username": "string"
+                  }
+              ]
+          },
+          "size": 0,
+          "type": "FOLDER"
+      }]
+  }
+  else if (path=="/bla/unterBla") return {  "files": [
+          {
+              "createdByUserId": 0,
+              "id": 0,
+              "lastUpdated": 0,
+              "name": "inBLA",
+              "permissionSet": {
+                  "editableForGroups": [
+                      "ADMIN"
+                  ],
+                  "editableForUsers": [
+                      {
+                          "groups": [
+                              "ADMIN"
+                          ],
+                          "id": 0,
+                          "username": "string"
+                      }
+                  ],
+                  "visibleForGroups": [
+                      "ADMIN"
+                  ],
+                  "visibleForUsers": [
+                      {
+                          "groups": [
+                              "ADMIN"
+                          ],
+                          "id": 0,
+                          "username": "string"
+                      }
+                  ]
+              },
+              "size": 0,
+              "type": "file"
           }
       ],
       "folders": []
