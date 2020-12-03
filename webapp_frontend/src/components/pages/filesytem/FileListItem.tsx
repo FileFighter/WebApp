@@ -3,7 +3,6 @@ import React, {ReactElement} from "react";
 import {Col, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-
 type Props = {
     fileListItem: FileListEntity;
     setPath?: Function,
@@ -26,9 +25,8 @@ export interface FileListEntity {
 
 export default function FileListItem(props: Props): ReactElement {
 
-
     const onClick = () => {
-        if (props.fileListItem.isFolder && props.setPath) {
+        if (props.fileListItem.isFolder && props.setPath && props.fileListItem.path) {
             props.setPath(props.fileListItem.path)
         }
 

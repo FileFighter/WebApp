@@ -13,13 +13,16 @@ type Props = {}
 
 
 export default function FileList(props: Props): ReactElement {
+    let location = useLocation();
 
-    const [path, setPath] = useState<string>(useLocation().pathname.slice(filesBaseUrl.length) || "/")
+    const [path, setPath] = useState<string>(location.pathname.slice(filesBaseUrl.length) || "/")
     const [files, setFiles] = useState<File[] | null>(null)
     const [folders, setFolders] = useState<Folder[] | null>(null)
 
 
+
     console.log("[FileList path]" + path)
+
     useEffect(() => {
         function updateStates(): void {
             getFolderContents(path)
@@ -32,9 +35,10 @@ export default function FileList(props: Props): ReactElement {
 
         }
 
+        setPath(location.pathname.slice(filesBaseUrl.length) || "/")
         updateStates()
 
-    }, [path]);
+    }, [path, location]);
 
     return (
         <Container fluid>
