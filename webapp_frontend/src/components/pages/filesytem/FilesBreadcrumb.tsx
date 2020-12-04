@@ -10,7 +10,6 @@ type Props = {
 }
 
 export function FilesBreadcrumb(props: Props): ReactElement {
-    console.log(props.path.split('/'));
 
     return (<Breadcrumb>
         <Link className={'breadcrumb-item active'} to={filesBaseUrl + '/'} onClick={() => props.setPath("/")}>root </Link>

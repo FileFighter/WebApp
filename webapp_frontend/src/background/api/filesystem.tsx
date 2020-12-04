@@ -1,10 +1,12 @@
 import {BackendFolderContentsData} from "./filesystemTypes";
 
 
-export const getFolderContents = (path: string) => new Promise<BackendFolderContentsData>((resolve, reject) => resolve(exampleValue(path)))
+export const getFolderContents = (path: string) => new Promise<BackendFolderContentsData>((resolve, reject) => {
+    console.log(`[filesytem api] request folder content of ${path}`);
+    resolve(exampleValue(path))
+})
 
 const exampleValue = (path: string): BackendFolderContentsData => {
-    console.log(path)
     if (path === "/") return exampleFileSystem
     else if (path === "/fasel") return exampleFileSystem
     else if (path === "/bla") return {
