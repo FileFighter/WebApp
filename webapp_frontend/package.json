@@ -26,6 +26,7 @@
     "react-toastify": "^6.1.0",
     "redux": "^4.0.5",
     "redux-types": "^2.0.3",
+    "super-tiny-icons": "^0.4.0",
     "typescript": "^3.8.3"
   },
   "scripts": {
@@ -35,7 +36,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public --no-dll",
     "build-storybook": "build-storybook -s public --no-dll",
-    "sonar": "SONAR_LOGIN=$SONAR_LOGIN SONAR_PASSWORD=$SONAR_PASSWORD node src/sonar-scanner.js" 
+    "sonar": "SONAR_LOGIN=$SONAR_LOGIN SONAR_PASSWORD=$SONAR_PASSWORD node src/sonar-scanner.js"
   },
   "eslintConfig": {
     "extends": "react-app"
