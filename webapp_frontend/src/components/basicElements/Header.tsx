@@ -2,6 +2,7 @@ import React, {ReactElement} from 'react';
 import {useHistory} from "react-router-dom";
 import {redirect} from "../../background/methods/redirect";
 import logo from "../../assets/images/logos/logo.png"
+import {Nav, Navbar, NavbarBrand} from "react-bootstrap";
 
 export interface navBarElement_Interface {
     name: string,
@@ -33,36 +34,33 @@ function Header(): ReactElement {
     const final: ReactElement[] = []
     navBarElements.forEach((element) => {
         final.push(
-            <a
+            <Nav.Link
                 className="nav-link nav-item"
                 key={"navBarElement-" + element.name}
                 href={element.deviantVisibleLink ?? element.link}
-                onClick={(event) => {
+                onClick={(event: any) => {
                     redirect(history, element.link, event);
                     if (element.onClick) element.onClick()
                 }}
-            ><span/><span className="navbar-link-description">{element.text}</span></a>
+            ><span/><span className="navbar-link-description">{element.text}</span></Nav.Link>
         )
     })
 
     return (
         <header>
             <div className="container">
-                <nav className="navbar navbar-expand-lg navbar-light bg-dark">
-                    <a className="navbar-brand" href="/start" onClick={(event) => redirect(history, "/", event)}>
-                        <img src={logo} className="d-inline-block align-top" alt="Logo" height="60px" width="auto"/>
+                <Navbar bg="dark" expand="lg" sticky="top">
+                    <NavbarBrand href="/start" onClick={(event: any) => {redirect(history, "/", event);}}>
+                        <img src={logo} className="d-inline-block align-top" alt="Logo" height="30px" width="auto"/>
                         FileFighter
-                    </a>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"/>
-                    </button>
-                    <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-                        <div className="navbar-nav">
+                    </NavbarBrand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="collapse navbar-collapse justify-content-end">
                             {final}
-                        </div>
-                    </div>
-                </nav>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
             </div>
         </header>
     )
