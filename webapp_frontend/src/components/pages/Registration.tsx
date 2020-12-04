@@ -54,8 +54,7 @@ export default function Registration(): ReactElement {
         event.preventDefault();
         reviewPasswordMatch();
         if (!username) {
-            toggleSubmitLogo();
-            //handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")
+            handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")
         } else if (!passwordsMatch) {
             handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Password and password confirmation must match.")
         } else if (!passwordInformationNumber || !passwordInformationLowercase || !passwordInformationUppercase || !passwordInformationLength) {
@@ -64,7 +63,7 @@ export default function Registration(): ReactElement {
             await registerNewUser(username, password, passwordConfirmation)
                 .then(res => {
                     handleAlertVisibility(DEFAULT_ALERT_DURATION, "success", "Worked: " + (res.outputMessage ? res.outputMessage : (res.httpStatus + " " + res.httpMessage)));
-                    //toggleSubmitLogo();
+                    toggleSubmitLogo();
                 })
                 .catch(err => {
                     handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: " + (err.outputMessage ? err.outputMessage : (err.httpStatus + " " + err.httpMessage)))
@@ -190,7 +189,7 @@ export default function Registration(): ReactElement {
                     </Form>
                 </Col>
             </Row>
-            <img style={{margin: 0, position: "relative", left: 0, visibility: "hidden"}} src={fileFighter} alt="logo"
+            <img className={"invisible m0 position-relative"} src={fileFighter} alt="logo"
                  id="logoSubmit"/>
         </Container>
     )
@@ -202,7 +201,8 @@ export default function Registration(): ReactElement {
 
             setTimeout(() => { //run right
                 logo.style.transition = "4s";
-                logo.style.visibility = "visible";
+                logo.classList.remove("invisible")
+                logo.classList.add("visible")
                 logo.style.transform = "translateX(" + (logo.offsetWidth + size.viewportWidth) + "px)";
             }, 1000);
             setTimeout(() => { //turn around
@@ -215,7 +215,8 @@ export default function Registration(): ReactElement {
             }, 5000);
             setTimeout(() => { //turn around
                 logo.style.transform = "";
-                logo.style.visibility = "hidden";
+                logo.classList.add("invisible")
+                logo.classList.remove("visible")
             }, 8000);
         }
     }
