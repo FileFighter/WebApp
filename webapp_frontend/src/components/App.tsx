@@ -15,7 +15,6 @@ import Login from "./basicElements/Login";
 import {checkForCookie} from "../background/api/auth";
 import {TopBanner} from "./basicElements/TopBanner";
 
-
 // this takes the redux store and maps everything that is needed to the function props
 const mapState = (state: SystemState) => ({
     tokens: {
@@ -45,6 +44,7 @@ function App(props: Props): ReactElement {
     console.log(props.tokens.refreshToken)
     console.log(props.tokens)
     console.log(props.user)
+    console.log("[App]---------------")
 
     if (props.tokens.checkedCookies) {
 

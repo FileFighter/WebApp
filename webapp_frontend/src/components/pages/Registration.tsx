@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from "react";
+import React, {ChangeEvent, FormEvent, ReactElement, useCallback, useEffect, useState} from "react";
 import {Container, Row, Col, Form, FormGroup, Button, Alert} from "react-bootstrap";
 import {deleteSpaces} from "../../background/methods/strings";
 import {biggerMaxStrLength, notMinStrLength} from "../../background/methods/checkInput";
@@ -47,10 +47,13 @@ export default function Registration(): ReactElement {
         repositionSubmitLogo()
     },[registrationContainer, logoSubmit])
 
+    const reviewPasswordMatch = useCallback(():void => {
+        setPasswordsMatch(password === passwordConfirmation);
+    },[password, passwordConfirmation]);
+
     useEffect(() => {
         reviewPasswordMatch()
-        // eslint-disable-next-line
-    }, [passwordConfirmation, password])
+    },[reviewPasswordMatch])
 
     const handleSubmit = async (event: FormEvent) => {
         console.log("[REGISTRATION] handleSubmit")
@@ -85,7 +88,6 @@ export default function Registration(): ReactElement {
         }
     }
 
-
     const makePasswordInputFitRules = (input: string): [string, boolean] => {
         input = deleteSpaces(input);
         if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)) {
@@ -119,10 +121,6 @@ export default function Registration(): ReactElement {
             value = value[0]
         }
         setPasswordConfirmation(value);
-    }
-
-    const reviewPasswordMatch = (): void => {
-        setPasswordsMatch(password === passwordConfirmation);
     }
 
     return (
