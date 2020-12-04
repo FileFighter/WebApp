@@ -10,7 +10,7 @@ const scrollToElement = (history: { push: (path:string) => void; }, id: string, 
 const redirect = (history:{ push: (path:string) => void; } , path: string, event?: { preventDefault: () => void; }): void => {
     console.log("Redirected to " + path)
     event?.preventDefault();
-    history.push(path);
+    if (path !== window.location.pathname) history.push(path);
 };
 
 export {redirect, scrollToElement}
