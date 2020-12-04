@@ -13,6 +13,7 @@ import {SystemState} from "../background/redux/actions/sytemState";
 
 import Login from "./basicElements/Login";
 import {checkForCookie} from "../background/api/auth";
+import {TopBanner} from "./basicElements/TopBanner";
 
 
 // this takes the redux store and maps everything that is needed to the function props
@@ -52,9 +53,8 @@ function App(props: Props): ReactElement {
             return (
                 <div className="App h-100 d-flex flex-column">
                     <BrowserRouter>
-                        <header>
-                            <Header/>
-                        </header>
+                        <TopBanner/>
+                        <Header/>
                         <main role='main' className={"flex-shrink-0 flex-grow-1"}>
                             <Router/>
                         </main>

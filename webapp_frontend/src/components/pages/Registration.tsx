@@ -27,6 +27,9 @@ export default function Registration(): ReactElement {
     const [alertVariant, setAlertColor] = useState<"primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark">("success");
     const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
 
+    const registrationContainer = document.getElementById("registrationContainer")
+    const logoSubmit = document.getElementById("logoSubmit")
+
     useEffect(() => {
         function repositionSubmitLogo() {
             const logo = document.getElementById("logoSubmit")
@@ -36,13 +39,13 @@ export default function Registration(): ReactElement {
 
                 let containerPadding:string|number|null = getStyleValue(container, "padding-left");
                 const pxPosition = containerPadding.indexOf("px");
-                containerPadding = pxPosition == -1 ? null : Number(containerPadding.substr(0, pxPosition))
+                containerPadding = pxPosition === -1 ? null : Number(containerPadding.substr(0, pxPosition))
 
                 logo.style.left = -(leftContainerOffset+logo.offsetWidth*2+(containerPadding ?? 20)) + "px";
             }
         }
         repositionSubmitLogo()
-    },[document.getElementById("registrationContainer"), document.getElementById("logoSubmit")])
+    },[registrationContainer, logoSubmit])
 
     useEffect(() => {
         reviewPasswordMatch()

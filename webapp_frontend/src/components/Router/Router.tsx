@@ -11,6 +11,9 @@ export default function Router(): ReactElement {
         <Switch>
             <Route path={"/health"} component={Health}/>
             <Route path={"/login"} component={Login}/>
+            <Route path={"/start"}>
+                <Redirect to={"/"}/>
+            </Route>
             <Route exact path={"/"}>
                 <Redirect to={"/health"}/>
             </Route>

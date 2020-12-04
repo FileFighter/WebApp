@@ -4,7 +4,7 @@ export function getStyleValue(element, strCssRule) {
     if (document.defaultView && document.defaultView.getComputedStyle) {
         strValue = document.defaultView.getComputedStyle(element, "").getPropertyValue(strCssRule);
     } else if (element.currentStyle) {
-        strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1) {
+        strCssRule = strCssRule.replace(/(\w)/g, function (strMatch, p1) {
             return p1.toUpperCase();
         });
         strValue = element.currentStyle[strCssRule];
