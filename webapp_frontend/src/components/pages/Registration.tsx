@@ -7,6 +7,8 @@ import check_svg from "../../assets/images/icons/material.io/check_circle-24px.s
 import error_svg from "../../assets/images/icons/material.io/error-24px.svg";
 import fileFighter from "../../assets/images/logos/logo.png";
 import {registerNewUser} from "../../background/api/registration";
+import {getWindowSize, getWindowSize_Interface} from "../../background/methods/windowSize";
+import {getStyleValue} from "../../background/methods/style";
 
 export default function Registration(): ReactElement {
     const MIN_PASSWORD_LENGTH = 8;
@@ -26,6 +28,23 @@ export default function Registration(): ReactElement {
     const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
 
     useEffect(() => {
+        function repositionSubmitLogo() {
+            const logo = document.getElementById("logoSubmit")
+            if (logo){
+                const container: HTMLElement | null = document.getElementById("registrationContainer");
+                const leftContainerOffset: number = container?.getBoundingClientRect().left ?? 0;
+
+                let containerPadding:string|number|null = getStyleValue(container, "padding-left");
+                const pxPosition = containerPadding.indexOf("px");
+                containerPadding = pxPosition == -1 ? null : Number(containerPadding.substr(0, pxPosition))
+
+                logo.style.left = -(leftContainerOffset+logo.offsetWidth*2+(containerPadding ?? 20)) + "px";
+            }
+        }
+        repositionSubmitLogo()
+    },[document.getElementById("registrationContainer"), document.getElementById("logoSubmit")])
+
+    useEffect(() => {
         reviewPasswordMatch()
         // eslint-disable-next-line
     }, [passwordConfirmation, password])
@@ -35,7 +54,8 @@ export default function Registration(): ReactElement {
         event.preventDefault();
         reviewPasswordMatch();
         if (!username) {
-            handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")
+            toggleSubmitLogo();
+            //handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")
         } else if (!passwordsMatch) {
             handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Password and password confirmation must match.")
         } else if (!passwordInformationNumber || !passwordInformationLowercase || !passwordInformationUppercase || !passwordInformationLength) {
@@ -44,6 +64,7 @@ export default function Registration(): ReactElement {
             await registerNewUser(username, password, passwordConfirmation)
                 .then(res => {
                     handleAlertVisibility(DEFAULT_ALERT_DURATION, "success", "Worked: " + (res.outputMessage ? res.outputMessage : (res.httpStatus + " " + res.httpMessage)));
+                    //toggleSubmitLogo();
                 })
                 .catch(err => {
                     handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: " + (err.outputMessage ? err.outputMessage : (err.httpStatus + " " + err.httpMessage)))
@@ -63,19 +84,19 @@ export default function Registration(): ReactElement {
     }
 
 
-    const makePasswordInputFitRules = (input:string):[string,boolean] => {
+    const makePasswordInputFitRules = (input: string): [string, boolean] => {
         input = deleteSpaces(input);
-        if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)){
-          handleAlertVisibility(DEFAULT_ALERT_DURATION, "warning", "Maximum password length exceeded. Input was undone.");
-            return [input,false];
+        if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)) {
+            handleAlertVisibility(DEFAULT_ALERT_DURATION, "warning", "Maximum password length exceeded. Input was undone.");
+            return [input, false];
         }
-        return [input,true];
+        return [input, true];
     }
 
     const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let value:[string,boolean]|string = makePasswordInputFitRules(event.target.value);
-        if (!value[1]){
+        let value: [string, boolean] | string = makePasswordInputFitRules(event.target.value);
+        if (!value[1]) {
             value = password;
         } else {
             value = value[0]
@@ -89,8 +110,8 @@ export default function Registration(): ReactElement {
 
     const handlePasswordConfirmationChange = async (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let value:[string,boolean]|string = makePasswordInputFitRules(event.target.value);
-        if (!value[1]){
+        let value: [string, boolean] | string = makePasswordInputFitRules(event.target.value);
+        if (!value[1]) {
             value = passwordConfirmation;
         } else {
             value = value[0]
@@ -103,7 +124,7 @@ export default function Registration(): ReactElement {
     }
 
     return (
-        <Container className="h-100" style={{position: "relative"}}>
+        <Container className="h-100" style={{position: "relative"}} id="registrationContainer">
             <Row>
                 <Col md={{span: 6, offset: 3}}>
                     <h1>Create new account</h1>
@@ -169,9 +190,33 @@ export default function Registration(): ReactElement {
                     </Form>
                 </Col>
             </Row>
-            <div style={{bottom: 0, position: "absolute", left: 0, visibility: "hidden"}}>
-                <img src={fileFighter} alt="logo"/>
-            </div>
+            <img style={{margin: 0, position: "relative", left: 0, visibility: "hidden"}} src={fileFighter} alt="logo"
+                 id="logoSubmit"/>
         </Container>
     )
+
+    function toggleSubmitLogo() {
+        const logo = document.getElementById("logoSubmit")
+        if (logo) {
+            const size:getWindowSize_Interface = getWindowSize();
+
+            setTimeout(() => { //run right
+                logo.style.transition = "4s";
+                logo.style.visibility = "visible";
+                logo.style.transform = "translateX(" + (logo.offsetWidth + size.viewportWidth) + "px)";
+            }, 1000);
+            setTimeout(() => { //turn around
+                logo.style.transition = "2s";
+                logo.style.transform = "translateX(" + (logo.offsetWidth + size.viewportWidth) + "px) scaleX(-1)";
+            }, 4000);
+            setTimeout(() => { //run left
+                logo.style.transition = "4s";
+                logo.style.transform = "scaleX(-1)";
+            }, 5000);
+            setTimeout(() => { //turn around
+                logo.style.transform = "";
+                logo.style.visibility = "hidden";
+            }, 8000);
+        }
+    }
 }
