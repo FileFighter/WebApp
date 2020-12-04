@@ -24,6 +24,12 @@ function Header(): ReactElement {
             logo: null
         },
         {
+            name: "files",
+            text: "Files",
+            link: "/file",
+            logo: null,
+        },
+        {
             name: "registration",
             text: "Registration",
             link: "/registration",
