@@ -5,7 +5,7 @@ import {biggerMaxStrLength, notMinStrLength} from "../../background/methods/chec
 import info_svg from "../../assets/images/icons/material.io/info-24px.svg";
 import check_svg from "../../assets/images/icons/material.io/check_circle-24px.svg";
 import error_svg from "../../assets/images/icons/material.io/error-24px.svg";
-import fileFighter from "../../assets/images/logos/logo.png";
+import fileFighter from "../../assets/images/logos/adventurer-run.gif";
 import {registerNewUser} from "../../background/api/registration";
 import {getWindowSize, getWindowSize_Interface} from "../../background/methods/windowSize";
 import {getStyleValue} from "../../background/methods/style";
