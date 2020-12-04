@@ -16,6 +16,7 @@
     "@types/react-router-dom": "^5.1.6",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.3",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
@@ -35,7 +36,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public --no-dll",
     "build-storybook": "build-storybook -s public --no-dll",
-    "sonar": "SONAR_LOGIN=$SONAR_LOGIN SONAR_PASSWORD=$SONAR_PASSWORD node src/sonar-scanner.js" 
+    "sonar": "SONAR_LOGIN=$SONAR_LOGIN SONAR_PASSWORD=$SONAR_PASSWORD node src/sonar-scanner.js"
   },
   "eslintConfig": {
     "extends": "react-app"

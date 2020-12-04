@@ -1,6 +1,5 @@
 import React, {ReactElement} from 'react';
 import './App.css';
-import {Container} from 'react-bootstrap';
 import Header from "./basicElements/Header";
 import Footer from "./basicElements/Footer";
 import {BrowserRouter} from "react-router-dom";
@@ -14,7 +13,6 @@ import {SystemState} from "../background/redux/actions/sytemState";
 
 import Login from "./basicElements/Login";
 import {checkForCookie} from "../background/api/auth";
-
 
 
 // this takes the redux store and maps everything that is needed to the function props
@@ -51,9 +49,7 @@ function App(props: Props): ReactElement {
                 <div className="App">
                     <BrowserRouter>
                         <Header/>
-                        <Container>
-                            <Router/>
-                        </Container>
+                        <Router/>
                         <Footer/>
                         <PermanentAssets/>
                     </BrowserRouter>
