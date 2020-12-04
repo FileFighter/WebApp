@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useState} from "react";
+import React, {ReactElement, useCallback, useEffect, useState} from "react";
 import {callBackendHealth} from "../background/api/api";
 import Header from "./basicElements/Header";
 import {Button, Container, Table} from "react-bootstrap";
@@ -10,15 +10,13 @@ function Health(): ReactElement {
     const [backendLiveTime, setBackendLiveTime] = useState<number | string>("not reachable");
     const [backendUserCount, setBackendUserCount] = useState<number | string>("not reachable");
 
+    const callInitialBackendRequests = useCallback(():void => {
+        updateVariables()
+    },[]);
 
     useEffect(() => {
         callInitialBackendRequests()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    function callInitialBackendRequests(): void {
-        updateVariables()
-    }
+    }, [callInitialBackendRequests]);
 
     function updateVariables(): void {
         Promise.all([callBackendHealth()])
@@ -30,7 +28,7 @@ function Health(): ReactElement {
 
     return (
         <div className="App">
-            <Header></Header>
+            <Header/>
             <Container>
                 <h1>
                     FileFighter

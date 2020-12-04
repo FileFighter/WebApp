@@ -1,7 +1,6 @@
 import React, {ReactElement} from "react";
 import {Folder} from "../../../background/api/filesystemTypes";
-import FileListFile from "./FileListFile";
-import FileListItem, {FileListEntity} from "./FileListItem";
+import FileListItem from "./FileListItem";
 
 type Props = {
     folder: Folder

@@ -1,8 +1,7 @@
-import {Folder, File, PermissionSet} from "../../../background/api/filesystemTypes";
+import {PermissionSet} from "../../../background/api/filesystemTypes";
 import React, {ReactElement} from "react";
-import {Button, Col, Form} from "react-bootstrap";
+import {Col, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
-
 
 type Props = {
     fileListItem: FileListEntity;
@@ -26,9 +25,8 @@ export interface FileListEntity {
 
 export default function FileListItem(props: Props): ReactElement {
 
-
     const onClick = () => {
-        if (props.fileListItem.isFolder && props.setPath) {
+        if (props.fileListItem.isFolder && props.setPath && props.fileListItem.path) {
             props.setPath(props.fileListItem.path)
         }
 

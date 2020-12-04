@@ -1,5 +1,5 @@
-const internRedirect = (event: { preventDefault: () => void; }, history: any, path: string): void => {
-    event.preventDefault();
+const internRedirect = (history: any, path: string, event?: { preventDefault: () => void; }): void => {
+    if (event) event.preventDefault();
     if (path) {
         const element = document.getElementById(path)
         if (element) {
