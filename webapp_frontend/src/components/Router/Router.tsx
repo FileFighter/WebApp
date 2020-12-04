@@ -11,11 +11,14 @@ export default function Router(): ReactElement {
 
     return (
         <Switch>
-            <Route path={"/health"} component={Health}/>
+            <Route exact path={"/"} component={Health}/>
             <Route path={"/login"} component={Login}/>
+            <Route path={"/start"}>
+                <Redirect to={"/"}/>
+            </Route>
             <Route path={filesBaseUrl} component={FileList}/>
-            <Route exact path={"/"}>
-                <Redirect to={"/health"}/>
+            <Route path={"/health"}>
+                <Redirect to={"/"}/>
             </Route>
             <Route path={"/registration"} component={Registration}/>
             <Route path={"*"} component={Error404}/>

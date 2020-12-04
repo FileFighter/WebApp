@@ -5,7 +5,7 @@ import {loginWithUsernameAndPassword} from "../../background/api/auth";
 function Login(): ReactElement {
     const [userName, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [stayLoggedIn, setStayLoggedIn] = useState<boolean>(false);
+    const [stayLoggedIn, setStayLoggedIn] = useState<boolean>(true);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [loading,setLoading]=useState<boolean>(false);
 
@@ -47,7 +47,7 @@ function Login(): ReactElement {
                             </Form.Text>
                         </Form.Group>
                         <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Stay logged in. (By clicking this you accept the usage of cookies.)" onChange={() => setStayLoggedIn(!stayLoggedIn)}/>
+                            <Form.Check checked={true} type="checkbox" label="Stay logged in. (By clicking this you accept the usage of cookies.)" onChange={() => setStayLoggedIn(!stayLoggedIn)}/>
                         </Form.Group>
                         <Button variant="primary" type="submit" >
                             <Spinner

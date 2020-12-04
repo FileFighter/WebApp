@@ -1,15 +1,16 @@
-const internRedirect = (history: any, path: string, event?: { preventDefault: () => void; }): void => {
-    if (event) event.preventDefault();
-    if (path) {
-        const element = document.getElementById(path)
-        if (element) {
-            element.scrollIntoView()
-        }
+const scrollToElement = (history: { push: (path:string) => void; }, id: string, event?: { preventDefault: () => void; }): void => {
+    //Replaces anchor for React
+    console.log("Scrolled to " + id)
+    event?.preventDefault();
+    if (id) {
+        const element = document.getElementById(id)
+        element?.scrollIntoView()
     }
 };
-const externRedirect = (event: { preventDefault: () => void; }, history: any[], path: string): void => {
-    event.preventDefault();
-    history.push(path);
+const redirect = (history:{ push: (path:string) => void; } , path: string, event?: { preventDefault: () => void; }): void => {
+    console.log("Redirected to " + path)
+    event?.preventDefault();
+    if (path !== window.location.pathname) history.push(path);
 };
 
-export {externRedirect, internRedirect}
+export {redirect, scrollToElement}

@@ -5,11 +5,15 @@ import {biggerMaxStrLength, notMinStrLength} from "../../background/methods/chec
 import info_svg from "../../assets/images/icons/material.io/info-24px.svg";
 import check_svg from "../../assets/images/icons/material.io/check_circle-24px.svg";
 import error_svg from "../../assets/images/icons/material.io/error-24px.svg";
+import fileFighter from "../../assets/images/logos/logo.png";
 import {registerNewUser} from "../../background/api/registration";
+import {getWindowSize, getWindowSize_Interface} from "../../background/methods/windowSize";
+import {getStyleValue} from "../../background/methods/style";
 
 export default function Registration(): ReactElement {
     const MIN_PASSWORD_LENGTH = 8;
     const MAX_PASSWORD_LENGTH = 20;
+    const DEFAULT_ALERT_DURATION = 3500;
 
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -23,6 +27,26 @@ export default function Registration(): ReactElement {
     const [alertVariant, setAlertColor] = useState<"primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark">("success");
     const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
 
+    const registrationContainer = document.getElementById("registrationContainer")
+    const logoSubmit = document.getElementById("logoSubmit")
+
+    useEffect(() => {
+        function repositionSubmitLogo() {
+            const logo = document.getElementById("logoSubmit")
+            if (logo){
+                const container: HTMLElement | null = document.getElementById("registrationContainer");
+                const leftContainerOffset: number = container?.getBoundingClientRect().left ?? 0;
+
+                let containerPadding:string|number|null = getStyleValue(container, "padding-left");
+                const pxPosition = containerPadding.indexOf("px");
+                containerPadding = pxPosition === -1 ? null : Number(containerPadding.substr(0, pxPosition))
+
+                logo.style.left = -(leftContainerOffset+logo.offsetWidth*2+(containerPadding ?? 20)) + "px";
+            }
+        }
+        repositionSubmitLogo()
+    },[registrationContainer, logoSubmit])
+
     const reviewPasswordMatch = useCallback(():void => {
         setPasswordsMatch(password === passwordConfirmation);
     },[password, passwordConfirmation]);
@@ -35,55 +59,48 @@ export default function Registration(): ReactElement {
         console.log("[REGISTRATION] handleSubmit")
         event.preventDefault();
         reviewPasswordMatch();
-        if (!username){
-            setAlertColor("danger");
-            setAlertMessage("Error: Please choose an username.")
-            handleAlertVisibility(3500)
+        if (!username) {
+            handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")
         } else if (!passwordsMatch) {
-            setAlertColor("danger");
-            setAlertMessage("Error: Password and password confirmation must match.")
-            handleAlertVisibility(3500)
-        } else if (!passwordInformationNumber || !passwordInformationLowercase || !passwordInformationUppercase || !passwordInformationLength){
-            setAlertColor("danger");
-            setAlertMessage("Error: Please pay attention to the notes below the input field.");
-            handleAlertVisibility(3500)
+            handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Password and password confirmation must match.")
+        } else if (!passwordInformationNumber || !passwordInformationLowercase || !passwordInformationUppercase || !passwordInformationLength) {
+            handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please pay attention to the notes below the input fields.")
         } else {
             await registerNewUser(username, password, passwordConfirmation)
                 .then(res => {
-                    setAlertMessage("Worked: " + (res.outputMessage ? res.outputMessage : (res.httpStatus + " " + res.httpMessage)));
-                    setAlertColor("success");
-                    console.table(res);
+                    handleAlertVisibility(DEFAULT_ALERT_DURATION, "success", "Worked: " + (res.outputMessage ? res.outputMessage : (res.httpStatus + " " + res.httpMessage)));
+                    toggleSubmitLogo();
                 })
                 .catch(err => {
-                    setAlertColor("danger");
-                    setAlertMessage("Error: " + (err.outputMessage ? err.outputMessage : (err.httpStatus + " " + err.httpMessage)))
-                    console.table(err)
+                    handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: " + (err.outputMessage ? err.outputMessage : (err.httpStatus + " " + err.httpMessage)))
                 })
-                .finally(() => handleAlertVisibility(3500))
         }
     }
 
-    const handleAlertVisibility = (duration: number) => {
+    const handleAlertVisibility = (duration: number, color: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark", message: string) => {
         if (!alertVisibility) {
+            setAlertMessage(message);
+            setAlertColor(color);
             setAlertVisibility(true);
             setTimeout(() => {
-                setAlertVisibility(false)
-            }, duration)
+                setAlertVisibility(false);
+            }, duration);
         }
     }
 
-    const makePasswordInputFitRules = (input:string):[string,boolean] => {
+    const makePasswordInputFitRules = (input: string): [string, boolean] => {
         input = deleteSpaces(input);
-        if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)){
-            return [input,false];
+        if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)) {
+            handleAlertVisibility(DEFAULT_ALERT_DURATION, "warning", "Maximum password length exceeded. Input was undone.");
+            return [input, false];
         }
-        return [input,true];
+        return [input, true];
     }
 
     const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let value:[string,boolean]|string = makePasswordInputFitRules(event.target.value);
-        if (!value[1]){
+        let value: [string, boolean] | string = makePasswordInputFitRules(event.target.value);
+        if (!value[1]) {
             value = password;
         } else {
             value = value[0]
@@ -97,8 +114,8 @@ export default function Registration(): ReactElement {
 
     const handlePasswordConfirmationChange = async (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let value:[string,boolean]|string = makePasswordInputFitRules(event.target.value);
-        if (!value[1]){
+        let value: [string, boolean] | string = makePasswordInputFitRules(event.target.value);
+        if (!value[1]) {
             value = passwordConfirmation;
         } else {
             value = value[0]
@@ -107,7 +124,7 @@ export default function Registration(): ReactElement {
     }
 
     return (
-        <Container>
+        <Container className="h-100" style={{position: "relative"}} id="registrationContainer">
             <Row>
                 <Col md={{span: 6, offset: 3}}>
                     <h1>Create new account</h1>
@@ -173,6 +190,35 @@ export default function Registration(): ReactElement {
                     </Form>
                 </Col>
             </Row>
+            <img className={"invisible m0 position-relative"} src={fileFighter} alt="logo"
+                 id="logoSubmit"/>
         </Container>
     )
+
+    function toggleSubmitLogo() {
+        const logo = document.getElementById("logoSubmit")
+        if (logo) {
+            const size:getWindowSize_Interface = getWindowSize();
+
+            setTimeout(() => { //run right
+                logo.style.transition = "4s";
+                logo.classList.remove("invisible")
+                logo.classList.add("visible")
+                logo.style.transform = "translateX(" + (logo.offsetWidth + size.viewportWidth) + "px)";
+            }, 1000);
+            setTimeout(() => { //turn around
+                logo.style.transition = "2s";
+                logo.style.transform = "translateX(" + (logo.offsetWidth + size.viewportWidth) + "px) scaleX(-1)";
+            }, 4000);
+            setTimeout(() => { //run left
+                logo.style.transition = "4s";
+                logo.style.transform = "scaleX(-1)";
+            }, 5000);
+            setTimeout(() => { //turn around
+                logo.style.transform = "";
+                logo.classList.add("invisible")
+                logo.classList.remove("visible")
+            }, 8000);
+        }
+    }
 }
