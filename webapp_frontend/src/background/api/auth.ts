@@ -78,11 +78,15 @@ export const getAccessTokenWithRefreshToken = () => {
         },
     };
 
+
+
     Axios.get(hostname + userPath + '/auth', config)
         .then((data) => {
             setAuthHeaderToAxios(data.data.tokenValue)
 
             store.dispatch(addAccessToken({token: data.data.tokenValue, timestamp: data.data.validUntil}as AccessToken));
+
+            //TODO: also get User data here
 
         })
         .catch(((error) => {
@@ -93,6 +97,9 @@ export const getAccessTokenWithRefreshToken = () => {
         }));
 
 }
+
+
+
 
 export const logout=()=>{
     store.dispatch(removeTokens());

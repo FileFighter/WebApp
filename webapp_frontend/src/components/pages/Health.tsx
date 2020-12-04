@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import logo from "../../assets/images/logos/logo.png";
-import {Button, Table} from "react-bootstrap";
+import {Button, Table, Container} from "react-bootstrap";
 import {callBackendHealth} from "../../background/api/api";
 import {audioOnOff, setAudioVolumeByID} from "../../background/methods/sound"
 import {logout} from "../../background/api/auth";
@@ -23,7 +23,7 @@ export default function Health() {
     }
 
     return (
-        <>
+        <Container>
             <h1>
                 FileFighter
             </h1>
@@ -60,6 +60,6 @@ export default function Health() {
                 </Table>
             </div>
             <Button onClick={() => logout()}>Logout</Button>
-        </>
+        </Container>
     )
 }
