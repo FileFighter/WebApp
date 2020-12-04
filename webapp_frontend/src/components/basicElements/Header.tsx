@@ -56,7 +56,7 @@ function Header(): ReactElement {
                     </NavbarBrand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="collapse navbar-collapse justify-content-end">
+                        <Nav className="justify-content-end">
                             {final}
                         </Nav>
                     </Navbar.Collapse>
