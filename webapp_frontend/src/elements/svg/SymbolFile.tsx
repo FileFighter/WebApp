@@ -1,5 +1,5 @@
 import * as React from "react";
-//https://reactsvgicons.com/boofiletstrap
+//https://reactsvgicons.com/bootstrap
 
 export function FileEarmarkIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
