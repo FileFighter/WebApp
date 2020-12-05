@@ -18,7 +18,7 @@ export default function FileList(props: Props): ReactElement {
     const [path, setPath] = useState<string>(location.pathname.slice(filesBaseUrl.length) || "/")
     const [files, setFiles] = useState<File[] | null>(null)
     const [folders, setFolders] = useState<Folder[] | null>(null)
-
+    const [error, setError] = useState<string>("");
 
 
     console.log("[FileList path]" + path)
@@ -30,8 +30,14 @@ export default function FileList(props: Props): ReactElement {
                     (response: BackendFolderContentsData) => {
                         setFiles(response.files)
                         setFolders(response.folders)
+                        setError("")
                     }
                 )
+                .catch(error => {
+                    setError(error.response?.data.message)
+                    setFiles([])
+                    setFolders([])
+                });
 
         }
 
@@ -39,6 +45,9 @@ export default function FileList(props: Props): ReactElement {
         updateStates()
 
     }, [path, location]);
+
+
+
 
     return (
         <Container fluid>
@@ -57,6 +66,12 @@ export default function FileList(props: Props): ReactElement {
             </Row>
             <hr/>
             <Row>
+
+                {error ?
+                    <Col className={"text-center"}> {error}</Col> : (!folders && !files) ?
+                        <Col className={"text-center"}> Nothing to see here.</Col> : null
+                }
+
 
                 {folders?.map((folder: Folder, i: number) => {
                     return (<FileListFolder key={i.toString()} setPath={setPath} folder={folder}/>)
