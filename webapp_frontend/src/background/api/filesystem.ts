@@ -1,11 +1,28 @@
 import {BackendFolderContentsData} from "./filesystemTypes";
-
+import {hostname, filesytemPath} from "./api";
+import Axios from "axios";
 
 export const getFolderContents = (path: string) => new Promise<BackendFolderContentsData>((resolve, reject) => {
+
+
+    let config = {
+        headers: {
+            "X-FF-PATH": path
+        },
+    };
+
+
     console.log(`[filesytem api] request folder content of ${path}`);
-    resolve(exampleValue(path))
+
+    Axios.get(hostname + filesytemPath + '/contents',config)
+        .then(response=>resolve(response.data))
+        .catch(error=>reject(error))
+
+
+   // resolve(exampleValue(path))
 })
 
+/*
 const exampleValue = (path: string): BackendFolderContentsData => {
     if (path === "/") return exampleFileSystem
     else if (path === "/fasel") return exampleFileSystem
@@ -48,7 +65,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 1,
                 "id": 0,
-                "lastUpdated": 1597177368 ,
+                "lastUpdated": 1597177368,
                 "name": "text.txt",
                 "permissionSet": {
                     "editableForGroups": [
@@ -82,7 +99,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 2,
                 "id": 0,
-                "lastUpdated": 1599147368 ,
+                "lastUpdated": 1599147368,
                 "name": "sound.mp3",
                 "permissionSet": {
                     "editableForGroups": [
@@ -116,7 +133,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 1,
                 "id": 0,
-                "lastUpdated": 1602047368 ,
+                "lastUpdated": 1602047368,
                 "name": "movie.mp4",
                 "permissionSet": {
                     "editableForGroups": [
@@ -150,7 +167,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 2,
                 "id": 0,
-                "lastUpdated": 1599949968 ,
+                "lastUpdated": 1599949968,
                 "name": "image.jpg",
                 "permissionSet": {
                     "editableForGroups": [
@@ -184,7 +201,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 1313,
                 "id": 0,
-                "lastUpdated": 1599992468 ,
+                "lastUpdated": 1599992468,
                 "name": "importantFile.md",
                 "permissionSet": {
                     "editableForGroups": [
@@ -218,7 +235,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 2,
                 "id": 0,
-                "lastUpdated": 1601584968 ,
+                "lastUpdated": 1601584968,
                 "name": "likeMe.html",
                 "permissionSet": {
                     "editableForGroups": [
@@ -437,4 +454,4 @@ const exampleFileSystem = {
             "type": "FOLDER"
         }
     ]
-}
+}*/
