@@ -14,7 +14,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 0,
                 "id": 0,
-                "lastUpdated": 0,
+                "lastUpdated": 153354,
                 "name": "inBLA",
                 "permissionSet": {
                     "editableForGroups": [
@@ -42,7 +42,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
                         }
                     ]
                 },
-                "size": 0,
+                "size": 546,
                 "type": "file"
             },
             {
@@ -110,7 +110,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
                         }
                     ]
                 },
-                "size": 2756,
+                "size": 27565846,
                 "type": "file"
             },
             {
@@ -144,7 +144,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
                         }
                     ]
                 },
-                "size": 22486,
+                "size": 224850446,
                 "type": "file"
             },
             {
@@ -178,7 +178,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
                         }
                     ]
                 },
-                "size": 486,
+                "size": 4866848,
                 "type": "file"
             },
             {
@@ -212,7 +212,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
                         }
                     ]
                 },
-                "size": 96,
+                "size": 96643,
                 "type": "file"
             },
             {
@@ -246,7 +246,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
                         }
                     ]
                 },
-                "size": 86,
+                "size": 861858,
                 "type": "file"
             }
         ],
@@ -282,7 +282,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
                     }
                 ]
             },
-            "size": 0,
+            "size": 18975576,
             "type": "FOLDER"
         }]
     }
@@ -319,7 +319,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
                         }
                     ]
                 },
-                "size": 0,
+                "size": 5489,
                 "type": "file"
             }
         ],
@@ -361,7 +361,7 @@ const exampleFileSystem = {
                     }
                 ]
             },
-            "size": 0,
+            "size": 13,
             "type": "FOLDER"
         }
     ],
@@ -398,7 +398,7 @@ const exampleFileSystem = {
                     }
                 ]
             },
-            "size": 0,
+            "size": 864070843,
             "type": "FOLDER"
         },
         {
@@ -433,7 +433,7 @@ const exampleFileSystem = {
                     }
                 ]
             },
-            "size": 0,
+            "size": 1684035,
             "type": "FOLDER"
         }
     ]
