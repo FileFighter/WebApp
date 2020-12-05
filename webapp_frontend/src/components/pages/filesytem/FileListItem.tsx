@@ -43,7 +43,12 @@ export default function FileListItem(props: Props): ReactElement {
     const ICON_PREFERENCES = {height: "40px", width: "auto", color: "secondary"}
 
     const FileIcon = (isFolder: boolean, name: string): ReactElement => {
-        if (isFolder) return <FolderIcon {...ICON_PREFERENCES}/>
+
+     
+
+        if (isFolder) return <FolderIcon height={ICON_HEIGHT} width={"auto"}
+                                         color={"secondary"}/>
+
         let positionOfPoint = reverseString(name).indexOf(".");
         if (positionOfPoint < 0) return <FileEarmarkIcon {...ICON_PREFERENCES}/>
 
@@ -67,7 +72,8 @@ export default function FileListItem(props: Props): ReactElement {
             case ".jsx" :
             case ".java" : return <FileEarmarkCodeIcon {...ICON_PREFERENCES}/>
             case ".md" :
-            case ".html" : return <FileEarmarkRichtextIcon {...ICON_PREFERENCES}/>
+            case ".html" :
+                return <FileEarmarkRichtextIcon height={ICON_HEIGHT} width={"auto"} color={"secondary"}/>
             default :
                 return <FileEarmarkIcon {...ICON_PREFERENCES}/>
         }
@@ -89,8 +95,10 @@ export default function FileListItem(props: Props): ReactElement {
             <Col xs={1}>{props.fileListItem.type}</Col>
             <Col xs={1}>{FileIcon(props.fileListItem.isFolder, props.fileListItem.name)}</Col>
             <Col xs={1}>...</Col>
-            <Col xs={3}><Link to={`/file${props.fileListItem.path ?? ""}`}
-                              onClick={() => onClick()}>{props.fileListItem.name}</Link></Col>
+            <Col xs={3}> <Link
+                to={props.fileListItem.path ? `/file${props.fileListItem.path ?? ""}` : `#${props.fileListItem.name}`}
+                onClick={onClick}>{props.fileListItem.name}</Link>
+            </Col>
             <Col xs={3}>{props.fileListItem.createdByUserId}</Col>
             <Col xs={1}>{getDateAsStringFromTimestamp(props.fileListItem.lastUpdated)}</Col>
             <Col xs={1}>{formatBytes(props.fileListItem.size)}</Col>

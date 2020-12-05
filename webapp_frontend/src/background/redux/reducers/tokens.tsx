@@ -36,7 +36,7 @@ export default function (state = initialState, action: TokenActionsTypes) {
         case CHECKED_COOKIES: {
             return {
                 refreshToken: state.refreshToken,
-                accessToken: state.refreshToken,
+                accessToken: state.accessToken,
                 checkedCookies: action.payload
             };
         }
