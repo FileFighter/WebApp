@@ -55,7 +55,7 @@ function Header(): ReactElement {
     return (
         <header>
             <div className="container">
-                <Navbar bg="dark" expand="lg" sticky="top">
+                <Navbar bg="primary" expand="lg" sticky="top">
                     <NavbarBrand href="/start" onClick={(event: any) => {redirect(history, "/", event);}}>
                         <img src={logo} className="d-inline-block align-top" alt="Logo" height="30px" width="auto"/>
                         FileFighter

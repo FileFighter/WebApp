@@ -51,8 +51,7 @@ export default function Health() {
 
 
             <div>
-                {/*<Button className={"mt-3 mb-2 float-right"} onClick={() => updateVariables()}>Refresh</Button>*/}
-                <Table striped bordered hover variant="dark">
+                <Table striped bordered hover>
                     <thead>
                     <tr>
                         <th>Backend information</th>
