@@ -3,6 +3,7 @@ import App from "./App";
 
 import {Provider} from 'react-redux'
 import store from '../background/redux/store'
+import "../style/colors.css"
 
 
 function Constants(): ReactElement {
