@@ -10,6 +10,7 @@ import {
 } from "../../../elements/svg/SymbolFile";
 import {reverseString} from "../../../background/methods/strings";
 import {getDateAsStringFromTimestamp} from "../../../background/methods/time";
+import {formatBytes} from "../../../background/methods/bytes";
 
 type Props = {
     fileListItem: FileListEntity;
@@ -78,7 +79,7 @@ export default function FileListItem(props: Props): ReactElement {
                               onClick={() => onClick()}>{props.fileListItem.name}</Link></Col>
             <Col xs={3}>{props.fileListItem.createdByUserId}</Col>
             <Col xs={1}>{getDateAsStringFromTimestamp(props.fileListItem.lastUpdated)}</Col>
-            <Col xs={1}>{props.fileListItem.size}</Col>
+            <Col xs={1}>{formatBytes(props.fileListItem.size)}</Col>
         </>
     )
 }
