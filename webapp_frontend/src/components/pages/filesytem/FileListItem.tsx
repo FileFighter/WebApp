@@ -44,10 +44,8 @@ export default function FileListItem(props: Props): ReactElement {
 
     const FileIcon = (isFolder: boolean, name: string): ReactElement => {
 
-     
 
-        if (isFolder) return <FolderIcon height={ICON_HEIGHT} width={"auto"}
-                                         color={"secondary"}/>
+        if (isFolder) return <FolderIcon {...ICON_PREFERENCES}/>
 
         let positionOfPoint = reverseString(name).indexOf(".");
         if (positionOfPoint < 0) return <FileEarmarkIcon {...ICON_PREFERENCES}/>
@@ -62,18 +60,22 @@ export default function FileListItem(props: Props): ReactElement {
                 return <FileEarmarkPlayIcon {...ICON_PREFERENCES}/>
             case ".mp3" :
                 return <FileEarmarkMusicIcon {...ICON_PREFERENCES}/>
-            case ".crypt" : return <FileEarmarkLock2Icon {...ICON_PREFERENCES}/>
-            case ".pdf" : return <FileEarmarkPDFIcon {...ICON_PREFERENCES}/>
+            case ".crypt" :
+                return <FileEarmarkLock2Icon {...ICON_PREFERENCES}/>
+            case ".pdf" :
+                return <FileEarmarkPDFIcon {...ICON_PREFERENCES}/>
             case ".zip" :
-            case ".7z" : return <FileEarmarkZipIcon {...ICON_PREFERENCES}/>
+            case ".7z" :
+                return <FileEarmarkZipIcon {...ICON_PREFERENCES}/>
             case ".ts" :
             case ".tsx" :
             case ".js" :
             case ".jsx" :
-            case ".java" : return <FileEarmarkCodeIcon {...ICON_PREFERENCES}/>
+            case ".java" :
+                return <FileEarmarkCodeIcon {...ICON_PREFERENCES}/>
             case ".md" :
             case ".html" :
-                return <FileEarmarkRichtextIcon height={ICON_HEIGHT} width={"auto"} color={"secondary"}/>
+                return <FileEarmarkRichtextIcon {...ICON_PREFERENCES}/>
             default :
                 return <FileEarmarkIcon {...ICON_PREFERENCES}/>
         }
