@@ -48,7 +48,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 1,
                 "id": 0,
-                "lastUpdated": 1607177368 ,
+                "lastUpdated": 1597177368 ,
                 "name": "text.txt",
                 "permissionSet": {
                     "editableForGroups": [
@@ -82,7 +82,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 2,
                 "id": 0,
-                "lastUpdated": 1607147368 ,
+                "lastUpdated": 1599147368 ,
                 "name": "sound.mp3",
                 "permissionSet": {
                     "editableForGroups": [
@@ -116,7 +116,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 1,
                 "id": 0,
-                "lastUpdated": 1607047368 ,
+                "lastUpdated": 1602047368 ,
                 "name": "movie.mp4",
                 "permissionSet": {
                     "editableForGroups": [
@@ -150,7 +150,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 2,
                 "id": 0,
-                "lastUpdated": 1607149968 ,
+                "lastUpdated": 1599949968 ,
                 "name": "image.jpg",
                 "permissionSet": {
                     "editableForGroups": [
@@ -184,7 +184,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 1313,
                 "id": 0,
-                "lastUpdated": 1607132468 ,
+                "lastUpdated": 1599992468 ,
                 "name": "importantFile.md",
                 "permissionSet": {
                     "editableForGroups": [
@@ -218,7 +218,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
             {
                 "createdByUserId": 2,
                 "id": 0,
-                "lastUpdated": 1607149968 ,
+                "lastUpdated": 1601584968 ,
                 "name": "likeMe.html",
                 "permissionSet": {
                     "editableForGroups": [
@@ -253,7 +253,7 @@ const exampleValue = (path: string): BackendFolderContentsData => {
         "folders": [{
             "createdByUserId": 0,
             "id": 0,
-            "lastUpdated": 0,
+            "lastUpdated": 1601148846,
             "name": "unterBla",
             "path": "/bla/unterBla",
             "permissionSet": {
