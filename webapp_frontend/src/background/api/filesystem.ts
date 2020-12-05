@@ -22,6 +22,7 @@ export const getFolderContents = (path: string) => new Promise<BackendFolderCont
    // resolve(exampleValue(path))
 })
 
+/*
 const exampleValue = (path: string): BackendFolderContentsData => {
     if (path === "/") return exampleFileSystem
     else if (path === "/fasel") return exampleFileSystem
@@ -453,4 +454,4 @@ const exampleFileSystem = {
             "type": "FOLDER"
         }
     ]
-}
+}*/
