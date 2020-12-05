@@ -44,6 +44,210 @@ const exampleValue = (path: string): BackendFolderContentsData => {
                 },
                 "size": 0,
                 "type": "file"
+            },
+            {
+                "createdByUserId": 1,
+                "id": 0,
+                "lastUpdated": 1607177368 ,
+                "name": "text.txt",
+                "permissionSet": {
+                    "editableForGroups": [
+                        "ADMIN"
+                    ],
+                    "editableForUsers": [
+                        {
+                            "groups": [
+                                "ADMIN"
+                            ],
+                            "id": 0,
+                            "username": "string"
+                        }
+                    ],
+                    "visibleForGroups": [
+                        "ADMIN"
+                    ],
+                    "visibleForUsers": [
+                        {
+                            "groups": [
+                                "ADMIN"
+                            ],
+                            "id": 0,
+                            "username": "string"
+                        }
+                    ]
+                },
+                "size": 1332,
+                "type": "file"
+            },
+            {
+                "createdByUserId": 2,
+                "id": 0,
+                "lastUpdated": 1607147368 ,
+                "name": "sound.mp3",
+                "permissionSet": {
+                    "editableForGroups": [
+                        "ADMIN"
+                    ],
+                    "editableForUsers": [
+                        {
+                            "groups": [
+                                "ADMIN"
+                            ],
+                            "id": 0,
+                            "username": "string"
+                        }
+                    ],
+                    "visibleForGroups": [
+                        "ADMIN"
+                    ],
+                    "visibleForUsers": [
+                        {
+                            "groups": [
+                                "ADMIN"
+                            ],
+                            "id": 0,
+                            "username": "string"
+                        }
+                    ]
+                },
+                "size": 2756,
+                "type": "file"
+            },
+            {
+                "createdByUserId": 1,
+                "id": 0,
+                "lastUpdated": 1607047368 ,
+                "name": "movie.mp4",
+                "permissionSet": {
+                    "editableForGroups": [
+                        "ADMIN"
+                    ],
+                    "editableForUsers": [
+                        {
+                            "groups": [
+                                "ADMIN"
+                            ],
+                            "id": 0,
+                            "username": "string"
+                        }
+                    ],
+                    "visibleForGroups": [
+                        "ADMIN"
+                    ],
+                    "visibleForUsers": [
+                        {
+                            "groups": [
+                                "ADMIN"
+                            ],
+                            "id": 0,
+                            "username": "string"
+                        }
+                    ]
+                },
+                "size": 22486,
+                "type": "file"
+            },
+            {
+                "createdByUserId": 2,
+                "id": 0,
+                "lastUpdated": 1607149968 ,
+                "name": "image.jpg",
+                "permissionSet": {
+                    "editableForGroups": [
+                        "ADMIN"
+                    ],
+                    "editableForUsers": [
+                        {
+                            "groups": [
+                                "ADMIN"
+                            ],
+                            "id": 0,
+                            "username": "string"
+                        }
+                    ],
+                    "visibleForGroups": [
+                        "ADMIN"
+                    ],
+                    "visibleForUsers": [
+                        {
+                            "groups": [
+                                "ADMIN"
+                            ],
+                            "id": 0,
+                            "username": "string"
+                        }
+                    ]
+                },
+                "size": 486,
+                "type": "file"
+            },
+            {
+                "createdByUserId": 1313,
+                "id": 0,
+                "lastUpdated": 1607132468 ,
+                "name": "importantFile.md",
+                "permissionSet": {
+                    "editableForGroups": [
+                        "ADMIN"
+                    ],
+                    "editableForUsers": [
+                        {
+                            "groups": [
+                                "ADMIN"
+                            ],
+                            "id": 0,
+                            "username": "string"
+                        }
+                    ],
+                    "visibleForGroups": [
+                        "ADMIN"
+                    ],
+                    "visibleForUsers": [
+                        {
+                            "groups": [
+                                "ADMIN"
+                            ],
+                            "id": 0,
+                            "username": "string"
+                        }
+                    ]
+                },
+                "size": 96,
+                "type": "file"
+            },
+            {
+                "createdByUserId": 2,
+                "id": 0,
+                "lastUpdated": 1607149968 ,
+                "name": "likeMe.html",
+                "permissionSet": {
+                    "editableForGroups": [
+                        "ADMIN"
+                    ],
+                    "editableForUsers": [
+                        {
+                            "groups": [
+                                "ADMIN"
+                            ],
+                            "id": 0,
+                            "username": "string"
+                        }
+                    ],
+                    "visibleForGroups": [
+                        "ADMIN"
+                    ],
+                    "visibleForUsers": [
+                        {
+                            "groups": [
+                                "ADMIN"
+                            ],
+                            "id": 0,
+                            "username": "string"
+                        }
+                    ]
+                },
+                "size": 86,
+                "type": "file"
             }
         ],
         "folders": [{

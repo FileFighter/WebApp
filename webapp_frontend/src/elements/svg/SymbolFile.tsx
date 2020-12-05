@@ -1,24 +1,133 @@
-import React, {ReactElement} from "react";
+import * as React from "react";
+//https://reactsvgicons.com/bootstrap
 
-export function SymbolFileExcel(props:any): ReactElement {
+export function FileEarmarkIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
-        <svg /*xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"*/ version="1.1"
-             style={{width:props.width+"px",height:props.height+"px",position:"absolute",overflow:"hidden"}}>
-            <defs>
-                <symbol viewBox="0 0 768 1024" aria-labelledby="ddsi-ant-file-excel-title" id="si-ant-file-excel"><title
-                    id="ddsi-ant-file-excel-title">icon file-excel</title>
-                    <path
-                        d="M509 64l195 218v669q0 3-4 6t-9 3H77q-5 0-9-3t-4-6V73q0-3 4-6t9-3h432zm29-64H77Q45 0 22.5 21.5T0 73v878q0 30 22.5 51.5T77 1024h614q32 0 54.5-21.5T768 951V257zm-26 256V0h-64v256q0 26 19 45t45 19h253v-64H512zm33 130q-14 0-22 10L384 563 245 396q-8-10-22-10-18 0-25.5 16.5T201 433l146 175-146 175q-11 14-3.5 30.5T223 830q14 0 22-10l139-168 139 168q8 10 22 10 18 0 25.5-16.5T567 783L421 608l146-176q11-13 3.5-29.5T545 386z"/>
-                </symbol>
-            </defs>
+        <svg
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            height={props.height}
+            width={props.width}
+            {...props}
+        >
+            <path d="M4 0h5.5v1H4a1 1 0 00-1 1v12a1 1 0 001 1h8a1 1 0 001-1V4.5h1V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2z" />
+            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 019.5 3z" />
         </svg>
-    )
+    );
 }
 
-// <symbol viewBox="0 0 768 1024" aria-labelledby="desi-ant-file-jpg-title" id="si-ant-file-jpg"><title id="desi-ant-file-jpg-title">icon file-jpg</title><path d="M509 64l195 218v669q0 3-4 6t-9 3H77q-5 0-9-3t-4-6V73q0-3 4-6t9-3h432zm29-64H77Q45 0 22.5 21.5T0 73v878q0 30 22.5 51.5T77 1024h614q32 0 54.5-21.5T768 951V257zm-26 256V0h-64v256q0 26 19 45t45 19h253v-64H512zM323 448q0-27-19-45.5T259 384h-97q-13 0-22.5 9t-9.5 23q0 13 9.5 22.5T162 448h65q13 0 22.5 9t9.5 23v319q0 13-9.5 22.5T227 831h-1q-13 0-22.5-9t-9.5-22v-62q0-14-9.5-23t-22.5-9-22.5 9-9.5 23v93q0 26 19 45t45 19h65q26 0 45-19t19-45V448zm64 0v416q0 13 9.5 22.5T419 896t22.5-9.5T451 864V639h123q26 0 45-18.5t19-45.5V448q0-27-19-45.5T574 384H451q-27 0-45.5 18.5T387 448zm64 95v-63q0-14 9.5-23t22.5-9h59q13 0 22.5 9t9.5 23v63q0 13-9.5 22.5T542 575h-59q-13 0-22.5-9.5T451 543zm157 354q-14 0-23-9.5t-9-22.5 9-22.5 23-9.5q13 0 22.5 9.5T640 865t-9.5 22.5T608 897z"/></symbol>
-// <symbol viewBox="0 0 768 1024" aria-labelledby="dfsi-ant-file-pdf-title" id="si-ant-file-pdf"><title id="dfsi-ant-file-pdf-title">icon file-pdf</title><path d="M538 0H77Q45 0 22.5 21.5T0 73v878q0 30 22.5 51.5T77 1024h614q32 0 54.5-21.5T768 951V257zm143 256H512V67zm10 704H77q-5 0-9-3t-4-6V73q0-3 4-6t9-3h371v192q0 26 19 45t45 19h192v631q0 3-4 6t-9 3zm-50-252q-1-7-8-13-15-15-68-16-35 0-81 6-26-15-38-26-44-42-68-106 1-4 3-11 2-10 4.5-26t6-49.5T393 419q-1-5-2-9l-2-4q-9-21-26-20l-9-1q-25 0-30 20-12 44 18 161l-4 12q-13 31-45 93l-1 4q-22 42-42 77l-14 7q-14 7-28 16-71 42-79 80-3 16 7 22l13 7q8 4 17 4 46 0 119-128 92-30 184-44 34 19 71 31t63 12q9 0 16-2 10-3 16-11 9-14 6-38zM159 864q5-13 22-34.5t41-40.5q1-2 12-11-46 73-75 86zm201-462q7 0 11.5 15t4.5 35q1 30-12 53-9-27-9-67 0-36 5-36zm-60 329q13-23 22-40 23-44 38-85 26 47 64 80 3 2 10 8-75 15-134 37zm323-3q-5 3-18 3-21 0-73-22 19-1 34-1 24 0 42 4 8 2 12.5 6t4 6.5-1.5 3.5z"/></symbol>
-// <symbol viewBox="0 0 768 1024" aria-labelledby="dgsi-ant-file-ppt-title" id="si-ant-file-ppt"><title id="dgsi-ant-file-ppt-title">icon file-ppt</title><path d="M509 64l195 218v669q0 3-4 6t-9 3H77q-5 0-9-3t-4-6V73q0-3 4-6t9-3h432zm29-64H77Q45 0 22.5 21.5T0 73v878q0 30 22.5 51.5T77 1024h614q32 0 54.5-21.5T768 951V257zm-26 256V0h-64v256q0 26 19 45t45 19h253v-64H512zm1 319V448v127zm0-191H256q-26 0-45 18.5T192 447v416q0 13 9 22.5t23 9.5q13 0 22.5-9.5T256 863V639h257q27 0 45.5-18.5T577 575V448q0-27-18.5-45.5T513 384zm-32 191H288q-14 0-23-9.5t-9-22.5v-63q0-14 9-23t23-9h193q14 0 23 9t9 23v63q0 13-9 22.5t-23 9.5z"/></symbol>
-// <symbol viewBox="0 0 768 1024" aria-labelledby="dhsi-ant-file-text-title" id="si-ant-file-text"><title id="dhsi-ant-file-text-title">icon file-text</title><path d="M538 0H77Q45 0 22.5 21.5T0 73v878q0 30 22.5 51.5T77 1024h614q32 0 54.5-21.5T768 951V257zm143 256H512V67zm10 704H77q-5 0-9-3t-4-6V73q0-3 4-6t9-3h371v192q0 26 19 45t45 19h192v631q0 3-4 6t-9 3zM160 448h256q13 0 22.5-9.5T448 416t-9.5-22.5T416 384H160q-13 0-22.5 9.5T128 416t9.5 22.5T160 448zm448 128H160q-13 0-22.5 9.5T128 608t9.5 22.5T160 640h448q14 0 23-9.5t9-22.5-9-22.5-23-9.5zM416 832H160q-13 0-22.5-9.5T128 800t9.5-22.5T160 768h256q13 0 22.5 9.5T448 800t-9.5 22.5T416 832z"/></symbol>
-// <symbol viewBox="0 0 768 1024" aria-labelledby="disi-ant-file-unknown-title" id="si-ant-file-unknown"><title id="disi-ant-file-unknown-title">icon file-unknown</title><path d="M509 64l195 218v669q0 3-4 6t-9 3H77q-5 0-9-3t-4-6V73q0-3 4-6t9-3h432zm29-64H77Q45 0 22.5 21.5T0 73v878q0 30 22.5 51.5T77 1024h614q32 0 54.5-21.5T768 951V257zm-26 256V0h-64v256q0 26 19 45t45 19h253v-64H512zM384 774q-13 0-22.5-9t-9.5-23v-2q0-34 19-62t51-41q28-12 45-37.5t17-55.5q0-42-29-71.5T384 443q-35 0-62 21.5T287 519q-3 11-11.5 18t-19.5 7q-16 0-25.5-12.5T225 504q13-54 57.5-89T384 380q68 0 116 48t48 116q0 51-29 92-27 41-73 60-30 12-30 44v2q0 14-9.5 23t-22.5 9zm-1 123q-13 0-22.5-9.5T351 865t9.5-22.5T383 833t22.5 9.5T415 865t-9.5 22.5T383 897z"/></symbol>
-// <symbol viewBox="0 0 768 1024" aria-labelledby="dcsi-ant-file-title" id="si-ant-file"><title id="dcsi-ant-file-title">icon file</title><path d="M509 64l195 218v669q0 3-4 6t-9 3H77q-5 0-9-3t-4-6V73q0-3 4-6t9-3h432zm29-64H77Q45 0 22.5 21.5T0 73v878q0 30 22.5 51.5T77 1024h614q32 0 54.5-21.5T768 951V257zm-26 256V0h-64v256q0 26 19 45t45 19h253v-64H512z"/></symbol>
-// <symbol viewBox="0 0 1024 896" aria-labelledby="dksi-ant-folder-title" id="si-ant-folder"><title id="dksi-ant-folder-title">icon folder</title><path d="M405 64q5 0 11 5t7 10l19 77v1q5 23 26 39 20 17 45 17h437q10 0 10 11v597q0 5-3 8t-6 3H73q-9 0-9-11V75q0-11 9-11h332zm0-64H73Q43 0 21.5 22T0 75v746q0 31 21.5 53T73 896h878q30 0 51.5-22t21.5-53V224q0-31-21.5-53T951 149H514q-3 0-6-2.5t-4-4.5l-18-77q-7-28-30-46.5T405 0z"/></symbol>
+export function FileEarmarkMusicIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            height={props.height}
+            width={props.width}
+            {...props}
+        >
+            <path d="M4 0h5.5v1H4a1 1 0 00-1 1v12a1 1 0 001 1h8a1 1 0 001-1V4.5h1V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2z" />
+            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 019.5 3z" />
+            <path
+                fillRule="evenodd"
+                d="M9.757 5.67A1 1 0 0111 6.64v1.75l-2 .5v3.61c0 .495-.301.883-.662 1.123C7.974 13.866 7.499 14 7 14c-.5 0-.974-.134-1.338-.377-.36-.24-.662-.628-.662-1.123s.301-.883.662-1.123C6.026 11.134 6.501 11 7 11c.356 0 .7.068 1 .196V6.89a1 1 0 01.757-.97l1-.25z"
+            />
+        </svg>
+    );
+}
+
+export function FileEarmarkPlayIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            height={props.height}
+            width={props.width}
+            {...props}
+        >
+            <path d="M6 11.117V6.883a.5.5 0 01.757-.429l3.528 2.117a.5.5 0 010 .858l-3.528 2.117a.5.5 0 01-.757-.43z" />
+            <path d="M4 0h5.5v1H4a1 1 0 00-1 1v12a1 1 0 001 1h8a1 1 0 001-1V4.5h1V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2z" />
+            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 019.5 3z" />
+        </svg>
+    );
+}
+
+export function FileEarmarkTextIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            height="1em"
+            width="1em"
+            {...props}
+        >
+            <path d="M4 0h5.5v1H4a1 1 0 00-1 1v12a1 1 0 001 1h8a1 1 0 001-1V4.5h1V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2z" />
+            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 019.5 3z" />
+            <path
+                fillRule="evenodd"
+                d="M5 11.5a.5.5 0 01.5-.5h2a.5.5 0 010 1h-2a.5.5 0 01-.5-.5zm0-2a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5a.5.5 0 01-.5-.5zm0-2a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5a.5.5 0 01-.5-.5z"
+            />
+        </svg>
+    );
+}
+
+export function FileEarmarkImageIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            height={props.height}
+            width={props.width}
+            {...props}
+        >
+            <path
+                fillRule="evenodd"
+                d="M12 16a2 2 0 002-2V4.5L9.5 0H4a2 2 0 00-2 2v12a2 2 0 002 2h8zM3 2a1 1 0 011-1h5.5v2A1.5 1.5 0 0011 4.5h2V10l-2.083-2.083a.5.5 0 00-.76.063L8 11 5.835 9.7a.5.5 0 00-.611.076L3 12V2z"
+            />
+            <path fillRule="evenodd" d="M6.502 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+        </svg>
+    );
+}
+
+export function FileEarmarkRichtextIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            height="1em"
+            width="1em"
+            {...props}
+        >
+            <path d="M4 0h5.5v1H4a1 1 0 00-1 1v12a1 1 0 001 1h8a1 1 0 001-1V4.5h1V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2z" />
+            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 019.5 3z" />
+            <path
+                fillRule="evenodd"
+                d="M4.5 12.5A.5.5 0 015 12h3a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-2A.5.5 0 015 10h6a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm1.639-3.708l1.33.886 1.854-1.855a.25.25 0 01.289-.047l1.888.974V8.5a.5.5 0 01-.5.5H5a.5.5 0 01-.5-.5V8s1.54-1.274 1.639-1.208zM6.25 6a.75.75 0 100-1.5.75.75 0 000 1.5z"
+            />
+        </svg>
+    );
+}
+
+//--------------------------------------------------------------------\\
+//--------------------------------------------------------------------\\
+//--------------------------------------------------------------------\\
+//--------------------------------------------------------------------\\
+//--------------------------------------------------------------------\\
+//--------------------------------------------------------------------\\
+
+export function FolderIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            height={props.height}
+            width={props.width}
+            {...props}
+        >
+            <path d="M9.828 4a3 3 0 01-2.12-.879l-.83-.828A1 1 0 006.173 2H2.5a1 1 0 00-1 .981L1.546 4h-1L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3v1z" />
+            <path
+                fillRule="evenodd"
+                d="M13.81 4H2.19a1 1 0 00-.996 1.09l.637 7a1 1 0 00.995.91h10.348a1 1 0 00.995-.91l.637-7A1 1 0 0013.81 4zM2.19 3A2 2 0 00.198 5.181l.637 7A2 2 0 002.826 14h10.348a2 2 0 001.991-1.819l.637-7A2 2 0 0013.81 3H2.19z"
+            />
+        </svg>
+    );
+}
