@@ -9,6 +9,7 @@ import {
     FolderIcon
 } from "../../../elements/svg/SymbolFile";
 import {reverseString} from "../../../background/methods/strings";
+import {getDateAsStringFromTimestamp} from "../../../background/methods/time";
 
 type Props = {
     fileListItem: FileListEntity;
@@ -34,8 +35,8 @@ export default function FileListItem(props: Props): ReactElement {
 
     const ICON_HEIGHT = "40px";
 
-    const rightFileIcon = (type: string, name: string): ReactElement => {
-        if (type.toLowerCase() === "folder") return <FolderIcon height={ICON_HEIGHT} width={"auto"}
+    const FileIcon = (isFolder: boolean, name: string): ReactElement => {
+        if (isFolder) return <FolderIcon height={ICON_HEIGHT} width={"auto"}
                                                                 color={"secondary"}/>
         let positionOfPoint = reverseString(name).indexOf(".");
         if (positionOfPoint < 0) return <FileEarmarkIcon height={ICON_HEIGHT} width={"auto"} color={"secondary"}/>
@@ -71,12 +72,12 @@ export default function FileListItem(props: Props): ReactElement {
                 <Form.Check type="checkbox" onChange={() => console.log(`[files] selected ${props.fileListItem.id}`)}/>
             </Form.Group></Col>
             <Col xs={1}>{props.fileListItem.type}</Col>
-            <Col xs={1}>{rightFileIcon(props.fileListItem.type, props.fileListItem.name)}</Col>
+            <Col xs={1}>{FileIcon(props.fileListItem.isFolder, props.fileListItem.name)}</Col>
             <Col xs={1}>...</Col>
             <Col xs={3}><Link to={`/file${props.fileListItem.path ?? ""}`}
                               onClick={() => onClick()}>{props.fileListItem.name}</Link></Col>
             <Col xs={3}>{props.fileListItem.createdByUserId}</Col>
-            <Col xs={1}>{props.fileListItem.lastUpdated}</Col>
+            <Col xs={1}>{getDateAsStringFromTimestamp(props.fileListItem.lastUpdated)}</Col>
             <Col xs={1}>{props.fileListItem.size}</Col>
         </>
     )
