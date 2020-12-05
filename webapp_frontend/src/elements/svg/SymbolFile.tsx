@@ -1,5 +1,5 @@
 import * as React from "react";
-//https://reactsvgicons.com/bootstrap
+//https://reactsvgicons.com/boofiletstrap
 
 export function FileEarmarkIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
@@ -93,8 +93,8 @@ export function FileEarmarkRichtextIcon(props: React.SVGProps<SVGSVGElement>) {
         <svg
             fill="currentColor"
             viewBox="0 0 16 16"
-            height="1em"
-            width="1em"
+            height={props.height}
+            width={props.width}
             {...props}
         >
             <path d="M4 0h5.5v1H4a1 1 0 00-1 1v12a1 1 0 001 1h8a1 1 0 001-1V4.5h1V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2z" />
@@ -106,6 +106,84 @@ export function FileEarmarkRichtextIcon(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     );
 }
+
+export function FileEarmarkLock2Icon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            height={props.height}
+            width={props.width}
+            {...props}
+        >
+            <path
+                fillRule="evenodd"
+                d="M8 6a1 1 0 00-1 1v1h2V7a1 1 0 00-1-1zm2 2.076V7a2 2 0 10-4 0v1.076c-.54.166-1 .597-1 1.224v2.4c0 .816.781 1.3 1.5 1.3h3c.719 0 1.5-.484 1.5-1.3V9.3c0-.627-.46-1.058-1-1.224z"
+            />
+            <path d="M4 0h5.5v1H4a1 1 0 00-1 1v12a1 1 0 001 1h8a1 1 0 001-1V4.5h1V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2z" />
+            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 019.5 3z" />
+        </svg>
+    );
+}
+
+export function FileEarmarkZipIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            height={props.height}
+            width={props.width}
+            {...props}
+        >
+            <path d="M4 0h5.5v1H4a1 1 0 00-1 1v12a1 1 0 001 1h8a1 1 0 001-1V4.5h1V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2z" />
+            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 019.5 3z" />
+            <path
+                fillRule="evenodd"
+                d="M5 7.5a1 1 0 011-1h1a1 1 0 011 1v.938l.4 1.599a1 1 0 01-.416 1.074l-.93.62a1 1 0 01-1.11 0l-.929-.62a1 1 0 01-.415-1.074L5 8.438V7.5zm2 0H6v.938a1 1 0 01-.03.243l-.4 1.598.93.62.929-.62-.4-1.598A1 1 0 017 8.438V7.5z"
+            />
+            <path d="M6 1h1.5v1H6zM5 2h1.5v1H5zm1 1h1.5v1H6zM5 4h1.5v1H5zm1 1h1.5v1H6V5z" />
+        </svg>
+    );
+}
+
+export function FileEarmarkCodeIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            height={props.height}
+            width={props.width}
+            {...props}
+        >
+            <path d="M4 0h5.5v1H4a1 1 0 00-1 1v12a1 1 0 001 1h8a1 1 0 001-1V4.5h1V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2z" />
+            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 019.5 3z" />
+            <path
+                fillRule="evenodd"
+                d="M8.646 6.646a.5.5 0 01.708 0l2 2a.5.5 0 010 .708l-2 2a.5.5 0 01-.708-.708L10.293 9 8.646 7.354a.5.5 0 010-.708zm-1.292 0a.5.5 0 00-.708 0l-2 2a.5.5 0 000 .708l2 2a.5.5 0 00.708-.708L5.707 9l1.647-1.646a.5.5 0 000-.708z"
+            />
+        </svg>
+    );
+}
+
+export function FileEarmarkPDFIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            height={props.height}
+            width={props.width}
+            {...props}
+        >
+            <path d="M4 0h5.5v1H4a1 1 0 00-1 1v12a1 1 0 001 1h8a1 1 0 001-1V4.5h1V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2z" />
+            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 019.5 3z" />
+            <path
+                fillRule="evenodd"
+                d="M7 5a.5.5 0 01.5.5v.634l.549-.317a.5.5 0 11.5.866L8 7l.549.317a.5.5 0 11-.5.866L7.5 7.866V8.5a.5.5 0 01-1 0v-.634l-.549.317a.5.5 0 11-.5-.866L6 7l-.549-.317a.5.5 0 01.5-.866l.549.317V5.5A.5.5 0 017 5zm-2 5.5a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5a.5.5 0 01-.5-.5zm0 2a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5a.5.5 0 01-.5-.5z"
+            />
+        </svg>
+    );
+}
+
 
 //--------------------------------------------------------------------\\
 //--------------------------------------------------------------------\\
