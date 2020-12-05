@@ -4,6 +4,7 @@ import {Button, Table, Container} from "react-bootstrap";
 import {callBackendHealth} from "../../background/api/api";
 import {audioOnOff, setAudioVolumeByID} from "../../background/methods/sound"
 import {logout} from "../../background/api/auth";
+import {SymbolFileExcel} from "../../elements/svg/SymbolFile";
 
 export default function Health() {
 
@@ -36,6 +37,7 @@ export default function Health() {
 
     return (
         <Container>
+            <SymbolFileExcel height={"100"} width={"100"}/>
             <h1>
                 FileFighter
             </h1>
@@ -52,7 +54,7 @@ export default function Health() {
 
             <div>
                 {/*<Button className={"mt-3 mb-2 float-right"} onClick={() => updateVariables()}>Refresh</Button>*/}
-                <Table striped bordered hover variant="dark">
+                <Table striped bordered hover>
                     <thead>
                     <tr>
                         <th>Backend information</th>

@@ -55,12 +55,12 @@ function App(props: Props): ReactElement {
                     <BrowserRouter>
                         <TopBanner/>
                         <Header/>
-                        <main role='main' className={"flex-shrink-0 flex-grow-1"}>
-                            <Router/>
-                        </main>
-                        <footer className='footer mt-auto py-3 bg-dark text-white'>
-                            <Footer/>
-                        </footer>
+                        <div>
+                            <main role='main' className={"flex-shrink-0 flex-grow-1"}>
+                                <Router/>
+                            </main>
+                        </div>
+                        <Footer/>
                         <PermanentAssets/>
                     </BrowserRouter>
                 </div>
