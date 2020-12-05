@@ -28,6 +28,7 @@ export const checkForCookie=()=>{
     if (refreshTokenCookieValue){
         store.dispatch(addRefreshToken(refreshTokenCookieValue))
         getAccessTokenWithRefreshToken();
+
     }
     store.dispatch(checkedCookies(true))
 
@@ -88,12 +89,14 @@ export const getAccessTokenWithRefreshToken = () => {
 
             //TODO: also get User data here
 
+
         })
         .catch(((error) => {
             store.dispatch(removeTokens()as RemoveTokens);
 
             console.log(error)
             //you probably want to notify the user, maybe with a toast or similar
+
         }));
 
 }
