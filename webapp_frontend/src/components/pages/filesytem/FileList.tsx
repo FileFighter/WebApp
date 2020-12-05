@@ -47,9 +47,11 @@ export default function FileList(props: Props): ReactElement {
                 <Col xs={1}> <Form.Group controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" onChange={() => console.log(`selected all files` /*TODO*/)}/>
                 </Form.Group></Col>
-                <Col xs={2}>{}</Col>
+                <Col xs={1}>{"Type"}</Col>
+                <Col xs={1}>{}</Col>
+                <Col xs={1}>{"Share"}</Col>
                 <Col xs={3}>{"Name"}</Col>
-                <Col xs={4}>{"Owner"}</Col>
+                <Col xs={3}>{"Owner"}</Col>
                 <Col xs={1}>{"Last changes"}</Col>
                 <Col xs={1}>{"Size"}</Col>
             </Row>
