@@ -50,7 +50,7 @@ export default function FileList(props: Props): ReactElement {
     }, [path, location]);
 
     function handleSortClick(property: keyof File | keyof Folder) {
-        if (sortedBy == property) setSortIncreasing(!sortIncreasing);
+        if (sortedBy === property) setSortIncreasing(!sortIncreasing);
         else {
             setSortedBy(property);
             setSortIncreasing(true)
