@@ -1,6 +1,6 @@
 import {Folder, PermissionSet} from "../../../background/api/filesystemTypes";
 
-function mergeObjectArraysByProperty(leftArray: any, rightArray: any, propertyName: keyof (File & Folder)): File[] & Folder[] {
+function mergeObjectArraysByProperty(leftArray: any, rightArray: any, propertyName: keyof File | keyof Folder, sortIncreasing: boolean): File[] & Folder[] {
     let arr: any = []
     // Break out of loop if any one of the array gets empty
     while (leftArray.length && rightArray.length) {
@@ -22,7 +22,7 @@ function mergeObjectArraysByProperty(leftArray: any, rightArray: any, propertyNa
         if (typeof firstLeftElement === "string") firstLeftElement = firstLeftElement.toLowerCase();
         if (typeof firstRightElement === "string") firstRightElement = firstRightElement.toLowerCase();
         if (
-            (firstLeftElement !== undefined && firstRightElement !== undefined && firstLeftElement <= firstRightElement)
+            (firstLeftElement !== undefined && firstRightElement !== undefined && firstLeftElement <= firstRightElement && sortIncreasing)
         ) {
             let help: (File | Folder) | undefined = leftArray.shift();
             if (help) arr.push(help)
@@ -36,7 +36,7 @@ function mergeObjectArraysByProperty(leftArray: any, rightArray: any, propertyNa
     return [...arr, ...leftArray, ...rightArray]
 }
 
-export function sortObjectsInArrayByProperty(originalArray: any, propertyName: keyof (File | Folder)): any {
+export function sortObjectsInArrayByProperty(originalArray: any, propertyName: keyof File | keyof Folder, sortIncreasing: boolean): any {
     const array = [...originalArray]
     if (!array || array.length <= 1) return array ?? [];
 
@@ -44,5 +44,5 @@ export function sortObjectsInArrayByProperty(originalArray: any, propertyName: k
     const left = array.splice(0, half)
 
 
-    return mergeObjectArraysByProperty(sortObjectsInArrayByProperty(left, propertyName), sortObjectsInArrayByProperty(array, propertyName), propertyName);
+    return mergeObjectArraysByProperty(sortObjectsInArrayByProperty(left, propertyName, sortIncreasing), sortObjectsInArrayByProperty(array, propertyName, sortIncreasing), propertyName, sortIncreasing);
 }
