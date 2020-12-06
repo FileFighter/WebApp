@@ -10,7 +10,10 @@ function Constants(): ReactElement {
     // url + host of backend
 
 
-    return (<Provider store={store}><App/></Provider>);
+    return (
+        <Provider store={store}>
+            <App/>
+        </Provider>);
 
 
 }
