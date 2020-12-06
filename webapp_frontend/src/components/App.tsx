@@ -1,6 +1,5 @@
 import React, {ReactElement} from 'react';
 import './App.css';
-import {Container} from 'react-bootstrap';
 import Header from "./basicElements/Header";
 import Footer from "./basicElements/Footer";
 import {BrowserRouter} from "react-router-dom";
@@ -14,12 +13,15 @@ import {SystemState} from "../background/redux/actions/sytemState";
 
 import Login from "./basicElements/Login";
 import {checkForCookie} from "../background/api/auth";
-
-
+import {TopBanner} from "./basicElements/TopBanner";
 
 // this takes the redux store and maps everything that is needed to the function props
 const mapState = (state: SystemState) => ({
-    tokens: {refreshToken: state.tokens.refreshToken, accessToken: state.tokens.accessToken, checkedCookies: state.tokens.checkedCookies},
+    tokens: {
+        refreshToken: state.tokens.refreshToken,
+        accessToken: state.tokens.accessToken,
+        checkedCookies: state.tokens.checkedCookies
+    },
     user: state.user
 })
 
@@ -42,18 +44,22 @@ function App(props: Props): ReactElement {
     console.log(props.tokens.refreshToken)
     console.log(props.tokens)
     console.log(props.user)
+    console.log("[App]---------------")
 
     if (props.tokens.checkedCookies) {
 
-        if (props.tokens.refreshToken && props.tokens.accessToken) {
+        if ((props.tokens.refreshToken && props.tokens.accessToken)) {
 
             return (
-                <div className="App">
+                <div className="App h-100 d-flex flex-column">
                     <BrowserRouter>
+                        <TopBanner/>
                         <Header/>
-                        <Container>
-                            <Router/>
-                        </Container>
+                        <div>
+                            <main role='main' className={"flex-shrink-0 flex-grow-1"}>
+                                <Router/>
+                            </main>
+                        </div>
                         <Footer/>
                         <PermanentAssets/>
                     </BrowserRouter>

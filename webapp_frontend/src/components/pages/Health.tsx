@@ -1,18 +1,26 @@
 import React, {useEffect, useState} from "react";
 import logo from "../../assets/images/logos/logo.png";
-import {Button, Table} from "react-bootstrap";
+import {Button, Table, Container} from "react-bootstrap";
 import {callBackendHealth} from "../../background/api/api";
 import {audioOnOff, setAudioVolumeByID} from "../../background/methods/sound"
 import {logout} from "../../background/api/auth";
 
 export default function Health() {
 
-    const [backendLiveTime, setBackendLiveTime] = useState<number | string>("not reachable");
-    const [backendUserCount, setBackendUserCount] = useState<number | string>("not reachable");
+    const [backendLiveTime, setBackendLiveTime] = useState<number | "not reachable">("not reachable");
+    const [backendUserCount, setBackendUserCount] = useState<number | "not reachable">("not reachable");
 
     useEffect(() => {
-        updateVariables()
-    }, []);
+        updateVariables();
+    }, [])
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            updateVariables()
+        }, 60000)
+        // Clear timeout if the component is unmounted
+        return () => clearTimeout(timer);
+    });
 
     function updateVariables(): void {
         Promise.all([callBackendHealth()])
@@ -20,10 +28,14 @@ export default function Health() {
                 setBackendLiveTime(backendHealthData.uptimeInSeconds);
                 setBackendUserCount(backendHealthData.userCount)
             })
+            .catch(() => {
+                setBackendLiveTime("not reachable");
+                setBackendUserCount("not reachable");
+            })
     }
 
     return (
-        <>
+        <Container>
             <h1>
                 FileFighter
             </h1>
@@ -39,8 +51,7 @@ export default function Health() {
 
 
             <div>
-                <Button className={"mt-3 mb-2 float-right"} onClick={() => updateVariables()}>Refresh</Button>
-                <Table striped bordered hover variant="dark">
+                <Table striped bordered hover>
                     <thead>
                     <tr>
                         <th>Backend information</th>
@@ -60,6 +71,6 @@ export default function Health() {
                 </Table>
             </div>
             <Button onClick={() => logout()}>Logout</Button>
-        </>
+        </Container>
     )
 }

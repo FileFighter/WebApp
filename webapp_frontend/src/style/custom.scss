@@ -1,9 +1,13 @@
 //read this: https://getbootstrap.com/docs/4.1/getting-started/theming
 
 // Override default variables before the import (see node_modules/bootstrap/scss/_variables.scss for all)
-$body-bg: #2a313d;;
-$body-color: #FFF;
+$body-bg: #25040F;
+$body-color: #B9CAC8;
 $blue: #1a4965;
+$primary: #771A18;
+$secondary: #FF6337;
+$yellow: #ffc107;
+$dark: black;
 
 // Import Bootstrap and its default variables
 
@@ -26,5 +30,9 @@ $blue: #1a4965;
 @import "~bootstrap/scss/forms";
 @import "~bootstrap/scss/spinners";
 @import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/breadcrumb";
 
 
