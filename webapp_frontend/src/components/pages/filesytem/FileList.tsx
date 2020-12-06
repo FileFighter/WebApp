@@ -36,8 +36,8 @@ export default function FileList(props: Props): ReactElement {
                         setError("")
                     }
                 )
-                .catch(error => {
-                    setError(error.response?.data.message)
+                .catch(err => {
+                    setError(err.response?.data.message)
                     setFiles([])
                     setFolders([])
                 });

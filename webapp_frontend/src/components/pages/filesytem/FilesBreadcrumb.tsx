@@ -14,7 +14,7 @@ export function FilesBreadcrumb(props: Props): ReactElement {
     return (
         <Breadcrumb>
         <Link className={'breadcrumb-item active'} to={filesBaseUrl + '/'} onClick={() => props.setPath("/")}>root </Link>
-        {props.path.split('/').filter((s: String) => s).map((folder: string, i: number) => {
+        {props.path.split('/').filter((s: string) => s).map((folder: string, i: number) => {
             return (<Link className={'breadcrumb-item active'} to={filesBaseUrl + props.path.split('/').slice(0, i + 2).join("/")}
                           onClick={() => props.setPath(props.path.split('/').slice(0, i + 2).join("/"))} key={i}>{folder} </Link>)
         })}
