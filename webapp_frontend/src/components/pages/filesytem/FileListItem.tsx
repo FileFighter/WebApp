@@ -3,9 +3,15 @@ import React, {ReactElement} from "react";
 import {Col, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {
+    FileEarmarkCodeIcon,
     FileEarmarkIcon,
-    FileEarmarkImageIcon, FileEarmarkMusicIcon, FileEarmarkPlayIcon, FileEarmarkRichtextIcon,
-    FileEarmarkTextIcon,
+    FileEarmarkImageIcon,
+    FileEarmarkLock2Icon,
+    FileEarmarkMusicIcon,
+    FileEarmarkPDFIcon,
+    FileEarmarkPlayIcon,
+    FileEarmarkRichtextIcon,
+    FileEarmarkTextIcon, FileEarmarkZipIcon,
     FolderIcon
 } from "../../../elements/svg/SymbolFile";
 import {reverseString} from "../../../background/methods/strings";
@@ -34,29 +40,44 @@ export interface FileListEntity {
 
 export default function FileListItem(props: Props): ReactElement {
 
-    const ICON_HEIGHT = "40px";
+    const ICON_PREFERENCES = {height: "40px", width: "auto", color: "secondary"}
 
     const FileIcon = (isFolder: boolean, name: string): ReactElement => {
-        if (isFolder) return <FolderIcon height={ICON_HEIGHT} width={"auto"}
-                                         color={"secondary"}/>
+
+
+        if (isFolder) return <FolderIcon {...ICON_PREFERENCES}/>
+
         let positionOfPoint = reverseString(name).indexOf(".");
-        if (positionOfPoint < 0) return <FileEarmarkIcon height={ICON_HEIGHT} width={"auto"} color={"secondary"}/>
+        if (positionOfPoint < 0) return <FileEarmarkIcon {...ICON_PREFERENCES}/>
 
         const fileExtension = reverseString(reverseString(name).substr(0, positionOfPoint + 1));
         switch (fileExtension) {
             case ".txt" :
-                return <FileEarmarkTextIcon height={ICON_HEIGHT} width={"auto"} color={"secondary"}/>
+                return <FileEarmarkTextIcon {...ICON_PREFERENCES}/>
             case ".jpg" :
-                return <FileEarmarkImageIcon height={ICON_HEIGHT} width={"auto"} color={"secondary"}/>
+                return <FileEarmarkImageIcon {...ICON_PREFERENCES}/>
             case ".mp4" :
-                return <FileEarmarkPlayIcon height={ICON_HEIGHT} width={"auto"} color={"secondary"}/>
+                return <FileEarmarkPlayIcon {...ICON_PREFERENCES}/>
             case ".mp3" :
-                return <FileEarmarkMusicIcon height={ICON_HEIGHT} width={"auto"} color={"secondary"}/>
+                return <FileEarmarkMusicIcon {...ICON_PREFERENCES}/>
+            case ".crypt" :
+                return <FileEarmarkLock2Icon {...ICON_PREFERENCES}/>
+            case ".pdf" :
+                return <FileEarmarkPDFIcon {...ICON_PREFERENCES}/>
+            case ".zip" :
+            case ".7z" :
+                return <FileEarmarkZipIcon {...ICON_PREFERENCES}/>
+            case ".ts" :
+            case ".tsx" :
+            case ".js" :
+            case ".jsx" :
+            case ".java" :
+                return <FileEarmarkCodeIcon {...ICON_PREFERENCES}/>
             case ".md" :
             case ".html" :
-                return <FileEarmarkRichtextIcon height={ICON_HEIGHT} width={"auto"} color={"secondary"}/>
+                return <FileEarmarkRichtextIcon {...ICON_PREFERENCES}/>
             default :
-                return <FileEarmarkIcon height={ICON_HEIGHT} width={"auto"} color={"secondary"}/>
+                return <FileEarmarkIcon {...ICON_PREFERENCES}/>
         }
     }
 
