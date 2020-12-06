@@ -7,6 +7,7 @@ import FileListFolder from "./FileListFolder";
 import FileListFile from "./FileListFile";
 import {FilesBreadcrumb} from "./FilesBreadcrumb";
 import {filesBaseUrl} from "./Filesystem";
+import {sortObjectsInArrayByProperty} from "./sortFilesAndFolders";
 
 
 type Props = {}
@@ -46,6 +47,17 @@ export default function FileList(props: Props): ReactElement {
 
     }, [path, location]);
 
+console.log("--------------------------------------------------------------------------------------")
+    console.log(folders)
+    let foldersa = folders ? [...folders] : []
+    let filesa = files ? [...files] : []
+    let sortedFoldersa = sortObjectsInArrayByProperty(foldersa, "name")
+    let sortedFilesa = sortObjectsInArrayByProperty(filesa, "name")
+    console.log(sortedFoldersa)
+    console.log("---------")
+    console.log(filesa)
+    console.log()
+console.log("--------------------------------------------------------------------------------------")
 
 
 
