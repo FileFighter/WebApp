@@ -7,7 +7,7 @@ import {UserState} from "../redux/actions/userTypes";
 import store from "../redux/store";
 import {addAccessToken, addRefreshToken, checkedCookies, removeTokens} from "../redux/actions/tokens";
 import {addUser} from "../redux/actions/user";
-import {AccessToken, RemoveTokens, TokensState} from "../redux/actions/tokenTypes";
+import {AccessToken} from "../redux/actions/tokenTypes";
 import {deleteCookie, getCookie, setCookie} from "../methods/cookies";
 
 
@@ -71,7 +71,7 @@ console.log("[Auth] loginWithUsernameAndPassword")
 export const getAccessTokenWithRefreshToken = () => {
     console.log("getAccessTokenWithRefreshToken")
 
-    let refreshToken: string|null = (store.getState().tokens as TokensState).refreshToken;
+    let refreshToken: string|null = (store.getState().tokens).refreshToken;
 
     let config = {
         headers: {
@@ -92,7 +92,7 @@ export const getAccessTokenWithRefreshToken = () => {
 
         })
         .catch(((error) => {
-            store.dispatch(removeTokens()as RemoveTokens);
+            store.dispatch(removeTokens());
 
             console.log(error)
             //you probably want to notify the user, maybe with a toast or similar
