@@ -35,7 +35,7 @@ const connector = connect(mapState, mapDispatch)
 type PropsFromRedux = ConnectedProps<typeof connector>
 
 // this defines the component props and also adds the redux imported props
-type Props = PropsFromRedux & {}
+type Props = PropsFromRedux
 
 function App(props: Props): ReactElement {
 

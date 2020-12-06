@@ -7,6 +7,7 @@ import FileListFolder from "./FileListFolder";
 import FileListFile from "./FileListFile";
 import {FilesBreadcrumb} from "./FilesBreadcrumb";
 import {filesBaseUrl} from "./Filesystem";
+import {sortObjectsInArrayByProperty} from "./sortFilesAndFolders";
 
 
 type Props = {}
@@ -19,6 +20,8 @@ export default function FileList(props: Props): ReactElement {
     const [files, setFiles] = useState<File[] | null>(null)
     const [folders, setFolders] = useState<Folder[] | null>(null)
     const [error, setError] = useState<string>("");
+    const [sortedBy, setSortedBy] = useState<keyof File | keyof Folder | null>(null)
+    const [sortIncreasing, setSortIncreasing] = useState<boolean>(false)
 
 
     console.log("[FileList path]" + path)
@@ -33,8 +36,8 @@ export default function FileList(props: Props): ReactElement {
                         setError("")
                     }
                 )
-                .catch(error => {
-                    setError(error.response?.data.message)
+                .catch(err => {
+                    setError(err.response?.data.message)
                     setFiles([])
                     setFolders([])
                 });
@@ -46,7 +49,27 @@ export default function FileList(props: Props): ReactElement {
 
     }, [path, location]);
 
+    function handleSortClick(property: keyof File | keyof Folder) {
+        if (sortedBy === property) setSortIncreasing(!sortIncreasing);
+        else {
+            setSortedBy(property);
+            setSortIncreasing(true)
+        }
+        setFolders(sortObjectsInArrayByProperty(folders, property, sortIncreasing));
+        setFiles(sortObjectsInArrayByProperty(files, property, sortIncreasing));
+    }
 
+// console.log("--------------------------------------------------------------------------------------")
+//     console.log(folders)
+//     let foldersa = folders ? [...folders] : []
+//     let filesa = files ? [...files] : []
+//     let sortedFoldersa = sortObjectsInArrayByProperty(foldersa, "name")
+//     let sortedFilesa = sortObjectsInArrayByProperty(filesa, "name")
+//     console.log(sortedFoldersa)
+//     console.log("---------")
+//     console.log(filesa)
+//     console.log()
+// console.log("--------------------------------------------------------------------------------------")
 
 
     return (
@@ -56,13 +79,13 @@ export default function FileList(props: Props): ReactElement {
                 <Col xs={1}> <Form.Group controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" onChange={() => console.log(`selected all files` /*TODO*/)}/>
                 </Form.Group></Col>
-                <Col xs={1}>{"Type"}</Col>
+                <Col xs={1} onClick={() => handleSortClick("type")}>{"Type"}</Col>
                 <Col xs={1}>{}</Col>
                 <Col xs={1}>{"Share"}</Col>
-                <Col xs={3}>{"Name"}</Col>
-                <Col xs={3}>{"Owner"}</Col>
-                <Col xs={1}>{"Last changes"}</Col>
-                <Col xs={1}>{"Size"}</Col>
+                <Col xs={3} onClick={() => handleSortClick("name")}>{"Name"}</Col>
+                <Col xs={3} onClick={() => handleSortClick("createdByUserId")}>{"Owner"}</Col>
+                <Col xs={1} onClick={() => handleSortClick("lastUpdated")}>{"Last changes"}</Col>
+                <Col xs={1} onClick={() => handleSortClick("size")}>{"Size"}</Col>
             </Row>
             <hr/>
             <Row>
