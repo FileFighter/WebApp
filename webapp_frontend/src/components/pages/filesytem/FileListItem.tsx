@@ -34,8 +34,6 @@ export interface FileListEntity {
     type: string;
     isFolder: boolean
     path?: string
-
-
 }
 
 export default function FileListItem(props: Props): ReactElement {
