@@ -1,13 +1,11 @@
-import Axios, { } from "axios";
-import { constants } from "../constants";
+import Axios, {} from "axios";
+import {constants} from "../constants";
 
-export const hostname: string = constants.url.API_URL + '/api'; // constants.url.API_URL + '' <- on dev.
+export const hostname: string = constants.url.API_URL;
 
 export const userPath: string = '/v1/users';
 
-export const filesytemPath: string = '/v1/filesystem';
-
-
+export const filesystemPath: string = '/v1/filesystem';
 
 
 interface BackendHealthData {
@@ -27,4 +25,4 @@ function callBackendHealth(): Promise<BackendHealthData> {
     });
 }
 
-export { callBackendHealth }
+export {callBackendHealth}
