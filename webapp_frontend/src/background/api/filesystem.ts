@@ -1,5 +1,5 @@
 import {BackendFolderContentsData} from "./filesystemTypes";
-import {hostname, filesytemPath} from "./api";
+import {hostname, filesystemPath} from "./api";
 import Axios from "axios";
 
 export const getFolderContents = (path: string) => new Promise<BackendFolderContentsData>((resolve, reject) => {
@@ -14,7 +14,7 @@ export const getFolderContents = (path: string) => new Promise<BackendFolderCont
 
     console.log(`[filesytem api] request folder content of ${path}`);
 
-    Axios.get(hostname + filesytemPath + '/contents',config)
+    Axios.get(hostname + filesystemPath + '/contents',config)
         .then(response=>resolve(response.data))
         .catch(error=>reject(error))
 
