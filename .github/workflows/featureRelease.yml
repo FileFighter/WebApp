@@ -21,6 +21,14 @@ jobs:
         with:
           node-version: 12
       -
+        name: Update Sonar
+        run: |
+          cd webapp_frontend
+          npm run-script sonar
+        env:
+          SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
+          SONAR_PASSWORD: ${{ secrets.SONAR_PASSWORD }}
+      -
         name: Build frontend
         run: |
           cd webapp_frontend
