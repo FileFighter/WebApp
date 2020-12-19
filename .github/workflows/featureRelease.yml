@@ -25,6 +25,7 @@ jobs:
         name: Update Sonar
         run: |
           cd webapp_frontend
+          npm i
           npm run-script sonar
         env:
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
