@@ -24,6 +24,7 @@ jobs:
       -
         name: Update Sonar
         run: |
+          whoami
           cd webapp_frontend
           npm i
           echo "${{ secrets.SSL_CERT }}" > filefighter.de_ssl_certificate.cer
