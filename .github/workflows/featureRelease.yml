@@ -36,6 +36,7 @@ jobs:
           npm i
           echo "${{ secrets.SSL_CERT }}" > filefighter.de_ssl_certificate.cer
           yes yes | keytool -import -alias filefighterde -file filefighter.de_ssl_certificate.cer  -storetype JKS -keystore $JAVA_HOME/lib/security/cacerts  -storepass changeit
+          export SONAR_SCANNER_OPTS="-Djavax.net.ssl.trustStore=/opt/hostedtoolcache/jdk/11.0.8/x64/lib/security/cacerts  -Djavax.net.ssl.keyStore=/opt/hostedtoolcache/jdk/11.0.8/x64/lib/security/cacerts"
           npm run-script sonar
           rm filefighter.de_ssl_certificate.cer
           keytool -delete -alias filefighterde -keystore $JAVA_HOME/lib/security/cacerts  -storepass changeit
