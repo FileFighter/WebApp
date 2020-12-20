@@ -15,7 +15,7 @@ jobs:
     steps:
       -
         name: Set up Project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
       -
         name: Set up JDK
         uses: actions/setup-java@v1
@@ -28,12 +28,14 @@ jobs:
         with:
           node-version: 12
       -
+        name: Checkout frontend
+        run: |
+            cd webapp_frontend
+            npm i
+      -
         name: Update Sonar
         run: |
-          whoami
-          echo $JAVA_HOME
           cd webapp_frontend
-          npm i
           echo "${{ secrets.SSL_CERT }}" > filefighter.de_ssl_certificate.cer
           yes yes | keytool -import -alias filefighterde -file filefighter.de_ssl_certificate.cer  -storetype JKS -keystore $JAVA_HOME/lib/security/cacerts  -storepass changeit
           export SONAR_SCANNER_OPTS="-Djavax.net.ssl.trustStore=/opt/hostedtoolcache/jdk/11.0.8/x64/lib/security/cacerts  -Djavax.net.ssl.keyStore=/opt/hostedtoolcache/jdk/11.0.8/x64/lib/security/cacerts"
@@ -47,7 +49,6 @@ jobs:
         name: Build frontend
         run: |
           cd webapp_frontend
-          npm i
           npm run-script build
           cp -r build ../webapp_provider/public
       -
