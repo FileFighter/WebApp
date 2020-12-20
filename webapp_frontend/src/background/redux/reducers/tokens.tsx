@@ -6,7 +6,7 @@ const initialState: TokensState = {
     checkedCookies: false,
 };
 
-export default function (state = initialState, action: TokenActionsTypes) {
+export default function tokens(state = initialState, action: TokenActionsTypes) {
     switch (action.type) {
         case ADD_REFRESH_TOKEN: {
             console.log('[Redux] adding refreshToken')

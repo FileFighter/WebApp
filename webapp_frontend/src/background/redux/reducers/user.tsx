@@ -6,7 +6,7 @@ const initialState: UserState = {
 };
 
 
-export default function (state = initialState, action: UserActionTypes) {
+export default function users(state = initialState, action: UserActionTypes) {
     switch (action.type) {
         case ADD_USER: {
             console.log('[Redux] adding user')

@@ -1,15 +1,15 @@
-interface constants {
+interface constantsdef {
     url: { API_URL: string }
 }
 
 
-const prod: constants = {
+const prod: constantsdef = {
     url: {
         API_URL: window.location.origin,
     }
 }
 
-const dev: constants = {
+const dev: constantsdef = {
     url: {
         //API_URL: 'https://cors.filefighter.de/http://filefighter.de/api',
        // API_URL: 'https://cors-anywhere.herokuapp.com/http://filefighter.ddns.net:3001/api',
