@@ -3,7 +3,7 @@ const scanner = require('sonarqube-scanner');
 
 scanner(
     {
-        serverUrl: 'http://filefighter.ddns.net:9000',
+        serverUrl: 'https://sonar.filefighter.de',
         options: {
             'sonar.projectKey': "de.filefighter.frontend",
             'sonar.projectName': "Frontend",
