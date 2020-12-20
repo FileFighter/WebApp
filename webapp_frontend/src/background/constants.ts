@@ -11,9 +11,9 @@ const prod: constants = {
 
 const dev: constants = {
     url: {
-        API_URL: 'https://cors.filefighter.de/http://filefighter.de/api',
+        //API_URL: 'https://cors.filefighter.de/http://filefighter.de/api',
        // API_URL: 'https://cors-anywhere.herokuapp.com/http://filefighter.ddns.net:3001/api',
-       // API_URL: 'http://localhost:8080',
+        API_URL: 'http://localhost:8080',
     }
 };
 export const constants = process.env.NODE_ENV === 'development' ? dev : prod;
