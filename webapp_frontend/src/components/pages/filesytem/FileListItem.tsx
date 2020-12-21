@@ -1,4 +1,4 @@
-import {FsEntity, PermissionSet} from "../../../background/api/filesystemTypes";
+import {FsEntity} from "../../../background/api/filesystemTypes";
 import React, {ReactElement} from "react";
 import {Col, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
@@ -84,7 +84,7 @@ export default function FileListItem(props: Props): ReactElement {
             <Col xs={1}>{FileIcon(props.fileListItem.type === "FOLDER", props.fileListItem.name)}</Col>
             <Col xs={1}>...</Col>
             <Col xs={3}> <Link
-                to={props.fileListItem.path ? `/file${props.fileListItem.path ?? ""}` : `#${props.fileListItem.name}`}
+                to={(props.fileListItem.path && props.fileListItem.type === "FOLDER") ? `/file${props.fileListItem.path ?? ""}` : `#${props.fileListItem.name}`}
                 onClick={onClick}>{props.fileListItem.name}</Link>
             </Col>
             <Col xs={3}>{props.fileListItem.createdByUserId}</Col>
