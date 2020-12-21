@@ -1,7 +1,7 @@
 name: Stable Release
 
 on:
-  push:
+  pull_request:
 
 jobs:
   Build_Docker_Image:
@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-node@v2.1.2
         with:
           node-version: 12
-      - name: Build frontend
+      - name: Build storybook
         run: |
           cd webapp_frontend
           npm i
