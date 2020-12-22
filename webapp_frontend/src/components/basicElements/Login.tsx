@@ -47,7 +47,7 @@ function Login(): ReactElement {
                             </Form.Text>
                         </Form.Group>
                         <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check checked={true} type="checkbox" label="Stay logged in. (By clicking this you accept the usage of cookies.)" onChange={() => setStayLoggedIn(!stayLoggedIn)}/>
+                            <Form.Check checked={stayLoggedIn} type="checkbox" label="Stay logged in. (By clicking this you accept the usage of cookies.)" onChange={() => setStayLoggedIn(!stayLoggedIn)}/>
                         </Form.Group>
                         <Button variant="primary" type="submit" >
                             <Spinner
