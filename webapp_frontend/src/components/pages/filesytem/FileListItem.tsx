@@ -1,4 +1,4 @@
-import {PermissionSet} from "../../../background/api/filesystemTypes";
+import {FsEntity} from "../../../background/api/filesystemTypes";
 import React, {ReactElement} from "react";
 import {Col, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
@@ -19,22 +19,10 @@ import {getDateAsStringFromTimestamp} from "../../../background/methods/time";
 import {formatBytes} from "../../../background/methods/bytes";
 
 type Props = {
-    fileListItem: FileListEntity;
+    fileListItem: FsEntity;
     setPath?: Function,
 }
 
-
-export interface FileListEntity {
-    createdByUserId: number
-    id: number
-    lastUpdated: number
-    name: string
-    permissionSet: PermissionSet
-    size: number;
-    type: string;
-    isFolder: boolean
-    path?: string
-}
 
 export default function FileListItem(props: Props): ReactElement {
 
@@ -80,7 +68,7 @@ export default function FileListItem(props: Props): ReactElement {
     }
 
     const onClick = () => {
-        if (props.fileListItem.isFolder && props.setPath && props.fileListItem.path) {
+        if (props.fileListItem.type === "FOLDER" && props.setPath && props.fileListItem.path) {
             props.setPath(props.fileListItem.path)
         }
 
@@ -90,13 +78,13 @@ export default function FileListItem(props: Props): ReactElement {
     return (
         <>
             <Col xs={1}> <Form.Group controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" onChange={() => console.log(`[files] selected ${props.fileListItem.id}`)}/>
+                <Form.Check type="checkbox" onChange={() => console.log(`[files] selected ${props.fileListItem.fileSystemId}`)}/>
             </Form.Group></Col>
             <Col xs={1}>{props.fileListItem.type}</Col>
-            <Col xs={1}>{FileIcon(props.fileListItem.isFolder, props.fileListItem.name)}</Col>
+            <Col xs={1}>{FileIcon(props.fileListItem.type === "FOLDER", props.fileListItem.name)}</Col>
             <Col xs={1}>...</Col>
             <Col xs={3}> <Link
-                to={props.fileListItem.path ? `/file${props.fileListItem.path ?? ""}` : `#${props.fileListItem.name}`}
+                to={(props.fileListItem.path && props.fileListItem.type === "FOLDER") ? `/file${props.fileListItem.path ?? ""}` : `#${props.fileListItem.name}`}
                 onClick={onClick}>{props.fileListItem.name}</Link>
             </Col>
             <Col xs={3}>{props.fileListItem.createdByUserId}</Col>

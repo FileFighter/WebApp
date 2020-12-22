@@ -1,13 +1,12 @@
 import React, {ReactElement, useEffect, useState} from "react";
 import {getFolderContents} from "../../../background/api/filesystem";
-import {Folder, File, BackendFolderContentsData} from "../../../background/api/filesystemTypes";
+import {FsEntity} from "../../../background/api/filesystemTypes";
 import {Row, Container, Col, Form} from "react-bootstrap";
 import {useLocation} from 'react-router-dom'
-import FileListFolder from "./FileListFolder";
-import FileListFile from "./FileListFile";
 import {FilesBreadcrumb} from "./FilesBreadcrumb";
 import {filesBaseUrl} from "./Filesystem";
 import {sortObjectsInArrayByProperty} from "./sortFilesAndFolders";
+import FileListItem from "./FileListItem";
 
 
 type Props = {}
@@ -17,10 +16,10 @@ export default function FileList(props: Props): ReactElement {
     let location = useLocation();
 
     const [path, setPath] = useState<string>(location.pathname.slice(filesBaseUrl.length) || "/")
-    const [files, setFiles] = useState<File[] | null>(null)
-    const [folders, setFolders] = useState<Folder[] | null>(null)
+    const [files, setFiles] = useState<FsEntity[] | null>(null)
+    const [folders, setFolders] = useState<FsEntity[] | null>(null)
     const [error, setError] = useState<string>("");
-    const [sortedBy, setSortedBy] = useState<keyof File | keyof Folder | null>(null)
+    const [sortedBy, setSortedBy] = useState<keyof FsEntity | null>(null)
     const [sortIncreasing, setSortIncreasing] = useState<boolean>(false)
 
 
@@ -30,9 +29,9 @@ export default function FileList(props: Props): ReactElement {
         function updateStates(): void {
             getFolderContents(path)
                 .then(
-                    (response: BackendFolderContentsData) => {
-                        setFiles(response.files)
-                        setFolders(response.folders)
+                    (response: FsEntity[]) => {
+                        setFiles(response.filter((fsEntiy: FsEntity) => fsEntiy.type !== "FOLDER"))
+                        setFolders(response.filter((fsEntiy: FsEntity) => fsEntiy.type === "FOLDER"))
                         setError("")
                     }
                 )
@@ -49,7 +48,7 @@ export default function FileList(props: Props): ReactElement {
 
     }, [path, location]);
 
-    function handleSortClick(property: keyof File | keyof Folder) {
+    function handleSortClick(property: keyof FsEntity) {
         if (sortedBy === property) setSortIncreasing(!sortIncreasing);
         else {
             setSortedBy(property);
@@ -96,11 +95,11 @@ export default function FileList(props: Props): ReactElement {
                 }
 
 
-                {folders?.map((folder: Folder, i: number) => {
-                    return (<FileListFolder key={i.toString()} setPath={setPath} folder={folder}/>)
+                {folders?.map((folder: FsEntity, i: number) => {
+                    return (<FileListItem key={i.toString()} setPath={setPath} fileListItem={folder}/>)
                 })}
-                {files?.map((file: File, i: number) => {
-                    return (<FileListFile key={i.toString()} file={file}/>)
+                {files?.map((file: FsEntity, i: number) => {
+                    return (<FileListItem key={i.toString()} fileListItem={file}/>)
                 })}
             </Row>
         </Container>)
