@@ -1,17 +1,17 @@
-import {Folder, PermissionSet} from "../../../background/api/filesystemTypes";
+import {FsEntity, PermissionSet} from "../../../background/api/filesystemTypes";
 
-function mergeObjectArraysByProperty(leftArray: any, rightArray: any, propertyName: keyof File | keyof Folder, sortIncreasing: boolean): File[] & Folder[] {
+function mergeObjectArraysByProperty(leftArray: any, rightArray: any, propertyName: keyof FsEntity, sortIncreasing: boolean): FsEntity[] {
     let arr: any = []
     // Break out of loop if any one of the array gets empty
     while (leftArray.length && rightArray.length) {
         // Pick the smaller among the smallest element of left and right sub arrays
 
         if (rightArray[0] === undefined || rightArray[0][propertyName] === undefined || !rightArray[0].hasOwnProperty(propertyName)) {
-            let help: File | Folder | undefined = leftArray.shift();
+            let help: FsEntity | undefined = leftArray.shift();
             if (help) arr.push(help)
             continue;
         } else if (leftArray[0] === undefined || leftArray[0][propertyName] === undefined || !leftArray[0].hasOwnProperty(propertyName)) {
-            let help: (File | Folder) | undefined = rightArray.shift();
+            let help: (FsEntity) | undefined = rightArray.shift();
             if (help) arr.push(help)
             continue;
         }
@@ -24,10 +24,10 @@ function mergeObjectArraysByProperty(leftArray: any, rightArray: any, propertyNa
         if (
             (firstLeftElement !== undefined && firstRightElement !== undefined && firstLeftElement <= firstRightElement && sortIncreasing)
         ) {
-            let help: (File | Folder) | undefined = leftArray.shift();
+            let help: (FsEntity) | undefined = leftArray.shift();
             if (help) arr.push(help)
         } else {
-            let help: (File | Folder) | undefined = rightArray.shift();
+            let help: (FsEntity) | undefined = rightArray.shift();
             if (help) arr.push(help)
         }
     }
@@ -36,7 +36,7 @@ function mergeObjectArraysByProperty(leftArray: any, rightArray: any, propertyNa
     return [...arr, ...leftArray, ...rightArray]
 }
 
-export function sortObjectsInArrayByProperty(originalArray: any, propertyName: keyof File | keyof Folder, sortIncreasing: boolean): any {
+export function sortObjectsInArrayByProperty(originalArray: any, propertyName: keyof FsEntity, sortIncreasing: boolean): any {
     const array = [...originalArray]
     if (!array || array.length <= 1) return array ?? [];
 

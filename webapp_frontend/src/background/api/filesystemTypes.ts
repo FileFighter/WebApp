@@ -1,4 +1,3 @@
-
 export interface UsersSet {
     groups: string[];
     id: number;
@@ -13,30 +12,17 @@ export interface PermissionSet {
     visibleForUsers: UsersSet[];
 }
 
-export interface File {
-    createdByUserId: number;
-    id: number;
-    lastUpdated: number;
-    name: string;
-    permissionSet: PermissionSet;
-    size: number;
-    type: string;
-}
 
-export interface Folder {
+export interface FsEntity {
     createdByUserId: number;
-    id: number;
+    fileSystemId: number;
     lastUpdated: number;
     name: string;
     path: string;
-    permissionSet: PermissionSet;
+    shared: boolean;
     size: number;
     type: string;
 }
 
-export interface BackendFolderContentsData {
-    files: File[];
-    folders: Folder[];
-}
 
 
