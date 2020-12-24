@@ -1,0 +1,32 @@
+name: Storybook Release
+
+on:
+  pull_request:
+
+jobs:
+  Build_Docker_Image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Project
+        uses: actions/checkout@v2
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: 12
+      - name: Build storybook
+        run: |
+          cd webapp_frontend
+          npm i
+          npm run build-storybook
+          cp -r storybook-static  ../storybook_provider/public
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PW }}
+      -
+       name: Push Image to DockerHub Registry
+       run: |
+          VERSION=latest
+          docker build -t filefighter/storybook:$VERSION storybook_provider/
+          docker push filefighter/storybook:$VERSION
