@@ -16,12 +16,6 @@ jobs:
         name: Set up Project
         uses: actions/checkout@v1
       -
-        name: Set up JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: '11.0.8'
-          architecture: x64
-      -
         name: Set up Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
@@ -35,12 +29,7 @@ jobs:
         name: Update Sonar
         run: |
           cd webapp_frontend
-          echo "${{ secrets.SSL_CERT }}" > filefighter.de_ssl_certificate.cer
-          yes yes | keytool -import -alias filefighterde -file filefighter.de_ssl_certificate.cer  -storetype JKS -keystore $JAVA_HOME/lib/security/cacerts  -storepass changeit
-          export SONAR_SCANNER_OPTS="-Djavax.net.ssl.trustStore=/opt/hostedtoolcache/jdk/11.0.8/x64/lib/security/cacerts  -Djavax.net.ssl.keyStore=/opt/hostedtoolcache/jdk/11.0.8/x64/lib/security/cacerts"
           npm run-script sonar
-          rm filefighter.de_ssl_certificate.cer
-          keytool -delete -alias filefighterde -keystore $JAVA_HOME/lib/security/cacerts  -storepass changeit
         env:
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
           SONAR_PASSWORD: ${{ secrets.SONAR_PASSWORD }}
