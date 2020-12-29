@@ -10,7 +10,7 @@
 //
 //
 // -- This is a parent command --
-Cypress.Commands.add('typeLogin', (path) => {
+Cypress.Commands.add('loginWithUrl', (path) => {
     const user = {username:"admin",password:"admin"}
 
     cy.visit(path)

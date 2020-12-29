@@ -4,7 +4,7 @@ describe('The Home Page', () => {
 
     beforeEach(() => {
         cy.log('Login before every test')
-        cy.typeLogin("/file")
+        cy.loginWithUrl("/file")
     })
 
 
