@@ -1,0 +1,20 @@
+import '../support/index'
+
+describe('The Home Page', () => {
+
+    beforeEach(() => {
+        cy.log('Login before every test')
+        cy.typeLogin("/file")
+    })
+
+
+
+    it('successfully loads', () => {
+        cy.get(".col-3 > a").contains('dummyFile.txt').click()
+        cy.url().should('include', '#dummyFile.txt')
+    })
+
+
+
+
+})
