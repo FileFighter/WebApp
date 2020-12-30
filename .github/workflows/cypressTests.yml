@@ -4,6 +4,7 @@ on:
     paths:
       - 'webapp_frontend/src/**'
       - 'webapp_frontend/cypress/**'
+      - 'webapp_frontend/cypress/**'
 jobs:
   cypress-run:
     runs-on: ubuntu-16.04
