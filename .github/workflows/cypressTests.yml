@@ -17,8 +17,7 @@ jobs:
         run: |
             cd webapp_frontend
             npm i
-            npm run-script build
-            npx http-server build -p 3000 &
+            npm start &
       - name: Wait
         uses: iFaxity/wait-on-action@v1
         with:
