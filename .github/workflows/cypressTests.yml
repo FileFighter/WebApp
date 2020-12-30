@@ -4,7 +4,7 @@ on:
     paths:
       - 'webapp_frontend/src/**'
       - 'webapp_frontend/cypress/**'
-      - 'webapp_frontend/cypress/**'
+      - '.github/workflows/cypressTests.yml'
 jobs:
   cypress-run:
     runs-on: ubuntu-16.04

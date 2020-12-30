@@ -7,7 +7,6 @@ on:
     paths:
       - 'webapp_frontend/**'
       - 'webapp_provider/**'
-      - '.github/workflows/cypressTests.yml'
 
 jobs:
   Build_Docker_Image_on_Push:
