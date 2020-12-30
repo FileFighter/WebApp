@@ -10,13 +10,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      # Install NPM dependencies, cache them correctly
+      # Install NPM dependencies, build the webpage and start it
       # and run all Cypress tests
       - name: Start FE
         run: |
             cd webapp_frontend
             npm i
-            npm start &
+            npm run-script build
+            npx http-server build -p 3000 &
       - name: Wait
         uses: iFaxity/wait-on-action@v1
         with:
