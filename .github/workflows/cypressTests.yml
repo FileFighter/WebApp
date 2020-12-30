@@ -1,5 +1,9 @@
 name: End-to-end tests
-on: [push]
+on:
+  push:
+    paths:
+      - 'webapp_frontend/src/**'
+      - 'webapp_frontend/cypress/**'
 jobs:
   cypress-run:
     runs-on: ubuntu-16.04
