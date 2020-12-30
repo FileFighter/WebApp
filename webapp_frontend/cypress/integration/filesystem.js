@@ -1,4 +1,5 @@
 import '../support/index'
+import cy from "cypress"
 
 describe('The Home Page', () => {
 
