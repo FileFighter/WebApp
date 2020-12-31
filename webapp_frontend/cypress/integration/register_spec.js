@@ -13,9 +13,9 @@ describe('The register Page', () => {
 
     it('registers a user successfully', () => {
 
-        cy.wait(1000)
 
-        cy.get("#ff-heath-table > tbody > tr:nth-child(2) > td:nth-child(2)").then(($tr)=>
+
+        cy.get("#ff-heath-table > tbody > tr:nth-child(2) > td:nth-child(2)").contains(/^\d+/).then(($tr)=>
         {
             const currentUserCount = $tr.text()
 
@@ -45,14 +45,14 @@ describe('The register Page', () => {
 
         cy.get('input[id=formBasicPassword]').type(`${password}{enter}`)
 
-        // UI should reflect this user being logged in
+
         cy.get('h1').should('contain', 'FileFighter')
 
-            cy.wait(1000)
+
             let newUserCount = (parseInt(currentUserCount)+1).toString();
             cy.log(newUserCount);
 
-            cy.get("#ff-heath-table > tbody > tr:nth-child(2) > td:nth-child(2)").should('contain',newUserCount)
+            cy.get("#ff-heath-table > tbody > tr:nth-child(2) > td:nth-child(2)").contains(/^\d+/).should('contain',newUserCount)
         })
     })
 
