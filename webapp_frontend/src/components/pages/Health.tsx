@@ -51,7 +51,7 @@ export default function Health() {
 
 
             <div>
-                <Table striped bordered hover>
+                <Table striped bordered hover id={"ff-heath-table"}>
                     <thead>
                     <tr>
                         <th>Backend information</th>

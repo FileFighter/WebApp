@@ -1,0 +1,35 @@
+name: End-to-end tests
+on:
+  push:
+    paths:
+      - 'webapp_frontend/src/**'
+      - 'webapp_frontend/cypress/**'
+      - '.github/workflows/cypressTests.yml'
+jobs:
+  cypress-run:
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      # Install NPM dependencies, build the webpage and start it
+      # and run all Cypress tests
+      - name: Start FE
+        run: |
+            cd webapp_frontend
+            npm i
+            npm start &
+      - name: Wait
+        uses: iFaxity/wait-on-action@v1
+        with:
+          resource: http://localhost:3000
+          timeout: 120000
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          working-directory: ./webapp_frontend
+          record: true
+        env:
+          # pass the Dashboard record key as an environment variable
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
