@@ -69,7 +69,6 @@
     "prettier": "^2.1.2",
     "react-is": "^17.0.1",
     "react-test-renderer": "^17.0.1",
-    "sonarqube-scanner": "^2.8.0",
-    "wait-on": "^5.2.1"
+    "sonarqube-scanner": "^2.8.0"
   }
 }
