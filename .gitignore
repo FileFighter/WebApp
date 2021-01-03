@@ -377,4 +377,11 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Cypress
+
+webapp_frontend/cypress/screenshots
+webapp_frontend/cypress/videos
+
+
+
 # End of https://www.toptal.com/developers/gitignore/api/node,react,intellij,eclipse,windows,macos,osx,linux

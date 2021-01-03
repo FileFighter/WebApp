@@ -34,7 +34,7 @@ function Login(): ReactElement {
             <Row >
                 <Col md={{ span: 6, offset: 3 }}>
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="formBasicEmail">
+                        <Form.Group controlId="formBasicUsername">
                             <Form.Label>Username</Form.Label>
                             <Form.Control placeholder="Enter username" value={userName} onChange={event => setUsername(event.target.value)}/>
                         </Form.Group>

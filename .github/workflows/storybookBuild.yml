@@ -2,6 +2,8 @@ name: Storybook Release
 
 on:
   pull_request:
+    paths:
+      - 'webapp_frontend/src/**'
 
 jobs:
   Build_Docker_Image:
