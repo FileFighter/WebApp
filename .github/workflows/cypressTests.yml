@@ -5,6 +5,7 @@ on:
       - 'webapp_frontend/src/**'
       - 'webapp_frontend/cypress/**'
       - '.github/workflows/cypressTests.yml'
+      - 'webapp_frontend/package.json'
 jobs:
   cypress-run:
     runs-on: ubuntu-16.04
