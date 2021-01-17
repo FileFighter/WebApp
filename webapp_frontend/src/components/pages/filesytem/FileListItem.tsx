@@ -1,5 +1,5 @@
 import {FsEntity} from "../../../background/api/filesystemTypes";
-import React, {ReactElement} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {Col, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {
@@ -11,20 +11,44 @@ import {
     FileEarmarkPDFIcon,
     FileEarmarkPlayIcon,
     FileEarmarkRichtextIcon,
-    FileEarmarkTextIcon, FileEarmarkZipIcon,
+    FileEarmarkTextIcon,
+    FileEarmarkZipIcon,
     FolderIcon
 } from "../../../elements/svg/SymbolFile";
 import {reverseString} from "../../../background/methods/strings";
 import {getDateAsStringFromTimestamp} from "../../../background/methods/time";
 import {formatBytes} from "../../../background/methods/bytes";
+import {connect, ConnectedProps} from 'react-redux'
+import {SystemState} from "../../../background/redux/actions/sytemState";
+import {addToSelected, removeFromSelected} from "../../../background/redux/actions/filesystem";
 
-type Props = {
+const mapState = (state: SystemState) => ({
+})
+
+// this takes the redux actions and maps them to the props
+const mapDispatch = {
+    addToSelected, removeFromSelected
+}
+
+const connector = connect(mapState, mapDispatch)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+
+type Props = PropsFromRedux & {
     fileListItem: FsEntity;
     setPath?: Function,
+    currentFolderSelected: FsEntity[],
 }
 
 
-export default function FileListItem(props: Props): ReactElement {
+function FileListItem(props: Props): ReactElement {
+    const [isSelected, setIsSelected] = useState<boolean>(!!props.currentFolderSelected.find((e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId));
+
+
+    useEffect(()=>{
+       setIsSelected(!!props.currentFolderSelected.find((e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId));
+    },[props.currentFolderSelected])
 
     const ICON_PREFERENCES = {height: "40px", width: "auto", color: "secondary"}
 
@@ -74,11 +98,22 @@ export default function FileListItem(props: Props): ReactElement {
 
     }
 
+    const handleSelectedChanged = () => {
+        if (isSelected){
+            setIsSelected(false);
+            props.removeFromSelected(props.fileListItem);
+        }
+        else {
+            setIsSelected(true);
+            props.addToSelected(props.fileListItem)
+        }
+    }
+
 
     return (
         <>
             <Col xs={1}> <Form.Group controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" onChange={() => console.log(`[files] selected ${props.fileListItem.fileSystemId}`)}/>
+                <Form.Check checked={isSelected} type="checkbox" onChange={handleSelectedChanged}/>
             </Form.Group></Col>
             <Col xs={1}>{props.fileListItem.type}</Col>
             <Col xs={1}>{FileIcon(props.fileListItem.type === "FOLDER", props.fileListItem.name)}</Col>
@@ -87,9 +122,12 @@ export default function FileListItem(props: Props): ReactElement {
                 to={(props.fileListItem.path && props.fileListItem.type === "FOLDER") ? `/file${props.fileListItem.path ?? ""}` : `#${props.fileListItem.name}`}
                 onClick={onClick}>{props.fileListItem.name}</Link>
             </Col>
-            <Col xs={3}>{props.fileListItem.createdByUserId}</Col>
+            <Col xs={3}>{props.fileListItem.createdByUser.username}</Col>
             <Col xs={1}>{getDateAsStringFromTimestamp(props.fileListItem.lastUpdated)}</Col>
             <Col xs={1}>{formatBytes(props.fileListItem.size)}</Col>
         </>
     )
 }
+
+
+export default connector(FileListItem);
