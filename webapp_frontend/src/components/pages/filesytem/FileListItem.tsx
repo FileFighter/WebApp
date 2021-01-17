@@ -48,7 +48,7 @@ function FileListItem(props: Props): ReactElement {
 
     useEffect(()=>{
        setIsSelected(!!props.currentFolderSelected.find((e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId));
-    },[props.currentFolderSelected])
+    },[props.fileListItem.fileSystemId,props.currentFolderSelected])
 
     const ICON_PREFERENCES = {height: "40px", width: "auto", color: "secondary"}
 

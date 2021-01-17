@@ -41,7 +41,7 @@ function FileList(props: Props): ReactElement {
     const [sortedBy, setSortedBy] = useState<keyof FsEntity | null>(null)
     const [sortIncreasing, setSortIncreasing] = useState<boolean>(false)
     const [allAreSelected, setAllAreSelected] = useState<boolean | undefined>(false)
-    const [currentFolderSelected, setCurrentFolderSelected] = useState<FsEntity[]>(props.filesystem.selectedFsEnties.filter((e: FsEntity) => e.path.substr(0, path.length) == path))
+    const [currentFolderSelected, setCurrentFolderSelected] = useState<FsEntity[]>(props.filesystem.selectedFsEnties.filter((e: FsEntity) => e.path.substr(0, path.length) === path))
 
 
     console.log("[FileList path]" + path)
@@ -70,8 +70,8 @@ function FileList(props: Props): ReactElement {
     }, [path, location]);
 
     useEffect(() => {
-        setCurrentFolderSelected(props.filesystem.selectedFsEnties.filter((e: FsEntity) => e.path.substr(0, path.length) == path));
-    }, [folders, files, props.filesystem.selectedFsEnties])
+        setCurrentFolderSelected(props.filesystem.selectedFsEnties.filter((e: FsEntity) => e.path.substr(0, path.length) === path));
+    }, [folders, files,path, props.filesystem.selectedFsEnties])
 
     useEffect(() => {
         if (files && folders)
