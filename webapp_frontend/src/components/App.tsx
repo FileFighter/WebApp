@@ -47,7 +47,7 @@ function App(props: Props): ReactElement {
 
     if (props.tokens.checkedCookies) {
 
-        if ((props.tokens.refreshToken && props.tokens.accessToken)) {
+        if ((props.tokens.refreshToken && props.tokens.accessToken?.token)) {
 
             return (
                 <div className="App h-100 d-flex flex-column">
