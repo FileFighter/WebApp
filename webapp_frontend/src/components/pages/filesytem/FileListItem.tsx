@@ -33,16 +33,15 @@ const connector = connect(mapState, mapDispatch)
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-
 type Props = PropsFromRedux & {
     fileListItem: FsEntity;
     setPath?: Function,
     currentFolderSelected: FsEntity[],
 }
 
-
 function FileListItem(props: Props): ReactElement {
 
+    let isSelected=!!props.currentFolderSelected.find((e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId);
 
     const ICON_PREFERENCES = {height: "40px", width: "auto", color: "secondary"}
 
@@ -93,7 +92,7 @@ function FileListItem(props: Props): ReactElement {
     }
 
     const handleSelectedChanged = () => {
-        if (!!props.currentFolderSelected.find((e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId)) {
+        if (isSelected) {
             props.removeFromSelected(props.fileListItem);
         } else {
             props.addToSelected(props.fileListItem)
@@ -104,7 +103,7 @@ function FileListItem(props: Props): ReactElement {
     return (
         <>
             <Col xs={1}> <Form.Group controlId="formBasicCheckbox">
-                <Form.Check checked={!!props.currentFolderSelected.find((e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId)} type="checkbox"
+                <Form.Check checked={isSelected} type="checkbox"
                             onChange={handleSelectedChanged}/>
             </Form.Group></Col>
             <Col xs={1}>{props.fileListItem.type}</Col>
