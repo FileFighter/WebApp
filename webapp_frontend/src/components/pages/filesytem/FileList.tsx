@@ -71,7 +71,7 @@ function FileList(props: Props): ReactElement {
 
     useEffect(() => {
         setCurrentFolderSelected(props.filesystem.selectedFsEnties.filter((e: FsEntity) => e.path.substr(0, path.length) === path));
-    }, [folders, files,path, props.filesystem.selectedFsEnties])
+    }, [folders, files, path, props.filesystem.selectedFsEnties])
 
     useEffect(() => {
         if (files && folders)

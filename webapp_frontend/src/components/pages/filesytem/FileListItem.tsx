@@ -1,5 +1,5 @@
 import {FsEntity} from "../../../background/api/filesystemTypes";
-import React, {ReactElement, useEffect, useState} from "react";
+import React, {ReactElement} from "react";
 import {Col, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {
@@ -22,8 +22,7 @@ import {connect, ConnectedProps} from 'react-redux'
 import {SystemState} from "../../../background/redux/actions/sytemState";
 import {addToSelected, removeFromSelected} from "../../../background/redux/actions/filesystem";
 
-const mapState = (state: SystemState) => ({
-})
+const mapState = (state: SystemState) => ({})
 
 // this takes the redux actions and maps them to the props
 const mapDispatch = {
@@ -43,12 +42,7 @@ type Props = PropsFromRedux & {
 
 
 function FileListItem(props: Props): ReactElement {
-    const [isSelected, setIsSelected] = useState<boolean>(!!props.currentFolderSelected.find((e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId));
 
-
-    useEffect(()=>{
-       setIsSelected(!!props.currentFolderSelected.find((e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId));
-    },[props.fileListItem.fileSystemId,props.currentFolderSelected])
 
     const ICON_PREFERENCES = {height: "40px", width: "auto", color: "secondary"}
 
@@ -99,12 +93,9 @@ function FileListItem(props: Props): ReactElement {
     }
 
     const handleSelectedChanged = () => {
-        if (isSelected){
-            setIsSelected(false);
+        if (!!props.currentFolderSelected.find((e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId)) {
             props.removeFromSelected(props.fileListItem);
-        }
-        else {
-            setIsSelected(true);
+        } else {
             props.addToSelected(props.fileListItem)
         }
     }
@@ -113,7 +104,8 @@ function FileListItem(props: Props): ReactElement {
     return (
         <>
             <Col xs={1}> <Form.Group controlId="formBasicCheckbox">
-                <Form.Check checked={isSelected} type="checkbox" onChange={handleSelectedChanged}/>
+                <Form.Check checked={!!props.currentFolderSelected.find((e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId)} type="checkbox"
+                            onChange={handleSelectedChanged}/>
             </Form.Group></Col>
             <Col xs={1}>{props.fileListItem.type}</Col>
             <Col xs={1}>{FileIcon(props.fileListItem.type === "FOLDER", props.fileListItem.name)}</Col>
