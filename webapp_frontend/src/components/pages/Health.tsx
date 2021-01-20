@@ -50,7 +50,7 @@ export default function Health() {
                 return DataIntegrity[systemHealthData.dataIntegrity]
             }
             console.log("[HEALTH] Couldn't parse SystemHealth string to enum.")
-            return "not reachable"
+            return errorMsg
         }
     }
 
