@@ -13,7 +13,7 @@ enum DataIntegrity {
     UNSTABLE = "systemHealth/traffic_red.png"
 }
 
-interface BackendHealthData {
+interface SystemHealthData {
     uptimeInSeconds: number;
     userCount: number;
     dataIntegrity: string;
@@ -22,7 +22,7 @@ interface BackendHealthData {
     version: string;
 }
 
-function callBackendHealth(): Promise<BackendHealthData> {
+function callBackendHealth(): Promise<SystemHealthData> {
     return new Promise((resolve, reject) => {
         Axios.get(`${hostname}/health`)
             .then((data) => {
@@ -34,4 +34,5 @@ function callBackendHealth(): Promise<BackendHealthData> {
     });
 }
 
-export { callBackendHealth, DataIntegrity }
+export { callBackendHealth, DataIntegrity };
+export type { SystemHealthData };

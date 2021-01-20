@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../assets/images/logos/logo.png";
 import { Button, Table, Container } from "react-bootstrap";
-import { callBackendHealth, DataIntegrity } from "../../background/api/api";
+import { callBackendHealth, DataIntegrity, SystemHealthData } from "../../background/api/api";
 import { audioOnOff, setAudioVolumeByID } from "../../background/methods/sound"
 import { logout } from "../../background/api/auth";
 import { getDurationAsString } from "../../background/methods/time";
@@ -9,13 +9,8 @@ import { hasKey } from "../../background/methods/ObjectKeysTS";
 
 export default function Health() {
 
-    // TODO: maybe refactor this?
-    const [uptimeInSeconds, setUptimeInSeconds] = useState<number | "not reachable">("not reachable");
-    const [userCount, setUserCount] = useState<number | "not reachable">("not reachable");
-    const [dataIntegrity, setDataIntegrity] = useState<string | "not reachable">("not reachable");
-    const [deployment, setDeployment] = useState<string | "not reachable">("not reachable");
-    const [usedStorageInMb, setUsedStorageInMb] = useState<number | "not reachable">("not reachable");
-    const [version, setVersion] = useState<string | "not reachable">("not reachable");
+    const [systemHealthData, setSystemHealthData] = useState<SystemHealthData | null>(null);
+    const errorMsg = "not reachable";
 
     useEffect(() => {
         updateVariables();
@@ -31,38 +26,28 @@ export default function Health() {
 
     function updateVariables(): void {
         Promise.all([callBackendHealth()])
-            .then(([backendHealthData]) => {
-                setUptimeInSeconds(backendHealthData.uptimeInSeconds);
-                setUserCount(backendHealthData.userCount);
-                setDataIntegrity(backendHealthData.dataIntegrity);
-                setDeployment(backendHealthData.deployment);
-                setUsedStorageInMb(backendHealthData.usedStorageInMb);
-                setVersion(backendHealthData.version)
+            .then(([data]) => {
+                setSystemHealthData(data)
             })
             .catch(() => {
-                setUptimeInSeconds("not reachable");
-                setUserCount("not reachable");
-                setDataIntegrity("not reachable");
-                setDeployment("not reachable");
-                setUsedStorageInMb("not reachable");
-                setVersion("not reachable")
+                setSystemHealthData(null)
             })
     }
 
     function transformToUptime(): string {
-        if (uptimeInSeconds === "not reachable") {
-            return uptimeInSeconds
+        if (null === systemHealthData) {
+            return errorMsg
         } else {
-            return getDurationAsString(uptimeInSeconds)
+            return getDurationAsString(systemHealthData.uptimeInSeconds)
         }
     }
 
     function getPathOfDataIntegrity(): string {
-        if (dataIntegrity === "not reachable") {
-            return "not reachable"
+        if (null === systemHealthData) {
+            return errorMsg
         } else {
-            if (hasKey(DataIntegrity, dataIntegrity)) {
-                return DataIntegrity[dataIntegrity]
+            if (hasKey(DataIntegrity, systemHealthData.dataIntegrity)) {
+                return DataIntegrity[systemHealthData.dataIntegrity]
             }
             console.log("[HEALTH] Couldn't parse SystemHealth string to enum.")
             return "not reachable"
@@ -94,11 +79,11 @@ export default function Health() {
                     <tbody>
                         <tr>
                             <td>Deployment Type</td>
-                            <td>{deployment}</td>
+                            <td>{(systemHealthData === null || systemHealthData.deployment === null) ? errorMsg : systemHealthData.deployment}</td>
                         </tr>
                         <tr>
                             <td>Version</td>
-                            <td>{version}</td>
+                            <td>{(systemHealthData === null || systemHealthData.version === null) ? errorMsg : systemHealthData.version}</td>
                         </tr>
                         <tr>
                             <td>Uptime</td>
@@ -106,15 +91,15 @@ export default function Health() {
                         </tr>
                         <tr>
                             <td>Usercount</td>
-                            <td>{userCount}</td>
+                            <td>{(systemHealthData === null || systemHealthData.userCount === null) ? errorMsg : systemHealthData.userCount}</td>
                         </tr>
                         <tr>
                             <td>Used Storage</td>
-                            <td>{usedStorageInMb} Mb</td>
+                            <td>{(systemHealthData === null || systemHealthData.usedStorageInMb === null) ? errorMsg : systemHealthData.usedStorageInMb}</td>
                         </tr>
                         <tr>
                             <td>Data Integrity</td>
-                            <td><img src={getPathOfDataIntegrity()} alt={dataIntegrity}></img></td>
+                            <td><img src={getPathOfDataIntegrity()} alt={(systemHealthData === null || systemHealthData.dataIntegrity === null) ? errorMsg : systemHealthData.dataIntegrity}></img></td>
                         </tr>
                     </tbody>
                 </Table>
