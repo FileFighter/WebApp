@@ -10,7 +10,11 @@ export const filesystemPath: string = '/v1/filesystem';
 
 interface BackendHealthData {
     uptimeInSeconds: number;
-    userCount: number
+    userCount: number;
+    dataIntegrity: string;
+    deployment: string;
+    usedStorageInMb: number;
+    version: string;
 }
 
 function callBackendHealth(): Promise<BackendHealthData> {
