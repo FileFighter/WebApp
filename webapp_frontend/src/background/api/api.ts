@@ -18,7 +18,7 @@ interface SystemHealthData {
     userCount: number;
     dataIntegrity: string;
     deployment: string;
-    usedStorageInMb: number;
+    usedStorageInMb: number; // TODO: refactor this in RESTAPI.
     version: string;
 }
 

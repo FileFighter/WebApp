@@ -6,10 +6,12 @@ import { audioOnOff, setAudioVolumeByID } from "../../background/methods/sound"
 import { logout } from "../../background/api/auth";
 import { getDurationAsString } from "../../background/methods/time";
 import { hasKey } from "../../background/methods/ObjectKeysTS";
+import { formatBytes } from "../../background/methods/bytes";
+import { FFLoading } from "../../components/basicElements/Loading";
 
 export default function Health() {
 
-    const [systemHealthData, setSystemHealthData] = useState<SystemHealthData | null>(null);
+    const [systemHealthData, setSystemHealthData] = useState<SystemHealthData | null | "loading">("loading");
     const errorMsg = "not reachable";
 
     useEffect(() => {
@@ -34,23 +36,60 @@ export default function Health() {
             })
     }
 
-    function transformToUptime(): string {
-        if (null === systemHealthData) {
-            return errorMsg
-        } else {
-            return getDurationAsString(systemHealthData.uptimeInSeconds)
+    function getPathOfDataIntegrity(dataIntegrity: string): string {
+        if (hasKey(DataIntegrity, dataIntegrity)) {
+            return DataIntegrity[dataIntegrity]
         }
+        console.log("[HEALTH] Couldn't parse SystemHealth string to enum.")
+        return errorMsg
     }
 
-    function getPathOfDataIntegrity(): string {
-        if (null === systemHealthData) {
-            return errorMsg
+    function HealthContainer(): JSX.Element {
+        if (systemHealthData === null) {
+            return <p>{errorMsg}</p>
+        } if (systemHealthData === "loading") {
+            return <FFLoading />
         } else {
-            if (hasKey(DataIntegrity, systemHealthData.dataIntegrity)) {
-                return DataIntegrity[systemHealthData.dataIntegrity]
-            }
-            console.log("[HEALTH] Couldn't parse SystemHealth string to enum.")
-            return errorMsg
+            return (
+                <Container>
+                    <div>
+                        <Table striped bordered hover id={"ff-heath-table"}>
+                            <thead>
+                                <tr>
+                                    <th>System Health</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Deployment Type</td>
+                                    <td>{systemHealthData.deployment}</td>
+                                </tr>
+                                <tr>
+                                    <td>Version</td>
+                                    <td>{systemHealthData.version}</td>
+                                </tr>
+                                <tr>
+                                    <td>Uptime</td>
+                                    <td>{getDurationAsString(systemHealthData.uptimeInSeconds)}</td>
+                                </tr>
+                                <tr>
+                                    <td>Usercount</td>
+                                    <td>{systemHealthData.userCount}</td>
+                                </tr>
+                                <tr>
+                                    <td>Used Storage</td>
+                                    <td>{formatBytes(systemHealthData.usedStorageInMb)}</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Integrity</td>
+                                    <td><img src={getPathOfDataIntegrity(systemHealthData.dataIntegrity)} alt={systemHealthData.dataIntegrity}></img></td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </div >
+                    <Button onClick={() => logout()}>Logout</Button>
+                </Container>
+            )
         }
     }
 
@@ -69,42 +108,7 @@ export default function Health() {
                 }}
             />
 
-            <div>
-                <Table striped bordered hover id={"ff-heath-table"}>
-                    <thead>
-                        <tr>
-                            <th>System Health</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Deployment Type</td>
-                            <td>{(systemHealthData === null || systemHealthData.deployment === null) ? errorMsg : systemHealthData.deployment}</td>
-                        </tr>
-                        <tr>
-                            <td>Version</td>
-                            <td>{(systemHealthData === null || systemHealthData.version === null) ? errorMsg : systemHealthData.version}</td>
-                        </tr>
-                        <tr>
-                            <td>Uptime</td>
-                            <td>{transformToUptime()}</td>
-                        </tr>
-                        <tr>
-                            <td>Usercount</td>
-                            <td>{(systemHealthData === null || systemHealthData.userCount === null) ? errorMsg : systemHealthData.userCount}</td>
-                        </tr>
-                        <tr>
-                            <td>Used Storage</td>
-                            <td>{(systemHealthData === null || systemHealthData.usedStorageInMb === null) ? errorMsg : systemHealthData.usedStorageInMb}</td>
-                        </tr>
-                        <tr>
-                            <td>Data Integrity</td>
-                            <td><img src={getPathOfDataIntegrity()} alt={(systemHealthData === null || systemHealthData.dataIntegrity === null) ? errorMsg : systemHealthData.dataIntegrity}></img></td>
-                        </tr>
-                    </tbody>
-                </Table>
-            </div>
-            <Button onClick={() => logout()}>Logout</Button>
+            <HealthContainer />
         </Container>
     )
 }
