@@ -55,8 +55,6 @@ function FileList(props: Props): ReactElement {
   );
   const clearSelected = props.clearSelected;
 
-  console.log("[FileList path]" + path);
-
   useEffect(() => {
     function updateStates(): void {
       getFolderContents(path)
@@ -68,12 +66,11 @@ function FileList(props: Props): ReactElement {
             ),
             ...response.filter((fsEntiy: FsEntity) => fsEntiy.type !== "FOLDER")
           ]);
-
           setError("");
         })
         .catch((err) => {
           setError(err.response?.data.message);
-          setFilesAndFolders([]);
+          setFilesAndFolders(null);
         });
     }
 
@@ -114,7 +111,7 @@ function FileList(props: Props): ReactElement {
   //     console.log(filesa)
   //     console.log()
   // console.log("--------------------------------------------------------------------------------------")
-
+  console.log("[FileList path]" + path);
   return (
     <Container fluid>
       <FilesBreadcrumb path={path} setPath={setPath} />
