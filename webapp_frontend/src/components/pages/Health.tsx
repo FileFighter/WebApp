@@ -54,7 +54,7 @@ export default function Health() {
       return <p>{errorMsg}</p>;
     }
     if (systemHealthData === "loading") {
-      return <FFLoading />;
+      return( <Container><FFLoading /></Container>);
     } else {
       return (
         <Container>
