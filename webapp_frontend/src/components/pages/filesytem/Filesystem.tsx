@@ -1,24 +1,18 @@
-import React, {ReactElement} from "react";
+import React, { ReactElement } from "react";
 import FileList from "./FileList";
 import SelectedFsEntities from "./SelectedFsEntities";
 
-export const filesBaseUrl = '/file';
+export const filesBaseUrl = "/file";
 
-
-type Props = {}
-
+type Props = {};
 
 function FileSystem(props: Props): ReactElement {
-
-
-    return (
-        <>
-
-            <SelectedFsEntities/>
-            <FileList/>
-        </>
-    )
+  return (
+    <>
+      <SelectedFsEntities />
+      <FileList />
+    </>
+  );
 }
-
 
 export default FileSystem;

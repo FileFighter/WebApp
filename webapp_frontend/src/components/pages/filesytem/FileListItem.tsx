@@ -22,7 +22,11 @@ import {connect, ConnectedProps} from 'react-redux'
 import {SystemState} from "../../../background/redux/actions/sytemState";
 import {addToSelected, removeFromSelected} from "../../../background/redux/actions/filesystem";
 
-const mapState = (state: SystemState) => ({})
+const mapState = (state: SystemState) => ({
+    filesystem: {
+        selectedFsEnties: state.filesystem.selectedFsEnties
+    },
+})
 
 // this takes the redux actions and maps them to the props
 const mapDispatch = {
@@ -36,12 +40,11 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 type Props = PropsFromRedux & {
     fileListItem: FsEntity;
     setPath?: Function,
-    currentFolderSelected: FsEntity[],
 }
 
 function FileListItem(props: Props): ReactElement {
 
-    let isSelected=!!props.currentFolderSelected.find((e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId);
+    let isSelected = !!props.filesystem.selectedFsEnties.find((e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId);
 
     const ICON_PREFERENCES = {height: "40px", width: "auto", color: "secondary"}
 
