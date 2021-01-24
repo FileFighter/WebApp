@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../assets/images/logos/logo.png";
-import { Button, Table, Container } from "react-bootstrap";
+import {
+  Button,
+  Table,
+  Container,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import {
   callBackendHealth,
   DataIntegrity,
@@ -12,6 +18,7 @@ import { getDurationAsString } from "../../background/methods/time";
 import { hasKey } from "../../background/methods/ObjectKeysTS";
 import { formatBytes } from "../../background/methods/bytes";
 import { FFLoading } from "../../components/basicElements/Loading";
+import traffic_light from "../../assets/images/icons/material.io/traffic_light.svg";
 
 export default function Health() {
   const [systemHealthData, setSystemHealthData] = useState<
@@ -54,7 +61,7 @@ export default function Health() {
       return <p>{errorMsg}</p>;
     }
     if (systemHealthData === "loading") {
-      return( <Container><FFLoading /></Container>);
+      return <FFLoading />;
     } else {
       return (
         <Container>
@@ -91,12 +98,23 @@ export default function Health() {
                 <tr>
                   <td>Data Integrity</td>
                   <td>
-                    <img
-                      src={getPathOfDataIntegrity(
-                        systemHealthData.dataIntegrity
-                      )}
-                      alt={systemHealthData.dataIntegrity}
-                    ></img>
+                    <OverlayTrigger
+                      placement="right"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={
+                        <Tooltip id="button-tooltip" className={"pl-3"}>
+                          {systemHealthData.dataIntegrity}
+                        </Tooltip>
+                      }
+                    >
+                      <img
+                        className={getPathOfDataIntegrity(
+                          systemHealthData.dataIntegrity
+                        )}
+                        src={traffic_light}
+                        alt={systemHealthData.dataIntegrity}
+                      />
+                    </OverlayTrigger>
                   </td>
                 </tr>
               </tbody>

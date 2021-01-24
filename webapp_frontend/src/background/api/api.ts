@@ -8,9 +8,9 @@ export const userPath: string = "/v1/users";
 export const filesystemPath: string = "/v1/filesystem";
 
 enum DataIntegrity {
-  STABLE = "systemHealth/traffic_green.png",
-  POSSIBLE_RISK = "systemHealth/traffic_yellow.png",
-  UNSTABLE = "systemHealth/traffic_red.png",
+  STABLE = "bg-success",
+  POSSIBLE_RISK = "bg-warning",
+  UNSTABLE = "bg-danger",
 }
 
 interface SystemHealthData {
