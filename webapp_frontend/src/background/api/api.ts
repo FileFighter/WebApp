@@ -1,28 +1,38 @@
-import Axios, {} from "axios";
-import {constants} from "../constants";
+import Axios from "axios";
+import { constants } from "../constants";
 
 export const hostname: string = constants.url.API_URL;
 
-export const userPath: string = '/v1/users';
+export const userPath: string = "/v1/users";
 
-export const filesystemPath: string = '/v1/filesystem';
+export const filesystemPath: string = "/v1/filesystem";
 
-
-interface BackendHealthData {
-    uptimeInSeconds: number;
-    userCount: number
+enum DataIntegrity {
+  STABLE = "bg-success",
+  POSSIBLE_RISK = "bg-warning",
+  UNSTABLE = "bg-danger",
 }
 
-function callBackendHealth(): Promise<BackendHealthData> {
-    return new Promise((resolve, reject) => {
-        Axios.get(`${hostname}/health`)
-            .then((data) => {
-                resolve(data.data);
-            })
-            .catch(((error) => {
-                reject(error);
-            }));
-    });
+interface SystemHealthData {
+  uptimeInSeconds: number;
+  userCount: number;
+  dataIntegrity: string;
+  deployment: string;
+  usedStorageInBytes: number;
+  version: string;
 }
 
-export {callBackendHealth}
+function callBackendHealth(): Promise<SystemHealthData> {
+  return new Promise((resolve, reject) => {
+    Axios.get(`${hostname}/health`)
+      .then((data) => {
+        resolve(data.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+export { callBackendHealth, DataIntegrity };
+export type { SystemHealthData };
