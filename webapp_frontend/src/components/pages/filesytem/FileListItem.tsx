@@ -71,9 +71,7 @@ export default function FileListItem(props: Props): ReactElement {
         if (props.fileListItem.type === "FOLDER" && props.setPath && props.fileListItem.path) {
             props.setPath(props.fileListItem.path)
         }
-
     }
-
 
     return (
         <>

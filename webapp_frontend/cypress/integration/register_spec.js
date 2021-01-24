@@ -15,7 +15,7 @@ describe('The register Page', () => {
 
 
 
-        cy.get("#ff-heath-table > tbody > tr:nth-child(2) > td:nth-child(2)").contains(/^\d+/).then(($tr)=>
+        cy.get("#ff-heath-table > tbody > tr:nth-child(4) > td:nth-child(2)").contains(/^\d+/).then(($tr)=>
         {
             const currentUserCount = $tr.text()
 
@@ -52,7 +52,7 @@ describe('The register Page', () => {
             let newUserCount = (parseInt(currentUserCount)+1).toString();
             cy.log(newUserCount);
 
-            cy.get("#ff-heath-table > tbody > tr:nth-child(2) > td:nth-child(2)").contains(/^\d+/).should('contain',newUserCount)
+            cy.get("#ff-heath-table > tbody > tr:nth-child(4) > td:nth-child(2)").contains(/^\d+/).should('contain',newUserCount)
         })
     })
 
