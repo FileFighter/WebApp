@@ -21,23 +21,30 @@ function SelectedFsEntities(props: Props): ReactElement {
         <OverlayTrigger
           placement={"bottom"}
           overlay={
-            <Tooltip id={`tooltip-bottom`} className={"bg-dark"}>
-              <ul>
+            <Tooltip id={`tooltip-bottom`} className={""}>
+              <ul className={"list-group"}>
                 {props.selectedFsEnties.map((e: FsEntity, i) => {
-                  return <li key={i}>{e.path}</li>;
+                  return (
+                    <li
+                      className={"list-group-item list-group-item-dark"}
+                      key={i}
+                    >
+                      {e.path}
+                    </li>
+                  );
                 })}
               </ul>
             </Tooltip>
           }
         >
-          <span>
+          <span className={"pr-2 pt-2"}>
             Selected {props.selectedFsEnties.length} file
             {props.selectedFsEnties.length > 1 ? "s" : ""}
           </span>
         </OverlayTrigger>
       </>
     );
-  else return <></>;
+  else return <span></span>;
 }
 
 export default connector(SelectedFsEntities);
