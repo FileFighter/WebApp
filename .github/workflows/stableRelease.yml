@@ -34,5 +34,6 @@ jobs:
         name: Push Image to DockerHub Registry
         run: |
           VERSION=${{ steps.vars.outputs.tag }}
-          docker build -t filefighter/frontend:$VERSION webapp_provider/
+          docker build -t filefighter/frontend:$VERSION -t filefighter/frontend:stable webapp_provider/
           docker push filefighter/frontend:$VERSION
+          docker push filefighter/frontend:stable
