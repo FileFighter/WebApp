@@ -3,12 +3,17 @@ import { connect, ConnectedProps } from "react-redux";
 import React, { ReactElement } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FsEntity } from "../../../background/api/filesystemTypes";
+import { clearSelected } from "../../../background/redux/actions/filesystem";
 
 const mapState = (state: SystemState) => ({
   selectedFsEnties: state.filesystem.selectedFsEnties
 });
 
-const connector = connect(mapState);
+const mapDispatch = {
+  clearSelected
+};
+
+const connector = connect(mapState, mapDispatch);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -41,6 +46,25 @@ function SelectedFsEntities(props: Props): ReactElement {
             Selected {props.selectedFsEnties.length} file
             {props.selectedFsEnties.length > 1 ? "s" : ""}
           </span>
+        </OverlayTrigger>
+        <OverlayTrigger
+          placement={"bottom"}
+          overlay={
+            <Tooltip id={`tooltip-bottom`} className={"bg-light text-dark m-1"}>
+              Clear the selection
+            </Tooltip>
+          }
+        >
+          <button
+            type="button"
+            aria-label="Close"
+            className={"close mr-2 text-primary"}
+            onClick={props.clearSelected}
+          >
+            <span className={"text-shadow-none"} aria-hidden="true">
+              &times;
+            </span>
+          </button>
         </OverlayTrigger>
       </>
     );
