@@ -100,17 +100,6 @@ function FileList(props: Props): ReactElement {
     );
   }
 
-  // console.log("--------------------------------------------------------------------------------------")
-  //     console.log(folders)
-  //     let foldersa = folders ? [...folders] : []
-  //     let filesa = files ? [...files] : []
-  //     let sortedFoldersa = sortObjectsInArrayByProperty(foldersa, "name")
-  //     let sortedFilesa = sortObjectsInArrayByProperty(filesa, "name")
-  //     console.log(sortedFoldersa)
-  //     console.log("---------")
-  //     console.log(filesa)
-  //     console.log()
-  // console.log("--------------------------------------------------------------------------------------")
   console.log("[FileList path]" + path);
   return (
     <Container fluid>
