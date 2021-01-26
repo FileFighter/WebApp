@@ -38,7 +38,7 @@ export const checkForCookie=()=>{
 
 
 export const loginWithUsernameAndPassword = (userName: string, password: string,stayLoggedIn:boolean): Promise<BackendLoginData> => {
-console.log("[Auth] loginWithUsernameAndPassword")
+console.log("[Auth] loginWithUsernameAndPassword",userName,password)
     return new Promise<BackendLoginData>((resolve, reject) => {
         let config = {
             headers: {

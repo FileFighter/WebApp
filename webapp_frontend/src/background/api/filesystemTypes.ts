@@ -1,3 +1,5 @@
+import {UserState} from "../redux/actions/userTypes";
+
 export interface UsersSet {
     groups: string[];
     id: number;
@@ -14,7 +16,7 @@ export interface PermissionSet {
 
 
 export interface FsEntity {
-    createdByUserId: number;
+    createdByUser: UserState;
     fileSystemId: number;
     lastUpdated: number;
     name: string;
