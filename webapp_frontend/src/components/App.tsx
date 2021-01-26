@@ -6,7 +6,6 @@ import {BrowserRouter} from "react-router-dom";
 import Router from "./Router/Router";
 import PermanentAssets from "./basicElements/PermanentAssets";
 
-
 import {connect, ConnectedProps} from 'react-redux'
 import {addAccessToken, addRefreshToken, checkedCookies} from "../background/redux/actions/tokens";
 import {SystemState} from "../background/redux/actions/sytemState";
@@ -48,7 +47,7 @@ function App(props: Props): ReactElement {
 
     if (props.tokens.checkedCookies) {
 
-        if ((props.tokens.refreshToken && props.tokens.accessToken)) {
+        if ((props.tokens.refreshToken && props.tokens.accessToken?.token)) {
 
             return (
                 <div className="App h-100 d-flex flex-column">
