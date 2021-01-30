@@ -1,0 +1,35 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "major": {
+    "addLabels": ["major"]
+  },
+  "minor": {
+    "addLabels": ["minor"]
+  },
+  "patch": {
+    "addLabels": ["patch"]
+  },
+  "packageRules": [
+    {
+      "depTypeList": ["devDependencies"],
+      "updateTypes": ["patch"],
+      "groupName": "devDependencies (patch)",
+      "groupSlug": "dev-dependencies"
+    },
+    {
+      "packagePatterns": ["^eslint"],
+      "groupName": "eslint packages",
+      "groupSlug": "eslint"
+    },
+    {
+      "packagePatterns": ["^@storybook"],
+      "groupName": "storybook packages",
+      "groupSlug": "storybook"
+    },
+    {
+      "packagePatterns": ["^@testing-library"],
+      "groupName": "@testing-library packages",
+      "groupSlug": "@testing-library"
+    }
+  ]
+}
