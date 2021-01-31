@@ -1,115 +1,122 @@
-import Axios from "axios";
+import Axios, { AxiosResponse } from "axios";
 
+import { hostname, userPath } from "./api";
 
-import {hostname, userPath} from "./api";
-
-import {UserState} from "../redux/actions/userTypes";
+import { UserState } from "../redux/actions/userTypes";
 import store from "../redux/store";
-import {addAccessToken, addRefreshToken, checkedCookies, removeTokens} from "../redux/actions/tokens";
-import {addUser} from "../redux/actions/user";
-import {AccessToken} from "../redux/actions/tokenTypes";
-import {deleteCookie, getCookie, setCookie} from "../methods/cookies";
-
+import {
+  addAccessToken,
+  addRefreshToken,
+  checkedCookies,
+  removeTokens
+} from "../redux/actions/tokens";
+import { addUser } from "../redux/actions/user";
+import { AccessToken } from "../redux/actions/tokenTypes";
+import { deleteCookie, getCookie, setCookie } from "../methods/cookies";
 
 // reference: https://daveceddia.com/access-redux-store-outside-react/
 
-
-const cookieName:string='refreshToken';
+const cookieName: string = "refreshToken";
 
 export interface BackendLoginData {
-    refreshToken: string,
-    user: UserState
-
+  tokenValue: string;
+  user: UserState;
 }
 
-
-export const checkForCookie=()=>{
-    let refreshTokenCookieValue=getCookie(cookieName)
-    if (refreshTokenCookieValue){
-        store.dispatch(addRefreshToken(refreshTokenCookieValue))
-        getAccessTokenWithRefreshToken();
-
-    }
-    store.dispatch(checkedCookies(true))
-
-
+export interface BackendAuthData {
+  tokenValue: string;
+  userId: number;
+  validUntil: number;
 }
 
+export const checkForCookie = () => {
+  let refreshTokenCookieValue = getCookie(cookieName);
+  if (refreshTokenCookieValue) {
+    store.dispatch(addRefreshToken(refreshTokenCookieValue));
+    getAccessTokenWithRefreshToken();
+  }
+  store.dispatch(checkedCookies(true));
+};
 
-
-export const loginWithUsernameAndPassword = (userName: string, password: string,stayLoggedIn:boolean): Promise<BackendLoginData> => {
-console.log("[Auth] loginWithUsernameAndPassword",userName,password)
-    return new Promise<BackendLoginData>((resolve, reject) => {
-        let config = {
-            headers: {
-                Authorization: `Basic ${btoa(userName + ':' + password)}`,
-            },
-        };
-
-        return Axios.get(hostname + userPath + '/login', config)
-            .then((data) => {
-                console.log(data.data)
-                store.dispatch(addRefreshToken(data.data.tokenValue))
-                store.dispatch(addUser(data.data.user as UserState))
-
-                if (stayLoggedIn){
-                    setCookie(cookieName,data.data.tokenValue,60)
-                }
-
-
-                getAccessTokenWithRefreshToken()
-            })
-            .catch(((error) => {
-
-                reject(error);
-            }))
-
-
-    })
-}
-
-export const getAccessTokenWithRefreshToken = () => {
-    console.log("getAccessTokenWithRefreshToken")
-
-    let refreshToken: string|null = (store.getState().tokens).refreshToken;
-
+export const loginWithUsernameAndPassword = (
+  userName: string,
+  password: string,
+  stayLoggedIn: boolean
+): Promise<BackendLoginData> => {
+  console.log("[Auth] loginWithUsernameAndPassword", userName, password);
+  return new Promise<BackendLoginData>((resolve, reject) => {
     let config = {
-        headers: {
-            Authorization: `Bearer ${refreshToken}`,
-        },
+      headers: {
+        Authorization: `Basic ${btoa(userName + ":" + password)}`
+      }
     };
 
+    return Axios.get<BackendLoginData>(hostname + userPath + "/login", config)
+      .then((data: AxiosResponse<BackendLoginData>) => {
+        console.log(data.data);
+        store.dispatch(addRefreshToken(data.data.tokenValue));
+        store.dispatch(addUser(data.data.user as UserState));
 
+        if (stayLoggedIn) {
+          setCookie(cookieName, data.data.tokenValue, 60);
+        }
 
-    Axios.get(hostname + userPath + '/auth', config)
-        .then((data) => {
-            setAuthHeaderToAxios(data.data.tokenValue)
+        getAccessTokenWithRefreshToken();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
 
-            store.dispatch(addAccessToken({token: data.data.tokenValue, timestamp: data.data.validUntil}as AccessToken));
+export const getAccessTokenWithRefreshToken = () => {
+  console.log("getAccessTokenWithRefreshToken");
 
-            //TODO: also get User data here
+  let refreshToken: string | null = store.getState().tokens.refreshToken;
 
+  let config = {
+    headers: {
+      Authorization: `Bearer ${refreshToken}`
+    }
+  };
 
-        })
-        .catch(((error) => {
-            store.dispatch(removeTokens());
+  Axios.get<BackendAuthData>(hostname + userPath + "/auth", config)
+    .then((data: AxiosResponse<BackendAuthData>) => {
+      setAuthHeaderToAxios(data.data.tokenValue);
 
-            console.log(error)
-            //you probably want to notify the user, maybe with a toast or similar
+      store.dispatch(
+        addAccessToken({
+          token: data.data.tokenValue,
+          timestamp: data.data.validUntil
+        } as AccessToken)
+      );
+      if (!store.getState().user.username) {
+        getOwnUserData(data.data.userId);
+      }
+    })
+    .catch((error) => {
+      store.dispatch(removeTokens());
 
-        }));
+      console.log(error);
+      //you probably want to notify the user, maybe with a toast or similar
+    });
+};
 
-}
+const getOwnUserData = (userId: number) => {
+  Axios.get<UserState>(`${hostname}${userPath}/${userId}/info`)
+    .then((response: AxiosResponse<UserState>) => {
+      store.dispatch(addUser(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
-
-
-
-export const logout=()=>{
-    store.dispatch(removeTokens());
-    deleteCookie(cookieName);
-}
+export const logout = () => {
+  store.dispatch(removeTokens());
+  deleteCookie(cookieName);
+};
 
 function setAuthHeaderToAxios(accessToken: string) {
-    Axios.defaults.headers.common['Authorization'] =
-        `Bearer ${accessToken}`;
+  Axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 }
