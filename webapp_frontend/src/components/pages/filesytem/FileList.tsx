@@ -66,7 +66,7 @@ function FileList(props: Props): ReactElement {
           setError("");
         })
         .catch((err) => {
-          setError(err.response?.data.message);
+          setError(err.response?.data?.message);
           setFilesAndFolders(null);
         });
     }
@@ -117,8 +117,7 @@ function FileList(props: Props): ReactElement {
     <Container fluid>
       <FilesBreadcrumb path={path} setPath={setPath} />
       <Row>
-        <Col xs={1}>
-          {" "}
+        <Col xs={2} md={1}>
           <Form.Group controlId="formBasicCheckbox">
             <Form.Check
               checked={allAreSelected}
@@ -127,21 +126,25 @@ function FileList(props: Props): ReactElement {
             />
           </Form.Group>
         </Col>
-        <Col xs={1} onClick={() => handleSortClick("type")}>
+        <Col
+          xs={2}
+          md={1}
+          className="text-center"
+          onClick={() => handleSortClick("type")}
+        >
           {"Type"}
         </Col>
-        <Col xs={1}>{}</Col>
-        <Col xs={1}>{"Share"}</Col>
-        <Col xs={3} onClick={() => handleSortClick("name")}>
+        <Col xs={2}>{"Share"}</Col>
+        <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
           {"Name"}
         </Col>
-        <Col xs={3} onClick={() => handleSortClick("createdByUser")}>
+        <Col xs={6} md={3} onClick={() => handleSortClick("createdByUser")}>
           {"Owner"}
         </Col>
-        <Col xs={1} onClick={() => handleSortClick("lastUpdated")}>
+        <Col xs={3} md={1} onClick={() => handleSortClick("lastUpdated")}>
           {"Last changes"}
         </Col>
-        <Col xs={1} onClick={() => handleSortClick("size")}>
+        <Col xs={3} md={1} onClick={() => handleSortClick("size")}>
           {"Size"}
         </Col>
       </Row>
@@ -155,11 +158,10 @@ function FileList(props: Props): ReactElement {
 
         {filesAndFolders?.map((folder: FsEntity) => {
           return (
-            <FileListItem
-              key={folder.fileSystemId}
-              setPath={setPath}
-              fileListItem={folder}
-            />
+            <React.Fragment key={folder.fileSystemId}>
+              <FileListItem setPath={setPath} fileListItem={folder} />
+              <Col xs={12} className="border my-2"></Col>
+            </React.Fragment>
           );
         })}
       </Row>
