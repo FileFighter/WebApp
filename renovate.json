@@ -35,5 +35,6 @@
       "groupSlug": "@testing-library"
     }
   ], 
-  "schedule": ["every weekend"]
+  "schedule": ["every weekend"],
+  "recreateClosed":false
 }
