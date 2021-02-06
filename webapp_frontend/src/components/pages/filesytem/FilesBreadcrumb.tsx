@@ -16,7 +16,7 @@ export function FilesBreadcrumb(props: Props): ReactElement {
         to={filesBaseUrl}
         onClick={() => props.setPath("/")}
       >
-        root{" "}
+        Home{" "}
       </Link>
       {props.path
         .split("/")

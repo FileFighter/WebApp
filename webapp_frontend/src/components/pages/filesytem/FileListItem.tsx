@@ -53,7 +53,7 @@ function FileListItem(props: Props): ReactElement {
 
   const ICON_PREFERENCES = {
     height: "40px",
-    width: "auto",
+    width: "100%",
     color: "secondary"
   };
 

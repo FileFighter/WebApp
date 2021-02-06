@@ -5,7 +5,6 @@ import { Col, Container, Form, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { FilesBreadcrumb } from "./FilesBreadcrumb";
 import { filesBaseUrl } from "./Filesystem";
-import { sortObjectsInArrayByProperty } from "./sortFilesAndFolders";
 import FileListItem from "./FileListItem";
 import { SystemState } from "../../../background/redux/actions/sytemState";
 import {
@@ -48,11 +47,9 @@ function FileList(props: Props): ReactElement {
   const [error, setError] = useState<string>("");
   const [sortedBy, setSortedBy] = useState<keyof FsEntity | null>(null);
   const [sortIncreasing, setSortIncreasing] = useState<boolean>(false);
-  const allAreSelected = !!filesAndFolders?.every((e: FsEntity) =>
-    props.filesystem.selectedFsEnties.find(
-      (selectedEl: FsEntity) => e.fileSystemId === selectedEl.fileSystemId
-    )
-  );
+  const allAreSelected =
+    filesAndFolders?.length === props.filesystem.selectedFsEnties.length;
+
   const clearSelected = props.clearSelected;
 
   useEffect(() => {
@@ -90,14 +87,29 @@ function FileList(props: Props): ReactElement {
   };
 
   function handleSortClick(property: keyof FsEntity) {
-    if (sortedBy === property) setSortIncreasing(!sortIncreasing);
-    else {
+    if (!filesAndFolders || filesAndFolders.length < 2) return;
+    if (sortedBy === property) {
+      setSortIncreasing(!sortIncreasing);
+    } else {
       setSortedBy(property);
       setSortIncreasing(true);
     }
-    setFilesAndFolders(
-      sortObjectsInArrayByProperty(filesAndFolders, property, sortIncreasing)
-    );
+    let toSort = [...(filesAndFolders ?? [])];
+
+    if (property === "lastUpdated" || property === "size") {
+      toSort.sort((a, b) => a[property] - b[property]);
+    } else if (property === "name" || property === "type") {
+      toSort.sort((a, b) =>
+        a[property].toLowerCase().localeCompare(b[property].toLowerCase())
+      );
+    } else if (property === "createdByUser") {
+      toSort.sort((a, b) =>
+        a.createdByUser.username
+          .toLowerCase()
+          .localeCompare(b.createdByUser.username.toLowerCase())
+      );
+    }
+    setFilesAndFolders(sortIncreasing ? toSort : toSort.reverse());
   }
 
   console.log("[FileList path]" + path);
@@ -141,10 +153,10 @@ function FileList(props: Props): ReactElement {
           <Col className={"text-center"}> Nothing to see here.</Col>
         ) : null}
 
-        {filesAndFolders?.map((folder: FsEntity, i: number) => {
+        {filesAndFolders?.map((folder: FsEntity) => {
           return (
             <FileListItem
-              key={i.toString()}
+              key={folder.fileSystemId}
               setPath={setPath}
               fileListItem={folder}
             />

@@ -1,30 +1,30 @@
-import {UserState} from "../redux/actions/userTypes";
+import { UserState } from "../redux/actions/userTypes";
 
 export interface UsersSet {
-    groups: string[];
-    id: number;
-    username: string;
+  groups: string[];
+  id: number;
+  username: string;
 }
-
 
 export interface PermissionSet {
-    editableForGroups: string[];
-    editableForUsers: UsersSet[];
-    visibleForGroups: string[];
-    visibleForUsers: UsersSet[];
+  editableForGroups: string[];
+  editableForUsers: UsersSet[];
+  visibleForGroups: string[];
+  visibleForUsers: UsersSet[];
 }
-
+export interface User {
+  id: number;
+  username: string;
+  groups: number[];
+}
 
 export interface FsEntity {
-    createdByUser: UserState;
-    fileSystemId: number;
-    lastUpdated: number;
-    name: string;
-    path: string;
-    shared: boolean;
-    size: number;
-    type: string;
+  createdByUser: User;
+  fileSystemId: number;
+  lastUpdated: number;
+  name: string;
+  path: string;
+  shared: boolean;
+  size: number;
+  type: string;
 }
-
-
-
