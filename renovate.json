@@ -34,5 +34,7 @@
       "groupName": "@testing-library packages",
       "groupSlug": "@testing-library"
     }
-  ]
+  ], 
+  "schedule": ["every weekend"],
+  "recreateClosed":false
 }
