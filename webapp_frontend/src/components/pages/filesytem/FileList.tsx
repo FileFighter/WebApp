@@ -160,7 +160,7 @@ function FileList(props: Props): ReactElement {
           return (
             <React.Fragment key={folder.fileSystemId}>
               <FileListItem setPath={setPath} fileListItem={folder} />
-              <Col xs={12} className="border my-2"></Col>
+              <Col xs={12} className="border my-2" />
             </React.Fragment>
           );
         })}

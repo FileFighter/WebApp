@@ -24,7 +24,7 @@ export const removeTokens = (): RemoveTokens => ({
   type: REMOVE_TOKENS
 });
 
-export const checkedCookies = (content: boolean): CheckedCookies => ({
+export const checkedCookies = (content: number): CheckedCookies => ({
   type: CHECKED_COOKIES,
   payload: content
 });

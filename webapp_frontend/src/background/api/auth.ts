@@ -33,9 +33,11 @@ export const checkForCookie = () => {
   let refreshTokenCookieValue = getCookie(cookieName);
   if (refreshTokenCookieValue) {
     store.dispatch(addRefreshToken(refreshTokenCookieValue));
+    store.dispatch(checkedCookies(1)); // 1 means it is currently loading
     getAccessTokenWithRefreshToken();
+  } else {
+    store.dispatch(checkedCookies(2)); // 2 means loading is finished
   }
-  store.dispatch(checkedCookies(true));
 };
 
 export const loginWithUsernameAndPassword = (
@@ -82,6 +84,7 @@ export const getAccessTokenWithRefreshToken = () => {
 
   Axios.get<BackendAuthData>(hostname + userPath + "/auth", config)
     .then((data: AxiosResponse<BackendAuthData>) => {
+      store.dispatch(checkedCookies(2));
       setAuthHeaderToAxios(data.data.tokenValue);
 
       store.dispatch(
@@ -96,6 +99,7 @@ export const getAccessTokenWithRefreshToken = () => {
     })
     .catch((error) => {
       store.dispatch(removeTokens());
+      store.dispatch(checkedCookies(2));
 
       console.log(error);
       //you probably want to notify the user, maybe with a toast or similar

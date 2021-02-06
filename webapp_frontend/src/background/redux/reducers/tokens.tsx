@@ -11,7 +11,7 @@ import {
 const initialState: TokensState = {
   refreshToken: null,
   accessToken: null,
-  checkedCookies: false
+  checkedCookies: 0
 };
 
 export default function tokens(
@@ -41,7 +41,7 @@ export default function tokens(
       return {
         refreshToken: null,
         accessToken: null,
-        checkedCookies: true
+        checkedCookies: state.checkedCookies
       };
     }
     case CHECKED_COOKIES: {
