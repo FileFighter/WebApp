@@ -18,6 +18,7 @@ import Login from "./basicElements/Login";
 import { checkForCookie } from "../background/api/auth";
 import { TopBanner } from "./basicElements/TopBanner";
 import { FFLoading } from "./basicElements/Loading";
+import { CookieStatus } from "../background/redux/actions/tokenTypes";
 
 // this takes the redux store and maps everything that is needed to the function props
 const mapState = (state: SystemState) => ({
@@ -50,8 +51,7 @@ function App(props: Props): ReactElement {
   console.log(props.user);
   console.log("[App]---------------");
 
-  if (props.tokens.checkedCookies === 2) {
-    // 2 means login is finished
+  if (props.tokens.checkedCookies === CookieStatus.FINISHED) {
     if (props.tokens.refreshToken && props.tokens.accessToken?.token) {
       return (
         <div className="App h-100 d-flex flex-column">
@@ -73,8 +73,7 @@ function App(props: Props): ReactElement {
       return <Login />;
     }
   } else {
-    if (props.tokens.checkedCookies === 0) {
-      // 0 means loading has not started (happens only once)
+    if (props.tokens.checkedCookies === CookieStatus.NOT_STARTED) {
       checkForCookie();
     }
 

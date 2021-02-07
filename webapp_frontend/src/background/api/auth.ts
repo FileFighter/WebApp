@@ -11,7 +11,7 @@ import {
   removeTokens
 } from "../redux/actions/tokens";
 import { addUser } from "../redux/actions/user";
-import { AccessToken } from "../redux/actions/tokenTypes";
+import { AccessToken, CookieStatus } from "../redux/actions/tokenTypes";
 import { deleteCookie, getCookie, setCookie } from "../methods/cookies";
 
 // reference: https://daveceddia.com/access-redux-store-outside-react/
@@ -33,10 +33,10 @@ export const checkForCookie = () => {
   let refreshTokenCookieValue = getCookie(cookieName);
   if (refreshTokenCookieValue) {
     store.dispatch(addRefreshToken(refreshTokenCookieValue));
-    store.dispatch(checkedCookies(1)); // 1 means it is currently loading
+    store.dispatch(checkedCookies(CookieStatus.LOADING));
     getAccessTokenWithRefreshToken();
   } else {
-    store.dispatch(checkedCookies(2)); // 2 means loading is finished
+    store.dispatch(checkedCookies(CookieStatus.FINISHED));
   }
 };
 
@@ -84,7 +84,7 @@ export const getAccessTokenWithRefreshToken = () => {
 
   Axios.get<BackendAuthData>(hostname + userPath + "/auth", config)
     .then((data: AxiosResponse<BackendAuthData>) => {
-      store.dispatch(checkedCookies(2));
+      store.dispatch(checkedCookies(CookieStatus.FINISHED));
       setAuthHeaderToAxios(data.data.tokenValue);
 
       store.dispatch(
@@ -99,7 +99,7 @@ export const getAccessTokenWithRefreshToken = () => {
     })
     .catch((error) => {
       store.dispatch(removeTokens());
-      store.dispatch(checkedCookies(2));
+      store.dispatch(checkedCookies(CookieStatus.FINISHED));
 
       console.log(error);
       //you probably want to notify the user, maybe with a toast or similar

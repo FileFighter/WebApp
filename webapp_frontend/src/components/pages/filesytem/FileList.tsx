@@ -14,6 +14,7 @@ import {
   replaceSelected
 } from "../../../background/redux/actions/filesystem";
 import { connect, ConnectedProps } from "react-redux";
+import { FFLoading } from "../../basicElements/Loading";
 
 const mapState = (state: SystemState) => ({
   filesystem: {
@@ -97,19 +98,29 @@ function FileList(props: Props): ReactElement {
     let toSort = [...(filesAndFolders ?? [])];
 
     if (property === "lastUpdated" || property === "size") {
-      toSort.sort((a, b) => a[property] - b[property]);
+      toSort.sort((a, b) =>
+        a[property] - b[property] === 0
+          ? a.fileSystemId - b.fileSystemId
+          : a[property] - b[property]
+      );
     } else if (property === "name" || property === "type") {
       toSort.sort((a, b) =>
-        a[property].toLowerCase().localeCompare(b[property].toLowerCase())
+        a[property].toLowerCase().localeCompare(b[property].toLowerCase()) === 0
+          ? a.fileSystemId - b.fileSystemId
+          : a[property].toLowerCase().localeCompare(b[property].toLowerCase())
       );
     } else if (property === "createdByUser") {
       toSort.sort((a, b) =>
         a.createdByUser.username
           .toLowerCase()
-          .localeCompare(b.createdByUser.username.toLowerCase())
+          .localeCompare(b.createdByUser.username.toLowerCase()) === 0
+          ? a.fileSystemId - b.fileSystemId
+          : a.createdByUser.username
+              .toLowerCase()
+              .localeCompare(b.createdByUser.username.toLowerCase())
       );
     }
-    setFilesAndFolders(sortIncreasing ? toSort : toSort.reverse());
+    setFilesAndFolders(sortIncreasing ? toSort.reverse() : toSort);
   }
 
   console.log("[FileList path]" + path);
@@ -134,7 +145,9 @@ function FileList(props: Props): ReactElement {
         >
           {"Type"}
         </Col>
-        <Col xs={2}>{"Share"}</Col>
+        <Col xs={2} md={1}>
+          {"Share"}
+        </Col>
         <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
           {"Name"}
         </Col>
@@ -152,9 +165,11 @@ function FileList(props: Props): ReactElement {
       <Row>
         {error ? (
           <Col className={"text-center"}> {error}</Col>
-        ) : !filesAndFolders ? (
+        ) : filesAndFolders?.length === 0 ? (
           <Col className={"text-center"}> Nothing to see here.</Col>
-        ) : null}
+        ) : (
+          !filesAndFolders && <FFLoading />
+        )}
 
         {filesAndFolders?.map((folder: FsEntity) => {
           return (

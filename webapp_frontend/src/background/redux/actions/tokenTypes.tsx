@@ -8,6 +8,12 @@ export interface AccessToken {
   timestamp: number | null;
 }
 
+export enum CookieStatus {
+  NOT_STARTED,
+  LOADING,
+  FINISHED
+}
+
 export interface TokensState {
   refreshToken: string | null;
   accessToken: AccessToken | null;
@@ -30,7 +36,7 @@ export interface RemoveTokens {
 
 export interface CheckedCookies {
   type: typeof CHECKED_COOKIES;
-  payload: number;
+  payload: CookieStatus;
 }
 
 export type TokenActionsTypes =

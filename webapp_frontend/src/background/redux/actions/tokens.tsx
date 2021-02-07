@@ -6,6 +6,7 @@ import {
   AddRefreshToken,
   CHECKED_COOKIES,
   CheckedCookies,
+  CookieStatus,
   REMOVE_TOKENS,
   RemoveTokens
 } from "./tokenTypes";
@@ -24,7 +25,7 @@ export const removeTokens = (): RemoveTokens => ({
   type: REMOVE_TOKENS
 });
 
-export const checkedCookies = (content: number): CheckedCookies => ({
+export const checkedCookies = (content: CookieStatus): CheckedCookies => ({
   type: CHECKED_COOKIES,
   payload: content
 });
