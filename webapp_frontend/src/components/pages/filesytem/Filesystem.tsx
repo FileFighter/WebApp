@@ -11,7 +11,7 @@ type Props = {};
 function FileSystem(props: Props): ReactElement {
   return (
     <>
-      <Container fluid className={"py-1 border d-flex justify-content-end"}>
+      <Container fluid className={"py-1 border d-flex justify-content-between"}>
         <SelectedFsEntities />
         <ToolbarActions />
       </Container>

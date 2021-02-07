@@ -53,7 +53,7 @@ function FileListItem(props: Props): ReactElement {
 
   const ICON_PREFERENCES = {
     height: "40px",
-    width: "auto",
+    width: "100%",
     color: "secondary"
   };
 
@@ -116,8 +116,7 @@ function FileListItem(props: Props): ReactElement {
 
   return (
     <>
-      <Col xs={1}>
-        {" "}
+      <Col xs={2} md={1}>
         <Form.Group controlId="formBasicCheckbox">
           <Form.Check
             checked={isSelected}
@@ -126,16 +125,14 @@ function FileListItem(props: Props): ReactElement {
           />
         </Form.Group>
       </Col>
-      <Col xs={1}>{props.fileListItem.type}</Col>
-      <Col xs={1}>
+      <Col xs={2} md={1}>
         {FileIcon(
           props.fileListItem.type === "FOLDER",
           props.fileListItem.name
         )}
       </Col>
       <Col xs={1}>...</Col>
-      <Col xs={3}>
-        {" "}
+      <Col xs={7} md={4}>
         <Link
           to={
             props.fileListItem.path && props.fileListItem.type === "FOLDER"
@@ -147,11 +144,15 @@ function FileListItem(props: Props): ReactElement {
           {props.fileListItem.name}
         </Link>
       </Col>
-      <Col xs={3}>{props.fileListItem.createdByUser.username}</Col>
-      <Col xs={1}>
+      <Col xs={6} md={3}>
+        {props.fileListItem.createdByUser.username}
+      </Col>
+      <Col xs={3} md={1}>
         {getDateAsStringFromTimestamp(props.fileListItem.lastUpdated)}
       </Col>
-      <Col xs={1}>{formatBytes(props.fileListItem.size)}</Col>
+      <Col xs={3} md={1}>
+        {formatBytes(props.fileListItem.size)}
+      </Col>
     </>
   );
 }

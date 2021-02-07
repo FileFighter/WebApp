@@ -22,17 +22,17 @@ type Props = PropsFromRedux & {};
 function SelectedFsEntities(props: Props): ReactElement {
   if (props.selectedFsEnties?.length > 0)
     return (
-      <>
+      <div className={"pt-2"}>
         <OverlayTrigger
           placement={"bottom"}
           overlay={
             <Tooltip id={`tooltip-bottom`} className={""}>
               <ul className={"list-group"}>
-                {props.selectedFsEnties.map((e: FsEntity, i) => {
+                {props.selectedFsEnties.map((e: FsEntity) => {
                   return (
                     <li
                       className={"list-group-item list-group-item-dark"}
-                      key={i}
+                      key={e.fileSystemId}
                     >
                       {e.path}
                     </li>
@@ -42,7 +42,7 @@ function SelectedFsEntities(props: Props): ReactElement {
             </Tooltip>
           }
         >
-          <span className={"pr-2 pt-2"}>
+          <span className={"pr-2"}>
             Selected {props.selectedFsEnties.length} file
             {props.selectedFsEnties.length > 1 ? "s" : ""}
           </span>
@@ -66,7 +66,7 @@ function SelectedFsEntities(props: Props): ReactElement {
             </span>
           </button>
         </OverlayTrigger>
-      </>
+      </div>
     );
   else return <span></span>;
 }
