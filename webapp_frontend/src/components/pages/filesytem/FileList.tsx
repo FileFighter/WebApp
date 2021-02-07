@@ -5,7 +5,6 @@ import { Col, Container, Form, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { FilesBreadcrumb } from "./FilesBreadcrumb";
 import { filesBaseUrl } from "./Filesystem";
-import { sortObjectsInArrayByProperty } from "./sortFilesAndFolders";
 import FileListItem from "./FileListItem";
 import { SystemState } from "../../../background/redux/actions/sytemState";
 import {
@@ -15,6 +14,7 @@ import {
   replaceSelected
 } from "../../../background/redux/actions/filesystem";
 import { connect, ConnectedProps } from "react-redux";
+import { FFLoading } from "../../basicElements/Loading";
 
 const mapState = (state: SystemState) => ({
   filesystem: {
@@ -48,11 +48,9 @@ function FileList(props: Props): ReactElement {
   const [error, setError] = useState<string>("");
   const [sortedBy, setSortedBy] = useState<keyof FsEntity | null>(null);
   const [sortIncreasing, setSortIncreasing] = useState<boolean>(false);
-  const allAreSelected = !!filesAndFolders?.every((e: FsEntity) =>
-    props.filesystem.selectedFsEnties.find(
-      (selectedEl: FsEntity) => e.fileSystemId === selectedEl.fileSystemId
-    )
-  );
+  const allAreSelected =
+    filesAndFolders?.length === props.filesystem.selectedFsEnties.length;
+
   const clearSelected = props.clearSelected;
 
   useEffect(() => {
@@ -69,7 +67,7 @@ function FileList(props: Props): ReactElement {
           setError("");
         })
         .catch((err) => {
-          setError(err.response?.data.message);
+          setError(err.response?.data?.message);
           setFilesAndFolders(null);
         });
     }
@@ -90,14 +88,39 @@ function FileList(props: Props): ReactElement {
   };
 
   function handleSortClick(property: keyof FsEntity) {
-    if (sortedBy === property) setSortIncreasing(!sortIncreasing);
-    else {
+    if (!filesAndFolders || filesAndFolders.length < 2) return;
+    if (sortedBy === property) {
+      setSortIncreasing(!sortIncreasing);
+    } else {
       setSortedBy(property);
       setSortIncreasing(true);
     }
-    setFilesAndFolders(
-      sortObjectsInArrayByProperty(filesAndFolders, property, sortIncreasing)
-    );
+    let toSort = [...(filesAndFolders ?? [])];
+
+    if (property === "lastUpdated" || property === "size") {
+      toSort.sort((a, b) =>
+        a[property] - b[property] === 0
+          ? a.fileSystemId - b.fileSystemId
+          : a[property] - b[property]
+      );
+    } else if (property === "name" || property === "type") {
+      toSort.sort((a, b) =>
+        a[property].toLowerCase().localeCompare(b[property].toLowerCase()) === 0
+          ? a.fileSystemId - b.fileSystemId
+          : a[property].toLowerCase().localeCompare(b[property].toLowerCase())
+      );
+    } else if (property === "createdByUser") {
+      toSort.sort((a, b) =>
+        a.createdByUser.username
+          .toLowerCase()
+          .localeCompare(b.createdByUser.username.toLowerCase()) === 0
+          ? a.fileSystemId - b.fileSystemId
+          : a.createdByUser.username
+              .toLowerCase()
+              .localeCompare(b.createdByUser.username.toLowerCase())
+      );
+    }
+    setFilesAndFolders(sortIncreasing ? toSort.reverse() : toSort);
   }
 
   console.log("[FileList path]" + path);
@@ -105,8 +128,7 @@ function FileList(props: Props): ReactElement {
     <Container fluid>
       <FilesBreadcrumb path={path} setPath={setPath} />
       <Row>
-        <Col xs={1}>
-          {" "}
+        <Col xs={2} md={1}>
           <Form.Group controlId="formBasicCheckbox">
             <Form.Check
               checked={allAreSelected}
@@ -115,21 +137,27 @@ function FileList(props: Props): ReactElement {
             />
           </Form.Group>
         </Col>
-        <Col xs={1} onClick={() => handleSortClick("type")}>
+        <Col
+          xs={2}
+          md={1}
+          className="text-center"
+          onClick={() => handleSortClick("type")}
+        >
           {"Type"}
         </Col>
-        <Col xs={1}>{}</Col>
-        <Col xs={1}>{"Share"}</Col>
-        <Col xs={3} onClick={() => handleSortClick("name")}>
+        <Col xs={2} md={1}>
+          {"Share"}
+        </Col>
+        <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
           {"Name"}
         </Col>
-        <Col xs={3} onClick={() => handleSortClick("createdByUser")}>
+        <Col xs={6} md={3} onClick={() => handleSortClick("createdByUser")}>
           {"Owner"}
         </Col>
-        <Col xs={1} onClick={() => handleSortClick("lastUpdated")}>
+        <Col xs={3} md={1} onClick={() => handleSortClick("lastUpdated")}>
           {"Last changes"}
         </Col>
-        <Col xs={1} onClick={() => handleSortClick("size")}>
+        <Col xs={3} md={1} onClick={() => handleSortClick("size")}>
           {"Size"}
         </Col>
       </Row>
@@ -137,17 +165,18 @@ function FileList(props: Props): ReactElement {
       <Row>
         {error ? (
           <Col className={"text-center"}> {error}</Col>
-        ) : !filesAndFolders ? (
+        ) : filesAndFolders?.length === 0 ? (
           <Col className={"text-center"}> Nothing to see here.</Col>
-        ) : null}
+        ) : (
+          !filesAndFolders && <FFLoading />
+        )}
 
-        {filesAndFolders?.map((folder: FsEntity, i: number) => {
+        {filesAndFolders?.map((folder: FsEntity) => {
           return (
-            <FileListItem
-              key={i.toString()}
-              setPath={setPath}
-              fileListItem={folder}
-            />
+            <React.Fragment key={folder.fileSystemId}>
+              <FileListItem setPath={setPath} fileListItem={folder} />
+              <Col xs={12} className="border my-2" />
+            </React.Fragment>
           );
         })}
       </Row>

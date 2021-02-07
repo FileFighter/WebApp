@@ -1,13 +1,33 @@
 import React, { ReactElement } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Fade } from "react-bootstrap";
+import { SystemState } from "../../../background/redux/actions/sytemState";
+import { connect, ConnectedProps } from "react-redux";
 
-function ToolbarActions(): ReactElement {
+const mapState = (state: SystemState) => ({
+  selectedFsEntiesCount: state.filesystem.selectedFsEnties.length
+});
+
+const connector = connect(mapState);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {};
+
+function ToolbarActions(props: Props): ReactElement | null {
   return (
     <span>
-      <Button>Delete</Button>
-      <Button>Download</Button>
+      <Fade in={props.selectedFsEntiesCount === 1}>
+        <Button>Rename</Button>
+      </Fade>
+      <Fade in={props.selectedFsEntiesCount > 0}>
+        <span>
+          <Button>Delete</Button>
+          <Button>Download</Button>
+        </span>
+      </Fade>
+      <Button>New Folder</Button>
     </span>
   );
 }
 
-export default ToolbarActions;
+export default connector(ToolbarActions);
