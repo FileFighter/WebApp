@@ -36,5 +36,6 @@
     }
   ], 
   "schedule": ["every weekend"],
-  "recreateClosed":false
+  "recreateClosed":false,
+  "ignoreDeps": ["@babel/core", "babel-loader"]
 }
