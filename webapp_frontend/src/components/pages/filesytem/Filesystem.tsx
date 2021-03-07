@@ -3,6 +3,8 @@ import FileList from "./FileList";
 import SelectedFsEntities from "./SelectedFsEntities";
 import { Container } from "react-bootstrap";
 import ToolbarActions from "./ToolbarActions";
+import Upload from "./Upload";
+import { downloadFile } from "../../../background/api/filesystem";
 
 export const filesBaseUrl = "/file";
 
@@ -16,6 +18,9 @@ function FileSystem(props: Props): ReactElement {
         <ToolbarActions />
       </Container>
       <FileList />
+      <Upload />
+
+      <button onClick={() => downloadFile()}> test</button>
     </>
   );
 }
