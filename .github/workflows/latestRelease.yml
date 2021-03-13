@@ -50,3 +50,7 @@ jobs:
         run: |
           docker build -t filefighter/frontend:latest webapp_provider/
           docker push filefighter/frontend:latest
+      -
+        name: Trigger update on server
+        run:
+          - curl -u ${{ secrets.LOG_CREDS }} https://logs.filefighter.de/filefighter-update.log
