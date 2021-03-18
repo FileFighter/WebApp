@@ -6,7 +6,7 @@ import { RouterWrapper } from "../../../../dev/testUtils/RouterWrapper";
 test("renders path Breadcrumb", () => {
   const breadcrumb = render(
     <RouterWrapper>
-      <FilesBreadcrumb path={"bla/fasel/file"} setPath={jest.fn()} />
+      <FilesBreadcrumb path={"/bla/fasel/file"} setPath={jest.fn()} />
     </RouterWrapper>
   );
 

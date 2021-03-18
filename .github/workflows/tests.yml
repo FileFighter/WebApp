@@ -4,20 +4,21 @@ on:
     paths:
       - 'webapp_frontend/src/**'
       - 'webapp_frontend/cypress/**'
-      - '.github/workflows/cypressTests.yml'
+      - '.github/workflows/tests.yml'
       - 'webapp_frontend/package.json'
 jobs:
-  cypress-run:
+  runTests:
     runs-on: ubuntu-16.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       # Install NPM dependencies, build the webpage and start it
       # and run all Cypress tests
-      - name: Start FE
+      - name: Start FE and run jest tests
         run: |
             cd webapp_frontend
             npm i
+            npm test -- --watchAll=false
             npm start &
       - name: Wait
         uses: iFaxity/wait-on-action@v1
