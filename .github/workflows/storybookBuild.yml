@@ -3,7 +3,7 @@ name: Storybook Release
 on:
   pull_request:
     paths:
-      - 'webapp_frontend/src/**'
+      - 'src/**'
 
 jobs:
   Build_Docker_Image:
@@ -17,10 +17,9 @@ jobs:
           node-version: 12
       - name: Build storybook
         run: |
-          cd webapp_frontend
           npm i
           npm run build-storybook
-          cp -r storybook-static  ../storybook_provider/public
+          cp -r storybook-static  storybook_provider/public
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
