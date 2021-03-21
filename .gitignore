@@ -379,9 +379,9 @@ $RECYCLE.BIN/
 
 # Cypress
 
-webapp_frontend/cypress/screenshots
-webapp_frontend/cypress/videos
+cypress/screenshots
+cypress/videos
 
-
+build
 
 # End of https://www.toptal.com/developers/gitignore/api/node,react,intellij,eclipse,windows,macos,osx,linux
