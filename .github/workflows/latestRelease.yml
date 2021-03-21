@@ -5,7 +5,8 @@ on:
   push:
     branches: "master"
     paths:
-      - 'webapp_frontend/**'
+      - 'src/**'
+      - 'package.json'
       - 'webapp_provider/**'
 
 jobs:
@@ -23,12 +24,10 @@ jobs:
       -
         name: Checkout frontend
         run: |
-          cd webapp_frontend
           npm i
       -
         name: Update Sonar
         run: |
-          cd webapp_frontend
           npm run-script sonar
         env:
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
@@ -36,9 +35,8 @@ jobs:
       -
         name: Build Frontend
         run: |
-          cd webapp_frontend
           npm run-script build
-          cp -r build ../webapp_provider/public
+          cp -r build webapp_provider/public
       -
         name: Login to DockerHub
         uses: docker/login-action@v1
