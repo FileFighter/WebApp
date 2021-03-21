@@ -2,10 +2,10 @@ name: End-to-end tests
 on:
   push:
     paths:
-      - 'webapp_frontend/src/**'
-      - 'webapp_frontend/cypress/**'
+      - 'src/**'
+      - 'cypress/**'
       - '.github/workflows/tests.yml'
-      - 'webapp_frontend/package.json'
+      - 'package.json'
 jobs:
   runTests:
     runs-on: ubuntu-16.04
@@ -16,7 +16,6 @@ jobs:
       # and run all Cypress tests
       - name: Start FE and run jest tests
         run: |
-            cd webapp_frontend
             npm i
             npm test -- --watchAll=false
             npm start &
@@ -28,7 +27,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          working-directory: ./webapp_frontend
           record: true
         env:
           # pass the Dashboard record key as an environment variable
