@@ -1,29 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots ColorButton blue 1`] = `
-<button
-  onClick={[Function]}
-  style={
-    Object {
-      "color": "blue",
-    }
-  }
+exports[`Storyshots Error404 default 1`] = `
+<div
+  className="container"
 >
-  Color Button
-</button>
-`;
-
-exports[`Storyshots ColorButton red 1`] = `
-<button
-  onClick={[Function]}
-  style={
-    Object {
-      "color": "red",
-    }
-  }
->
-  Color Button
-</button>
+  <p
+    className="text-center"
+  >
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      Go to Home 
+    </a>
+  </p>
+</div>
 `;
 
 exports[`Storyshots Example/Button Large 1`] = `
@@ -472,4 +463,349 @@ exports[`Storyshots Example/Page Logged Out 1`] = `
     </div>
   </section>
 </article>
+`;
+
+exports[`Storyshots Filesystem default 1`] = `
+Array [
+  <div
+    className="py-1 border d-flex justify-content-between container-fluid"
+  >
+    <span />
+    <span>
+      <button
+        className="fade btn btn-primary"
+        disabled={false}
+        type="button"
+      >
+        Rename
+      </button>
+      <span
+        className="fade"
+      >
+        <button
+          className="btn btn-primary"
+          disabled={false}
+          type="button"
+        >
+          Delete
+        </button>
+        <button
+          className="btn btn-primary"
+          disabled={false}
+          type="button"
+        >
+          Download
+        </button>
+      </span>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        type="button"
+      >
+        New Folder
+      </button>
+    </span>
+  </div>,
+  <div
+    className="container-fluid"
+  >
+    <nav
+      aria-label="breadcrumb"
+    >
+      <ol
+        className="breadcrumb"
+      >
+        <a
+          className="breadcrumb-item active"
+          href="/file"
+          onClick={[Function]}
+        >
+          Home
+           
+        </a>
+      </ol>
+    </nav>
+    <div
+      className="row"
+    >
+      <div
+        className="col-md-1 col-2"
+      >
+        <div
+          className="form-group"
+        >
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input position-static"
+              disabled={false}
+              id="formBasicCheckbox"
+              onChange={[Function]}
+              type="checkbox"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="text-center col-md-1 col-2"
+        onClick={[Function]}
+      >
+        Type
+      </div>
+      <div
+        className="col-md-1 col-2"
+      >
+        Share
+      </div>
+      <div
+        className="col-md-4 col-6"
+        onClick={[Function]}
+      >
+        Name
+      </div>
+      <div
+        className="col-md-3 col-6"
+        onClick={[Function]}
+      >
+        Owner
+      </div>
+      <div
+        className="col-md-1 col-3"
+        onClick={[Function]}
+      >
+        Last changes
+      </div>
+      <div
+        className="col-md-1 col-3"
+        onClick={[Function]}
+      >
+        Size
+      </div>
+    </div>
+    <hr />
+    <div
+      className="row"
+    >
+      <div
+        className="d-flex justify-content-center align-items-center h-100 container"
+      >
+        <div
+          className="spinner-border"
+          role="status"
+        >
+          <span
+            className="sr-only"
+          >
+            Loading...
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Health default 1`] = `
+<div
+  className="container"
+>
+  <h1>
+    FileFighter
+  </h1>
+  <img
+    alt="Logo FileFighter"
+    onClick={[Function]}
+    src="logo.png"
+  />
+  <div
+    className="d-flex justify-content-center align-items-center h-100 container"
+  >
+    <div
+      className="spinner-border"
+      role="status"
+    >
+      <span
+        className="sr-only"
+      >
+        Loading...
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Registration default 1`] = `
+<div
+  className="h-100 container"
+  id="registrationContainer"
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-md-6 offset-md-3"
+    >
+      <h1>
+        Create new account
+      </h1>
+      <form
+        className=""
+        onSubmit={[Function]}
+      >
+        <div
+          className="form-group"
+        >
+          <label
+            className="form-label"
+            htmlFor="formBasicUsername"
+          >
+            Username
+          </label>
+          <input
+            className="form-control"
+            id="formBasicUsername"
+            onChange={[Function]}
+            type="name"
+            value=""
+          />
+        </div>
+        <div
+          className="form-group"
+        >
+          <label
+            className="form-label"
+            htmlFor="formBasicPassword"
+          >
+            Password
+          </label>
+          <input
+            className="form-control"
+            id="formBasicPassword"
+            onChange={[Function]}
+            placeholder="Must contain one number, uppercase & lowercase letter each"
+            type="password"
+            value=""
+          />
+          <div>
+            <img
+              alt="status icon password length"
+              src="info-24px.svg"
+            />
+            <span
+              className="sr-only"
+            >
+              Missing: 
+            </span>
+            <span
+              className="text-muted"
+            >
+              Passwords must be between 8 and 20 characters.
+            </span>
+          </div>
+          <div>
+            <img
+              alt="status icon password contains uppercase character"
+              src="info-24px.svg"
+            />
+            <span
+              className="sr-only"
+            >
+              Missing: 
+            </span>
+            <span
+              className="text-muted"
+            >
+              Passwords must be at least contain 1 uppercase character.
+            </span>
+          </div>
+          <div>
+            <img
+              alt="status icon password contains lowercase character"
+              src="info-24px.svg"
+            />
+            <span
+              className="sr-only"
+            >
+              Missing: 
+            </span>
+            <span
+              className="text-muted"
+            >
+              Passwords must be at least contain 1 lowercase character.
+            </span>
+          </div>
+          <div>
+            <img
+              alt="status icon password contains number"
+              src="info-24px.svg"
+            />
+            <span
+              className="sr-only"
+            >
+              Missing: 
+            </span>
+            <span
+              className="text-muted"
+            >
+              Passwords must be at least contain 1 number.
+            </span>
+          </div>
+        </div>
+        <div
+          className="form-group"
+        >
+          <label
+            className="form-label"
+            htmlFor="formConfirmPassword"
+          >
+            Re-enter password
+          </label>
+          <input
+            className="form-control"
+            id="formConfirmPassword"
+            onChange={[Function]}
+            type="password"
+            value=""
+          />
+          <div>
+            <img
+              alt="status icon passwords match"
+              src="info-24px.svg"
+            />
+            <span
+              className="sr-only"
+            >
+              Done: 
+            </span>
+            <span
+              className="text-muted"
+            >
+              Passwords must match.
+            </span>
+          </div>
+        </div>
+        <button
+          className="btn btn-primary"
+          disabled={false}
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+  <img
+    alt="logo"
+    className="invisible m0 position-relative"
+    id="logoSubmit"
+    src="adventurer-run.gif"
+  />
+</div>
 `;
