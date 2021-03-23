@@ -11,11 +11,13 @@ export interface ApiActionsState {
 
 export interface ApiAction {
   key: string;
+  timestamp: number;
   type: ApiActionType;
   status: ApiActionStatus;
   progress: number;
   totalAmount: number;
   currentFsEntity: FsEntity | File;
+  error?: string;
 }
 
 export enum ApiActionType {
@@ -24,9 +26,10 @@ export enum ApiActionType {
 }
 
 export enum ApiActionStatus {
-  ONGOING = "ONGOING",
-  ABORTED = "ABORTED",
-  ERROR = "error"
+  ONGOING = "Ongoing",
+  ABORTED = "Aborted",
+  ERROR = "Error",
+  FINISHED = "Finished"
 }
 
 export interface AddApiAction {
@@ -41,6 +44,7 @@ export interface ReplaceApiAction {
 export interface ChangeStatusPayload {
   key: string;
   status: ApiActionStatus;
+  error?: string;
 }
 
 export interface ChangeStatus {

@@ -3,6 +3,8 @@ import FileList from "./FileList";
 import SelectedFsEntities from "./SelectedFsEntities";
 import { Container } from "react-bootstrap";
 import ToolbarActions from "./ToolbarActions";
+import { ApiActionsInfo } from "./ApiActionsInfo";
+import UploadZone from "./UploadZone";
 
 export const filesBaseUrl = "/file";
 
@@ -16,6 +18,8 @@ function FileSystem(props: Props): ReactElement {
         <ToolbarActions />
       </Container>
       <FileList />
+      <UploadZone />
+      <ApiActionsInfo />
     </>
   );
 }

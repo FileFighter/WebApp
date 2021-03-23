@@ -21,17 +21,14 @@ export const getFolderContents = (path: string) =>
       }
     };
 
-    Axios.get(hostname + filesystemPath + "/contents", config)
+    Axios.get(hostname + filesystemPath + "contents", config)
       .then((response) => resolve(response.data))
       .catch((error) => reject(error));
   });
 
-type ApiActionFnFsEntity = (a: FsEntity) => Promise<any>;
-type ApiActionFnFile = (a: File) => Promise<any>;
-
-export function handleMultipleApiActions(
-  items: (FsEntity | File)[],
-  action: ApiActionFnFile | ApiActionFnFsEntity,
+export function handleMultipleApiActions<Type extends File | FsEntity>(
+  items: Type[],
+  action: (a: Type) => Promise<any>,
   type: ApiActionType,
   apiAction?: ApiAction
 ) {
@@ -40,9 +37,10 @@ export function handleMultipleApiActions(
     currentIndex = 0;
     apiAction = {
       key: Date.now() + type,
+      timestamp: Date.now(),
       type: type,
       status: ApiActionStatus.ONGOING,
-      progress: 0,
+      progress: currentIndex,
       totalAmount: items.length,
       currentFsEntity: items[0]
     };
@@ -60,25 +58,68 @@ export function handleMultipleApiActions(
     ) {
       return;
     }
-    store.dispatch(
-      nextFsEntity({
-        key: apiAction.key,
-        currentFsEntity: items[apiAction.progress + 1]
-      })
-    );
     currentIndex = apiAction.progress + 1;
+    console.log(
+      "current amout " + currentIndex + " total: " + apiAction.totalAmount
+    );
+
+    if (currentIndex === apiAction.totalAmount) {
+      store.dispatch(
+        changeStatus({ key: apiAction.key, status: ApiActionStatus.FINISHED })
+      );
+      return;
+    } else {
+      console.log("dispatch nextFsEntity");
+      store.dispatch(
+        nextFsEntity({
+          key: apiAction.key,
+          currentFsEntity: items[currentIndex]
+        })
+      );
+    }
   }
 
   action(items[currentIndex])
     .then((response) => {
-      handleMultipleApiActions(items, action, type);
+      console.log("[API filesystem] handleMultipleApiActions next iteration");
+      handleMultipleApiActions(items, action, type, apiAction);
     })
     .catch((error) => {
+      console.log("errorr", error);
       store.dispatch(
         changeStatus({
           key: apiAction?.key ?? "ts sucks",
-          status: ApiActionStatus.ERROR
+          status: ApiActionStatus.ERROR,
+          error: error.response?.data.message
         })
       );
     });
 }
+
+export const uploadFiles = (files: File[], parentFolderID: string) => {
+  const apiCall = (file: File) => {
+    return new Promise((resolve, reject) => {
+      let formData = new FormData();
+      formData.append("file", file);
+      Axios.post("http://localhost:5000/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "X-FF-ID": parentFolderID
+        }
+      })
+        .then((response) => resolve(response))
+        .catch((error) => reject(error));
+    });
+  };
+
+  handleMultipleApiActions(files, apiCall, ApiActionType.UPLOAD);
+};
+
+export const deleteFsEntities = (files: FsEntity[]) => {
+  const apiCall = (fsEntity: FsEntity) => {
+    return Axios.delete(
+      hostname + filesystemPath + fsEntity.fileSystemId + "/delete"
+    );
+  };
+  handleMultipleApiActions(files, apiCall, ApiActionType.DELETE);
+};

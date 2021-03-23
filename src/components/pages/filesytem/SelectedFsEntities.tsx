@@ -22,7 +22,7 @@ type Props = PropsFromRedux & {};
 function SelectedFsEntities(props: Props): ReactElement {
   if (props.selectedFsEnties?.length > 0)
     return (
-      <div className={"pt-3"}>
+      <div className={"pt-2"}>
         <OverlayTrigger
           placement={"bottom"}
           overlay={
