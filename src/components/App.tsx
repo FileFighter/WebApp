@@ -45,11 +45,12 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
 function App(props: Props): ReactElement {
-  console.log("[App] props.tokens: ");
-  console.log(props.tokens.refreshToken);
-  console.log(props.tokens);
-  console.log(props.user);
-  console.log("[App]---------------");
+  console.log(
+    "[App] props.tokens: ",
+    props.tokens.refreshToken,
+    props.tokens,
+    props.user
+  );
 
   if (props.tokens.checkedCookies === CookieStatus.FINISHED) {
     if (props.tokens.refreshToken && props.tokens.accessToken?.token) {
@@ -59,7 +60,7 @@ function App(props: Props): ReactElement {
             <TopBanner />
             <Header />
             <div>
-              <main role="main" className={"flex-shrink-0 flex-grow-1"}>
+              <main role="main" className="flex-shrink-0 flex-grow-1">
                 <Router />
               </main>
             </div>

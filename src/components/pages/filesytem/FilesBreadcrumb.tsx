@@ -9,7 +9,6 @@ type Props = {
 };
 
 export function FilesBreadcrumb(props: Props): ReactElement {
-  console.log("[FilesBreadcrumb]: " + props.path);
   return (
     <Breadcrumb>
       <Link

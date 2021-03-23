@@ -1,41 +1,31 @@
-import React, {
-  DetailedHTMLProps,
-  FormEvent,
-  InputHTMLAttributes,
-  ReactElement,
-  useRef,
-  useState
-} from "react";
+import React, { ReactElement, useCallback } from "react";
 import { uploadFiles } from "../../../background/api/filesystem";
+import { useDropzone } from "react-dropzone";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../background/redux/store";
 
 export const UploadZone = (): ReactElement => {
-  const [inputFieldKey, setInputFieldKey] = useState(
-    Math.random().toString(36)
+  const currentFsItemId = useSelector(
+    (state: RootState) => state.filesystem.currentFsItemId
   );
-  const fileInput = useRef<
-    DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-  >();
-
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    //@ts-ignore
-    const files = Array.from(fileInput?.current?.files);
-    // @ts-ignore
-    setInputFieldKey(Math.random().toString(36));
-    //@ts-ignore
-    uploadFiles(files);
-  };
+  console.log(currentFsItemId);
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      uploadFiles(acceptedFiles, currentFsItemId);
+    },
+    [currentFsItemId]
+  );
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Upload files:
-        {/*@ts-ignore*/}
-        <input type="file" ref={fileInput} multiple key={inputFieldKey} />
-      </label>
-      <br />
-      <button type="submit">Submit</button>
-    </form>
+    <div {...getRootProps()} className={"text-center border py-4 mx-3"}>
+      <input {...getInputProps()} />
+      {isDragActive ? (
+        <p>Drop files here ...</p>
+      ) : (
+        <p>Drag 'n' drop files or folders here, or click to select files</p>
+      )}
+    </div>
   );
 };
 

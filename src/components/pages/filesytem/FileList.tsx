@@ -11,7 +11,8 @@ import {
   addToSelected,
   clearSelected,
   removeFromSelected,
-  replaceSelected
+  replaceSelected,
+  setCurrentFsItemId
 } from "../../../background/redux/actions/filesystem";
 import { connect, ConnectedProps } from "react-redux";
 import { FFLoading } from "../../basicElements/Loading";
@@ -27,7 +28,8 @@ const mapDispatch = {
   addToSelected,
   removeFromSelected,
   replaceSelected,
-  clearSelected
+  clearSelected,
+  setCurrentFsItemId
 };
 
 const connector = connect(mapState, mapDispatch);
@@ -65,6 +67,7 @@ function FileList(props: Props): ReactElement {
             ...response.filter((fsEntiy: FsEntity) => fsEntiy.type !== "FOLDER")
           ]);
           setError("");
+          props.setCurrentFsItemId(path); // TODO change this to the id of the current folder
         })
         .catch((err) => {
           setError(err.response?.data?.message);
@@ -175,7 +178,7 @@ function FileList(props: Props): ReactElement {
           return (
             <React.Fragment key={folder.fileSystemId}>
               <FileListItem setPath={setPath} fileListItem={folder} />
-              <Col xs={12} className="border my-2" />
+              <Col xs={12} className="border-top my-2" />
             </React.Fragment>
           );
         })}
