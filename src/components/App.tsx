@@ -59,11 +59,9 @@ function App(props: Props): ReactElement {
           <BrowserRouter>
             <TopBanner />
             <Header />
-            <div>
-              <main role="main" className="flex-shrink-0 flex-grow-1">
-                <Router />
-              </main>
-            </div>
+            <main role="main" className="flex-shrink-0 flex-grow-1">
+              <Router />
+            </main>
             <Footer />
             <PermanentAssets />
           </BrowserRouter>

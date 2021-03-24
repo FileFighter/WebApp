@@ -1,9 +1,11 @@
 import { FsEntity } from "./filesystemTypes";
 import { filesystemPath, hostname } from "./api";
 import Axios from "axios";
-import fileDownload from "js-file-download";
+
 // @ts-ignore
-import streamSaver from "streamsaver";
+import { saveAs } from "file-saver";
+// @ts-ignore
+
 import store from "../redux/store";
 import {
   ApiAction,
@@ -15,6 +17,7 @@ import {
   changeStatus,
   nextFsEntity
 } from "../redux/actions/apiActions";
+import { addToContents } from "../redux/actions/filesystem";
 
 export const getFolderContents = (path: string) =>
   new Promise<FsEntity[]>((resolve, reject) => {
@@ -113,7 +116,10 @@ export const uploadFiles = (files: File[], parentFolderID: string) => {
           console.log("upload progress:", progress);
         }
       })
-        .then((response) => resolve(response))
+        .then((response) => {
+          store.dispatch(addToContents(response.data));
+          resolve(response);
+        })
         .catch((error) => reject(error));
     });
   };
@@ -142,8 +148,50 @@ export const downloadFiles = () => {
       //console.log("download progress:", progress);
     }
   }).then((response) => {
-    fileDownload(response.data, "bild.png");
+    // fileDownload(response.data, "bild.png");
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "file.pdf");
+    document.body.appendChild(link);
+    link.click();
   });
+};
+
+export const downloadFileFetch = async () => {
+  let url = "http://localhost:5000/download";
+  let fetchProps = {
+    method: "GET",
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "X-FF-IDS": "dfsghzufg",
+      Authorization: "bla"
+    }
+  };
+
+  try {
+    const response = await fetch(url, fetchProps);
+
+    if (!response.ok) {
+      // @ts-ignore
+      throw new Error(response);
+    }
+
+    // Extract filename from header
+    // @ts-ignore
+    const filename = response.headers
+      .get("content-disposition")
+      .split(";")
+      .find((n) => n.includes("filename="))
+      .replace("filename=", "")
+      .trim();
+    const blob = await response.blob();
+
+    // Download the file
+    saveAs(blob, filename);
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 export const deleteFsEntities = (files: FsEntity[]) => {

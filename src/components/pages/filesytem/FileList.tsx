@@ -12,14 +12,17 @@ import {
   clearSelected,
   removeFromSelected,
   replaceSelected,
-  setCurrentFsItemId
+  setCurrentFsItemId,
+  setContents
 } from "../../../background/redux/actions/filesystem";
 import { connect, ConnectedProps } from "react-redux";
 import { FFLoading } from "../../basicElements/Loading";
 
 const mapState = (state: SystemState) => ({
   filesystem: {
-    selectedFsEnties: state.filesystem.selectedFsEnties
+    selectedFsEnties: state.filesystem.selectedFsEnties,
+    folderContents: state.filesystem.folderContents,
+    currentFsItemId: state.filesystem.currentFsItemId
   }
 });
 
@@ -29,6 +32,7 @@ const mapDispatch = {
   removeFromSelected,
   replaceSelected,
   clearSelected,
+  setContents,
   setCurrentFsItemId
 };
 
@@ -44,9 +48,11 @@ function FileList(props: Props): ReactElement {
   const [path, setPath] = useState<string>(
     location.pathname.slice(filesBaseUrl.length) || "/"
   );
-  const [filesAndFolders, setFilesAndFolders] = useState<FsEntity[] | null>(
-    null
-  );
+  /* const [filesAndFolders, setFilesAndFolders] = useState<FsEntity[] | null>(
+    props.filesystem.folderContents
+  );*/
+  const filesAndFolders = props.filesystem.folderContents;
+  const setFilesAndFolders = props.setContents;
   const [error, setError] = useState<string>("");
   const [sortedBy, setSortedBy] = useState<keyof FsEntity | null>(null);
   const [sortIncreasing, setSortIncreasing] = useState<boolean>(false);
@@ -54,31 +60,40 @@ function FileList(props: Props): ReactElement {
     filesAndFolders?.length === props.filesystem.selectedFsEnties.length;
 
   const clearSelected = props.clearSelected;
+  const setContents = props.setContents;
+  const setCurrentFsItemId = props.setCurrentFsItemId;
 
   useEffect(() => {
     function updateStates(): void {
       getFolderContents(path)
         .then((response: FsEntity[]) => {
           console.log("got folder content");
-          setFilesAndFolders([
+          setContents([
             ...response.filter(
               (fsEntiy: FsEntity) => fsEntiy.type === "FOLDER"
             ),
             ...response.filter((fsEntiy: FsEntity) => fsEntiy.type !== "FOLDER")
           ]);
           setError("");
-          props.setCurrentFsItemId(path); // TODO change this to the id of the current folder
+          setCurrentFsItemId(path); // TODO change this to the id of the current folder
         })
         .catch((err) => {
           setError(err.response?.data?.message);
-          setFilesAndFolders(null);
+          setFilesAndFolders([]);
         });
     }
 
     setPath(location.pathname.slice(filesBaseUrl.length) || "/");
     clearSelected();
     updateStates();
-  }, [clearSelected, path, location]);
+  }, [
+    setContents,
+    setCurrentFsItemId,
+    setFilesAndFolders,
+    clearSelected,
+    path,
+    location
+  ]);
 
   const handleSelectAllChanged = () => {
     if (allAreSelected) {

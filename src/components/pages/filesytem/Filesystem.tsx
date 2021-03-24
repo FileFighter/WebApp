@@ -13,16 +13,22 @@ type Props = {};
 
 function FileSystem(props: Props): ReactElement {
   return (
-    <>
-      <Container fluid className={"py-1 border d-flex justify-content-between"}>
-        <SelectedFsEntities />
-        <ToolbarActions />
-      </Container>
-      <FileList />
+    <div className="d-flex flex-column align-content-between justify-content-between h-100">
+      <div>
+        <Container
+          fluid
+          className={"py-1 border d-flex justify-content-between"}
+        >
+          <SelectedFsEntities />
+          <ToolbarActions />
+        </Container>
+        <FileList />
+        <ApiActionsInfo />
+        <Button onClick={downloadFiles}>Download test</Button>
+      </div>
+
       <UploadZone />
-      <ApiActionsInfo />
-      <Button onClick={downloadFiles}>test</Button>
-    </>
+    </div>
   );
 }
 

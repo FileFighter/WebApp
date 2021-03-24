@@ -14,7 +14,7 @@ export const ApiActionsInfo = (): ReactElement => {
           return a.timestamp - b.timestamp;
         })
         .map((a) => (
-          <div>
+          <div key={a.key}>
             <span className={"px-2"}>
               {a.status} {a.type}
             </span>
