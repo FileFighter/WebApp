@@ -466,145 +466,178 @@ exports[`Storyshots Example/Page Logged Out 1`] = `
 `;
 
 exports[`Storyshots Filesystem default 1`] = `
-Array [
-  <div
-    className="py-1 border d-flex justify-content-between container-fluid"
-  >
-    <span />
-    <span>
-      <button
-        className="fade btn btn-primary"
-        disabled={false}
-        type="button"
-      >
-        Rename
-      </button>
-      <span
-        className="fade"
-      >
+<div
+  className="d-flex flex-column align-content-between justify-content-between h-100"
+>
+  <div>
+    <div
+      className="py-1 border d-flex justify-content-between container-fluid"
+    >
+      <span />
+      <span>
         <button
-          className="btn btn-primary"
+          className="fade btn btn-primary"
           disabled={false}
           type="button"
         >
-          Delete
+          Rename
         </button>
+        <span
+          className="fade"
+        >
+          <button
+            className="btn btn-primary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Delete
+          </button>
+          <button
+            className="btn btn-primary"
+            disabled={false}
+            type="button"
+          >
+            Download
+          </button>
+        </span>
         <button
           className="btn btn-primary"
           disabled={false}
           type="button"
         >
-          Download
+          New Folder
         </button>
       </span>
-      <button
-        className="btn btn-primary"
-        disabled={false}
-        type="button"
-      >
-        New Folder
-      </button>
-    </span>
-  </div>,
-  <div
-    className="container-fluid"
-  >
-    <nav
-      aria-label="breadcrumb"
-    >
-      <ol
-        className="breadcrumb"
-      >
-        <a
-          className="breadcrumb-item active"
-          href="/file"
-          onClick={[Function]}
-        >
-          Home
-           
-        </a>
-      </ol>
-    </nav>
+    </div>
     <div
-      className="row"
+      className="container-fluid"
     >
+      <nav
+        aria-label="breadcrumb"
+      >
+        <ol
+          className="breadcrumb"
+        >
+          <a
+            className="breadcrumb-item active"
+            href="/file"
+            onClick={[Function]}
+          >
+            Home
+          </a>
+        </ol>
+      </nav>
       <div
-        className="col-md-1 col-2"
+        className="row"
       >
         <div
-          className="form-group"
+          className="col-md-1 col-2"
         >
           <div
-            className="form-check"
+            className="form-group"
           >
-            <input
-              checked={false}
-              className="form-check-input position-static"
-              disabled={false}
-              id="formBasicCheckbox"
-              onChange={[Function]}
-              type="checkbox"
-            />
+            <div
+              className="form-check"
+            >
+              <input
+                checked={true}
+                className="form-check-input position-static"
+                disabled={false}
+                id="formBasicCheckbox"
+                onChange={[Function]}
+                type="checkbox"
+              />
+            </div>
           </div>
         </div>
+        <div
+          className="text-center col-md-1 col-2"
+          onClick={[Function]}
+        >
+          Type
+        </div>
+        <div
+          className="col-md-1 col-2"
+        >
+          Share
+        </div>
+        <div
+          className="col-md-4 col-6"
+          onClick={[Function]}
+        >
+          Name
+        </div>
+        <div
+          className="col-md-3 col-6"
+          onClick={[Function]}
+        >
+          Owner
+        </div>
+        <div
+          className="col-md-1 col-3"
+          onClick={[Function]}
+        >
+          Last changes
+        </div>
+        <div
+          className="col-md-1 col-3"
+          onClick={[Function]}
+        >
+          Size
+        </div>
       </div>
+      <hr />
       <div
-        className="text-center col-md-1 col-2"
-        onClick={[Function]}
-      >
-        Type
-      </div>
-      <div
-        className="col-md-1 col-2"
-      >
-        Share
-      </div>
-      <div
-        className="col-md-4 col-6"
-        onClick={[Function]}
-      >
-        Name
-      </div>
-      <div
-        className="col-md-3 col-6"
-        onClick={[Function]}
-      >
-        Owner
-      </div>
-      <div
-        className="col-md-1 col-3"
-        onClick={[Function]}
-      >
-        Last changes
-      </div>
-      <div
-        className="col-md-1 col-3"
-        onClick={[Function]}
-      >
-        Size
-      </div>
-    </div>
-    <hr />
-    <div
-      className="row"
-    >
-      <div
-        className="d-flex justify-content-center align-items-center h-100 container"
+        className="row"
       >
         <div
-          className="spinner-border"
-          role="status"
+          className="text-center col"
         >
-          <span
-            className="sr-only"
-          >
-            Loading...
-          </span>
+           Nothing to see here.
         </div>
       </div>
     </div>
-  </div>,
-]
+    <div />
+    <button
+      className="btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Download test
+    </button>
+  </div>
+  <div
+    className="text-center border py-4 mx-3"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onDragEnter={[Function]}
+    onDragLeave={[Function]}
+    onDragOver={[Function]}
+    onDrop={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    tabIndex={0}
+  >
+    <input
+      autoComplete="off"
+      multiple={true}
+      onChange={[Function]}
+      onClick={[Function]}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+      tabIndex={-1}
+      type="file"
+    />
+    <p>
+      Drag 'n' drop files or folders here, or click to select files
+    </p>
+  </div>
+</div>
 `;
 
 exports[`Storyshots Health default 1`] = `
