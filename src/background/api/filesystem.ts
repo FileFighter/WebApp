@@ -1,6 +1,9 @@
 import { FsEntity } from "./filesystemTypes";
 import { filesystemPath, hostname } from "./api";
 import Axios from "axios";
+import fileDownload from "js-file-download";
+// @ts-ignore
+import streamSaver from "streamsaver";
 import store from "../redux/store";
 import {
   ApiAction,
@@ -105,6 +108,9 @@ export const uploadFiles = (files: File[], parentFolderID: string) => {
         headers: {
           "Content-Type": "multipart/form-data",
           "X-FF-ID": parentFolderID
+        },
+        onUploadProgress(progress) {
+          console.log("upload progress:", progress);
         }
       })
         .then((response) => resolve(response))
@@ -113,6 +119,31 @@ export const uploadFiles = (files: File[], parentFolderID: string) => {
   };
 
   handleMultipleApiActions(files, apiCall, ApiActionType.UPLOAD);
+};
+
+export const downloadFiles = () => {
+  console.log("download");
+  /*new JsFileDownloader({
+    url: "http://localhost:5000/download",
+    headers: [
+      { name: "Authorization", value: "Bearer ABC123..." },
+      // @ts-ignore
+      { name: "X-FF-IDS", value: "bla" }
+    ]
+  });*/
+
+  Axios.get("http://localhost:5000/download", {
+    responseType: "blob", // Important
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "X-FF-IDS": "dfsghzufg"
+    },
+    onDownloadProgress(progress) {
+      //console.log("download progress:", progress);
+    }
+  }).then((response) => {
+    fileDownload(response.data, "bild.png");
+  });
 };
 
 export const deleteFsEntities = (files: FsEntity[]) => {
