@@ -127,15 +127,15 @@ function FileList(props: Props): ReactElement {
           ? a.fileSystemId - b.fileSystemId
           : a[property].toLowerCase().localeCompare(b[property].toLowerCase())
       );
-    } else if (property === "createdByUser") {
+    } else if (property === "lastUpdatedBy") {
       toSort.sort((a, b) =>
-        a.createdByUser.username
+        a.lastUpdatedBy.username
           .toLowerCase()
-          .localeCompare(b.createdByUser.username.toLowerCase()) === 0
+          .localeCompare(b.lastUpdatedBy.username.toLowerCase()) === 0
           ? a.fileSystemId - b.fileSystemId
-          : a.createdByUser.username
+          : a.lastUpdatedBy.username
               .toLowerCase()
-              .localeCompare(b.createdByUser.username.toLowerCase())
+              .localeCompare(b.lastUpdatedBy.username.toLowerCase())
       );
     }
     setFilesAndFolders(sortIncreasing ? toSort.reverse() : toSort);
@@ -169,8 +169,8 @@ function FileList(props: Props): ReactElement {
         <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
           {"Name"}
         </Col>
-        <Col xs={6} md={3} onClick={() => handleSortClick("createdByUser")}>
-          {"Owner"}
+        <Col xs={6} md={3} onClick={() => handleSortClick("lastUpdatedBy")}>
+          {"Last updated by"}
         </Col>
         <Col xs={3} md={1} onClick={() => handleSortClick("lastUpdated")}>
           {"Last changes"}

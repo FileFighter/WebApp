@@ -103,19 +103,24 @@ export function handleMultipleApiActions<Type extends File | FsEntity>(
 }
 
 export const uploadFiles = (files: File[], parentFolderID: string) => {
+  parentFolderID = "1"; //TODO
+  console.log(files);
   const apiCall = (file: File) => {
     return new Promise((resolve, reject) => {
       let formData = new FormData();
       formData.append("file", file);
-      Axios.post("http://localhost:5000/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "X-FF-ID": parentFolderID
-        },
-        onUploadProgress(progress) {
-          console.log("upload progress:", progress);
+      Axios.post(
+        "http://localhost:5000/data/upload/" + parentFolderID,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          },
+          onUploadProgress(progress) {
+            console.log("upload progress:", progress);
+          }
         }
-      })
+      )
         .then((response) => {
           store.dispatch(addToContents(response.data));
           resolve(response);
