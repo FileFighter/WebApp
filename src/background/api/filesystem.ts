@@ -1,4 +1,4 @@
-import { FsEntity, PreflightEnitiy } from "./filesystemTypes";
+import { FsEntity, PreflightEntity } from "./filesystemTypes";
 import { filesystemPath, hostname } from "./api";
 import Axios, { AxiosResponse } from "axios";
 
@@ -101,12 +101,12 @@ export function handleMultipleApiActions<Type extends File | FsEntity>(
 export const uploadPreflight = (
   files: File[],
   parentFolderID: string
-): Promise<PreflightEnitiy[]> => {
-  return new Promise<PreflightEnitiy[]>((resolve, reject) => {
-    Axios.post<PreflightEnitiy[]>(
+): Promise<PreflightEntity[]> => {
+  return new Promise<PreflightEntity[]>((resolve, reject) => {
+    Axios.post<PreflightEntity[]>(
       hostname + filesystemPath + "upload/preflight"
     )
-      .then((response: AxiosResponse<PreflightEnitiy[]>) => {
+      .then((response: AxiosResponse<PreflightEntity[]>) => {
         resolve(response.data);
       })
       .catch((error: Error) => reject(error));

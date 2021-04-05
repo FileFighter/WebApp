@@ -29,16 +29,19 @@ export interface FsEntity {
   type: string;
 }
 
-export interface PreflightEnitiy {
+export interface PreflightEntity {
   name: string;
   path: string;
   permissionIsSufficient: boolean; // can upload and can overwrite
   nameAlreadyInUse: boolean;
   nameIsValid: boolean;
   isFile: boolean;
+  newName?: string;
+  newPath?: string;
+  overwrite?: boolean;
 }
 
-export interface FileWithPreflightInfo extends File, PreflightEnitiy {
+export interface FileWithPreflightInfo extends File, PreflightEntity {
   webkitRelativePath?: string;
   readonly name: string;
 }

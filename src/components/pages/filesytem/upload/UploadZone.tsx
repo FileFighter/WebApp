@@ -1,26 +1,43 @@
-import React, { ReactElement, useCallback, useState } from "react";
+import React, {
+  ReactElement,
+  Reducer,
+  useCallback,
+  useReducer,
+  useState
+} from "react";
 import { useDropzone } from "react-dropzone";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../background/redux/store";
-import { Button, Modal } from "react-bootstrap";
+import { RootState } from "../../../../background/redux/store";
+import { Modal } from "react-bootstrap";
 import {
   uploadFiles,
   uploadPreflight
-} from "../../../background/api/filesystem";
+} from "../../../../background/api/filesystem";
 import {
   FileWithPreflightInfo,
   FsEntity,
-  PreflightEnitiy
-} from "../../../background/api/filesystemTypes";
+  PreflightEntity
+} from "../../../../background/api/filesystemTypes";
+import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent";
 
 export const UploadZone = (): ReactElement => {
   const [showUploadDialog, setShowUploadDialog] = useState(false);
   const handleClose = () => setShowUploadDialog(false);
   const handleShow = () => setShowUploadDialog(true);
 
-  const [preflightResult, setPreflightResult] = useState<
-    FileWithPreflightInfo[]
-  >([]);
+  const [preflightResult, setPreflightResultDispatch] = useReducer<
+    Reducer<
+      (FileWithPreflightInfo | PreflightEntity)[],
+      (FileWithPreflightInfo | PreflightEntity)[]
+    >
+  >((currentState, action): (FileWithPreflightInfo | PreflightEntity)[] => {
+    if (action.length === 1) {
+      return [
+        ...currentState.filter((e) => e.path === action[0].path),
+        ...action
+      ]; // do sorting here?
+    } else return action;
+  }, []);
 
   const currentFsItemId = useSelector(
     (state: RootState) => state.filesystem.currentFsItemId
@@ -51,7 +68,7 @@ export const UploadZone = (): ReactElement => {
           currentFsItemId
         ).then((response) => {
           const actionsNeeded = response.some(
-            (e: PreflightEnitiy) =>
+            (e: PreflightEntity) =>
               !e.permissionIsSufficient || e.nameAlreadyInUse || !e.nameIsValid
           );
 
@@ -65,7 +82,10 @@ export const UploadZone = (): ReactElement => {
 
               return file;
             });
-            setPreflightResult(combined);
+            setPreflightResultDispatch([
+              ...combined,
+              ...response.filter((f) => !f.isFile)
+            ]);
 
             handleShow();
           } else {
@@ -103,22 +123,11 @@ export const UploadZone = (): ReactElement => {
         onHide={handleClose}
         contentClassName={"bg-body"}
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Uploading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {preflightResult.map((e) => {
-            return e.name;
-          })}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
+        <UploadDecisionsModalContent
+          handleClose={handleClose}
+          preflightResult={preflightResult}
+          setPreflightResultDispatch={setPreflightResultDispatch}
+        />
       </Modal>
     </>
   );
