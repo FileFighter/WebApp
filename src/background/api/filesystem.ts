@@ -1,10 +1,6 @@
-import { FsEntity } from "./filesystemTypes";
+import { FsEntity, PreflightEnitiy } from "./filesystemTypes";
 import { filesystemPath, hostname } from "./api";
-import Axios from "axios";
-
-// @ts-ignore
-import { saveAs } from "file-saver";
-// @ts-ignore
+import Axios, { AxiosResponse } from "axios";
 
 import store from "../redux/store";
 import {
@@ -102,6 +98,21 @@ export function handleMultipleApiActions<Type extends File | FsEntity>(
     });
 }
 
+export const uploadPreflight = (
+  files: File[],
+  parentFolderID: string
+): Promise<PreflightEnitiy[]> => {
+  return new Promise<PreflightEnitiy[]>((resolve, reject) => {
+    Axios.post<PreflightEnitiy[]>(
+      hostname + filesystemPath + "upload/preflight"
+    )
+      .then((response: AxiosResponse<PreflightEnitiy[]>) => {
+        resolve(response.data);
+      })
+      .catch((error: Error) => reject(error));
+  });
+};
+
 export const uploadFiles = (files: File[], parentFolderID: string) => {
   parentFolderID = "1"; //TODO
   console.log(files);
@@ -161,42 +172,6 @@ export const downloadFiles = () => {
     document.body.appendChild(link);
     link.click();
   });
-};
-
-export const downloadFileFetch = async () => {
-  let url = "http://localhost:5000/download";
-  let fetchProps = {
-    method: "GET",
-    headers: {
-      "Content-Type": "multipart/form-data",
-      "X-FF-IDS": "dfsghzufg",
-      Authorization: "bla"
-    }
-  };
-
-  try {
-    const response = await fetch(url, fetchProps);
-
-    if (!response.ok) {
-      // @ts-ignore
-      throw new Error(response);
-    }
-
-    // Extract filename from header
-    // @ts-ignore
-    const filename = response.headers
-      .get("content-disposition")
-      .split(";")
-      .find((n) => n.includes("filename="))
-      .replace("filename=", "")
-      .trim();
-    const blob = await response.blob();
-
-    // Download the file
-    saveAs(blob, filename);
-  } catch (error) {
-    throw new Error(error);
-  }
 };
 
 export const deleteFsEntities = (files: FsEntity[]) => {
