@@ -1,16 +1,11 @@
 import React, { ReactElement, useState } from "react";
 import { Button, Form, ListGroup, Modal, Table } from "react-bootstrap";
-import {
-  FileWithPreflightInfo,
-  PreflightEntity
-} from "../../../../background/api/filesystemTypes";
+import { EditablePreflightEntityOrFile } from "../../../../background/api/filesystemTypes";
 
 interface Props {
   handleClose: () => void;
-  preflightResult: (FileWithPreflightInfo | PreflightEntity)[];
-  setPreflightResultDispatch: (
-    a: (FileWithPreflightInfo | PreflightEntity)[]
-  ) => void;
+  preflightResult: EditablePreflightEntityOrFile[];
+  setPreflightResultDispatch: (a: EditablePreflightEntityOrFile[]) => void;
 }
 
 export const UploadDecisionsModalContent = ({
@@ -22,26 +17,22 @@ export const UploadDecisionsModalContent = ({
   const nextPage = () => setCurrentPage(currentPage + 1);
 
   const foldersToMerge = preflightResult.filter(
-    (f: FileWithPreflightInfo | PreflightEntity) =>
-      !f.isFile && f.nameAlreadyInUse
+    (f: EditablePreflightEntityOrFile) => !f.isFile && f.nameAlreadyInUse
   );
   const entitiesWithInvalidName = preflightResult.filter(
-    (f: FileWithPreflightInfo | PreflightEntity) => !f.nameIsValid
+    (f: EditablePreflightEntityOrFile) => !f.nameIsValid
   );
   const filesToOverwrite = preflightResult.filter(
-    (f: FileWithPreflightInfo | PreflightEntity) =>
-      f.isFile && f.nameAlreadyInUse
+    (f: EditablePreflightEntityOrFile) => f.isFile && f.nameAlreadyInUse
   );
   const insufficientPermission = preflightResult.filter(
-    (f: FileWithPreflightInfo | PreflightEntity) => !f.permissionIsSufficient
+    (f: EditablePreflightEntityOrFile) => !f.permissionIsSufficient
   );
 
-  const smallFileList = (
-    files: (FileWithPreflightInfo | PreflightEntity)[]
-  ) => {
+  const smallFileList = (files: EditablePreflightEntityOrFile[]) => {
     return (
       <ListGroup variant="flush">
-        {files.map((f: FileWithPreflightInfo | PreflightEntity) => (
+        {files.map((f: EditablePreflightEntityOrFile) => (
           <ListGroup.Item variant="dark">{f.path} </ListGroup.Item>
         ))}
       </ListGroup>
@@ -49,37 +40,55 @@ export const UploadDecisionsModalContent = ({
   };
 
   const changeNamesOrOverwriteTable = (
-    files: (FileWithPreflightInfo | PreflightEntity)[]
+    files: EditablePreflightEntityOrFile[]
   ) => {
     return (
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
-            <th>Local Name</th>
+            <th>relative Path</th>
             <th>New Name</th>
             <th>Overwrite</th>
           </tr>
         </thead>
         <tbody>
-          {files.map((f: FileWithPreflightInfo | PreflightEntity) => (
-            <tr>
-              <td>{f.path} </td>
-              <td>
-                <Form.Group>
-                  <Form.Control
-                    type="text"
-                    placeholder="A new valid name"
-                    value={f.newName ?? f.name}
-                  />
-                </Form.Group>
-              </td>
-              <td>
-                <Form.Group>
-                  <Form.Check type="checkbox" checked={f.overwrite} />
-                </Form.Group>
-              </td>
-            </tr>
-          ))}
+          {files.map((f: EditablePreflightEntityOrFile) => {
+            const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+              let val = event.target.value;
+
+              if (val) {
+                f.newName = val;
+
+                let pathWithoutName = f.path.substring(
+                  0,
+                  f.path.lastIndexOf("/") + 1
+                );
+                f.newPath = pathWithoutName + val;
+
+                setPreflightResultDispatch([f]);
+              }
+            };
+            return (
+              <tr key={f.path}>
+                <td>{f.newPath ?? f.path} </td>
+                <td>
+                  <Form.Group>
+                    <Form.Control
+                      type="text"
+                      placeholder="A new valid name"
+                      value={f.newName ?? f.name}
+                      onChange={onChange}
+                    />
+                  </Form.Group>
+                </td>
+                <td>
+                  <Form.Group>
+                    <Form.Check type="checkbox" checked={f.overwrite} />
+                  </Form.Group>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     );
@@ -156,20 +165,6 @@ export const UploadDecisionsModalContent = ({
             <p>
               Files that would be overwritten:
               {changeNamesOrOverwriteTable(filesToOverwrite)}
-            </p>
-          )}
-          {!!insufficientPermission.length && (
-            <p>
-              Files of Folders that need to be renamed because you are not
-              allowed to overwrite them
-              {changeNamesOrOverwriteTable(insufficientPermission)}
-            </p>
-          )}
-          {!!entitiesWithInvalidName.length && (
-            <p>
-              Files of Folders that need to be renamed because their name is not
-              valid
-              {changeNamesOrOverwriteTable(entitiesWithInvalidName)}
             </p>
           )}
         </Modal.Body>

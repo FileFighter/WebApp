@@ -57,7 +57,8 @@ function FileList(props: Props): ReactElement {
   const [sortedBy, setSortedBy] = useState<keyof FsEntity | null>(null);
   const [sortIncreasing, setSortIncreasing] = useState<boolean>(false);
   const allAreSelected =
-    filesAndFolders?.length === props.filesystem.selectedFsEnties.length;
+    filesAndFolders?.length === props.filesystem.selectedFsEnties.length &&
+    !!filesAndFolders?.length;
 
   const clearSelected = props.clearSelected;
   const setContents = props.setContents;

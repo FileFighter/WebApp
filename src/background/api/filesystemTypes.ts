@@ -36,12 +36,26 @@ export interface PreflightEntity {
   nameAlreadyInUse: boolean;
   nameIsValid: boolean;
   isFile: boolean;
-  newName?: string;
-  newPath?: string;
-  overwrite?: boolean;
 }
 
-export interface FileWithPreflightInfo extends File, PreflightEntity {
+export type EditablePreflightEntityOrFile =
+  | EditableFileWithPreflightInfo
+  | EditablePreflightEntity;
+
+export interface EditableFileWithPreflightInfo
+  extends File,
+    EditableEntity,
+    PreflightEntity {
   webkitRelativePath?: string;
   readonly name: string;
+}
+export interface EditablePreflightEntity
+  extends PreflightEntity,
+    EditableEntity {}
+
+interface EditableEntity {
+  newName?: string;
+  newPath?: string;
+  prevNewPath?: string;
+  overwrite?: boolean;
 }

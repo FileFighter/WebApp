@@ -14,7 +14,7 @@ import {
   uploadPreflight
 } from "../../../../background/api/filesystem";
 import {
-  FileWithPreflightInfo,
+  EditablePreflightEntityOrFile,
   FsEntity,
   PreflightEntity
 } from "../../../../background/api/filesystemTypes";
@@ -25,19 +25,9 @@ export const UploadZone = (): ReactElement => {
   const handleClose = () => setShowUploadDialog(false);
   const handleShow = () => setShowUploadDialog(true);
 
-  const [preflightResult, setPreflightResultDispatch] = useReducer<
-    Reducer<
-      (FileWithPreflightInfo | PreflightEntity)[],
-      (FileWithPreflightInfo | PreflightEntity)[]
-    >
-  >((currentState, action): (FileWithPreflightInfo | PreflightEntity)[] => {
-    if (action.length === 1) {
-      return [
-        ...currentState.filter((e) => e.path === action[0].path),
-        ...action
-      ]; // do sorting here?
-    } else return action;
-  }, []);
+  // const [preflightResult, ] = useReducer<
+  //   Reducer<EditablePreflightEntityOrFile[], EditablePreflightEntityOrFile[]>
+  //>(editablePreflightEntityOrFileReducer, []); // reducer fn is at bottom of file
 
   const currentFsItemId = useSelector(
     (state: RootState) => state.filesystem.currentFsItemId
@@ -47,13 +37,12 @@ export const UploadZone = (): ReactElement => {
   );
 
   const onDrop = useCallback(
-    (acceptedFiles: FileWithPreflightInfo[]) => {
+    (acceptedFiles: EditablePreflightEntityOrFile[]) => {
       //check if preflight is needed
       let preflightNeeded = acceptedFiles.some(
-        (file: FileWithPreflightInfo) => {
+        (file: EditablePreflightEntityOrFile) => {
           return (
             file.path.includes("/") ||
-            file.webkitRelativePath?.includes("/") ||
             currentFsContent.some(
               (fsEntiy: FsEntity) => fsEntiy.name === file.name
             )
@@ -84,7 +73,9 @@ export const UploadZone = (): ReactElement => {
             });
             setPreflightResultDispatch([
               ...combined,
-              ...response.filter((f) => !f.isFile)
+              ...(response.filter(
+                (f) => !f.isFile
+              ) as EditablePreflightEntityOrFile[])
             ]);
 
             handleShow();
@@ -104,6 +95,53 @@ export const UploadZone = (): ReactElement => {
     [currentFsItemId, currentFsContent]
   );
 
+  const [preflightResult, setPreflightResultState] = useState<
+    EditablePreflightEntityOrFile[]
+  >([]);
+  const setPreflightResultDispatch = (
+    action: EditablePreflightEntityOrFile[]
+  ) => {
+    let currentState = preflightResult;
+    console.log(currentState.filter((e) => !e.isFile));
+    if (action.length === 1) {
+      if (!action[0].isFile && action[0].newPath) {
+        //change the path in all subfoders / subfiles
+
+        let elementToReplace: EditablePreflightEntityOrFile;
+        let restOfElements: EditablePreflightEntityOrFile[] = [];
+
+        currentState.forEach((e) => {
+          if (e.path === action[0].path) {
+            elementToReplace = e;
+          } else restOfElements.push(e);
+        });
+
+        // @ts-ignore
+        let oldPath = elementToReplace.prevNewPath ?? "ts sucks";
+
+        let modifiedEntities = restOfElements.map((e) => {
+          let currentPath = e.newPath ?? e.path;
+          let index = currentPath.indexOf(oldPath);
+
+          if (index === 0) {
+            e.newPath = action[0].newPath + currentPath.substr(oldPath?.length);
+            e.prevNewPath =
+              action[0].newPath + currentPath.substr(oldPath?.length);
+          }
+          return e;
+        });
+        action[0].prevNewPath = action[0].newPath;
+        console.log([...modifiedEntities, ...action].filter((e) => !e.isFile));
+        setPreflightResultState([...modifiedEntities, ...action]);
+      } else {
+        setPreflightResultState([
+          ...currentState.filter((e) => e.path !== action[0].path),
+          ...action
+        ]); // do sorting here?
+      }
+    } else setPreflightResultState(action);
+  };
+
   // @ts-ignore
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
@@ -119,6 +157,7 @@ export const UploadZone = (): ReactElement => {
       </div>
 
       <Modal
+        size="lg"
         show={showUploadDialog}
         onHide={handleClose}
         contentClassName={"bg-body"}
