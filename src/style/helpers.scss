@@ -1,3 +1,36 @@
 .text-shadow-none{
   text-shadow: none;
 }
+
+.queer-banner{
+  color:white;
+  border-top: 5px solid $primary;
+  text-align: center;
+  background: linear-gradient(
+                  124deg,
+                  #000000,
+                  #784f16,
+                  #fe0000,
+                  #fe8c01,
+                  #ffe500,
+                  #11a00b,
+                  #0643b3,
+                  #c32ede
+  );
+  background-size: 1800% 1800%;
+  animation: rainbow 18s ease infinite;
+  @keyframes rainbow {
+    0%{
+      color: white;
+      background-position:0 82%;
+    }
+    50%{
+      color: black;
+      background-position:100% 19%;
+    }
+    100%{
+      color: white;
+      background-position:0 82%;
+    }
+  }
+}
