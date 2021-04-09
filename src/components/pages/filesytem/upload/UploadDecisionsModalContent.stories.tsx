@@ -2,10 +2,14 @@ import { storiesOf } from "@storybook/react";
 import { Provider } from "react-redux";
 import store from "../../../../background/redux/store";
 import { BrowserRouter } from "react-router-dom";
-import React, { useState } from "react";
+import React, { Reducer, useReducer, useState } from "react";
 import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent";
 import { Modal } from "react-bootstrap";
-import { EditablePreflightEntityOrFile } from "../../../../background/api/filesystemTypes";
+import {
+  EditablePreflightEntityOrFile,
+  PreflightEntityChange
+} from "../../../../background/api/filesystemTypes";
+import { preflightResultReducer } from "./UploadZone";
 
 storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
   const preflightResultInit: EditablePreflightEntityOrFile[] = [
@@ -48,64 +52,33 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
       nameAlreadyInUse: true,
       nameIsValid: true,
       isFile: false
+    },
+    {
+      name: "blubfdhjsgfhj---fsd/",
+      path: "fasel/blubfdhjsgfhj---fsd/",
+      permissionIsSufficient: false,
+      nameAlreadyInUse: true,
+      nameIsValid: false,
+      isFile: false
     }
-  ].map((e: EditablePreflightEntityOrFile) => {
-    e.prevNewPath = e.path;
+  ];
 
-    return e;
-  });
-
-  const [preflightResult, setPreflightResultState] = useState<
-    EditablePreflightEntityOrFile[]
-  >(preflightResultInit);
-  const setPreflightResultDispatch = (
-    action: EditablePreflightEntityOrFile[]
-  ) => {
-    let currentState = preflightResult;
-    console.log(currentState.filter((e) => !e.isFile));
-    if (action.length === 1) {
-      if (!action[0].isFile && action[0].newPath) {
-        //change the path in all subfoders / subfiles
-
-        let elementToReplace: EditablePreflightEntityOrFile;
-        let restOfElements: EditablePreflightEntityOrFile[] = [];
-
-        currentState.forEach((e) => {
-          if (e.path === action[0].path) {
-            elementToReplace = e;
-          } else restOfElements.push(e);
-        });
-
-        // @ts-ignore
-        let oldPath = elementToReplace.prevNewPath ?? "ts sucks";
-
-        let modifiedEntities = restOfElements.map((e) => {
-          let currentPath = e.newPath ?? e.path;
-          let index = currentPath.indexOf(oldPath);
-
-          if (index === 0) {
-            e.newPath = action[0].newPath + currentPath.substr(oldPath?.length);
-            e.prevNewPath =
-              action[0].newPath + currentPath.substr(oldPath?.length);
-          }
-          return e;
-        });
-        action[0].prevNewPath = action[0].newPath;
-        console.log([...modifiedEntities, ...action].filter((e) => !e.isFile));
-        setPreflightResultState([...modifiedEntities, ...action]);
-      } else {
-        setPreflightResultState([
-          ...currentState.filter((e) => e.path !== action[0].path),
-          ...action
-        ]); // do sorting here?
-      }
-    } else setPreflightResultState(action);
-  };
+  const [preflightResult, setPreflightResultDispatch] = useReducer<
+    Reducer<
+      EditablePreflightEntityOrFile[],
+      PreflightEntityChange | EditablePreflightEntityOrFile[]
+    >
+  >(preflightResultReducer, preflightResultInit);
 
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Modal show={true} onHide={() => {}} contentClassName={"bg-body"}>
+        <Modal
+          show={true}
+          onHide={() => {}}
+          contentClassName={"bg-body"}
+          size="xl"
+        >
           <UploadDecisionsModalContent
             handleClose={() => {}}
             preflightResult={preflightResult}

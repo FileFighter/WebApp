@@ -16,9 +16,11 @@ import {
 import {
   EditablePreflightEntityOrFile,
   FsEntity,
-  PreflightEntity
+  PreflightEntity,
+  PreflightEntityChange
 } from "../../../../background/api/filesystemTypes";
 import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent";
+import { divideArrayByCondition } from "../../../../background/methods/arrays";
 
 export const UploadZone = (): ReactElement => {
   const [showUploadDialog, setShowUploadDialog] = useState(false);
@@ -95,52 +97,12 @@ export const UploadZone = (): ReactElement => {
     [currentFsItemId, currentFsContent]
   );
 
-  const [preflightResult, setPreflightResultState] = useState<
-    EditablePreflightEntityOrFile[]
-  >([]);
-  const setPreflightResultDispatch = (
-    action: EditablePreflightEntityOrFile[]
-  ) => {
-    let currentState = preflightResult;
-    console.log(currentState.filter((e) => !e.isFile));
-    if (action.length === 1) {
-      if (!action[0].isFile && action[0].newPath) {
-        //change the path in all subfoders / subfiles
-
-        let elementToReplace: EditablePreflightEntityOrFile;
-        let restOfElements: EditablePreflightEntityOrFile[] = [];
-
-        currentState.forEach((e) => {
-          if (e.path === action[0].path) {
-            elementToReplace = e;
-          } else restOfElements.push(e);
-        });
-
-        // @ts-ignore
-        let oldPath = elementToReplace.prevNewPath ?? "ts sucks";
-
-        let modifiedEntities = restOfElements.map((e) => {
-          let currentPath = e.newPath ?? e.path;
-          let index = currentPath.indexOf(oldPath);
-
-          if (index === 0) {
-            e.newPath = action[0].newPath + currentPath.substr(oldPath?.length);
-            e.prevNewPath =
-              action[0].newPath + currentPath.substr(oldPath?.length);
-          }
-          return e;
-        });
-        action[0].prevNewPath = action[0].newPath;
-        console.log([...modifiedEntities, ...action].filter((e) => !e.isFile));
-        setPreflightResultState([...modifiedEntities, ...action]);
-      } else {
-        setPreflightResultState([
-          ...currentState.filter((e) => e.path !== action[0].path),
-          ...action
-        ]); // do sorting here?
-      }
-    } else setPreflightResultState(action);
-  };
+  const [preflightResult, setPreflightResultDispatch] = useReducer<
+    Reducer<
+      EditablePreflightEntityOrFile[],
+      PreflightEntityChange | EditablePreflightEntityOrFile[]
+    >
+  >(preflightResultReducer, []);
 
   // @ts-ignore
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -170,6 +132,92 @@ export const UploadZone = (): ReactElement => {
       </Modal>
     </>
   );
+};
+
+export const preflightResultReducer: Reducer<
+  EditablePreflightEntityOrFile[],
+  PreflightEntityChange | EditablePreflightEntityOrFile[]
+> = (currentState, action) => {
+  console.log(currentState.filter((e) => !e.isFile));
+  console.log(action);
+  if (action instanceof Array) {
+    return action.sort(sortPreflightResult);
+  } else {
+    let [[elementToReplace], restOfElements] = divideArrayByCondition(
+      currentState,
+      (e) => e.path === action.path
+    );
+
+    //console.log(elementToReplace, restOfElements);
+    if (action.newName) {
+      //change the path in all subfoders / subfiles
+
+      let oldPath = elementToReplace.newPath ?? elementToReplace.path;
+
+      let newPath =
+        oldPath.substring(
+          0,
+          oldPath.lastIndexOf(elementToReplace.newName ?? elementToReplace.name)
+        ) + action.newName;
+
+      if (action.update) {
+        let newPathAlreadyExits = restOfElements.some(
+          (e: EditablePreflightEntityOrFile) => {
+            let localPath = e.newPath ?? e.path;
+            return localPath === newPath;
+          }
+        );
+
+        if (newPathAlreadyExits) {
+          console.log("already exist");
+          elementToReplace.error = true;
+          elementToReplace.newPath =
+            elementToReplace.prefNewPath ?? elementToReplace.path;
+          elementToReplace.newName =
+            elementToReplace.prefNewName ?? elementToReplace.name;
+        } else {
+          let prevOldPath =
+            elementToReplace.prefNewPath ?? elementToReplace.path;
+          restOfElements = restOfElements.map((e) => {
+            let currentPath = e.newPath ?? e.path;
+            let currentName = e.newName ?? e.name;
+            let currentPathWithoutName = currentPath.substr(
+              0,
+              currentPath.lastIndexOf(currentName)
+            );
+            let index = currentPathWithoutName.indexOf(prevOldPath);
+
+            // console.log(oldPath, index, action.newPath);
+            if (index === 0) {
+              e.newPath = newPath + currentPath.substr(prevOldPath?.length);
+            }
+            return e;
+          });
+          elementToReplace.prefNewPath = newPath;
+          elementToReplace.prefNewName = action.newName;
+          elementToReplace.newPath = newPath;
+          elementToReplace.newName = action.newName;
+        }
+      } else {
+        elementToReplace.newPath = newPath;
+        elementToReplace.newName = action.newName;
+      }
+
+      return [...restOfElements, elementToReplace].sort(sortPreflightResult);
+    } else {
+      // @ts-ignore
+      elementToReplace.overwrite = action.overwrite;
+
+      return [...restOfElements, elementToReplace].sort(sortPreflightResult); // do sorting here?
+    }
+  }
+};
+
+const sortPreflightResult = (
+  a: EditablePreflightEntityOrFile,
+  b: EditablePreflightEntityOrFile
+) => {
+  return a.path.localeCompare(b.path);
 };
 
 export default UploadZone;

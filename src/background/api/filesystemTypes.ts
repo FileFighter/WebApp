@@ -56,6 +56,15 @@ export interface EditablePreflightEntity
 interface EditableEntity {
   newName?: string;
   newPath?: string;
-  prevNewPath?: string;
   overwrite?: boolean;
+  prefNewPath?: string;
+  prefNewName?: string;
+  error?: boolean;
+}
+
+export interface PreflightEntityChange {
+  newName?: string;
+  path: string;
+  overwrite?: boolean;
+  update?: boolean;
 }

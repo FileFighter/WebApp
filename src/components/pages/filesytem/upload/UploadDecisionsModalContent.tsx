@@ -1,11 +1,17 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useCallback, useState } from "react";
 import { Button, Form, ListGroup, Modal, Table } from "react-bootstrap";
-import { EditablePreflightEntityOrFile } from "../../../../background/api/filesystemTypes";
+import {
+  EditablePreflightEntityOrFile,
+  PreflightEntityChange
+} from "../../../../background/api/filesystemTypes";
+import UploadDecisionsTableRow from "./UploadDecisionsTableRow";
 
 interface Props {
   handleClose: () => void;
   preflightResult: EditablePreflightEntityOrFile[];
-  setPreflightResultDispatch: (a: EditablePreflightEntityOrFile[]) => void;
+  setPreflightResultDispatch: (
+    a: EditablePreflightEntityOrFile[] | PreflightEntityChange
+  ) => void;
 }
 
 export const UploadDecisionsModalContent = ({
@@ -53,40 +59,11 @@ export const UploadDecisionsModalContent = ({
         </thead>
         <tbody>
           {files.map((f: EditablePreflightEntityOrFile) => {
-            const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-              let val = event.target.value;
-
-              if (val) {
-                f.newName = val;
-
-                let pathWithoutName = f.path.substring(
-                  0,
-                  f.path.lastIndexOf("/") + 1
-                );
-                f.newPath = pathWithoutName + val;
-
-                setPreflightResultDispatch([f]);
-              }
-            };
             return (
-              <tr key={f.path}>
-                <td>{f.newPath ?? f.path} </td>
-                <td>
-                  <Form.Group>
-                    <Form.Control
-                      type="text"
-                      placeholder="A new valid name"
-                      value={f.newName ?? f.name}
-                      onChange={onChange}
-                    />
-                  </Form.Group>
-                </td>
-                <td>
-                  <Form.Group>
-                    <Form.Check type="checkbox" checked={f.overwrite} />
-                  </Form.Group>
-                </td>
-              </tr>
+              <UploadDecisionsTableRow
+                setPreflightResultDispatch={setPreflightResultDispatch}
+                preflightEntity={f}
+              />
             );
           })}
         </tbody>
@@ -173,7 +150,7 @@ export const UploadDecisionsModalContent = ({
             Close
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            Upload with new Names
           </Button>
         </Modal.Footer>
       </>
