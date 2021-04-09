@@ -21,6 +21,23 @@ export const UploadDecisionsModalContent = ({
 }: Props): ReactElement => {
   const [currentPage, setCurrentPage] = useState(0);
   const nextPage = () => setCurrentPage(currentPage + 1);
+  const [selectAllFolders, setSelectAllFolders] = useState(false);
+  const [selectAllFiles, setSelectAllFiles] = useState(false);
+
+  const updateSelectAll = (isFolder: boolean) => {
+    let newValue;
+    if (isFolder) {
+      setSelectAllFolders(!selectAllFolders);
+      newValue = !selectAllFolders;
+    } else {
+      setSelectAllFiles(!selectAllFiles);
+      newValue = !selectAllFiles;
+    }
+    setPreflightResultDispatch({
+      path: "dummy",
+      toggleAll: { isFolders: isFolder, newValue: newValue }
+    });
+  };
 
   const foldersToMerge = preflightResult.filter(
     (f: EditablePreflightEntityOrFile) => !f.isFile && f.nameAlreadyInUse
@@ -46,7 +63,8 @@ export const UploadDecisionsModalContent = ({
   };
 
   const changeNamesOrOverwriteTable = (
-    files: EditablePreflightEntityOrFile[]
+    files: EditablePreflightEntityOrFile[],
+    isFolders: boolean
   ) => {
     return (
       <Table striped bordered hover variant="dark">
@@ -54,7 +72,16 @@ export const UploadDecisionsModalContent = ({
           <tr>
             <th>relative Path</th>
             <th>New Name</th>
-            <th>Overwrite</th>
+            <th>
+              {isFolders ? "Merge" : "Overwrite"}
+              <Form.Group>
+                <Form.Check
+                  type="checkbox"
+                  checked={isFolders ? selectAllFolders : selectAllFiles}
+                  onChange={() => updateSelectAll(isFolders)}
+                />
+              </Form.Group>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -135,13 +162,13 @@ export const UploadDecisionsModalContent = ({
           {!!foldersToMerge.length && (
             <p>
               Folders that would be merged:
-              {changeNamesOrOverwriteTable(foldersToMerge)}
+              {changeNamesOrOverwriteTable(foldersToMerge, true)}
             </p>
           )}
           {!!filesToOverwrite.length && (
             <p>
               Files that would be overwritten:
-              {changeNamesOrOverwriteTable(filesToOverwrite)}
+              {changeNamesOrOverwriteTable(filesToOverwrite, false)}
             </p>
           )}
         </Modal.Body>

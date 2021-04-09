@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../background/redux/store";
 import { Modal } from "react-bootstrap";
 import {
+  getFolderContents,
   uploadFiles,
   uploadPreflight
 } from "../../../../background/api/filesystem";
@@ -138,10 +139,23 @@ export const preflightResultReducer: Reducer<
   EditablePreflightEntityOrFile[],
   PreflightEntityChange | EditablePreflightEntityOrFile[]
 > = (currentState, action) => {
-  console.log(currentState.filter((e) => !e.isFile));
-  console.log(action);
   if (action instanceof Array) {
     return action.sort(sortPreflightResult);
+  } else if (action.toggleAll) {
+    let [files, folders] = divideArrayByCondition(
+      currentState,
+      (e) => e.isFile
+    );
+    let toChange = action.toggleAll.isFolders ? folders : files;
+    let notToChange = !action.toggleAll.isFolders ? folders : files;
+
+    toChange = toChange.map((e: EditablePreflightEntityOrFile) => {
+      if (e.nameIsValid && e.permissionIsSufficient) {
+        e.overwrite = action?.toggleAll?.newValue ?? false;
+      }
+      return e;
+    });
+    return [...toChange, ...notToChange].sort(sortPreflightResult);
   } else {
     let [[elementToReplace], restOfElements] = divideArrayByCondition(
       currentState,
@@ -149,7 +163,7 @@ export const preflightResultReducer: Reducer<
     );
 
     //console.log(elementToReplace, restOfElements);
-    if (action.newName) {
+    if (action.newName !== undefined) {
       //change the path in all subfoders / subfiles
 
       let oldPath = elementToReplace.newPath ?? elementToReplace.path;
@@ -168,7 +182,13 @@ export const preflightResultReducer: Reducer<
           }
         );
 
-        if (newPathAlreadyExits) {
+        let newNameIsValidNot =
+          !action.newName ||
+          action.newName.includes("/") ||
+          action.newName.includes(" ") ||
+          action.newName.match('[~#@*+:!?&%<>|"^\\\\]');
+
+        if (newPathAlreadyExits || newNameIsValidNot) {
           console.log("already exist");
           elementToReplace.error = true;
           elementToReplace.newPath =
@@ -197,10 +217,12 @@ export const preflightResultReducer: Reducer<
           elementToReplace.prefNewName = action.newName;
           elementToReplace.newPath = newPath;
           elementToReplace.newName = action.newName;
+          elementToReplace.error = false;
         }
       } else {
         elementToReplace.newPath = newPath;
         elementToReplace.newName = action.newName;
+        elementToReplace.error = false;
       }
 
       return [...restOfElements, elementToReplace].sort(sortPreflightResult);

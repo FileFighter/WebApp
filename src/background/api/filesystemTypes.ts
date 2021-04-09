@@ -67,4 +67,10 @@ export interface PreflightEntityChange {
   path: string;
   overwrite?: boolean;
   update?: boolean;
+  toggleAll?: PreflightEntityChangeToggleAll;
+}
+
+interface PreflightEntityChangeToggleAll {
+  isFolders: boolean;
+  newValue: boolean;
 }

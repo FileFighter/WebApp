@@ -20,13 +20,11 @@ const UploadDecisionsTableRow = ({
     (event: React.ChangeEvent<HTMLInputElement>) => {
       let val = event.target.value;
 
-      if (val) {
-        const change: PreflightEntityChange = {
-          path: preflightEntity.path,
-          newName: val
-        };
-        setPreflightResultDispatch(change);
-      }
+      const change: PreflightEntityChange = {
+        path: preflightEntity.path,
+        newName: val
+      };
+      setPreflightResultDispatch(change);
     },
     [preflightEntity.path, setPreflightResultDispatch]
   );
@@ -35,14 +33,12 @@ const UploadDecisionsTableRow = ({
       console.log("onNameInputLeaver");
       let val = event.target.value;
 
-      if (val) {
-        const change: PreflightEntityChange = {
-          path: preflightEntity.path,
-          newName: val,
-          update: true
-        };
-        setPreflightResultDispatch(change);
-      }
+      const change: PreflightEntityChange = {
+        path: preflightEntity.path,
+        newName: val,
+        update: true
+      };
+      setPreflightResultDispatch(change);
     },
     [preflightEntity.path, setPreflightResultDispatch]
   );
@@ -54,6 +50,10 @@ const UploadDecisionsTableRow = ({
     setPreflightResultDispatch(change);
   }, [preflightEntity, setPreflightResultDispatch]);
 
+  let requiresNameChange =
+    (!preflightEntity.nameIsValid ||
+      (!preflightEntity.permissionIsSufficient && preflightEntity.overwrite)) &&
+    !preflightEntity.newName;
   return (
     <tr key={preflightEntity.path}>
       <td>
@@ -76,12 +76,20 @@ const UploadDecisionsTableRow = ({
             onBlur={onNameInputLeaver}
           />
         </Form.Group>
+        {preflightEntity.error && (
+          <small className={"text-warning"}>
+            Name not valid or already exists
+          </small>
+        )}
+        {requiresNameChange && (
+          <small className={"text-warning"}>Name must be changed</small>
+        )}
       </td>
       <td>
         <Form.Group>
           <Form.Check
             disabled={
-              !preflightEntity.nameIsValid &&
+              !preflightEntity.nameIsValid ||
               !preflightEntity.permissionIsSufficient
             }
             type="checkbox"
