@@ -10,18 +10,24 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../background/redux/store";
 import { Modal } from "react-bootstrap";
 import {
-  getFolderContents,
   uploadFiles,
   uploadPreflight
 } from "../../../../background/api/filesystem";
-import {
-  EditablePreflightEntityOrFile,
-  FsEntity,
-  PreflightEntity,
-  PreflightEntityChange
-} from "../../../../background/api/filesystemTypes";
+import { FsEntity } from "../../../../background/api/filesystemTypes";
 import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent";
 import { divideArrayByCondition } from "../../../../background/methods/arrays";
+import { getPathWithOutName } from "../../../../background/methods/filesystem";
+import {
+  EditableEntityError,
+  EditablePreflightEntityOrFile,
+  PeflightEntiesActionTypes,
+  PREFLIGHT_ADD_ENTITIES,
+  PREFLIGHT_CHANGE_NAME,
+  PREFLIGHT_TOGGLE_ALL,
+  PREFLIGHT_TOGGLE_OVERWRITE,
+  PREFLIGHT_UPDATE_NAME,
+  PreflightEntity
+} from "./preflightTypes";
 
 export const UploadZone = (): ReactElement => {
   const [showUploadDialog, setShowUploadDialog] = useState(false);
@@ -74,12 +80,15 @@ export const UploadZone = (): ReactElement => {
 
               return file;
             });
-            setPreflightResultDispatch([
-              ...combined,
-              ...(response.filter(
-                (f) => !f.isFile
-              ) as EditablePreflightEntityOrFile[])
-            ]);
+            setPreflightResultDispatch({
+              type: PREFLIGHT_ADD_ENTITIES,
+              payload: [
+                ...combined,
+                ...(response.filter(
+                  (f) => !f.isFile
+                ) as EditablePreflightEntityOrFile[])
+              ]
+            });
 
             handleShow();
           } else {
@@ -99,10 +108,7 @@ export const UploadZone = (): ReactElement => {
   );
 
   const [preflightResult, setPreflightResultDispatch] = useReducer<
-    Reducer<
-      EditablePreflightEntityOrFile[],
-      PreflightEntityChange | EditablePreflightEntityOrFile[]
-    >
+    Reducer<EditablePreflightEntityOrFile[], PeflightEntiesActionTypes>
   >(preflightResultReducer, []);
 
   // @ts-ignore
@@ -137,100 +143,118 @@ export const UploadZone = (): ReactElement => {
 
 export const preflightResultReducer: Reducer<
   EditablePreflightEntityOrFile[],
-  PreflightEntityChange | EditablePreflightEntityOrFile[]
+  PeflightEntiesActionTypes
 > = (currentState, action) => {
-  if (action instanceof Array) {
-    return action.sort(sortPreflightResult);
-  } else if (action.toggleAll) {
-    let [files, folders] = divideArrayByCondition(
-      currentState,
-      (e) => e.isFile
-    );
-    let toChange = action.toggleAll.isFolders ? folders : files;
-    let notToChange = !action.toggleAll.isFolders ? folders : files;
+  switch (action.type) {
+    case PREFLIGHT_ADD_ENTITIES: {
+      return action.payload.sort(sortPreflightResult);
+    }
+    case PREFLIGHT_TOGGLE_ALL: {
+      let [files, folders] = divideArrayByCondition(
+        currentState,
+        (e) => e.isFile
+      );
+      let toChange = action.payload.isFolders ? folders : files;
+      let notToChange = !action.payload.isFolders ? folders : files;
 
-    toChange = toChange.map((e: EditablePreflightEntityOrFile) => {
-      if (e.nameIsValid && e.permissionIsSufficient) {
-        e.overwrite = action?.toggleAll?.newValue ?? false;
-      }
-      return e;
-    });
-    return [...toChange, ...notToChange].sort(sortPreflightResult);
-  } else {
-    let [[elementToReplace], restOfElements] = divideArrayByCondition(
-      currentState,
-      (e) => e.path === action.path
-    );
+      toChange = toChange.map((e: EditablePreflightEntityOrFile) => {
+        if (e.nameIsValid && e.permissionIsSufficient) {
+          e.overwrite = action.payload?.newValue ?? false;
+        }
+        return e;
+      });
+      return [...toChange, ...notToChange].sort(sortPreflightResult);
+    }
+    case PREFLIGHT_TOGGLE_OVERWRITE: {
+      let [[elementToReplace], restOfElements] = divideArrayByCondition(
+        currentState,
+        (e) => e.path === action.payload.path
+      );
+      elementToReplace.overwrite = action.payload.overwrite;
 
-    //console.log(elementToReplace, restOfElements);
-    if (action.newName !== undefined) {
-      //change the path in all subfoders / subfiles
-
+      return [...restOfElements, elementToReplace].sort(sortPreflightResult);
+    }
+    case PREFLIGHT_CHANGE_NAME: {
+      let [[elementToReplace], restOfElements] = divideArrayByCondition(
+        currentState,
+        (e) => e.path === action.payload.path
+      );
       let oldPath = elementToReplace.newPath ?? elementToReplace.path;
 
+      elementToReplace.newPath =
+        oldPath.substring(
+          0,
+          oldPath.lastIndexOf(elementToReplace.newName ?? elementToReplace.name)
+        ) + action.payload.newName;
+      elementToReplace.newName = action.payload.newName;
+      elementToReplace.error = undefined;
+      return [...restOfElements, elementToReplace].sort(sortPreflightResult);
+    }
+    case PREFLIGHT_UPDATE_NAME: {
+      let [[elementToReplace], restOfElements] = divideArrayByCondition(
+        currentState,
+        (e) => e.path === action.payload.path
+      );
+      let oldPath = elementToReplace.newPath ?? elementToReplace.path;
       let newPath =
         oldPath.substring(
           0,
           oldPath.lastIndexOf(elementToReplace.newName ?? elementToReplace.name)
-        ) + action.newName;
+        ) + action.payload.newName;
 
-      if (action.update) {
-        let newPathAlreadyExits = restOfElements.some(
-          (e: EditablePreflightEntityOrFile) => {
-            let localPath = e.newPath ?? e.path;
-            return localPath === newPath;
-          }
-        );
-
-        let newNameIsValidNot =
-          !action.newName ||
-          action.newName.includes("/") ||
-          action.newName.includes(" ") ||
-          action.newName.match('[~#@*+:!?&%<>|"^\\\\]');
-
-        if (newPathAlreadyExits || newNameIsValidNot) {
-          console.log("already exist");
-          elementToReplace.error = true;
-          elementToReplace.newPath =
-            elementToReplace.prefNewPath ?? elementToReplace.path;
-          elementToReplace.newName =
-            elementToReplace.prefNewName ?? elementToReplace.name;
-        } else {
-          let prevOldPath =
-            elementToReplace.prefNewPath ?? elementToReplace.path;
-          restOfElements = restOfElements.map((e) => {
-            let currentPath = e.newPath ?? e.path;
-            let currentName = e.newName ?? e.name;
-            let currentPathWithoutName = currentPath.substr(
-              0,
-              currentPath.lastIndexOf(currentName)
-            );
-            let index = currentPathWithoutName.indexOf(prevOldPath);
-
-            // console.log(oldPath, index, action.newPath);
-            if (index === 0) {
-              e.newPath = newPath + currentPath.substr(prevOldPath?.length);
-            }
-            return e;
-          });
-          elementToReplace.prefNewPath = newPath;
-          elementToReplace.prefNewName = action.newName;
-          elementToReplace.newPath = newPath;
-          elementToReplace.newName = action.newName;
-          elementToReplace.error = false;
+      let newPathAlreadyExits = restOfElements.some(
+        (e: EditablePreflightEntityOrFile) => {
+          let localPath = e.newPath ?? e.path;
+          return localPath === newPath;
         }
+      );
+
+      let newNameIsValidNot =
+        !action.payload.newName ||
+        action.payload.newName.includes("/") ||
+        action.payload.newName.includes(" ") ||
+        action.payload.newName.match('[~#@*+:!?&%<>|"^\\\\]');
+
+      if (newPathAlreadyExits || newNameIsValidNot) {
+        elementToReplace.error = newPathAlreadyExits
+          ? EditableEntityError.ALREADYEXITS
+          : EditableEntityError.INVALIDNAME;
+        elementToReplace.newPath =
+          elementToReplace.prefNewPath ?? elementToReplace.path;
+        elementToReplace.newName =
+          elementToReplace.prefNewName ?? elementToReplace.name;
       } else {
+        console.log(
+          elementToReplace.newPath,
+          elementToReplace.prefNewPath,
+          elementToReplace.path
+        );
+        let prevOldPath = elementToReplace.prefNewPath ?? elementToReplace.path;
+        restOfElements = restOfElements.map((e) => {
+          let currentPath = e.newPath ?? e.path;
+          let currentName = e.newName ?? e.name;
+          let currentPathWithoutName = getPathWithOutName(
+            currentPath,
+            currentName
+          );
+
+          let index = currentPathWithoutName.indexOf(prevOldPath);
+
+          console.log(prevOldPath, currentPathWithoutName, currentName);
+          if (index === 0) {
+            e.newPath = newPath + currentPath.substr(prevOldPath?.length);
+            e.prefNewPath = e.newPath;
+          }
+          return e;
+        });
+        elementToReplace.prefNewPath = newPath;
+        elementToReplace.prefNewName = action.payload.newName;
         elementToReplace.newPath = newPath;
-        elementToReplace.newName = action.newName;
-        elementToReplace.error = false;
+        elementToReplace.newName = action.payload.newName;
+        elementToReplace.error = undefined;
+        console.log("updated");
       }
-
       return [...restOfElements, elementToReplace].sort(sortPreflightResult);
-    } else {
-      // @ts-ignore
-      elementToReplace.overwrite = action.overwrite;
-
-      return [...restOfElements, elementToReplace].sort(sortPreflightResult); // do sorting here?
     }
   }
 };

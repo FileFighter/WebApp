@@ -1,17 +1,16 @@
-import React, { ReactElement, useCallback, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { Button, Form, ListGroup, Modal, Table } from "react-bootstrap";
+import UploadDecisionsTableRow from "./UploadDecisionsTableRow";
 import {
   EditablePreflightEntityOrFile,
-  PreflightEntityChange
-} from "../../../../background/api/filesystemTypes";
-import UploadDecisionsTableRow from "./UploadDecisionsTableRow";
+  PeflightEntiesActionTypes,
+  PREFLIGHT_TOGGLE_ALL
+} from "./preflightTypes";
 
 interface Props {
   handleClose: () => void;
   preflightResult: EditablePreflightEntityOrFile[];
-  setPreflightResultDispatch: (
-    a: EditablePreflightEntityOrFile[] | PreflightEntityChange
-  ) => void;
+  setPreflightResultDispatch: (a: PeflightEntiesActionTypes) => void;
 }
 
 export const UploadDecisionsModalContent = ({
@@ -34,9 +33,13 @@ export const UploadDecisionsModalContent = ({
       newValue = !selectAllFiles;
     }
     setPreflightResultDispatch({
-      path: "dummy",
-      toggleAll: { isFolders: isFolder, newValue: newValue }
+      type: PREFLIGHT_TOGGLE_ALL,
+      payload: { isFolders: isFolder, newValue: newValue }
     });
+  };
+
+  const handleApply = () => {
+    console.log(preflightResult);
   };
 
   const foldersToMerge = preflightResult.filter(
@@ -176,7 +179,7 @@ export const UploadDecisionsModalContent = ({
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleApply}>
             Upload with new Names
           </Button>
         </Modal.Footer>

@@ -1,15 +1,19 @@
-import {
-  EditablePreflightEntityOrFile,
-  PreflightEntityChange
-} from "../../../../background/api/filesystemTypes";
 import React, { useCallback } from "react";
 import { Form } from "react-bootstrap";
+import {
+  EditablePreflightEntityOrFile,
+  PeflightEntiesActionTypes,
+  PREFLIGHT_CHANGE_NAME,
+  PREFLIGHT_TOGGLE_OVERWRITE,
+  PREFLIGHT_UPDATE_NAME,
+  PreflightChangeName,
+  PreflightToggleOverwrite,
+  PreflightUpdateName
+} from "./preflightTypes";
 
 interface Props {
   preflightEntity: EditablePreflightEntityOrFile;
-  setPreflightResultDispatch: (
-    a: EditablePreflightEntityOrFile[] | PreflightEntityChange
-  ) => void;
+  setPreflightResultDispatch: (a: PeflightEntiesActionTypes) => void;
 }
 
 const UploadDecisionsTableRow = ({
@@ -20,9 +24,12 @@ const UploadDecisionsTableRow = ({
     (event: React.ChangeEvent<HTMLInputElement>) => {
       let val = event.target.value;
 
-      const change: PreflightEntityChange = {
-        path: preflightEntity.path,
-        newName: val
+      const change: PreflightChangeName = {
+        type: PREFLIGHT_CHANGE_NAME,
+        payload: {
+          path: preflightEntity.path,
+          newName: val
+        }
       };
       setPreflightResultDispatch(change);
     },
@@ -33,19 +40,24 @@ const UploadDecisionsTableRow = ({
       console.log("onNameInputLeaver");
       let val = event.target.value;
 
-      const change: PreflightEntityChange = {
-        path: preflightEntity.path,
-        newName: val,
-        update: true
+      const change: PreflightUpdateName = {
+        type: PREFLIGHT_UPDATE_NAME,
+        payload: {
+          path: preflightEntity.path,
+          newName: val
+        }
       };
       setPreflightResultDispatch(change);
     },
     [preflightEntity.path, setPreflightResultDispatch]
   );
   const onSelectedChange = useCallback(() => {
-    const change: PreflightEntityChange = {
-      path: preflightEntity.path,
-      overwrite: !preflightEntity.overwrite
+    const change: PreflightToggleOverwrite = {
+      type: PREFLIGHT_TOGGLE_OVERWRITE,
+      payload: {
+        path: preflightEntity.path,
+        overwrite: !preflightEntity.overwrite
+      }
     };
     setPreflightResultDispatch(change);
   }, [preflightEntity, setPreflightResultDispatch]);
@@ -77,9 +89,7 @@ const UploadDecisionsTableRow = ({
           />
         </Form.Group>
         {preflightEntity.error && (
-          <small className={"text-warning"}>
-            Name not valid or already exists
-          </small>
+          <small className={"text-warning"}>{preflightEntity.error}</small>
         )}
         {requiresNameChange && (
           <small className={"text-warning"}>Name must be changed</small>

@@ -2,14 +2,14 @@ import { storiesOf } from "@storybook/react";
 import { Provider } from "react-redux";
 import store from "../../../../background/redux/store";
 import { BrowserRouter } from "react-router-dom";
-import React, { Reducer, useReducer, useState } from "react";
+import React, { Reducer, useReducer } from "react";
 import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent";
 import { Modal } from "react-bootstrap";
+import { preflightResultReducer } from "./UploadZone";
 import {
   EditablePreflightEntityOrFile,
-  PreflightEntityChange
-} from "../../../../background/api/filesystemTypes";
-import { preflightResultReducer } from "./UploadZone";
+  PeflightEntiesActionTypes
+} from "./preflightTypes";
 
 storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
   const preflightResultInit: EditablePreflightEntityOrFile[] = [
@@ -30,7 +30,7 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
       isFile: false
     },
     {
-      name: "bla",
+      name: "bla.wow",
       path: "fasel/bla.wow",
       permissionIsSufficient: true, // can upload and can overwrite
       nameAlreadyInUse: true,
@@ -64,10 +64,7 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
   ];
 
   const [preflightResult, setPreflightResultDispatch] = useReducer<
-    Reducer<
-      EditablePreflightEntityOrFile[],
-      PreflightEntityChange | EditablePreflightEntityOrFile[]
-    >
+    Reducer<EditablePreflightEntityOrFile[], PeflightEntiesActionTypes>
   >(preflightResultReducer, preflightResultInit);
 
   return (

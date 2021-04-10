@@ -1,4 +1,4 @@
-import { FsEntity, PreflightEntity } from "./filesystemTypes";
+import { FsEntity } from "./filesystemTypes";
 import { filesystemPath, hostname } from "./api";
 import Axios, { AxiosResponse } from "axios";
 
@@ -14,6 +14,7 @@ import {
   nextFsEntity
 } from "../redux/actions/apiActions";
 import { addToContents } from "../redux/actions/filesystem";
+import { PreflightEntity } from "../../components/pages/filesytem/upload/preflightTypes";
 
 export const getFolderContents = (path: string) =>
   new Promise<FsEntity[]>((resolve, reject) => {
