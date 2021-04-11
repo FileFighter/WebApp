@@ -1,3 +1,4 @@
+
 import React, {ChangeEvent, ReactElement, useState} from "react";
 import {Button, Container, Form, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
@@ -7,6 +8,9 @@ import {notMinStrLength} from "../../../background/methods/checkInput";
 
 
 export default function Profile(): ReactElement {
+    return (<p>Hi</p>);
+}
+    /*
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -90,4 +94,4 @@ export default function Profile(): ReactElement {
 
         </Container>
     );
-}
+}*/
