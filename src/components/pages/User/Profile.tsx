@@ -9,11 +9,6 @@ import {RootState} from "../../../background/redux/store";
 export default function Profile(): ReactElement {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const user = useSelector((state: RootState) => state.user);
-    const [newUser, setNewUser] = useState<UserInformationInterface>({
-        username: "",
-        password: "",
-        passwordConfirmation: ""
-    })
     const [alertMessage, setAlertMessage] = useState<string>("Error 404: No Message found.");
     const [alertVariant, setAlertColor] = useState<"primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark">("success");
     const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
@@ -34,7 +29,7 @@ export default function Profile(): ReactElement {
         setIsEditing(!isEditing)
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async (newUser:UserInformationInterface) => {
         console.log("[PROFILE] handleSubmit")
         //console.log(changeUserInformation(newUser))
         changeEditMode()
@@ -65,8 +60,7 @@ export default function Profile(): ReactElement {
     function EditProfile(): ReactElement {
         return (
             <>
-                <UserInformationInput triggerAlert={handleAlertVisibility} submitFunction={handleSubmit}
-                                      newUser={newUser} setNewUser={setNewUser}/>
+                <UserInformationInput triggerAlert={handleAlertVisibility} submitFunction={handleSubmit}/>
                 <Alert variant={alertVariant} onClose={() => setAlertVisibility(false)} show={alertVisibility}
                        dismissible>
                     <p>{alertMessage}</p>
