@@ -59,7 +59,11 @@ export default function Profile(): ReactElement {
     function EditProfile(): ReactElement {
         return (
             <>
-                <UserInformationInput triggerAlert={handleAlertVisibility} submitFunction={handleSubmit}/>
+                <UserInformationInput
+                    triggerAlert={handleAlertVisibility}
+                    submitFunction={handleSubmit}
+                    presets={{username: user.username ?? "", password: ""}}
+                />
                 <Alert variant={alertVariant} onClose={() => setAlertVisibility(false)} show={alertVisibility}
                        dismissible>
                     <p>{alertMessage}</p>
