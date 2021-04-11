@@ -10,19 +10,20 @@ import {DEFAULT_ALERT_DURATION, MAX_PASSWORD_LENGTH, MIN_PASSWORD_LENGTH} from "
 export interface UserInformationInterface {
     username: string,
     password: string,
-    passwordConfirmation: string
+    passwordConfirmation?: string
 }
 
 type Props = {
     triggerAlert(duration: number, color: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark", message: string): void,
-    submitFunction(newUser: UserInformationInterface): void
+    submitFunction(newUser: UserInformationInterface): void,
+    presets?: UserInformationInterface
 }
 
 export default function UserInformationInput(props: Props): ReactElement {
-    let {triggerAlert, submitFunction} = props;
-    const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
+    let {triggerAlert, submitFunction, presets} = props;
+    const [username, setUsername] = useState<string>(presets?.username??"");
+    const [password, setPassword] = useState<string>(presets?.password??"");
+    const [passwordConfirmation, setPasswordConfirmation] = useState<string>(presets?.password??"");
     const [passwordInformationLength, setPasswordInformationLength] = useState<boolean>(false);
     const [passwordInformationLowercase, setPasswordInformationLowercase] = useState<boolean>(false);
     const [passwordInformationUppercase, setPasswordInformationUppercase] = useState<boolean>(false);
