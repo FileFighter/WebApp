@@ -29,14 +29,15 @@ export default function Profile(): ReactElement {
         }
     }
 
-    function handleEditModeChange(): void {
+    function changeEditMode(): void {
         console.log("[PROFILE] changedEditMode")
         setIsEditing(!isEditing)
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
         console.log("[PROFILE] handleSubmit")
-        console.log(changeUserInformation(newUser))
+        //console.log(changeUserInformation(newUser))
+        changeEditMode()
     }
 
     /*function EditProfile(): ReactElement {
@@ -100,7 +101,7 @@ export default function Profile(): ReactElement {
                     <h1 className="mr-1 h4">
                         My Profile
                     </h1>
-                    <Button onClick={handleEditModeChange}>{isEditing ? "Save Changes" : "Edit Informations"}</Button>
+                    {isEditing ? <></> : <Button onClick={changeEditMode} disabled={isEditing}>{isEditing ? "Editing" : "Edit Information"}</Button>}
                 </Row>
             </Container>
             {isEditing ? <EditProfile/> : <DisplayProfile/>}
