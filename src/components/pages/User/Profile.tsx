@@ -1,45 +1,45 @@
-
-import React, {ChangeEvent, ReactElement, useState} from "react";
-import {Button, Container, Form, Row} from "react-bootstrap";
+import React, {ReactElement, useState} from "react";
+import {Alert, Button, Container, Row} from "react-bootstrap";
+import {changeUserInformation} from "../../../background/api/userInformations";
+import UserInformationInput, {UserInformationInterface} from "./UserInformationInput";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../background/redux/store";
-import {changeUserInformation} from "../../../background/api/userInformations";
-import {notMinStrLength} from "../../../background/methods/checkInput";
 
 
 export default function Profile(): ReactElement {
-    return (<p>Hi</p>);
-}
-    /*
     const [isEditing, setIsEditing] = useState<boolean>(false);
-    const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
-    const [passwordInformationLength, setPasswordInformationLength] = useState<boolean>(false);
-    const [passwordInformationLowercase, setPasswordInformationLowercase] = useState<boolean>(false);
-    const [passwordInformationUppercase, setPasswordInformationUppercase] = useState<boolean>(false);
-    const [passwordInformationNumber, setPasswordInformationNumber] = useState<boolean>(false);
-    const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+    const user = useSelector((state: RootState) => state.user);
+    const [newUser, setNewUser] = useState<UserInformationInterface>({
+        username: "",
+        password: "",
+        passwordConfirmation: ""
+    })
     const [alertMessage, setAlertMessage] = useState<string>("Error 404: No Message found.");
     const [alertVariant, setAlertColor] = useState<"primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark">("success");
     const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
 
-    function handleEditModeChange(): void {
-        if (isEditing) {
-            let newUser = JSON.parse(JSON.stringify(user))
-            let usernameInput = document.getElementById("editProfileForm-Username")
-            if (usernameInput) {
-                console.log((usernameInput as HTMLInputElement).value)
-                newUser.username = (usernameInput as HTMLInputElement).value
-                console.log(changeUserInformation(newUser))
-            }
-        } else {
-            console.log("[PROFILE] changedEditMode")
-            setIsEditing(!isEditing)
+    const handleAlertVisibility = (duration: number, color: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark", message: string) => {
+        if (!alertVisibility) {
+            setAlertMessage(message);
+            setAlertColor(color);
+            setAlertVisibility(true);
+            setTimeout(() => {
+                setAlertVisibility(false);
+            }, duration);
         }
     }
 
-    function EditProfile(): ReactElement {
+    function handleEditModeChange(): void {
+        console.log("[PROFILE] changedEditMode")
+        setIsEditing(!isEditing)
+    }
+
+    const handleSubmit = async () => {
+        console.log("[PROFILE] handleSubmit")
+        console.log(changeUserInformation(newUser))
+    }
+
+    /*function EditProfile(): ReactElement {
         return (
             <Form>
                 <Form.Group controlId="editProfileForm-Username">
@@ -58,6 +58,19 @@ export default function Profile(): ReactElement {
                     <Form.Control type="password" placeholder="New Password"/>
                 </Form.Group>
             </Form>
+        )
+    }*/
+
+    function EditProfile(): ReactElement {
+        return (
+            <>
+                <UserInformationInput triggerAlert={handleAlertVisibility} submitFunction={handleSubmit}
+                                      newUser={newUser} setNewUser={setNewUser}/>
+                <Alert variant={alertVariant} onClose={() => setAlertVisibility(false)} show={alertVisibility}
+                       dismissible>
+                    <p>{alertMessage}</p>
+                </Alert>
+            </>
         )
     }
 
@@ -94,4 +107,4 @@ export default function Profile(): ReactElement {
 
         </Container>
     );
-}*/
+}

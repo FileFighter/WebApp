@@ -5,7 +5,7 @@ import Error404 from "../pages/errors/Error404";
 import Login from "../basicElements/Login";
 import Registration from "../pages/User/Registration";
 import FileSystem, {filesBaseUrl} from "../pages/filesytem/Filesystem";
-// import Profile from "../pages/User/Profile";
+import Profile from "../pages/User/Profile";
 
 export default function Router(): ReactElement {
 
@@ -21,7 +21,7 @@ export default function Router(): ReactElement {
                 <Redirect to={"/"}/>
             </Route>
             <Route path={"/registration"} component={Registration}/>
-            {/*<Route path={"/profile"} component={Profile}/>*/}
+            {<Route path={"/profile"} component={Profile}/>}
             <Route path={"*"} component={Error404}/>
         </Switch>
     )
