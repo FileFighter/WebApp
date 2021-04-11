@@ -38,7 +38,6 @@ export default function UserInformationInput(props: Props): ReactElement {
     const [passwordInformationUppercase, setPasswordInformationUppercase] = useState<boolean>(false);
     const [passwordInformationNumber, setPasswordInformationNumber] = useState<boolean>(false);
     const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
-    const [submitted, setSubmitted] = useState<boolean>(false);
 
     const reviewPasswordMatch = useCallback((): void => {
         setPasswordsMatch(password === passwordConfirmation);
@@ -50,10 +49,9 @@ export default function UserInformationInput(props: Props): ReactElement {
 
     useEffect(() => {
         //TODO: [UserInformationInput.tsx] without submitted submitFunction triggers on site load
-        if (submitted){
+            console.log("[UserInformationInput] in submit useEffect")
             submitFunction();
-        }
-    }, [submitted, newUser])
+    }, [newUser])
 
     const makePasswordInputFitRules = (input: string): [string, boolean] => {
         input = deleteSpaces(input);
@@ -95,7 +93,6 @@ export default function UserInformationInput(props: Props): ReactElement {
         console.log("[UserInformationInput] handleSubmit")
         reviewPasswordMatch();
         setNewUser({username: username, password: password, passwordConfirmation: passwordConfirmation})
-        setSubmitted(true)
     }
 
     return (
