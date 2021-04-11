@@ -96,12 +96,7 @@ export const UploadZone = (): ReactElement => {
           }
         });
       } else {
-        let file = acceptedFiles[0];
-        console.log("file", file);
-        let test = { ...file };
-        console.log("test", test);
-
-        uploadFiles(([test] as unknown) as File[], currentFsItemId);
+        uploadFiles((acceptedFiles as unknown) as File[], currentFsItemId);
       }
     },
     [currentFsItemId, currentFsContent]
