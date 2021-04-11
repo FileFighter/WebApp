@@ -13,13 +13,13 @@ export interface UserInformationInterface {
     passwordConfirmation?: string
 }
 
-type Props = {
+type UserInformationInputProps = {
     triggerAlert(duration: number, color: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark", message: string): void,
     submitFunction(newUser: UserInformationInterface): void,
     presets?: UserInformationInterface
 }
 
-export default function UserInformationInput(props: Props): ReactElement {
+export default function UserInformationInput(props: UserInformationInputProps): ReactElement {
     let {triggerAlert, submitFunction, presets} = props;
     const [username, setUsername] = useState<string>(presets?.username??"");
     const [password, setPassword] = useState<string>(presets?.password??"");
