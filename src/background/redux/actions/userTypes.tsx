@@ -1,4 +1,5 @@
 export const ADD_USER = "ADD_USER";
+export const UPDATE_USER = "UPDATE_USER";
 
 export interface UserState {
   id: number | null;
@@ -11,4 +12,9 @@ export interface AddUser {
   payload: UserState;
 }
 
-export type UserActionTypes = AddUser;
+export interface UpdateUser {
+  type: typeof UPDATE_USER;
+  payload: UserState;
+}
+
+export type UserActionTypes = AddUser | UpdateUser;

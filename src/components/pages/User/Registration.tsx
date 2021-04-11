@@ -1,14 +1,14 @@
 import React, {ChangeEvent, FormEvent, ReactElement, useCallback, useEffect, useState} from "react";
 import {Container, Row, Col, Form, FormGroup, Button, Alert} from "react-bootstrap";
-import {deleteSpaces} from "../../background/methods/strings";
-import {biggerMaxStrLength, notMinStrLength} from "../../background/methods/checkInput";
-import info_svg from "../../assets/images/icons/material.io/info-24px.svg";
-import check_svg from "../../assets/images/icons/material.io/check_circle-24px.svg";
-import error_svg from "../../assets/images/icons/material.io/error-24px.svg";
-import fileFighter from "../../assets/images/logos/adventurer-run.gif";
-import {registerNewUser} from "../../background/api/registration";
-import {getWindowSize, getWindowSize_Interface} from "../../background/methods/windowSize";
-import {getStyleValue} from "../../background/methods/style";
+import {deleteSpaces} from "../../../background/methods/strings";
+import {biggerMaxStrLength, notMinStrLength} from "../../../background/methods/checkInput";
+import info_svg from "../../../assets/images/icons/material.io/info-24px.svg";
+import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg";
+import error_svg from "../../../assets/images/icons/material.io/error-24px.svg";
+import fileFighter from "../../../assets/images/logos/adventurer-run.gif";
+import {registerNewUser} from "../../../background/api/registration";
+import {getWindowSize, getWindowSize_Interface} from "../../../background/methods/windowSize";
+import {getStyleValue} from "../../../background/methods/style";
 
 export default function Registration(): ReactElement {
     const MIN_PASSWORD_LENGTH = 8;

@@ -3,9 +3,9 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import Health from "../pages/Health";
 import Error404 from "../pages/errors/Error404";
 import Login from "../basicElements/Login";
-import Registration from "../pages/Registration";
+import Registration from "../pages/User/Registration";
 import FileSystem, {filesBaseUrl} from "../pages/filesytem/Filesystem";
-import Profile from "../pages/profile/Profile";
+import Profile from "../pages/User/Profile";
 
 export default function Router(): ReactElement {
 
