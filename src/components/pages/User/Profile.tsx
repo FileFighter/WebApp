@@ -3,6 +3,8 @@ import {Alert, Button, Container, Row} from "react-bootstrap";
 import UserInformationInput, {UserInformationInterface} from "./UserInformationInput";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../background/redux/store";
+import {DEFAULT_ALERT_DURATION} from "../../../background/constants";
+import {changeUserInformation} from "../../../background/api/userInformation";
 
 
 export default function Profile(): ReactElement {
@@ -30,8 +32,25 @@ export default function Profile(): ReactElement {
 
     const handleSubmit = async (newUser: UserInformationInterface) => {
         console.log("[PROFILE] handleSubmit")
-        //console.log(changeUserInformation(newUser))
-        changeEditMode()
+
+        if (!newUser.username) {
+            handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")
+            // } else if (newUser.password !== newUser.passwordConfirmation) {
+            //     handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Password and password confirmation must match.")
+            // } else if (newUser.password.match(/\d/) == null || newUser.password.match(/[a-z]/) == null || newUser.password.match(/[A-Z]/) == null || notMinStrLength(newUser.password, MIN_PASSWORD_LENGTH)) {
+            //     handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please pay attention to the notes below the input fields.")
+        } else {
+            // console.log("Hello there ", {...user, username: newUser.username})
+            // console.log("General Kenobi ", newUser)
+            await changeUserInformation({...user, username: newUser.username})
+                .then(res => {
+                    changeEditMode()
+                    handleAlertVisibility(DEFAULT_ALERT_DURATION, "success", "Worked: " + (res));
+                })
+                .catch(err => {
+                    handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: " + (err.outputMessage ? err.outputMessage : (err.httpStatus + " " + err.httpMessage)))
+                })
+        }
     }
 
     /*function EditProfile(): ReactElement {
@@ -82,7 +101,7 @@ export default function Profile(): ReactElement {
                     <dt>Username</dt>
                     <dd>{user.username}</dd>
                     <dt>Groups</dt>
-                    <dd>{user.groups.map((value: number) => {
+                    <dd>{user.groups?.map((value: number) => {
                         return value + " "
                     })}
                     </dd>
@@ -98,12 +117,14 @@ export default function Profile(): ReactElement {
                     <h1 className="mr-1 h4">
                         My Profile
                     </h1>
-                    {isEditing ? <></> : <Button onClick={changeEditMode}
-                                                 disabled={isEditing}>{isEditing ? "Editing" : "Edit Information"}</Button>}
+                    <Button
+                        onClick={changeEditMode}
+                    >
+                        {isEditing ? "Cancel" : "Edit"}
+                    </Button>
                 </Row>
             </Container>
             {isEditing ? <EditProfile/> : <DisplayProfile/>}
-
         </Container>
     );
 }
