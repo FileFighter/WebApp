@@ -24,12 +24,11 @@ export interface UserInformationInterface {
 
 type Props = {
     triggerAlert(duration: number, color: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark", message: string): void,
-    submitFunction(): void,
-    newUser: UserInformationInterface,
-    setNewUser: Dispatch<SetStateAction<UserInformationInterface>> }
+    submitFunction(newUser:UserInformationInterface): void
+}
 
 export default function UserInformationInput(props: Props): ReactElement {
-    const {triggerAlert, submitFunction, newUser, setNewUser} = props;
+    let {triggerAlert, submitFunction} = props;
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
@@ -46,12 +45,6 @@ export default function UserInformationInput(props: Props): ReactElement {
     useEffect(() => {
         reviewPasswordMatch()
     }, [reviewPasswordMatch])
-
-    useEffect(() => {
-        //TODO: [UserInformationInput.tsx] without submitted submitFunction triggers on site load
-            console.log("[UserInformationInput] in submit useEffect")
-            submitFunction();
-    }, [newUser])
 
     const makePasswordInputFitRules = (input: string): [string, boolean] => {
         input = deleteSpaces(input);
@@ -92,7 +85,8 @@ export default function UserInformationInput(props: Props): ReactElement {
         event.preventDefault();
         console.log("[UserInformationInput] handleSubmit")
         reviewPasswordMatch();
-        setNewUser({username: username, password: password, passwordConfirmation: passwordConfirmation})
+        let newUser = {username: username, password: password, passwordConfirmation: passwordConfirmation}
+        submitFunction(newUser)
     }
 
     return (

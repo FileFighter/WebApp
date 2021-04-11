@@ -13,11 +13,11 @@ export default function Registration(): ReactElement {
     const [alertVariant, setAlertColor] = useState<"primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark">("success");
     const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
 
-    const [newUser, setNewUser] = useState<UserInformationInterface>({
-        username: "",
-        password: "",
-        passwordConfirmation: ""
-    })
+    // const [newUser, setNewUser] = useState<UserInformationInterface>({
+    //     username: "",
+    //     password: "",
+    //     passwordConfirmation: ""
+    // })
 
     const registrationContainer = document.getElementById("registrationContainer")
     const logoSubmit = document.getElementById("logoSubmit")
@@ -40,7 +40,7 @@ export default function Registration(): ReactElement {
         repositionSubmitLogo()
     }, [registrationContainer, logoSubmit])
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (newUser:UserInformationInterface) => {
         console.log("[REGISTRATION] handleSubmit")
         if (!newUser.username) {
             handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")
@@ -76,8 +76,7 @@ export default function Registration(): ReactElement {
             <Row>
                 <Col md={{span: 6, offset: 3}}>
                     <h1>Create new account</h1>
-                    <UserInformationInput triggerAlert={handleAlertVisibility} submitFunction={handleSubmit}
-                                          newUser={newUser} setNewUser={setNewUser}/>
+                    <UserInformationInput triggerAlert={handleAlertVisibility} submitFunction={handleSubmit}/>
                     <Alert variant={alertVariant} onClose={() => setAlertVisibility(false)} show={alertVisibility}
                            dismissible>
                         <p>{alertMessage}</p>
