@@ -1,13 +1,4 @@
-import React, {
-    ChangeEvent,
-    Dispatch,
-    FormEvent,
-    ReactElement,
-    SetStateAction,
-    useCallback,
-    useEffect,
-    useState
-} from "react";
+import React, {ChangeEvent, FormEvent, ReactElement, useCallback, useEffect, useState} from "react";
 import {Button, Form, FormGroup} from "react-bootstrap";
 import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg";
 import info_svg from "../../../assets/images/icons/material.io/info-24px.svg";
@@ -24,7 +15,7 @@ export interface UserInformationInterface {
 
 type Props = {
     triggerAlert(duration: number, color: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark", message: string): void,
-    submitFunction(newUser:UserInformationInterface): void
+    submitFunction(newUser: UserInformationInterface): void
 }
 
 export default function UserInformationInput(props: Props): ReactElement {
