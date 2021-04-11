@@ -1,6 +1,5 @@
 import React, {ReactElement, useState} from "react";
 import {Alert, Button, Container, Row} from "react-bootstrap";
-import {changeUserInformation} from "../../../background/api/userInformations";
 import UserInformationInput, {UserInformationInterface} from "./UserInformationInput";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../background/redux/store";
@@ -29,7 +28,7 @@ export default function Profile(): ReactElement {
         setIsEditing(!isEditing)
     }
 
-    const handleSubmit = async (newUser:UserInformationInterface) => {
+    const handleSubmit = async (newUser: UserInformationInterface) => {
         console.log("[PROFILE] handleSubmit")
         //console.log(changeUserInformation(newUser))
         changeEditMode()
@@ -95,7 +94,8 @@ export default function Profile(): ReactElement {
                     <h1 className="mr-1 h4">
                         My Profile
                     </h1>
-                    {isEditing ? <></> : <Button onClick={changeEditMode} disabled={isEditing}>{isEditing ? "Editing" : "Edit Information"}</Button>}
+                    {isEditing ? <></> : <Button onClick={changeEditMode}
+                                                 disabled={isEditing}>{isEditing ? "Editing" : "Edit Information"}</Button>}
                 </Row>
             </Container>
             {isEditing ? <EditProfile/> : <DisplayProfile/>}
