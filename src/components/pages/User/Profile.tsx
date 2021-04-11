@@ -8,33 +8,17 @@ import {notMinStrLength} from "../../../background/methods/checkInput";
 
 export default function Profile(): ReactElement {
     const [isEditing, setIsEditing] = useState<boolean>(false);
-    const user = useSelector((state: RootState) => state.user);
-
-    /*const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
-        let value: [string, boolean] | string = makePasswordInputFitRules(event.target.value);
-        if (!value[1]) {
-            value = password;
-        } else {
-            value = value[0]
-        }
-        setPasswordInformationLength(!notMinStrLength(value, MIN_PASSWORD_LENGTH));
-        setPasswordInformationLowercase(value.match(/[a-z]/) !== null);
-        setPasswordInformationUppercase(value.match(/[A-Z]/) !== null);
-        setPasswordInformationNumber(value.match(/\d/) !== null);
-        setPassword(value)
-    }
-
-    const handlePasswordConfirmationChange = async (event: ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
-        let value: [string, boolean] | string = makePasswordInputFitRules(event.target.value);
-        if (!value[1]) {
-            value = passwordConfirmation;
-        } else {
-            value = value[0]
-        }
-        setPasswordConfirmation(value);
-    }*/
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
+    const [passwordInformationLength, setPasswordInformationLength] = useState<boolean>(false);
+    const [passwordInformationLowercase, setPasswordInformationLowercase] = useState<boolean>(false);
+    const [passwordInformationUppercase, setPasswordInformationUppercase] = useState<boolean>(false);
+    const [passwordInformationNumber, setPasswordInformationNumber] = useState<boolean>(false);
+    const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+    const [alertMessage, setAlertMessage] = useState<string>("Error 404: No Message found.");
+    const [alertVariant, setAlertColor] = useState<"primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark">("success");
+    const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
 
     function handleEditModeChange(): void {
         if (isEditing) {

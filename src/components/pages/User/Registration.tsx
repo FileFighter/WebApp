@@ -9,11 +9,9 @@ import fileFighter from "../../../assets/images/logos/adventurer-run.gif";
 import {registerNewUser} from "../../../background/api/registration";
 import {getWindowSize, getWindowSize_Interface} from "../../../background/methods/windowSize";
 import {getStyleValue} from "../../../background/methods/style";
+import {DEFAULT_ALERT_DURATION, MAX_PASSWORD_LENGTH, MIN_PASSWORD_LENGTH} from "../../../background/constants";
 
 export default function Registration(): ReactElement {
-    const MIN_PASSWORD_LENGTH = 8;
-    const MAX_PASSWORD_LENGTH = 20;
-    const DEFAULT_ALERT_DURATION = 3500;
 
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
