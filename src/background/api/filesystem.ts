@@ -178,7 +178,7 @@ export const downloadFiles = () => {
 export const deleteFsEntities = (files: FsEntity[]) => {
   const apiCall = (fsEntity: FsEntity) => {
     return Axios.delete(
-      hostname + filesystemPath + fsEntity.fileSystemId + "/delete"
+      "http://localhost:5000/data/delete/" + fsEntity.fileSystemId
     );
   };
   handleMultipleApiActions(files, apiCall, ApiActionType.DELETE);
