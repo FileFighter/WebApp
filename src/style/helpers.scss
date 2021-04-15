@@ -2,7 +2,22 @@
   text-shadow: none;
 }
 
+.fw-40{
+  width: 40%;
+  max-width: 40%;
+}
+.fw-20{
+  width: 20%;
+  max-width: 20%;
+}
 
 .bg-body{
   background-color: $body-bg;
+}
+
+.uploadDecisionTable td{
+  word-wrap: break-word;
+}
+.uploadDecisionTable{
+  table-layout:fixed;
 }

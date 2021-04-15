@@ -3,18 +3,10 @@ import { filesystemPath, hostname } from "./api";
 import Axios, { AxiosResponse } from "axios";
 
 import store from "../redux/store";
-import {
-  ApiAction,
-  ApiActionStatus,
-  ApiActionType
-} from "../redux/actions/apiActionsTypes";
-import {
-  addApiAction,
-  changeStatus,
-  nextFsEntity
-} from "../redux/actions/apiActions";
+import { ApiAction, ApiActionStatus, ApiActionType } from "../redux/actions/apiActionsTypes";
+import { addApiAction, changeStatus, nextFsEntity } from "../redux/actions/apiActions";
 import { addToContents } from "../redux/actions/filesystem";
-import { PreflightEntity } from "../../components/pages/filesytem/upload/preflightTypes";
+import { EditableFileWithPreflightInfo, PreflightEntity } from "../../components/pages/filesytem/upload/preflightTypes";
 
 export const getFolderContents = (path: string) =>
   new Promise<FsEntity[]>((resolve, reject) => {
@@ -100,12 +92,26 @@ export function handleMultipleApiActions<Type extends File | FsEntity>(
 }
 
 export const uploadPreflight = (
-  files: File[],
+  files: File[] | EditableFileWithPreflightInfo[],
   parentFolderID: string
 ): Promise<PreflightEntity[]> => {
+
+
+
+  const postData = files.map((f: File | EditableFileWithPreflightInfo) => ({
+    // @ts-ignore
+    name: f.newName ?? f.name,
+    // @ts-ignore
+    path: f.newPath ?? f.path,
+    // @ts-ignore
+    mimeType: f.type,
+    size: f.size
+
+  }));
+
   return new Promise<PreflightEntity[]>((resolve, reject) => {
     Axios.post<PreflightEntity[]>(
-      hostname + filesystemPath + "upload/preflight"
+      hostname + filesystemPath + "upload/preflight" + parentFolderID,postData
     )
       .then((response: AxiosResponse<PreflightEntity[]>) => {
         resolve(response.data);
@@ -114,10 +120,10 @@ export const uploadPreflight = (
   });
 };
 
-export const uploadFiles = (files: File[], parentFolderID: string) => {
+export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], parentFolderID: string) => {
   parentFolderID = "1"; //TODO
   console.log(files);
-  const apiCall = (file: File) => {
+  const apiCall = (file: File | EditableFileWithPreflightInfo) => {
     return new Promise((resolve, reject) => {
       let formData = new FormData();
       formData.append("file", file);
@@ -126,7 +132,11 @@ export const uploadFiles = (files: File[], parentFolderID: string) => {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data"
+            "Content-Type": "multipart/form-data",
+            // @ts-ignore
+            "X-FF-NAME": file.newName ?? file.name,
+            // @ts-ignore
+            "X-FF-PATH": file.newPath ?? file.path
           },
           onUploadProgress(progress) {
             console.log("upload progress:", progress);

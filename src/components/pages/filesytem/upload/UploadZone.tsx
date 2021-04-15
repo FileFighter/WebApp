@@ -1,24 +1,16 @@
-import React, {
-  ReactElement,
-  Reducer,
-  useCallback,
-  useReducer,
-  useState
-} from "react";
+import React, { ReactElement, Reducer, useCallback, useReducer, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../background/redux/store";
 import { Modal } from "react-bootstrap";
-import {
-  uploadFiles,
-  uploadPreflight
-} from "../../../../background/api/filesystem";
+import { uploadFiles, uploadPreflight } from "../../../../background/api/filesystem";
 import { FsEntity } from "../../../../background/api/filesystemTypes";
 import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent";
 import { divideArrayByCondition } from "../../../../background/methods/arrays";
 import { getPathWithOutName } from "../../../../background/methods/filesystem";
 import {
   EditableEntityError,
+  EditableFileWithPreflightInfo,
   EditablePreflightEntityOrFile,
   PeflightEntiesActionTypes,
   PREFLIGHT_ADD_ENTITIES,
@@ -28,25 +20,26 @@ import {
   PREFLIGHT_UPDATE_NAME,
   PreflightEntity
 } from "./preflightTypes";
+import { preflightResultCombine } from "./preflightResponseParser";
 
 export const UploadZone = (): ReactElement => {
   const [showUploadDialog, setShowUploadDialog] = useState(false);
-  const handleClose = () => setShowUploadDialog(false);
+  const handleClose = () => {
+    setPreflightResultDispatch({ type: PREFLIGHT_ADD_ENTITIES, payload: [] });
+    setShowUploadDialog(false);
+  };
   const handleShow = () => setShowUploadDialog(true);
-
-  // const [preflightResult, ] = useReducer<
-  //   Reducer<EditablePreflightEntityOrFile[], EditablePreflightEntityOrFile[]>
-  //>(editablePreflightEntityOrFileReducer, []); // reducer fn is at bottom of file
 
   const currentFsItemId = useSelector(
     (state: RootState) => state.filesystem.currentFsItemId
   );
+  const [fsItemIdToUpload, setFsItemIdToUpload] = useState(currentFsItemId);
   const currentFsContent = useSelector(
     (state: RootState) => state.filesystem.folderContents
   );
 
   const onDrop = useCallback(
-    (acceptedFiles: EditablePreflightEntityOrFile[]) => {
+    (acceptedFiles: EditableFileWithPreflightInfo[]) => {
       //check if preflight is needed
       let preflightNeeded = acceptedFiles.some(
         (file: EditablePreflightEntityOrFile) => {
@@ -61,35 +54,27 @@ export const UploadZone = (): ReactElement => {
       console.log(acceptedFiles, preflightNeeded);
 
       if (preflightNeeded) {
+        setFsItemIdToUpload(currentFsItemId);
         uploadPreflight(
-          (acceptedFiles as unknown) as File[],
+          acceptedFiles,
           currentFsItemId
         ).then((response) => {
           const actionsNeeded = response.some(
             (e: PreflightEntity) =>
               !e.permissionIsSufficient || e.nameAlreadyInUse || !e.nameIsValid
           );
-
           if (actionsNeeded) {
-            let combined = acceptedFiles.map((file) => {
-              let resInfo = response.find((e) => e.path === file.path);
-              file.permissionIsSufficient =
-                resInfo?.permissionIsSufficient ?? true;
-              file.nameAlreadyInUse = resInfo?.nameAlreadyInUse ?? false;
-              file.nameIsValid = resInfo?.nameIsValid ?? true;
+            const combined = preflightResultCombine(acceptedFiles, response);
 
-              return file;
-            });
             setPreflightResultDispatch({
               type: PREFLIGHT_ADD_ENTITIES,
               payload: [
                 ...combined,
                 ...(response.filter(
                   (f) => !f.isFile
-                ) as EditablePreflightEntityOrFile[])
+                ))
               ]
             });
-
             handleShow();
           } else {
             uploadFiles((acceptedFiles as unknown) as File[], currentFsItemId);
@@ -102,9 +87,7 @@ export const UploadZone = (): ReactElement => {
     [currentFsItemId, currentFsContent]
   );
 
-  const [preflightResult, setPreflightResultDispatch] = useReducer<
-    Reducer<EditablePreflightEntityOrFile[], PeflightEntiesActionTypes>
-  >(preflightResultReducer, []);
+  const [preflightResult, setPreflightResultDispatch] = useReducer<Reducer<EditablePreflightEntityOrFile[], PeflightEntiesActionTypes>>(preflightResultReducer, []);
 
   // @ts-ignore
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -122,6 +105,7 @@ export const UploadZone = (): ReactElement => {
 
       <Modal
         size="lg"
+        scrollable
         show={showUploadDialog}
         onHide={handleClose}
         contentClassName={"bg-body"}
@@ -130,16 +114,15 @@ export const UploadZone = (): ReactElement => {
           handleClose={handleClose}
           preflightResult={preflightResult}
           setPreflightResultDispatch={setPreflightResultDispatch}
+          fsItemIdToUpload={fsItemIdToUpload}
         />
       </Modal>
     </>
   );
 };
 
-export const preflightResultReducer: Reducer<
-  EditablePreflightEntityOrFile[],
-  PeflightEntiesActionTypes
-> = (currentState, action) => {
+export const preflightResultReducer: Reducer<EditablePreflightEntityOrFile[],
+  PeflightEntiesActionTypes> = (currentState, action) => {
   switch (action.type) {
     case PREFLIGHT_ADD_ENTITIES: {
       return action.payload.sort(sortPreflightResult);
@@ -208,7 +191,7 @@ export const preflightResultReducer: Reducer<
         !action.payload.newName ||
         action.payload.newName.includes("/") ||
         action.payload.newName.includes(" ") ||
-        action.payload.newName.match('[~#@*+:!?&%<>|"^\\\\]');
+        action.payload.newName.match("[~#@*+:!?&%<>|\"^\\\\]");
 
       if (newPathAlreadyExits || newNameIsValidNot) {
         elementToReplace.error = newPathAlreadyExits

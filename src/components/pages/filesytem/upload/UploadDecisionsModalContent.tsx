@@ -1,27 +1,32 @@
 import React, { ReactElement, useState } from "react";
-import { Button, Form, ListGroup, Modal, Table } from "react-bootstrap";
+import { Button, Form, ListGroup, Modal, Row, Table } from "react-bootstrap";
 import UploadDecisionsTableRow from "./UploadDecisionsTableRow";
-import {
-  EditablePreflightEntityOrFile,
-  PeflightEntiesActionTypes,
-  PREFLIGHT_TOGGLE_ALL
-} from "./preflightTypes";
+import { EditableFileWithPreflightInfo, EditablePreflightEntityOrFile, PeflightEntiesActionTypes, PREFLIGHT_ADD_ENTITIES, PREFLIGHT_TOGGLE_ALL, PreflightEntity } from "./preflightTypes";
+import { uploadFiles, uploadPreflight } from "../../../../background/api/filesystem";
+import { preflightResultCombine } from "./preflightResponseParser";
+import { FFLoading } from "../../../basicElements/Loading";
 
 interface Props {
   handleClose: () => void;
   preflightResult: EditablePreflightEntityOrFile[];
   setPreflightResultDispatch: (a: PeflightEntiesActionTypes) => void;
+  fsItemIdToUpload: string
 }
 
 export const UploadDecisionsModalContent = ({
-  handleClose,
-  preflightResult,
-  setPreflightResultDispatch
-}: Props): ReactElement => {
+                                              handleClose,
+                                              preflightResult,
+                                              setPreflightResultDispatch,
+                                              fsItemIdToUpload
+                                            }: Props): ReactElement => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [showAllFiles, setShowAllFiles] = useState(false)
+  const [showAllFolders, setShowAllFolders] = useState(false)
+  const [loading, setLoading] = useState(false);
   const nextPage = () => setCurrentPage(currentPage + 1);
   const [selectAllFolders, setSelectAllFolders] = useState(false);
   const [selectAllFiles, setSelectAllFiles] = useState(false);
+  const listLimitForFilesAndFolder = 2;
 
   const updateSelectAll = (isFolder: boolean) => {
     let newValue;
@@ -39,7 +44,23 @@ export const UploadDecisionsModalContent = ({
   };
 
   const handleApply = () => {
-    console.log(preflightResult);
+    setLoading(true);
+    uploadPreflight(preflightResult.filter((e: EditablePreflightEntityOrFile) => e.isFile) as EditableFileWithPreflightInfo[], fsItemIdToUpload)
+      .then((response: PreflightEntity[]) => {
+        const combined = preflightResultCombine(preflightResult, response);
+
+        const actionsNeeded = combined.some((e: EditablePreflightEntityOrFile) => !e.permissionIsSufficient || !e.nameIsValid || (e.nameAlreadyInUse && !e.overwrite));
+
+        if (actionsNeeded) {
+          setPreflightResultDispatch({ type: PREFLIGHT_ADD_ENTITIES, payload: combined });
+        } else {
+          uploadFiles(combined.filter(
+            (f: EditablePreflightEntityOrFile) => !f.isFile) as EditableFileWithPreflightInfo[], fsItemIdToUpload);
+          handleClose();
+          setPreflightResultDispatch({ type: PREFLIGHT_ADD_ENTITIES, payload: [] });
+        }
+        setLoading(false);
+      });
   };
 
   const foldersToMerge = preflightResult.filter(
@@ -70,36 +91,40 @@ export const UploadDecisionsModalContent = ({
     isFolders: boolean
   ) => {
     return (
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant="dark" className="uploadDecisionTable">
         <thead>
-          <tr>
-            <th>relative Path</th>
-            <th>New Name</th>
-            <th>
-              {isFolders ? "Merge" : "Overwrite"}
-              <Form.Group>
-                <Form.Check
-                  type="checkbox"
-                  checked={isFolders ? selectAllFolders : selectAllFiles}
-                  onChange={() => updateSelectAll(isFolders)}
-                />
-              </Form.Group>
-            </th>
-          </tr>
+        <tr>
+          <th className="fw-40">relative Path</th>
+          <th className="fw-40">New Name</th>
+          <th className="fw-20">
+            {isFolders ? "Merge" : "Overwrite"}
+            <Form.Group>
+              <Form.Check
+                type="checkbox"
+                checked={isFolders ? selectAllFolders : selectAllFiles}
+                onChange={() => updateSelectAll(isFolders)}
+              />
+            </Form.Group>
+          </th>
+        </tr>
         </thead>
         <tbody>
-          {files.map((f: EditablePreflightEntityOrFile) => {
-            return (
-              <UploadDecisionsTableRow
-                setPreflightResultDispatch={setPreflightResultDispatch}
-                preflightEntity={f}
-              />
-            );
-          })}
+        {files.map((f: EditablePreflightEntityOrFile) => {
+          return (
+            <UploadDecisionsTableRow
+              setPreflightResultDispatch={setPreflightResultDispatch}
+              preflightEntity={f}
+            />
+          );
+        })}
         </tbody>
       </Table>
     );
   };
+
+  if (loading) {
+    return <FFLoading />;
+  }
 
   if (currentPage === 0)
     return (
@@ -109,49 +134,43 @@ export const UploadDecisionsModalContent = ({
         </Modal.Header>
         <Modal.Body>
           {!!foldersToMerge.length && (
-            <p>
+            <div>
               Folders that would be merged:
-              {smallFileList(foldersToMerge)}
-            </p>
+              {smallFileList(showAllFolders ? foldersToMerge : foldersToMerge.slice(0,listLimitForFilesAndFolder))}
+              {(foldersToMerge.length > listLimitForFilesAndFolder && !showAllFolders) && <Button onClick={() => setShowAllFolders(true)}>Show all ({foldersToMerge.length}) </Button>}
+            </div>
           )}
           {!!filesToOverwrite.length && (
-            <p>
+            <div>
               Files that would be overwritten:
-              {smallFileList(filesToOverwrite)}
-            </p>
-          )}
-          {!!insufficientPermission.length && (
-            <p>
-              Files of Folders that need to be renamed because you are not
-              allowed to overwrite them
-              {smallFileList(insufficientPermission)}
-            </p>
-          )}
-          {!!entitiesWithInvalidName.length && (
-            <p>
-              Files of Folders that need to be renamed because their name is not
-              valid
-              {smallFileList(entitiesWithInvalidName)}
-            </p>
+              {smallFileList(showAllFiles ? filesToOverwrite: filesToOverwrite.slice(0,listLimitForFilesAndFolder))}
+              {(filesToOverwrite.length > listLimitForFilesAndFolder && !showAllFiles )&& <Button onClick={() => setShowAllFiles(true)}>Show all ({filesToOverwrite.length}) </Button>}
+            </div>
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button variant="secondary" onClick={nextPage}>
-            Decide for each one
-          </Button>
-          <Button
-            variant="primary"
-            onClick={handleClose}
-            disabled={
-              !!insufficientPermission.length ||
-              !!entitiesWithInvalidName.length
-            }
-          >
-            Merge and overwrite
-          </Button>
+          {(!!insufficientPermission.length || !!entitiesWithInvalidName.length) &&
+          <Row className={"w-100 text-warning"}>Some files or folders need to be renamed, because their name is invalid or you have not the permission to overwrite them </Row>}
+          <Row className="w-100 justify-content-between">
+            <Button variant="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+            <div>
+              <Button variant="secondary" onClick={nextPage}>
+                Decide for each one
+              </Button>
+              <Button
+                variant="primary"
+                onClick={handleClose}
+                disabled={
+                  !!insufficientPermission.length ||
+                  !!entitiesWithInvalidName.length
+                }
+              >
+                Merge and overwrite
+              </Button>
+            </div>
+          </Row>
         </Modal.Footer>
       </>
     );
@@ -176,13 +195,17 @@ export const UploadDecisionsModalContent = ({
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleApply}>
-            Upload with new Names
-          </Button>
+          <div className="w-100"> All other files will be uploaded with their current name.</div>
+          <Row className="w-100 justify-content-between">
+            <Button variant="secondary" onClick={handleClose}>
+              Abort Upload
+            </Button>
+            <Button variant="primary" onClick={handleApply}>
+              Upload with new Names
+            </Button>
+          </Row>
         </Modal.Footer>
+
       </>
     );
 };

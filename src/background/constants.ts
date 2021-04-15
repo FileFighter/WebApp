@@ -10,9 +10,9 @@ const prod: constantsdef = {
 
 const dev: constantsdef = {
   url: {
-    //API_URL: "https://demo.filefighter.de/api"
+    API_URL: "https://demo.filefighter.de/api"
     // API_URL: 'http://localhost:8081/https://filefighter.de/api',
-    API_URL: "http://localhost:8080"
+    //API_URL: "http://localhost:8080"
     //API_URL: 'https://filefighter.de/api',
   }
 };

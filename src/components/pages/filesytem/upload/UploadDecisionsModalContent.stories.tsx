@@ -75,12 +75,13 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
           onHide={() => {}}
           contentClassName={"bg-body"}
           size="xl"
+          scrollable
         >
           <UploadDecisionsModalContent
             handleClose={() => {}}
             preflightResult={preflightResult}
             setPreflightResultDispatch={setPreflightResultDispatch}
-          />
+           fsItemIdToUpload="1"/>
         </Modal>
       </BrowserRouter>
     </Provider>
