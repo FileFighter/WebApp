@@ -5,7 +5,7 @@ import Axios, { AxiosResponse } from "axios";
 import store from "../redux/store";
 import { ApiAction, ApiActionStatus, ApiActionType } from "../redux/actions/apiActionsTypes";
 import { addApiAction, changeStatus, nextFsEntity } from "../redux/actions/apiActions";
-import { addToContents } from "../redux/actions/filesystem";
+import { addToContents, removeFromContents } from "../redux/actions/filesystem";
 import { EditableFileWithPreflightInfo, PreflightEntity } from "../../components/pages/filesytem/upload/preflightTypes";
 
 export const getFolderContents = (path: string) =>
@@ -16,8 +16,8 @@ export const getFolderContents = (path: string) =>
       }
     };
 
-    Axios.get(hostname + filesystemPath + "contents", config)
-      .then((response) => resolve(response.data))
+    Axios.get<FsEntity[]>(hostname + filesystemPath + "contents", config)
+      .then((response: AxiosResponse<FsEntity[]>) => resolve(response.data))
       .catch((error) => reject(error));
   });
 
@@ -95,9 +95,6 @@ export const uploadPreflight = (
   files: File[] | EditableFileWithPreflightInfo[],
   parentFolderID: string
 ): Promise<PreflightEntity[]> => {
-
-
-
   const postData = files.map((f: File | EditableFileWithPreflightInfo) => ({
     // @ts-ignore
     name: f.newName ?? f.name,
@@ -106,12 +103,11 @@ export const uploadPreflight = (
     // @ts-ignore
     mimeType: f.type,
     size: f.size
-
   }));
 
   return new Promise<PreflightEntity[]>((resolve, reject) => {
     Axios.post<PreflightEntity[]>(
-      hostname + filesystemPath + "upload/preflight" + parentFolderID,postData
+      hostname + filesystemPath + "upload/preflight" + parentFolderID, postData
     )
       .then((response: AxiosResponse<PreflightEntity[]>) => {
         resolve(response.data);
@@ -127,7 +123,7 @@ export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], par
     return new Promise((resolve, reject) => {
       let formData = new FormData();
       formData.append("file", file);
-      Axios.post(
+      Axios.post<FsEntity>(
         "http://localhost:5000/data/upload/" + parentFolderID,
         formData,
         {
@@ -136,15 +132,19 @@ export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], par
             // @ts-ignore
             "X-FF-NAME": file.newName ?? file.name,
             // @ts-ignore
-            "X-FF-PATH": file.newPath ?? file.path
+            "X-FF-PATH": file.newPath ?? file.path,
+            "X-FF-SIZE": file.size
           },
           onUploadProgress(progress) {
             console.log("upload progress:", progress);
           }
         }
       )
-        .then((response) => {
-          store.dispatch(addToContents(response.data));
+        .then((response: AxiosResponse<FsEntity>) => {
+          const currentFolderId = store.getState().filesystem.currentFsItemId;
+          if (parentFolderID === currentFolderId) {
+            store.dispatch(addToContents(response.data));
+          }
           resolve(response);
         })
         .catch((error) => reject(error));
@@ -187,9 +187,17 @@ export const downloadFiles = () => {
 
 export const deleteFsEntities = (files: FsEntity[]) => {
   const apiCall = (fsEntity: FsEntity) => {
-    return Axios.delete(
-      "http://localhost:5000/data/delete/" + fsEntity.fileSystemId
-    );
+    return new Promise((resolve, reject) => {
+
+      Axios.delete<FsEntity[]>(
+        "http://localhost:5000/data/delete/" + fsEntity.fileSystemId
+      )
+        .then((response: AxiosResponse<FsEntity[]>) => {
+          response.data.forEach((e) => store.dispatch(removeFromContents(e)));
+          resolve(response);
+        })
+        .catch((error) => reject(error));
+    });
   };
   handleMultipleApiActions(files, apiCall, ApiActionType.DELETE);
 };
