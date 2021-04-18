@@ -33,8 +33,8 @@ function Login(): ReactElement {
 
     return (
         <Container fluid className="h-100 ml-0 mr-0 login-page">
-            <Container fluid className="login-container bg-body-bg">
-                <Container>
+            <Container fluid className="login-container">
+                <Container className="login-intro">
                     <Row className="justify-content-md-center">
                         <Image rounded src={logo} height="200px" width="auto"/>
                     </Row>
