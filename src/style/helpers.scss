@@ -12,14 +12,23 @@ root {
   justify-content: center;
 }
 
+.login-page {
+  background-image: url("../assets/images/background/parallax-mountain.png");
+}
 
 .login-container {
-
+  opacity: .95;
+  background-color: $body-bg;
   border-radius: 15px;
-  background-color: var(--highlight-area-gray);
+
   @media (min-width: 992px) {
     width: 50%;
     left: 25%;
+  }
+
+  @media (min-width: 1150px) {
+    width: 40%;
+    left: 30%;
   }
   @media (max-height: 659px) {
     margin-top: 15px;
@@ -28,4 +37,12 @@ root {
     margin-top: 10%;
   }
   padding-top: 15px
+}
+
+.login-input .row:first-child {
+  justify-content: center;
+}
+
+.login-input .row:first-child .col {
+  max-width: 450px;
 }
