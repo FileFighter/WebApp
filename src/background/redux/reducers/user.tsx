@@ -2,7 +2,7 @@ import {ADD_USER, UPDATE_USER, UserActionTypes, UserState} from "../actions/user
 
 const initialState: UserState = {
     groups: [],
-    id: null,
+    userId: null,
     username: null
 };
 
