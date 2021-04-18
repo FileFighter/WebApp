@@ -1,4 +1,8 @@
-.text-shadow-none{
+root {
+  --highlight-area-gray: #333333;
+}
+
+.text-shadow-none {
   text-shadow: none;
 }
 
@@ -12,7 +16,7 @@
 .login-container {
 
   border-radius: 15px;
-  background-color: #333333;
+  background-color: var(--highlight-area-gray);
   @media (min-width: 992px) {
     width: 50%;
     left: 25%;
