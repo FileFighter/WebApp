@@ -6,7 +6,7 @@ import {registerNewUser} from "../../../background/api/registration";
 import {getWindowSize, getWindowSize_Interface} from "../../../background/methods/windowSize";
 import {getStyleValue} from "../../../background/methods/style";
 import {DEFAULT_ALERT_DURATION, MIN_PASSWORD_LENGTH} from "../../../background/constants";
-import UserInformationInput, {UserInformationInterface} from "./UserInformationInput";
+import UserInformationInput, {UserInformationInputInterface} from "./UserInformationInput";
 
 export default function Registration(): ReactElement {
     const [alertMessage, setAlertMessage] = useState<string>("Error 404: No Message found.");
@@ -40,7 +40,7 @@ export default function Registration(): ReactElement {
         repositionSubmitLogo()
     }, [registrationContainer, logoSubmit])
 
-    const handleSubmit = async (newUser:UserInformationInterface) => {
+    const handleSubmit = async (newUser:UserInformationInputInterface) => {
         console.log("[REGISTRATION] handleSubmit")
         if (!newUser.username) {
             handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")

@@ -1,10 +1,11 @@
 import React, {ReactElement, useState} from "react";
 import {Alert, Button, Container, Row} from "react-bootstrap";
-import UserInformationInput, {UserInformationInterface} from "./UserInformationInput";
+import UserInformationInput, {UserInformationInputInterface} from "./UserInformationInput";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../background/redux/store";
-import {DEFAULT_ALERT_DURATION} from "../../../background/constants";
-import {changeUserInformation} from "../../../background/api/userInformation";
+import {DEFAULT_ALERT_DURATION, MIN_PASSWORD_LENGTH} from "../../../background/constants";
+import {changeUserInformation, UserInformation} from "../../../background/api/userInformation";
+import {notMinStrLength} from "../../../background/methods/checkInput";
 
 
 export default function Profile(): ReactElement {
@@ -30,27 +31,42 @@ export default function Profile(): ReactElement {
         setIsEditing(!isEditing)
     }
 
-    const handleSubmit = async (newUser: UserInformationInterface) => {
+    const handleSubmit = async (inputUser: UserInformationInputInterface) => {
         console.log("[PROFILE] handleSubmit")
-
-        if (!newUser.username) {
-            handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")
-            // } else if (newUser.password !== newUser.passwordConfirmation) {
-            //     handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Password and password confirmation must match.")
-            // } else if (newUser.password.match(/\d/) == null || newUser.password.match(/[a-z]/) == null || newUser.password.match(/[A-Z]/) == null || notMinStrLength(newUser.password, MIN_PASSWORD_LENGTH)) {
-            //     handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please pay attention to the notes below the input fields.")
-        } else {
-            // console.log("Hello there ", {...user, username: newUser.username})
-            // console.log("General Kenobi ", newUser)
-            await changeUserInformation({...user, username: newUser.username})
-                .then(res => {
-                    changeEditMode()
-                    handleAlertVisibility(DEFAULT_ALERT_DURATION, "success", "Worked: " + (res));
-                })
-                .catch(err => {
-                    handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: " + (err.outputMessage ? err.outputMessage : (err.httpStatus + " " + err.httpMessage)))
-                })
+        let newUser:UserInformation = {
+            groups: user.groups,
+            userId: user.userId
         }
+        if (!inputUser.username) {
+            handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")
+            // } else if (inputUser.password !== inputUser.passwordConfirmation) {
+            //     handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Password and password confirmation must match.")
+            // } else if (inputUser.password.match(/\d/) == null || inputUser.password.match(/[a-z]/) == null || inputUser.password.match(/[A-Z]/) == null || notMinStrLength(inputUser.password, MIN_PASSWORD_LENGTH)) {
+            //     handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please pay attention to the notes below the input fields.")
+            return;
+        }
+        newUser["username"] = inputUser.username;
+        if (inputUser.password || inputUser.passwordConfirmation) {
+            if (inputUser.password !== inputUser.passwordConfirmation) {
+                handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Password and password confirmation must match.")
+                return;
+            }
+            if (inputUser.password.match(/\d/) == null || inputUser.password.match(/[a-z]/) == null || inputUser.password.match(/[A-Z]/) == null || notMinStrLength(inputUser.password, MIN_PASSWORD_LENGTH)) {
+                handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please pay attention to the notes below the input fields.")
+                return;
+            }
+            newUser["password"] = inputUser.password
+            newUser["confirmationPassword"] = inputUser.passwordConfirmation
+        }
+
+        await changeUserInformation(newUser)
+            .then(res => {
+                changeEditMode()
+                handleAlertVisibility(DEFAULT_ALERT_DURATION, "success", "Worked: " + (res));
+            })
+            .catch(err => {
+                handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: " + (err.outputMessage ? err.outputMessage : (err.httpStatus + " " + err.httpMessage)))
+            })
     }
 
     /*function EditProfile(): ReactElement {

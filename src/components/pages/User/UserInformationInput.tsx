@@ -7,7 +7,7 @@ import {biggerMaxStrLength, notMinStrLength} from "../../../background/methods/c
 import {deleteSpaces} from "../../../background/methods/strings";
 import {DEFAULT_ALERT_DURATION, MAX_PASSWORD_LENGTH, MIN_PASSWORD_LENGTH} from "../../../background/constants";
 
-export interface UserInformationInterface {
+export interface UserInformationInputInterface {
     username: string,
     password: string,
     passwordConfirmation?: string
@@ -15,8 +15,8 @@ export interface UserInformationInterface {
 
 type UserInformationInputProps = {
     triggerAlert(duration: number, color: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark", message: string): void,
-    submitFunction(newUser: UserInformationInterface): void,
-    presets?: UserInformationInterface
+    submitFunction(newUser: UserInformationInputInterface): void,
+    presets?: UserInformationInputInterface
 }
 
 export default function UserInformationInput(props: UserInformationInputProps): ReactElement {
