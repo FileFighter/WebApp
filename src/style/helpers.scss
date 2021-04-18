@@ -1,3 +1,27 @@
 .text-shadow-none{
   text-shadow: none;
 }
+
+.center-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.login-container {
+
+  border-radius: 15px;
+  background-color: #333333;
+  @media (min-width: 992px) {
+    width: 50%;
+    left: 25%;
+  }
+  @media (max-height: 659px) {
+    margin-top: 15px;
+  }
+  @media (min-height: 660px) {
+    margin-top: 10%;
+  }
+  padding-top: 15px
+}

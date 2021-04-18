@@ -1,6 +1,8 @@
 import React, {FormEvent, ReactElement, useState} from 'react';
-import {Button, Form, Container, Row,Col,Spinner} from "react-bootstrap";
+import {Button, Form, Container, Row,Col,Spinner, Image} from "react-bootstrap";
 import {loginWithUsernameAndPassword} from "../../background/api/auth";
+
+import logo from "../../assets/images/logos/logoWithWhiteBorder.png";
 
 function Login(): ReactElement {
     const [userName, setUsername] = useState<string>("");
@@ -30,26 +32,36 @@ function Login(): ReactElement {
 
 
     return (
-        <Container>
-            <Row >
-                <Col md={{ span: 6, offset: 3 }}>
+        <Container  className="h-100">
+            <Container fluid className="login-container">
+
+            <Container>
+                <Row className="justify-content-md-center">
+                    <Image rounded src={logo} height="200px" width="auto"/>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <h1>Greetings Traveller!</h1>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <h2>Be welcome at FileFighter</h2>
+                </Row>
+            </Container>
+
+            <Row className="mt-4">
+                <Col>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicUsername">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control placeholder="Enter username" value={userName} onChange={event => setUsername(event.target.value)}/>
+                            <Form.Control placeholder="Username" value={userName} onChange={event => setUsername(event.target.value)}/>
                         </Form.Group>
 
                         <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" value={password} onChange={event => setPassword(event.target.value)}/>
                             <Form.Text className="text-muted">
-                                Contact your administrator if you have forgotten your password.
+                                Contact your administrator if you have forgotten your login details.
                             </Form.Text>
                         </Form.Group>
-                        <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check checked={stayLoggedIn} type="checkbox" label="Stay logged in. (By clicking this you accept the usage of cookies.)" onChange={() => setStayLoggedIn(!stayLoggedIn)}/>
-                        </Form.Group>
-                        <Button variant="primary" type="submit" >
+
+                        <Button variant="primary" type="submit" block>
                             <Spinner
                                 as="span"
                                 animation="grow"
@@ -57,13 +69,19 @@ function Login(): ReactElement {
                                 role="status"
                                 aria-hidden="true"
                                 className={loading? "" :"d-none"}
-                            />   <span className={loading? "sr-only" :"d-none"}>Loading...</span>Submit
+                            />   <span className={loading? "sr-only" :"d-none"}>Loading...</span>Sign in
                         </Button>
-
+                        <Form.Group controlId="formBasicCheckbox" className="mt-3 justify-content-center">
+                            <Form.Check checked={stayLoggedIn} type="checkbox" label="Keep me signed in*" onChange={() => setStayLoggedIn(!stayLoggedIn)}/>
+                            <Form.Text className="text-muted">
+                                *By clicking this, you accept the usage of cookies.
+                            </Form.Text>
+                        </Form.Group>
                         <p className="text-danger">{errorMessage}</p>
                     </Form>
                 </Col>
             </Row>
+            </Container>
         </Container>);
 }
 
