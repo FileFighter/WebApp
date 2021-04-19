@@ -21,15 +21,16 @@ root {
   background-color: $body-bg;
   border-radius: 15px;
 
-  @media (min-width: 992px) {
+  @include media-breakpoint-up(lg) {
     width: 50%;
     left: 25%;
   }
 
-  @media (min-width: 1150px) {
+  @include media-breakpoint-up(xl) {
     width: 40%;
     left: 30%;
   }
+
   @media (max-height: 659px) {
     margin-top: 15px;
   }
