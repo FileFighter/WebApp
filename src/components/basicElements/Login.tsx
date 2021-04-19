@@ -123,7 +123,7 @@ export function LoginInput(props: LoginInputInterface) {
 
     return (
         <Container className="login-input">
-            <Row className="mt-4">
+            <Row className="mt-4 justify-content-md-center">
                 <Col>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicUsername">
