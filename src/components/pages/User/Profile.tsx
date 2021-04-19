@@ -6,6 +6,7 @@ import {RootState} from "../../../background/redux/store";
 import {DEFAULT_ALERT_DURATION, MIN_PASSWORD_LENGTH} from "../../../background/constants";
 import {changeUserInformation, UserInformation} from "../../../background/api/userInformation";
 import {notMinStrLength} from "../../../background/methods/checkInput";
+import edit_svg from "../../../assets/images/icons/material.io/edit_white_24dp.svg";
 
 
 export default function Profile(): ReactElement {
@@ -136,6 +137,7 @@ export default function Profile(): ReactElement {
                     <Button
                         onClick={changeEditMode}
                     >
+                        {!isEditing &&  <img src={edit_svg} alt={"edit icon"} className="pr-2" />}
                         {isEditing ? "Cancel" : "Edit"}
                     </Button>
                 </Row>
