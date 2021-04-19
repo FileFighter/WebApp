@@ -83,6 +83,7 @@ local.properties
 */.idea/**/contentModel.xml
 
 */.idea/
+.idea/
 
 # Sensitive or high-churn files
 */.idea/**/dataSources/
