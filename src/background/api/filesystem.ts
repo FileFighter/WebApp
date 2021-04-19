@@ -1,12 +1,16 @@
 import { FsEntity } from "./filesystemTypes";
 import { filesystemPath, hostname } from "./api";
 import Axios, { AxiosResponse } from "axios";
+import { constants } from "../constants";
 
 import store from "../redux/store";
 import { ApiAction, ApiActionStatus, ApiActionType } from "../redux/actions/apiActionsTypes";
 import { addApiAction, changeStatus, nextFsEntity } from "../redux/actions/apiActions";
 import { addToContents, removeFromContents } from "../redux/actions/filesystem";
 import { EditableFileWithPreflightInfo, PreflightEntity } from "../../components/pages/filesytem/upload/preflightTypes";
+
+
+const fhHostname = constants.url.FH_URL;
 
 export const getFolderContents = (path: string) =>
   new Promise<FsEntity[]>((resolve, reject) => {
@@ -15,13 +19,112 @@ export const getFolderContents = (path: string) =>
         "X-FF-PATH": path
       }
     };
-
     Axios.get<FsEntity[]>(hostname + filesystemPath + "contents", config)
       .then((response: AxiosResponse<FsEntity[]>) => resolve(response.data))
       .catch((error) => reject(error));
   });
 
-export function handleMultipleApiActions<Type extends File | FsEntity>(
+
+export const uploadPreflight = (
+  files: File[] | EditableFileWithPreflightInfo[],
+  parentFolderID: string
+): Promise<PreflightEntity[]> => {
+  const postData = files.map((f: File | EditableFileWithPreflightInfo) => ({
+    // @ts-ignore
+    name: f.newName ?? f.name,
+    // @ts-ignore
+    path: f.newPath ?? f.path,
+    // @ts-ignore
+    mimeType: f.type,
+    size: f.size
+  }));
+  return new Promise<PreflightEntity[]>((resolve, reject) => {
+    Axios.post<PreflightEntity[]>(
+      hostname + filesystemPath + "upload/preflight" + parentFolderID, postData
+    )
+      .then((response: AxiosResponse<PreflightEntity[]>) => {
+        resolve(response.data);
+      })
+      .catch((error: Error) => reject(error));
+  });
+};
+
+export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], parentFolderID: string) => {
+  parentFolderID = "1"; //TODO
+  console.log("[API filesystem] uploading files",files);
+  const apiCall = (file: File | EditableFileWithPreflightInfo) => {
+    return new Promise((resolve, reject) => {
+      let formData = new FormData();
+      formData.append("file", file);
+      Axios.post<FsEntity>(
+        fhHostname + "/upload/" + parentFolderID,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            // @ts-ignore
+            "X-FF-NAME": file.newName ?? file.name,
+            // @ts-ignore
+            "X-FF-PATH": file.newPath ?? file.path,
+            "X-FF-SIZE": file.size
+          },
+          onUploadProgress(progress) {
+            console.log("upload progress:", progress);
+          }
+        }
+      )
+        .then((response: AxiosResponse<FsEntity>) => {
+          const currentFolderId = store.getState().filesystem.currentFsItemId;
+          if (parentFolderID === currentFolderId) {
+            store.dispatch(addToContents(response.data));
+          }
+          resolve(response);
+        })
+        .catch((error) => reject(error));
+    });
+  };
+  handleMultipleApiActions(files, apiCall, ApiActionType.UPLOAD);
+};
+
+export const downloadFiles = (files : FsEntity[]) => {
+  Axios.get(fhHostname + "/download", {
+    responseType: "blob", // Important
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "X-FF-IDS": files.map((e:FsEntity) => e.fileSystemId).toString()
+    },
+    onDownloadProgress(progress) {
+      //console.log("download progress:", progress);
+    }
+  }).then((response) => {
+    // fileDownload(response.data, "bild.png");
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "file.pdf");
+    document.body.appendChild(link);
+    link.click();
+  });
+};
+
+export const deleteFsEntities = (files: FsEntity[]) => {
+  const apiCall = (fsEntity: FsEntity) => {
+    return new Promise((resolve, reject) => {
+      Axios.delete<FsEntity[]>(
+        fhHostname + "/delete/" + fsEntity.fileSystemId
+      )
+        .then((response: AxiosResponse<FsEntity[]>) => {
+          response.data.forEach((e) => store.dispatch(removeFromContents(e)));
+          resolve(response);
+        })
+        .catch((error) => reject(error));
+    });
+  };
+  handleMultipleApiActions(files, apiCall, ApiActionType.DELETE);
+};
+
+
+function handleMultipleApiActions<Type extends File | FsEntity>(
   items: Type[],
   action: (a: Type) => Promise<any>,
   type: ApiActionType,
@@ -90,114 +193,3 @@ export function handleMultipleApiActions<Type extends File | FsEntity>(
       );
     });
 }
-
-export const uploadPreflight = (
-  files: File[] | EditableFileWithPreflightInfo[],
-  parentFolderID: string
-): Promise<PreflightEntity[]> => {
-  const postData = files.map((f: File | EditableFileWithPreflightInfo) => ({
-    // @ts-ignore
-    name: f.newName ?? f.name,
-    // @ts-ignore
-    path: f.newPath ?? f.path,
-    // @ts-ignore
-    mimeType: f.type,
-    size: f.size
-  }));
-
-  return new Promise<PreflightEntity[]>((resolve, reject) => {
-    Axios.post<PreflightEntity[]>(
-      hostname + filesystemPath + "upload/preflight" + parentFolderID, postData
-    )
-      .then((response: AxiosResponse<PreflightEntity[]>) => {
-        resolve(response.data);
-      })
-      .catch((error: Error) => reject(error));
-  });
-};
-
-export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], parentFolderID: string) => {
-  parentFolderID = "1"; //TODO
-  console.log(files);
-  const apiCall = (file: File | EditableFileWithPreflightInfo) => {
-    return new Promise((resolve, reject) => {
-      let formData = new FormData();
-      formData.append("file", file);
-      Axios.post<FsEntity>(
-        "http://localhost:5000/data/upload/" + parentFolderID,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            // @ts-ignore
-            "X-FF-NAME": file.newName ?? file.name,
-            // @ts-ignore
-            "X-FF-PATH": file.newPath ?? file.path,
-            "X-FF-SIZE": file.size
-          },
-          onUploadProgress(progress) {
-            console.log("upload progress:", progress);
-          }
-        }
-      )
-        .then((response: AxiosResponse<FsEntity>) => {
-          const currentFolderId = store.getState().filesystem.currentFsItemId;
-          if (parentFolderID === currentFolderId) {
-            store.dispatch(addToContents(response.data));
-          }
-          resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
-  };
-
-  handleMultipleApiActions(files, apiCall, ApiActionType.UPLOAD);
-};
-
-export const downloadFiles = () => {
-  console.log("download");
-  /*new JsFileDownloader({
-    url: "http://localhost:5000/download",
-    headers: [
-      { name: "Authorization", value: "Bearer ABC123..." },
-      // @ts-ignore
-      { name: "X-FF-IDS", value: "bla" }
-    ]
-  });*/
-
-  Axios.get("http://localhost:5000/download", {
-    responseType: "blob", // Important
-    headers: {
-      "Content-Type": "multipart/form-data",
-      "X-FF-IDS": "dfsghzufg"
-    },
-    onDownloadProgress(progress) {
-      //console.log("download progress:", progress);
-    }
-  }).then((response) => {
-    // fileDownload(response.data, "bild.png");
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "file.pdf");
-    document.body.appendChild(link);
-    link.click();
-  });
-};
-
-export const deleteFsEntities = (files: FsEntity[]) => {
-  const apiCall = (fsEntity: FsEntity) => {
-    return new Promise((resolve, reject) => {
-
-      Axios.delete<FsEntity[]>(
-        "http://localhost:5000/data/delete/" + fsEntity.fileSystemId
-      )
-        .then((response: AxiosResponse<FsEntity[]>) => {
-          response.data.forEach((e) => store.dispatch(removeFromContents(e)));
-          resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
-  };
-  handleMultipleApiActions(files, apiCall, ApiActionType.DELETE);
-};

@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { Button, Fade } from "react-bootstrap";
 import { SystemState } from "../../../background/redux/actions/sytemState";
 import { connect, ConnectedProps } from "react-redux";
-import { deleteFsEntities } from "../../../background/api/filesystem";
+import { deleteFsEntities, downloadFiles } from "../../../background/api/filesystem";
 
 const mapState = (state: SystemState) => ({
   selectedFsEnties: state.filesystem.selectedFsEnties
@@ -19,6 +19,10 @@ function ToolbarActions(props: Props): ReactElement | null {
     deleteFsEntities(props.selectedFsEnties);
   }
 
+  function handleDownloadClicked() {
+    downloadFiles(props.selectedFsEnties)
+  }
+
   return (
     <span>
       <Fade in={props.selectedFsEnties.length === 1}>
@@ -27,7 +31,7 @@ function ToolbarActions(props: Props): ReactElement | null {
       <Fade in={props.selectedFsEnties.length > 0}>
         <span>
           <Button onClick={handleDeleteClicked}>Delete</Button>
-          <Button>Download</Button>
+          <Button onClick={handleDownloadClicked}>Download</Button>
         </span>
       </Fade>
       <Button>New Folder</Button>
