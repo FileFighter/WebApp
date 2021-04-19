@@ -74,7 +74,7 @@ export function LoginInteractionArea(props: LoginInputInterface) {
         errorMessage,
     } = props
     return (
-        <Container fluid className="login-container">
+        <div className="login-container pr-1 pl-1 mr-auto ml-auto">
             <LoginHeader/>
             <LoginInput
                 handleSubmit={handleSubmit}
@@ -88,13 +88,13 @@ export function LoginInteractionArea(props: LoginInputInterface) {
                 setStayLoggedIn={setStayLoggedIn}
                 errorMessage={errorMessage}
             />
-        </Container>
+        </div>
     )
 }
 
 export function LoginHeader() {
     return (
-        <Container className="login-intro">
+        <div className="login-intro">
             <Row className="justify-content-md-center">
                 <Image rounded src={logo} height="200px" width="auto"/>
             </Row>
@@ -104,7 +104,7 @@ export function LoginHeader() {
             <Row className="justify-content-md-center">
                 <h2>Be welcome at FileFighter</h2>
             </Row>
-        </Container>
+        </div>
     )
 }
 
@@ -122,10 +122,10 @@ export function LoginInput(props: LoginInputInterface) {
     } = props
 
     return (
-        <Container className="login-input">
+        <div>
             <Row className="mt-4 justify-content-md-center">
-                <Col>
-                    <Form onSubmit={handleSubmit}>
+                <Col className="login-input">
+                    <Form onSubmit={handleSubmit} >
                         <Form.Group controlId="formBasicUsername">
                             <Form.Control placeholder="Username" value={username}
                                           onChange={event => setUsername(event.target.value)}/>
@@ -160,7 +160,7 @@ export function LoginInput(props: LoginInputInterface) {
                     </Form>
                 </Col>
             </Row>
-        </Container>
+        </div>
     )
 }
 
