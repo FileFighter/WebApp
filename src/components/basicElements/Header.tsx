@@ -5,6 +5,7 @@ import logo from "../../assets/images/logos/logo.png";
 import { Nav, Navbar, NavbarBrand, NavDropdown } from "react-bootstrap";
 import { SystemState } from "../../background/redux/actions/sytemState";
 import { connect, ConnectedProps } from "react-redux";
+import {logout} from "../../background/api/auth";
 
 export interface navBarElement_Interface {
   name: string;
@@ -97,6 +98,13 @@ function Header(props: PropsFromRedux): ReactElement {
                     }}
                   >
                     Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={(event: any) => {
+                      logout()
+                    }}
+                  >
+                    Logout
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
