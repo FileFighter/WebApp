@@ -95,13 +95,13 @@ export function LoginInteractionArea(props: LoginInputInterface) {
 export function LoginHeader() {
     return (
         <div className="login-intro">
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-center">
                 <Image rounded src={logo} height="200px" width="auto"/>
             </Row>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-center">
                 <h1>Greetings Traveller!</h1>
             </Row>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-center">
                 <h2>Be welcome at FileFighter</h2>
             </Row>
         </div>
@@ -123,7 +123,7 @@ export function LoginInput(props: LoginInputInterface) {
 
     return (
         <div>
-            <Row className="mt-4 justify-content-md-center">
+            <Row className="mt-4 justify-content-center">
                 <Col className="login-input">
                     <Form onSubmit={handleSubmit} >
                         <Form.Group controlId="formBasicUsername">
