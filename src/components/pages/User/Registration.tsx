@@ -1,5 +1,5 @@
 import React, {ReactElement, useEffect, useState} from "react";
-import {Alert, Col, Container, Row} from "react-bootstrap";
+import {Alert, Container, Row} from "react-bootstrap";
 import {notMinStrLength} from "../../../background/methods/checkInput";
 import fileFighter from "../../../assets/images/logos/adventurer-run.gif";
 import {registerNewUser} from "../../../background/api/registration";
@@ -34,7 +34,7 @@ export default function Registration(): ReactElement {
         repositionSubmitLogo()
     }, [registrationContainer, logoSubmit])
 
-    const handleSubmit = async (newUser:UserInformationInputInterface) => {
+    const handleSubmit = async (newUser: UserInformationInputInterface) => {
         console.log("[REGISTRATION] handleSubmit")
         if (!newUser.username) {
             handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")

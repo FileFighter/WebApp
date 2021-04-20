@@ -21,9 +21,9 @@ type UserInformationInputProps = {
 
 export default function UserInformationInput(props: UserInformationInputProps): ReactElement {
     let {triggerAlert, submitFunction, presets} = props;
-    const [username, setUsername] = useState<string>(presets?.username??"");
-    const [password, setPassword] = useState<string>(presets?.password??"");
-    const [passwordConfirmation, setPasswordConfirmation] = useState<string>(presets?.password??"");
+    const [username, setUsername] = useState<string>(presets?.username ?? "");
+    const [password, setPassword] = useState<string>(presets?.password ?? "");
+    const [passwordConfirmation, setPasswordConfirmation] = useState<string>(presets?.password ?? "");
     const [passwordInformationLength, setPasswordInformationLength] = useState<boolean>(false);
     const [passwordInformationLowercase, setPasswordInformationLowercase] = useState<boolean>(false);
     const [passwordInformationUppercase, setPasswordInformationUppercase] = useState<boolean>(false);
@@ -49,9 +49,9 @@ export default function UserInformationInput(props: UserInformationInputProps): 
 
     const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let newValue : string;
+        let newValue: string;
 
-        let [stringValue, isOK]: [string, boolean]  = makePasswordInputFitRules(event.target.value);
+        let [stringValue, isOK]: [string, boolean] = makePasswordInputFitRules(event.target.value);
         if (!isOK) {
             newValue = password;
         } else {
@@ -66,8 +66,8 @@ export default function UserInformationInput(props: UserInformationInputProps): 
 
     const handlePasswordConfirmationChange = async (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let newValue : string;
-        const [stringValue, isOK]: [string, boolean]   = makePasswordInputFitRules(event.target.value);
+        let newValue: string;
+        const [stringValue, isOK]: [string, boolean] = makePasswordInputFitRules(event.target.value);
         if (!isOK) {
             newValue = passwordConfirmation;
         } else {

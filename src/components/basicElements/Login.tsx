@@ -6,15 +6,15 @@ import logo from "../../assets/images/logos/logoWithWhiteBorder.png";
 
 export interface LoginInputInterface {
     handleSubmit: (event: FormEvent) => void,
-    username: string|number|string[]|undefined,
+    username: string | number | string[] | undefined,
     setUsername: Dispatch<SetStateAction<string>>,
-    password: string|number|string[]|undefined,
+    password: string | number | string[] | undefined,
     setPassword: Dispatch<SetStateAction<string>>,
     isLoading: boolean,
     setIsLoading: Dispatch<SetStateAction<boolean>>,
     stayLoggedIn: boolean,
     setStayLoggedIn: Dispatch<SetStateAction<boolean>>,
-    errorMessage: string|null
+    errorMessage: string | null
 }
 
 function Login(): ReactElement {
@@ -125,7 +125,7 @@ export function LoginInput(props: LoginInputInterface) {
         <div>
             <Row className="mt-4 justify-content-center">
                 <Col className="login-input">
-                    <Form onSubmit={handleSubmit} >
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicUsername">
                             <Form.Control placeholder="Username" value={username}
                                           onChange={event => setUsername(event.target.value)}/>
