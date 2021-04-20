@@ -33,4 +33,4 @@ jobs:
           docker push filefighter/storybook:$VERSION
       - name: Trigger update on server
         run: |
-          curl -u ${{ secrets.LOG_CREDS }} https://logs.filefighter.de/storybook.log
+          curl -u ${{ secrets.LOG_CREDS }} https://logs.filefighter.de/storybook-update-script.log
