@@ -13,7 +13,6 @@ export default function Registration(): ReactElement {
     const [alertVariant, setAlertColor] = useState<"primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark">("success");
     const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
 
-
     const registrationContainer = document.getElementById("registrationContainer")
     const logoSubmit = document.getElementById("logoSubmit")
 
@@ -44,7 +43,7 @@ export default function Registration(): ReactElement {
         } else if (newUser.password.match(/\d/) == null || newUser.password.match(/[a-z]/) == null || newUser.password.match(/[A-Z]/) == null || notMinStrLength(newUser.password, MIN_PASSWORD_LENGTH)) {
             handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please pay attention to the notes below the input fields.")
         } else {
-            await registerNewUser(newUser.username, newUser.password, newUser.passwordConfirmation)
+            registerNewUser(newUser.username, newUser.password, newUser.passwordConfirmation)
                 .then(res => {
                     handleAlertVisibility(DEFAULT_ALERT_DURATION, "success", "Worked: " + (res.outputMessage ? res.outputMessage : (res.httpStatus + " " + res.httpMessage)));
                     toggleSubmitLogo();
@@ -67,16 +66,16 @@ export default function Registration(): ReactElement {
     }
 
     return (
-        <Container className="h-100" style={{position: "relative"}} id="registrationContainer">
+        <Container id="registrationContainer">
             <Row>
-                <Col md={{span: 6, offset: 3}}>
+                <div className="px-3 w-100">
                     <h1>Create new account</h1>
                     <UserInformationInput triggerAlert={handleAlertVisibility} submitFunction={handleSubmit}/>
                     <Alert variant={alertVariant} onClose={() => setAlertVisibility(false)} show={alertVisibility}
                            dismissible>
                         <p>{alertMessage}</p>
                     </Alert>
-                </Col>
+                </div>
             </Row>
             <img className={"invisible m0 position-relative"} src={fileFighter} alt="logo"
                  id="logoSubmit"/>

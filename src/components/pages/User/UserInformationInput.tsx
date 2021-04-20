@@ -49,28 +49,31 @@ export default function UserInformationInput(props: UserInformationInputProps): 
 
     const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let value: [string, boolean] | string = makePasswordInputFitRules(event.target.value);
-        if (!value[1]) {
-            value = password;
+        let newValue : string;
+
+        let [stringValue, isOK]: [string, boolean]  = makePasswordInputFitRules(event.target.value);
+        if (!isOK) {
+            newValue = password;
         } else {
-            value = value[0]
+            newValue = stringValue
         }
-        setPasswordInformationLength(!notMinStrLength(value, MIN_PASSWORD_LENGTH));
-        setPasswordInformationLowercase(value.match(/[a-z]/) !== null);
-        setPasswordInformationUppercase(value.match(/[A-Z]/) !== null);
-        setPasswordInformationNumber(value.match(/\d/) !== null);
-        setPassword(value)
+        setPasswordInformationLength(!notMinStrLength(newValue, MIN_PASSWORD_LENGTH));
+        setPasswordInformationLowercase(newValue.match(/[a-z]/) !== null);
+        setPasswordInformationUppercase(newValue.match(/[A-Z]/) !== null);
+        setPasswordInformationNumber(newValue.match(/\d/) !== null);
+        setPassword(newValue)
     }
 
     const handlePasswordConfirmationChange = async (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let value: [string, boolean] | string = makePasswordInputFitRules(event.target.value);
-        if (!value[1]) {
-            value = passwordConfirmation;
+        let newValue : string;
+        const [stringValue, isOK]: [string, boolean]   = makePasswordInputFitRules(event.target.value);
+        if (!isOK) {
+            newValue = passwordConfirmation;
         } else {
-            value = value[0]
+            newValue = stringValue
         }
-        setPasswordConfirmation(value);
+        setPasswordConfirmation(newValue);
     }
 
     const handleSubmit = async (event: FormEvent) => {
