@@ -7,7 +7,7 @@ describe("The filesystem page", () => {
   });
 
   it("changes the url when you click on a file", () => {
-    cy.get("div").contains("dummyFile.txt").click();
-    cy.url().should("include", "#dummyFile.txt");
+    cy.get("div").contains("user1").click();
+    cy.url().should("include", "/user1");
   });
 });
