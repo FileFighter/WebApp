@@ -89,7 +89,7 @@ export default function Profile(): ReactElement {
 
     function DisplayProfile(): ReactElement {
         return (
-            <Container className="profile-information-display p-0">
+            <div className="profile-information-display p-0 w-100">
                 <h2 className="h3 pb-3">
                     {user.username}
                 </h2>
@@ -102,14 +102,14 @@ export default function Profile(): ReactElement {
                     })}
                     </dd>
                 </dl>
-            </Container>
+            </div>
         )
     }
 
     return (
         <Container className="page-content">
-            <Container fluid className=" mt-1 mb-3">
-                <Row className="title-action">
+            <div className="px-1 w-100 mt-1 mb-3 ">
+                <div className="w-100 title-action">
                     <h1 className="mr-1 h4">
                         My Profile
                     </h1>
@@ -119,8 +119,8 @@ export default function Profile(): ReactElement {
                         {!isEditing &&  <img src={edit_svg} alt={"edit icon"} className="pr-2" />}
                         {isEditing ? "Cancel" : "Edit"}
                     </Button>
-                </Row>
-            </Container>
+                </div>
+            </div>
             {isEditing ? <EditProfile/> : <DisplayProfile/>}
         </Container>
     );

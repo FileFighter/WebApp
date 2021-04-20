@@ -13,11 +13,6 @@ export default function Registration(): ReactElement {
     const [alertVariant, setAlertColor] = useState<"primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark">("success");
     const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
 
-    // const [newUser, setNewUser] = useState<UserInformationInterface>({
-    //     username: "",
-    //     password: "",
-    //     passwordConfirmation: ""
-    // })
 
     const registrationContainer = document.getElementById("registrationContainer")
     const logoSubmit = document.getElementById("logoSubmit")
