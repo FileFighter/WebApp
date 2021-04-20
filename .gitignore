@@ -85,6 +85,8 @@ local.properties
 */.idea/
 .idea/
 
+WebApp.iml
+
 # Sensitive or high-churn files
 */.idea/**/dataSources/
 */.idea/**/dataSources.ids
