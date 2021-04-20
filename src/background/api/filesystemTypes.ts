@@ -19,7 +19,8 @@ export interface User {
 }
 
 export interface FsEntity {
-  createdByUser: User;
+  owner: User;
+  lastUpdatedBy: User;
   fileSystemId: number;
   lastUpdated: number;
   name: string;

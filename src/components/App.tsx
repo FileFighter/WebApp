@@ -19,6 +19,7 @@ import { checkForCookie } from "../background/api/auth";
 import { TopBanner } from "./basicElements/TopBanner";
 import { FFLoading } from "./basicElements/Loading";
 import { CookieStatus } from "../background/redux/actions/tokenTypes";
+import {BottomBanner} from "./basicElements/BottomBanner";
 
 // this takes the redux store and maps everything that is needed to the function props
 const mapState = (state: SystemState) => ({
@@ -64,6 +65,7 @@ function App(props: Props): ReactElement {
               </main>
             </div>
             <Footer />
+            <BottomBanner/>
             <PermanentAssets />
           </BrowserRouter>
         </div>

@@ -145,7 +145,7 @@ function FileListItem(props: Props): ReactElement {
         </Link>
       </Col>
       <Col xs={6} md={3}>
-        {props.fileListItem.createdByUser.username}
+        {props.fileListItem.lastUpdatedBy.username}
       </Col>
       <Col xs={3} md={1}>
         {getDateAsStringFromTimestamp(props.fileListItem.lastUpdated)}

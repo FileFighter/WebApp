@@ -11,7 +11,7 @@
 //
 // -- This is a parent command --
 Cypress.Commands.add('loginWithUrl', (path) => {
-    const user = {username:"admin",password:"admin"}
+    const user = {username:"user",password:"1234"}
 
     cy.visit(path)
     cy.get('input[id=formBasicUsername]')
