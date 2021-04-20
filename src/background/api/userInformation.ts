@@ -15,7 +15,7 @@ export interface UserInformation {
 }
 
 export const changeUserInformation = (userWithNewInformation: UserInformation): Promise<UserState> => {
-    console.log("User given tu update user api:")
+    console.log("[API] userinformation: User given to update user api:")
     console.log(userWithNewInformation)
     return new Promise((resolve, reject) => {
         return Axios.put(`${hostname}${userPath}/${userWithNewInformation.userId}/edit`, userWithNewInformation)

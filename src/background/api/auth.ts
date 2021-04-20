@@ -10,9 +10,9 @@ import {
   checkedCookies,
   removeTokens
 } from "../redux/actions/tokens";
-import { addUser } from "../redux/actions/user";
 import { AccessToken, CookieStatus } from "../redux/actions/tokenTypes";
 import { deleteCookie, getCookie, setCookie } from "../methods/cookies";
+import {updateUser} from "../redux/actions/user";
 
 // reference: https://daveceddia.com/access-redux-store-outside-react/
 
@@ -57,7 +57,7 @@ export const loginWithUsernameAndPassword = (
       .then((data: AxiosResponse<BackendLoginData>) => {
         console.log(data.data);
         store.dispatch(addRefreshToken(data.data.tokenValue));
-        store.dispatch(addUser(data.data.user as UserState));
+        store.dispatch(updateUser(data.data.user as UserState));
 
         if (stayLoggedIn) {
           setCookie(cookieName, data.data.tokenValue, 60);
@@ -109,7 +109,7 @@ export const getAccessTokenWithRefreshToken = () => {
 const getOwnUserData = (userId: number) => {
   Axios.get<UserState>(`${hostname}${userPath}/${userId}/info`)
     .then((response: AxiosResponse<UserState>) => {
-      store.dispatch(addUser(response.data));
+      store.dispatch(updateUser(response.data));
     })
     .catch((error) => {
       console.log(error);
