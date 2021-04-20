@@ -1,11 +1,72 @@
-root {
-  --highlight-area-gray: #333333;
-}
-
-.text-shadow-none {
+.text-shadow-none{
   text-shadow: none;
 }
 
+.title-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.profile-information-display dl{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 0;
+}
+
+.profile-information-display dl dt {
+  width: 25%;
+}
+
+.profile-information-display dl dd {
+  width: 75%;
+}
+
+.profile-information-display dl dt, .profile-information-display dl dd {
+  margin: 0;
+  padding: 0.75rem;
+  border-bottom: 1px solid $secondary;
+}
+
+.queer-banner{
+  color:white;
+  border-top: 5px solid $primary;
+  text-align: center;
+  background: linear-gradient(
+                  124deg,
+                  #000000,
+                  #784f16,
+                  #fe0000,
+                  #fe8c01,
+                  #ffe500,
+                  #11a00b,
+                  #0643b3,
+                  #c32ede
+  );
+  background-size: 1800% 1800%;
+  animation: rainbow 18s ease infinite;
+  @keyframes rainbow {
+    0%{
+      color: white;
+      background-position:0 82%;
+    }
+    50%{
+      color: black;
+      background-position:100% 19%;
+    }
+    100%{
+      color: white;
+      background-position:0 82%;
+    }
+  }
+}
 .center-items {
   display: flex;
   align-items: center;

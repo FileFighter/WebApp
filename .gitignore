@@ -83,8 +83,8 @@ local.properties
 */.idea/**/contentModel.xml
 
 */.idea/
-
 /.idea
+.idea/
 
 WebApp.iml
 
