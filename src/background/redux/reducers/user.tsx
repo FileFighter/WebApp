@@ -1,4 +1,4 @@
-import {ADD_USER, UPDATE_USER, UserActionTypes, UserState} from "../actions/userTypes";
+import {UPDATE_USER, UserActionTypes, UserState} from "../actions/userTypes";
 
 const initialState: UserState = {
     groups: [],
@@ -8,10 +8,6 @@ const initialState: UserState = {
 
 export default function users(state = initialState, action: UserActionTypes) {
     switch (action.type) {
-        case ADD_USER: {
-            console.log("[Redux] adding user");
-            return action.payload;
-        }
         case UPDATE_USER: {
             console.log("[Redux] updating user");
             return action.payload;
