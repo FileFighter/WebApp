@@ -1,5 +1,5 @@
 import React, {ReactElement, useState} from "react";
-import {Alert, Button, Container, Row} from "react-bootstrap";
+import {Alert, Button, Container} from "react-bootstrap";
 import UserInformationInput, {UserInformationInputInterface} from "./UserInformationInput";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../background/redux/store";
@@ -34,7 +34,7 @@ export default function Profile(): ReactElement {
 
     const handleSubmit = async (inputUser: UserInformationInputInterface) => {
         console.log("[PROFILE] handleSubmit")
-        let newUser:UserInformation = {
+        let newUser: UserInformation = {
             groups: user.groups,
             userId: user.userId
         }
@@ -116,7 +116,7 @@ export default function Profile(): ReactElement {
                     <Button
                         onClick={changeEditMode}
                     >
-                        {!isEditing &&  <img src={edit_svg} alt={"edit icon"} className="pr-2" />}
+                        {!isEditing && <img src={edit_svg} alt={"edit icon"} className="pr-2"/>}
                         {isEditing ? "Cancel" : "Edit"}
                     </Button>
                 </div>
