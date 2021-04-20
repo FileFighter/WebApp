@@ -66,31 +66,10 @@ export default function Profile(): ReactElement {
                 handleAlertVisibility(DEFAULT_ALERT_DURATION, "success", "Worked: " + (res));
             })
             .catch(err => {
-                handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: " + (err.outputMessage ? err.outputMessage : (err.httpStatus + " " + err.httpMessage)))
+                console.log("Error:" + err)
+                handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: " + err)
             })
     }
-
-    /*function EditProfile(): ReactElement {
-        return (
-            <Form>
-                <Form.Group controlId="editProfileForm-Username">
-                    <Form.Label>Your Username</Form.Label>
-                    <Form.Control type="text" placeholder="Enter username" defaultValue={user.username ?? ""}/>
-                    <Form.Text>
-                        Your username will be visible to anyone using this system.
-                    </Form.Text>
-                </Form.Group>
-                <Form.Group controlId="editProfileForm.Password">
-                    <Form.Label>New Password</Form.Label>
-                    <Form.Control type="password" placeholder="New Password"/>
-                </Form.Group>
-                <Form.Group controlId="editProfileForm.PasswordConfirmation">
-                    <Form.Label>Repeat new Password</Form.Label>
-                    <Form.Control type="password" placeholder="New Password"/>
-                </Form.Group>
-            </Form>
-        )
-    }*/
 
     function EditProfile(): ReactElement {
         return (

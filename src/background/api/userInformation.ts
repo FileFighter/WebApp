@@ -24,8 +24,7 @@ export const changeUserInformation = (userWithNewInformation: UserInformation): 
                 resolve(response.data)
             })
             .catch((error) => {
-                console.log("[userInformation.ts] " + error);
-                reject(error);
+                reject(error.response?.data?.message);
             });
     })
 };
