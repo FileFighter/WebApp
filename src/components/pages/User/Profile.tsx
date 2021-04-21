@@ -40,10 +40,6 @@ export default function Profile(): ReactElement {
         }
         if (!inputUser.username) {
             handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please choose an username.")
-            // } else if (inputUser.password !== inputUser.passwordConfirmation) {
-            //     handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Password and password confirmation must match.")
-            // } else if (inputUser.password.match(/\d/) == null || inputUser.password.match(/[a-z]/) == null || inputUser.password.match(/[A-Z]/) == null || notMinStrLength(inputUser.password, MIN_PASSWORD_LENGTH)) {
-            //     handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please pay attention to the notes below the input fields.")
             return;
         }
         newUser["username"] = inputUser.username;
