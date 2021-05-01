@@ -12,8 +12,8 @@ const prod: constantsdef = {
 
 const dev: constantsdef = {
   url: {
-    API_URL: "https://demo.filefighter.de/api",
-    //API_URL: "http://localhost:8080",
+    //API_URL: "https://demo.filefighter.de/api",
+    API_URL: "http://localhost:8080",
     FH_URL: "http://localhost:5000/data"
   }
 };

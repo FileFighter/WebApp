@@ -65,6 +65,7 @@ export const UploadZone = (): ReactElement => {
           );
           if (actionsNeeded) {
             const combined = preflightResultCombine(acceptedFiles, response);
+            console.log("combined",combined)
 
             setPreflightResultDispatch({
               type: PREFLIGHT_ADD_ENTITIES,

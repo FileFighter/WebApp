@@ -126,6 +126,10 @@ export const UploadDecisionsModalContent = ({
     return <FFLoading />;
   }
 
+console.log("all",preflightResult)
+console.log("foldersToMerge",foldersToMerge)
+console.log("files",filesToOverwrite)
+
   if (currentPage === 0)
     return (
       <>
@@ -191,6 +195,12 @@ export const UploadDecisionsModalContent = ({
             <p>
               Files that would be overwritten:
               {changeNamesOrOverwriteTable(filesToOverwrite, false)}
+            </p>
+          )}
+          {(!!entitiesWithInvalidName.length || !!insufficientPermission.length) && (
+            <p>
+              Files that must be renamed:
+              {changeNamesOrOverwriteTable([...entitiesWithInvalidName,...insufficientPermission], false)}
             </p>
           )}
         </Modal.Body>

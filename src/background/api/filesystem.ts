@@ -29,6 +29,7 @@ export const uploadPreflight = (
   files: File[] | EditableFileWithPreflightInfo[],
   parentFolderID: string
 ): Promise<PreflightEntity[]> => {
+    parentFolderID = "0" //TODO
   const postData = files.map((f: File | EditableFileWithPreflightInfo) => ({
     // @ts-ignore
     name: f.newName ?? f.name,
@@ -40,7 +41,7 @@ export const uploadPreflight = (
   }));
   return new Promise<PreflightEntity[]>((resolve, reject) => {
     Axios.post<PreflightEntity[]>(
-      hostname + filesystemPath + "upload/preflight" + parentFolderID, postData
+      hostname + filesystemPath + parentFolderID +  "/upload/preflight" , postData
     )
       .then((response: AxiosResponse<PreflightEntity[]>) => {
         resolve(response.data);
