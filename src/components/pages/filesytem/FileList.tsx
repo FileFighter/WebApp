@@ -171,7 +171,7 @@ function FileList(props: Props): ReactElement {
           {"Name"}
         </Col>
         <Col xs={6} md={3} onClick={() => handleSortClick("lastUpdatedBy")}>
-          {"Last updated by"}
+          Last updated by
         </Col>
         <Col xs={3} md={1} onClick={() => handleSortClick("lastUpdated")}>
           {"Last changes"}

@@ -1,0 +1,392 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Login page 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+       
+      <div
+        class="container"
+        id="registrationContainer"
+      >
+        <div
+          class="row"
+        >
+          <div
+            class="px-3 w-100"
+          >
+            <h1>
+              Create new account
+            </h1>
+            <form
+              class=""
+            >
+              <div
+                class="form-group"
+              >
+                <label
+                  class="form-label"
+                  for="formBasicUsername"
+                >
+                  Username
+                </label>
+                <input
+                  class="form-control"
+                  id="formBasicUsername"
+                  type="name"
+                  value=""
+                />
+              </div>
+              <div
+                class="form-group"
+              >
+                <label
+                  class="form-label"
+                  for="formBasicPassword"
+                >
+                  Password
+                </label>
+                <input
+                  class="form-control"
+                  id="formBasicPassword"
+                  placeholder="Must contain one number, uppercase & lowercase letter each"
+                  type="password"
+                  value=""
+                />
+                <div>
+                  <img
+                    alt="status icon password length"
+                    src="info-24px.svg"
+                  />
+                  <span
+                    class="sr-only"
+                  >
+                    Missing: 
+                  </span>
+                  <span
+                    class="text-muted"
+                  >
+                    Passwords must be between 8 and 20 characters.
+                  </span>
+                </div>
+                <div>
+                  <img
+                    alt="status icon password contains uppercase character"
+                    src="info-24px.svg"
+                  />
+                  <span
+                    class="sr-only"
+                  >
+                    Missing: 
+                  </span>
+                  <span
+                    class="text-muted"
+                  >
+                    Passwords must be at least contain 1 uppercase character.
+                  </span>
+                </div>
+                <div>
+                  <img
+                    alt="status icon password contains lowercase character"
+                    src="info-24px.svg"
+                  />
+                  <span
+                    class="sr-only"
+                  >
+                    Missing: 
+                  </span>
+                  <span
+                    class="text-muted"
+                  >
+                    Passwords must be at least contain 1 lowercase character.
+                  </span>
+                </div>
+                <div>
+                  <img
+                    alt="status icon password contains number"
+                    src="info-24px.svg"
+                  />
+                  <span
+                    class="sr-only"
+                  >
+                    Missing: 
+                  </span>
+                  <span
+                    class="text-muted"
+                  >
+                    Passwords must be at least contain 1 number.
+                  </span>
+                </div>
+              </div>
+              <div
+                class="form-group"
+              >
+                <label
+                  class="form-label"
+                  for="formConfirmPassword"
+                >
+                  Re-enter password
+                </label>
+                <input
+                  class="form-control"
+                  id="formConfirmPassword"
+                  type="password"
+                  value=""
+                />
+                <div>
+                  <img
+                    alt="status icon passwords match"
+                    src="info-24px.svg"
+                  />
+                  <span
+                    class="sr-only"
+                  >
+                    Done: 
+                  </span>
+                  <span
+                    class="text-muted"
+                  >
+                    Passwords must match.
+                  </span>
+                </div>
+              </div>
+              <button
+                class="btn btn-primary"
+                type="submit"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+        <img
+          alt="logo"
+          class="invisible m0 position-relative"
+          id="logoSubmit"
+          src="adventurer-run.gif"
+          style="left: -20px;"
+        />
+      </div>
+       
+    </div>
+  </body>,
+  "container": <div>
+     
+    <div
+      class="container"
+      id="registrationContainer"
+    >
+      <div
+        class="row"
+      >
+        <div
+          class="px-3 w-100"
+        >
+          <h1>
+            Create new account
+          </h1>
+          <form
+            class=""
+          >
+            <div
+              class="form-group"
+            >
+              <label
+                class="form-label"
+                for="formBasicUsername"
+              >
+                Username
+              </label>
+              <input
+                class="form-control"
+                id="formBasicUsername"
+                type="name"
+                value=""
+              />
+            </div>
+            <div
+              class="form-group"
+            >
+              <label
+                class="form-label"
+                for="formBasicPassword"
+              >
+                Password
+              </label>
+              <input
+                class="form-control"
+                id="formBasicPassword"
+                placeholder="Must contain one number, uppercase & lowercase letter each"
+                type="password"
+                value=""
+              />
+              <div>
+                <img
+                  alt="status icon password length"
+                  src="info-24px.svg"
+                />
+                <span
+                  class="sr-only"
+                >
+                  Missing: 
+                </span>
+                <span
+                  class="text-muted"
+                >
+                  Passwords must be between 8 and 20 characters.
+                </span>
+              </div>
+              <div>
+                <img
+                  alt="status icon password contains uppercase character"
+                  src="info-24px.svg"
+                />
+                <span
+                  class="sr-only"
+                >
+                  Missing: 
+                </span>
+                <span
+                  class="text-muted"
+                >
+                  Passwords must be at least contain 1 uppercase character.
+                </span>
+              </div>
+              <div>
+                <img
+                  alt="status icon password contains lowercase character"
+                  src="info-24px.svg"
+                />
+                <span
+                  class="sr-only"
+                >
+                  Missing: 
+                </span>
+                <span
+                  class="text-muted"
+                >
+                  Passwords must be at least contain 1 lowercase character.
+                </span>
+              </div>
+              <div>
+                <img
+                  alt="status icon password contains number"
+                  src="info-24px.svg"
+                />
+                <span
+                  class="sr-only"
+                >
+                  Missing: 
+                </span>
+                <span
+                  class="text-muted"
+                >
+                  Passwords must be at least contain 1 number.
+                </span>
+              </div>
+            </div>
+            <div
+              class="form-group"
+            >
+              <label
+                class="form-label"
+                for="formConfirmPassword"
+              >
+                Re-enter password
+              </label>
+              <input
+                class="form-control"
+                id="formConfirmPassword"
+                type="password"
+                value=""
+              />
+              <div>
+                <img
+                  alt="status icon passwords match"
+                  src="info-24px.svg"
+                />
+                <span
+                  class="sr-only"
+                >
+                  Done: 
+                </span>
+                <span
+                  class="text-muted"
+                >
+                  Passwords must match.
+                </span>
+              </div>
+            </div>
+            <button
+              class="btn btn-primary"
+              type="submit"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+      <img
+        alt="logo"
+        class="invisible m0 position-relative"
+        id="logoSubmit"
+        src="adventurer-run.gif"
+        style="left: -20px;"
+      />
+    </div>
+     
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

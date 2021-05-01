@@ -12,9 +12,14 @@ const prod: constantsdef = {
 
 const dev: constantsdef = {
   url: {
-    //API_URL: "https://demo.filefighter.de/api",
-    API_URL: "http://localhost:8080",
+    API_URL: "https://demo.filefighter.de/api",
+    //API_URL: "http://localhost:8080",
     FH_URL: "http://localhost:5000/data"
   }
 };
 export const constants = process.env.NODE_ENV === "development" ? dev : prod;
+
+
+export const MIN_PASSWORD_LENGTH = 8;
+export const MAX_PASSWORD_LENGTH = 20;
+export const DEFAULT_ALERT_DURATION = 3500;
