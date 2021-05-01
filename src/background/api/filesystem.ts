@@ -85,7 +85,7 @@ export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], par
   };
   handleMultipleApiActions(files, apiCall, ApiActionType.UPLOAD);
 };
-
+/*
 export const downloadFiles = (files : FsEntity[]) => {
   Axios.get(fhHostname + "/download", {
     responseType: "blob", // Important
@@ -105,7 +105,7 @@ export const downloadFiles = (files : FsEntity[]) => {
     document.body.appendChild(link);
     link.click();
   });
-};
+};*/
 
 export const deleteFsEntities = (files: FsEntity[]) => {
   const apiCall = (fsEntity: FsEntity) => {
