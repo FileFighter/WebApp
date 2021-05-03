@@ -17,6 +17,151 @@ exports[`Storyshots Error404 default 1`] = `
 </div>
 `;
 
+exports[`Storyshots Filesystem UploadDecisionsModal 1`] = `
+Array [
+  <div
+    className="modal-header"
+  >
+    <div
+      className="modal-title h4"
+    >
+      Uploading
+    </div>
+    <button
+      className="close"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+      <span
+        className="sr-only"
+      >
+        Close
+      </span>
+    </button>
+  </div>,
+  <div
+    className="modal-body"
+  >
+    <div>
+      Folders that would be merged:
+      <div
+        className="list-group list-group-flush"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="list-group-item list-group-item-dark"
+          data-rb-event-key={null}
+          disabled={false}
+          onClick={[Function]}
+        >
+          fasel
+           
+        </div>
+        <div
+          className="list-group-item list-group-item-dark"
+          data-rb-event-key={null}
+          disabled={false}
+          onClick={[Function]}
+        >
+          fasel/blub
+           
+        </div>
+      </div>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Show all (
+        3
+        ) 
+      </button>
+    </div>
+    <div>
+      Files that would be overwritten:
+      <div
+        className="list-group list-group-flush"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="list-group-item list-group-item-dark"
+          data-rb-event-key={null}
+          disabled={false}
+          onClick={[Function]}
+        >
+          bla.txt
+           
+        </div>
+        <div
+          className="list-group-item list-group-item-dark"
+          data-rb-event-key={null}
+          disabled={false}
+          onClick={[Function]}
+        >
+          fasel/bla.wow
+           
+        </div>
+      </div>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Show all (
+        3
+        ) 
+      </button>
+    </div>
+  </div>,
+  <div
+    className="modal-footer"
+  >
+    <div
+      className="w-100 text-warning row"
+    >
+      Some files or folders need to be renamed, because their name is invalid or you have not the permission to overwrite them 
+    </div>
+    <div
+      className="w-100 justify-content-between row"
+    >
+      <button
+        className="btn btn-secondary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+      <div>
+        <button
+          className="btn btn-secondary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Decide for each one
+        </button>
+        <button
+          className="btn btn-primary"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Merge and overwrite
+        </button>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
 exports[`Storyshots Filesystem default 1`] = `
 <div
   className="d-flex flex-column align-content-between justify-content-between h-100"

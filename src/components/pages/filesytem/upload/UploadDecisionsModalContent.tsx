@@ -80,7 +80,7 @@ export const UploadDecisionsModalContent = ({
     return (
       <ListGroup variant="flush">
         {files.map((f: EditablePreflightEntityOrFile) => (
-          <ListGroup.Item variant="dark">{f.path} </ListGroup.Item>
+          <ListGroup.Item  key={f.path} variant="dark">{f.path} </ListGroup.Item>
         ))}
       </ListGroup>
     );
@@ -112,6 +112,7 @@ export const UploadDecisionsModalContent = ({
         {files.map((f: EditablePreflightEntityOrFile) => {
           return (
             <UploadDecisionsTableRow
+                key={f.path}
               setPreflightResultDispatch={setPreflightResultDispatch}
               preflightEntity={f}
             />
@@ -126,9 +127,6 @@ export const UploadDecisionsModalContent = ({
     return <FFLoading />;
   }
 
-console.log("all",preflightResult)
-console.log("foldersToMerge",foldersToMerge)
-console.log("files",filesToOverwrite)
 
   if (currentPage === 0)
     return (
