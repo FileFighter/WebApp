@@ -13,6 +13,7 @@ import {
   removeFromSelected,
   replaceSelected,
   setCurrentFsItemId,
+  setCurrentPath,
   setContents
 } from "../../../background/redux/actions/filesystem";
 import { connect, ConnectedProps } from "react-redux";
@@ -20,7 +21,7 @@ import { FFLoading } from "../../basicElements/Loading";
 
 const mapState = (state: SystemState) => ({
   filesystem: {
-    selectedFsEnties: state.filesystem.selectedFsEnties,
+    selectedFsEntities: state.filesystem.selectedFsEntities,
     folderContents: state.filesystem.folderContents,
     currentFsItemId: state.filesystem.currentFsItemId
   }
@@ -33,7 +34,8 @@ const mapDispatch = {
   replaceSelected,
   clearSelected,
   setContents,
-  setCurrentFsItemId
+  setCurrentFsItemId,
+  setCurrentPath
 };
 
 const connector = connect(mapState, mapDispatch);
@@ -48,21 +50,21 @@ function FileList(props: Props): ReactElement {
   const [path, setPath] = useState<string>(
     location.pathname.slice(filesBaseUrl.length) || "/"
   );
-  /* const [filesAndFolders, setFilesAndFolders] = useState<FsEntity[] | null>(
-    props.filesystem.folderContents
-  );*/
+
   const filesAndFolders = props.filesystem.folderContents;
   const setFilesAndFolders = props.setContents;
   const [error, setError] = useState<string>("");
   const [sortedBy, setSortedBy] = useState<keyof FsEntity | null>(null);
   const [sortIncreasing, setSortIncreasing] = useState<boolean>(false);
   const allAreSelected =
-    filesAndFolders?.length === props.filesystem.selectedFsEnties.length &&
+    filesAndFolders?.length === props.filesystem.selectedFsEntities.length &&
     !!filesAndFolders?.length;
 
   const clearSelected = props.clearSelected;
   const setContents = props.setContents;
+  const setCurrentPath = props.setCurrentPath;
   const setCurrentFsItemId = props.setCurrentFsItemId;
+
 
   useEffect(() => {
     function updateStates(): void {
@@ -71,9 +73,9 @@ function FileList(props: Props): ReactElement {
           console.log("got folder content");
           setContents([
             ...response.filter(
-              (fsEntiy: FsEntity) => fsEntiy.type === "FOLDER"
+              (fsEntity: FsEntity) => fsEntity.type === "FOLDER"
             ),
-            ...response.filter((fsEntiy: FsEntity) => fsEntiy.type !== "FOLDER")
+            ...response.filter((fsEntity: FsEntity) => fsEntity.type !== "FOLDER")
           ]);
           setError("");
           setCurrentFsItemId(path); // TODO change this to the id of the current folder
@@ -85,6 +87,7 @@ function FileList(props: Props): ReactElement {
     }
 
     setPath(location.pathname.slice(filesBaseUrl.length) || "/");
+    setCurrentPath(path)
     clearSelected();
     updateStates();
   }, [
@@ -93,6 +96,7 @@ function FileList(props: Props): ReactElement {
     setFilesAndFolders,
     clearSelected,
     path,
+    setCurrentPath,
     location
   ]);
 

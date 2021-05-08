@@ -27,7 +27,7 @@ import {
 
 const mapState = (state: SystemState) => ({
   filesystem: {
-    selectedFsEnties: state.filesystem.selectedFsEnties
+    selectedFsEntities: state.filesystem.selectedFsEntities
   }
 });
 
@@ -47,7 +47,7 @@ type Props = PropsFromRedux & {
 };
 
 function FileListItem(props: Props): ReactElement {
-  let isSelected = !!props.filesystem.selectedFsEnties.find(
+  let isSelected = !!props.filesystem.selectedFsEntities.find(
     (e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId
   );
 

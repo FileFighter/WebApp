@@ -8,14 +8,15 @@ import {
   REMOVE_FROM_SELECTED,
   REPLACE_SELECTED,
   SET_CONTENTS,
-  SET_CURRENT_FSITEMID
+  SET_CURRENT_FSITEMID, SET_CURRENT_PATH
 } from "../actions/filesystemTypes";
 import { FsEntity } from "../../api/filesystemTypes";
 
 const initialState: FilesystemState = {
-  selectedFsEnties: [],
+  selectedFsEntities: [],
   folderContents: [],
-  currentFsItemId: ""
+  currentFsItemId: "",
+  currentPath: ""
 };
 
 export default function filesystem(
@@ -26,62 +27,79 @@ export default function filesystem(
     case ADD_TO_SELECTED: {
       console.log("[REDUX] ADD_TO_SELECTED", action.payload);
       return {
-        selectedFsEnties: [...state.selectedFsEnties, action.payload], //concat because it does not modify the original array
+        selectedFsEntities: [...state.selectedFsEntities, action.payload], //concat because it does not modify the original array
         folderContents: state.folderContents,
-        currentFsItemId: state.currentFsItemId
+        currentFsItemId: state.currentFsItemId,
+        currentPath: state.currentPath
       };
     }
     case REMOVE_FROM_SELECTED: {
       return {
-        selectedFsEnties: state.selectedFsEnties.filter(
+        selectedFsEntities: state.selectedFsEntities.filter(
           (e: FsEntity) => e.fileSystemId !== action.payload.fileSystemId
         ), //filter return a new array
         folderContents: state.folderContents,
-        currentFsItemId: state.currentFsItemId
+        currentFsItemId: state.currentFsItemId,
+        currentPath: state.currentPath
       };
     }
     case CLEAR_SELECTED: {
       return {
-        selectedFsEnties: [],
+        selectedFsEntities: [],
         folderContents: state.folderContents,
-        currentFsItemId: state.currentFsItemId
+        currentFsItemId: state.currentFsItemId,
+        currentPath: state.currentPath
       };
     }
     case REPLACE_SELECTED: {
       return {
-        selectedFsEnties: action.payload,
+        selectedFsEntities: action.payload,
         folderContents: state.folderContents,
-        currentFsItemId: state.currentFsItemId
+        currentFsItemId: state.currentFsItemId,
+        currentPath: state.currentPath
       };
     }
     case SET_CONTENTS: {
       return {
-        selectedFsEnties: state.selectedFsEnties,
+        selectedFsEntities: state.selectedFsEntities,
         folderContents: action.payload,
-        currentFsItemId: state.currentFsItemId
+        currentFsItemId: state.currentFsItemId,
+        currentPath: state.currentPath
       };
     }
     case ADD_TO_CONTENTS: {
       return {
-        selectedFsEnties: state.selectedFsEnties,
+        selectedFsEntities: state.selectedFsEntities,
         folderContents: [...state.folderContents, action.payload],
-        currentFsItemId: state.currentFsItemId
+        currentFsItemId: state.currentFsItemId,
+        currentPath: state.currentPath
       };
     }
     case REMOVE_FROM_CONTENTS: {
       return {
-        selectedFsEnties: state.selectedFsEnties,
+        selectedFsEntities: state.selectedFsEntities,
         folderContents: state.folderContents.filter(
           (fse: FsEntity) => fse.fileSystemId !== action.payload.fileSystemId
         ),
-        currentFsItemId: state.currentFsItemId
+        currentFsItemId: state.currentFsItemId,
+        currentPath: state.currentPath
       };
     }
     case SET_CURRENT_FSITEMID: {
       return {
-        selectedFsEnties: state.selectedFsEnties,
+        selectedFsEntities: state.selectedFsEntities,
         folderContents: state.folderContents,
-        currentFsItemId: action.payload
+        currentFsItemId: action.payload,
+        currentPath: state.currentPath
+      };
+    }
+    case SET_CURRENT_PATH: {
+      console.log("upadte path")
+      return {
+        selectedFsEntities: state.selectedFsEntities,
+        folderContents: state.folderContents,
+        currentFsItemId: state.currentFsItemId,
+        currentPath: action.payload
       };
     }
 

@@ -13,9 +13,9 @@ import {
   REPLACE_SELECTED,
   ReplaceSelected,
   SET_CONTENTS,
-  SET_CURRENT_FSITEMID,
+  SET_CURRENT_FSITEMID, SET_CURRENT_PATH,
   SetContents,
-  SetCurrentFsItemId
+  SetCurrentFsItemId, SetCurrentPath
 } from "./filesystemTypes";
 
 export const addToSelected = (content: FsEntity): AddToSelected => ({
@@ -54,5 +54,10 @@ export const removeFromContents = (content: FsEntity): RemoveFromContents => ({
 
 export const setCurrentFsItemId = (content: string): SetCurrentFsItemId => ({
   type: SET_CURRENT_FSITEMID,
+  payload: content
+});
+
+export const setCurrentPath = (content: string): SetCurrentPath => ({
+  type: SET_CURRENT_PATH,
   payload: content
 });

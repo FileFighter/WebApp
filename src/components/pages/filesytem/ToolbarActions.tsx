@@ -7,7 +7,7 @@ import {constants} from "../../../background/constants";
 import {FsEntity} from "../../../background/api/filesystemTypes";
 
 const mapState = (state: SystemState) => ({
-    selectedFsEnties: state.filesystem.selectedFsEnties
+    selectedFsEntities: state.filesystem.selectedFsEntities
 });
 
 const connector = connect(mapState);
@@ -18,7 +18,7 @@ type Props = PropsFromRedux & {};
 
 function ToolbarActions(props: Props): ReactElement | null {
     function handleDeleteClicked() {
-        deleteFsEntities(props.selectedFsEnties);
+        deleteFsEntities(props.selectedFsEntities);
     }
 
     /*    function handleDownloadClicked() {
@@ -27,13 +27,13 @@ function ToolbarActions(props: Props): ReactElement | null {
 
     return (
         <span>
-      <Fade in={props.selectedFsEnties.length === 1}>
+      <Fade in={props.selectedFsEntities.length === 1}>
         <Button>Rename</Button>
       </Fade>
-      <Fade in={props.selectedFsEnties.length > 0}>
+      <Fade in={props.selectedFsEntities.length > 0}>
         <span>
           <Button onClick={handleDeleteClicked}>Delete</Button>
-        <form method="get" className="d-inline" action={constants.url.FH_URL + "/download?=" + props.selectedFsEnties.map((e: FsEntity) => e.fileSystemId + ",")}>
+        <form method="get" className="d-inline" action={constants.url.FH_URL + "/download?=" + props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId + ",")}>
             <Button type="submit">Download</Button>
         </form>
         </span>
