@@ -94,7 +94,6 @@ export default function filesystem(
       };
     }
     case SET_CURRENT_PATH: {
-      console.log("upadte path")
       return {
         selectedFsEntities: state.selectedFsEntities,
         folderContents: state.folderContents,

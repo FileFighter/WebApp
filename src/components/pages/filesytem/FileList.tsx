@@ -18,6 +18,7 @@ import {
 } from "../../../background/redux/actions/filesystem";
 import { connect, ConnectedProps } from "react-redux";
 import { FFLoading } from "../../basicElements/Loading";
+import {getPathWithoutName} from "../../../background/methods/filesystem";
 
 const mapState = (state: SystemState) => ({
   filesystem: {
@@ -71,6 +72,11 @@ function FileList(props: Props): ReactElement {
       getFolderContents(path)
         .then((response: FsEntity[]) => {
           console.log("got folder content");
+
+          response.forEach(e=>{
+            console.log(getPathWithoutName(e.path,e.name))
+          });
+
           setContents([
             ...response.filter(
               (fsEntity: FsEntity) => fsEntity.type === "FOLDER"

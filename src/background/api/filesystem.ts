@@ -8,7 +8,7 @@ import {ApiAction, ApiActionStatus, ApiActionType} from "../redux/actions/apiAct
 import {addApiAction, changeStatus, nextFsEntity} from "../redux/actions/apiActions";
 import {addToContents, removeFromContents} from "../redux/actions/filesystem";
 import {EditableFileWithPreflightInfo, PreflightEntity} from "../../components/pages/filesytem/upload/preflightTypes";
-import {getPathWithOutName} from "../methods/filesystem";
+import {getPathWithoutName, isFsEntityInFolder} from "../methods/filesystem";
 
 
 const fhHostname = constants.url.FH_URL;
@@ -81,7 +81,7 @@ export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], par
                     const currentPath = store.getState().filesystem.currentPath;
 
                     const fsEntityToShow = response.data.find((fsEntity: FsEntity) =>
-                        getPathWithOutName(fsEntity.path, fsEntity.name) === currentPath
+                        isFsEntityInFolder(fsEntity,currentPath)
                     )
 
                     if (fsEntityToShow) {

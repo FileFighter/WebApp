@@ -7,7 +7,7 @@ import { uploadFiles, uploadPreflight } from "../../../../background/api/filesys
 import { FsEntity } from "../../../../background/api/filesystemTypes";
 import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent";
 import { divideArrayByCondition } from "../../../../background/methods/arrays";
-import { getPathWithOutName } from "../../../../background/methods/filesystem";
+import { getPathWithoutName } from "../../../../background/methods/filesystem";
 import {
   EditableEntityError,
   EditableFileWithPreflightInfo,
@@ -212,7 +212,7 @@ export const preflightResultReducer: Reducer<EditablePreflightEntityOrFile[],
         restOfElements = restOfElements.map((e) => {
           let currentPath = e.newPath ?? e.path;
           let currentName = e.newName ?? e.name;
-          let currentPathWithoutName = getPathWithOutName(
+          let currentPathWithoutName = getPathWithoutName(
             currentPath,
             currentName
           );
