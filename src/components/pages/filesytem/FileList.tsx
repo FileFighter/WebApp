@@ -73,10 +73,6 @@ function FileList(props: Props): ReactElement {
         .then((response: FsEntity[]) => {
           console.log("got folder content");
 
-          response.forEach(e=>{
-            console.log(getPathWithoutName(e.path,e.name))
-          });
-
           setContents([
             ...response.filter(
               (fsEntity: FsEntity) => fsEntity.type === "FOLDER"
