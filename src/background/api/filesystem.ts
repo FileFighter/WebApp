@@ -8,14 +8,14 @@ import {ApiAction, ApiActionStatus, ApiActionType} from "../redux/actions/apiAct
 import {addApiAction, changeStatus, nextFsEntity} from "../redux/actions/apiActions";
 import {addToContents, removeFromContents} from "../redux/actions/filesystem";
 import {EditableFileWithPreflightInfo, PreflightEntity} from "../../components/pages/filesytem/upload/preflightTypes";
-import {getPathWithoutName, isFsEntityInFolder} from "../methods/filesystem";
+import {isFsEntityInFolder} from "../methods/filesystem";
 
 
 const fhHostname = constants.url.FH_URL;
 
 export const getFolderContents = (path: string) => {
     console.log("[Get folder content", path)
-   return  new Promise<FsEntity[]>((resolve, reject) => {
+    return new Promise<FsEntity[]>((resolve, reject) => {
         let config = {
             headers: {
                 "X-FF-PATH": path
@@ -81,7 +81,7 @@ export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], par
                     const currentPath = store.getState().filesystem.currentPath;
 
                     const fsEntityToShow = response.data.find((fsEntity: FsEntity) =>
-                        isFsEntityInFolder(fsEntity,currentPath)
+                        isFsEntityInFolder(fsEntity, currentPath)
                     )
 
                     if (fsEntityToShow) {
