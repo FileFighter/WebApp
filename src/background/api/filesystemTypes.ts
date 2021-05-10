@@ -1,5 +1,3 @@
-import { UserState } from "../redux/actions/userTypes";
-
 export interface UsersSet {
   groups: string[];
   id: number;
@@ -12,6 +10,7 @@ export interface PermissionSet {
   visibleForGroups: string[];
   visibleForUsers: UsersSet[];
 }
+
 export interface User {
   id: number;
   username: string;

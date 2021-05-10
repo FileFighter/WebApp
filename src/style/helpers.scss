@@ -1,5 +1,27 @@
-.text-shadow-none{
+.text-shadow-none {
   text-shadow: none;
+}
+
+.fw-40 {
+  width: 40%;
+  max-width: 40%;
+}
+
+.fw-20 {
+  width: 20%;
+  max-width: 20%;
+}
+
+.bg-body {
+  background-color: $body-bg;
+}
+
+.uploadDecisionTable td {
+  word-wrap: break-word;
+}
+
+.uploadDecisionTable {
+  table-layout: fixed;
 }
 
 .title-action {
@@ -15,7 +37,7 @@
   height: 100%;
 }
 
-.profile-information-display dl{
+.profile-information-display dl {
   display: flex;
   flex-wrap: wrap;
   padding: 20px 0;
@@ -35,8 +57,8 @@
   border-bottom: 1px solid $secondary;
 }
 
-.queer-banner{
-  color:white;
+.queer-banner {
+  color: white;
   border-top: 5px solid $primary;
   text-align: center;
   background: linear-gradient(
@@ -53,20 +75,21 @@
   background-size: 1800% 1800%;
   animation: rainbow 18s ease infinite;
   @keyframes rainbow {
-    0%{
+    0% {
       color: white;
-      background-position:0 82%;
+      background-position: 0 82%;
     }
-    50%{
+    50% {
       color: black;
-      background-position:100% 19%;
+      background-position: 100% 19%;
     }
-    100%{
+    100% {
       color: white;
-      background-position:0 82%;
+      background-position: 0 82%;
     }
   }
 }
+
 .center-items {
   display: flex;
   align-items: center;
@@ -103,4 +126,5 @@
 
 .login-input {
   max-width: 450px;
+
 }
