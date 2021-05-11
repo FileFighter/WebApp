@@ -54,8 +54,8 @@ export const uploadPreflight = (
 };
 
 export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], parentFolderID: string) => {
-    parentFolderID = "1"; //TODO
-    console.log("[API filesystem] uploading files", files);
+    parentFolderID = "0"; //TODO
+    console.log("[API filesystem] uploading files to folderID", parentFolderID , files);
     const apiCall = (file: File | EditableFileWithPreflightInfo) => {
         return new Promise((resolve, reject) => {
             let formData = new FormData();
