@@ -16,7 +16,7 @@ import {FsEntity} from "../../api/filesystemTypes";
 const initialState: FilesystemState = {
     selectedFsEntities: [],
     folderContents: [],
-    currentFsItemId: "",
+    currentFsItemId: "-1",
     currentPath: ""
 };
 

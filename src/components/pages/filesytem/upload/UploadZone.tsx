@@ -93,6 +93,9 @@ export const UploadZone = (): ReactElement => {
   // @ts-ignore
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
+  if (currentFsItemId == "-1" ){
+    return <></>
+  }
   return (
     <>
       <div {...getRootProps()} className={"text-center border py-4 mx-3"}>

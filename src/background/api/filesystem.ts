@@ -15,14 +15,14 @@ const fhHostname = constants.url.FH_URL;
 
 export const getFolderContents = (path: string) => {
     console.log("[Get folder content", path)
-    return new Promise<FsEntity[]>((resolve, reject) => {
+    return new Promise<AxiosResponse<FsEntity[]>>((resolve, reject) => {
         let config = {
             headers: {
                 "X-FF-PATH": path
             }
         };
         Axios.get<FsEntity[]>(hostname + filesystemPath + "contents", config)
-            .then((response: AxiosResponse<FsEntity[]>) => resolve(response.data))
+            .then((response: AxiosResponse<FsEntity[]>) => resolve(response))
             .catch((error) => reject(error));
     })
 }
@@ -78,6 +78,7 @@ export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], par
                 }
             )
                 .then((response: AxiosResponse<[FsEntity]>) => {
+                    console.log(response)
                     const currentPath = store.getState().filesystem.currentPath;
 
                     const fsEntityToShow = response.data.find((fsEntity: FsEntity) =>
