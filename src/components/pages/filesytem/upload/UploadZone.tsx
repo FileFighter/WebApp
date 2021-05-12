@@ -40,6 +40,11 @@ export const UploadZone = (): ReactElement => {
 
   const onDrop = useCallback(
     (acceptedFiles: EditableFileWithPreflightInfo[]) => {
+
+      if (!acceptedFiles.length){
+        return
+      }
+
       //check if preflight is needed
       let preflightNeeded = acceptedFiles.some(
         (file: EditablePreflightEntityOrFile) => {
