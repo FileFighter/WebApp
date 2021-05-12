@@ -93,7 +93,7 @@ export const UploadZone = (): ReactElement => {
   // @ts-ignore
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-  if (currentFsItemId == "-1" ){
+  if (currentFsItemId === "-1" ){
     return <></>
   }
   return (
