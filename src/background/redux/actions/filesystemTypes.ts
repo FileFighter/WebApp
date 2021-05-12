@@ -6,7 +6,7 @@ export const REMOVE_FROM_SELECTED = "REMOVE_FROM_SELECTED";
 export const REPLACE_SELECTED = "REPLACE_SELECTED";
 
 export interface FilesystemState {
-    selectedFsEnties: FsEntity[],
+    selectedFsEntities: FsEntity[],
 }
 
 export interface AddToSelected {

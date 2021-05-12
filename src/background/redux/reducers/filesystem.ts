@@ -9,7 +9,7 @@ import {
 import { FsEntity } from "../../api/filesystemTypes";
 
 const initialState: FilesystemState = {
-  selectedFsEnties: []
+  selectedFsEntities: []
 };
 
 export default function filesystem(
@@ -20,24 +20,24 @@ export default function filesystem(
     case ADD_TO_SELECTED: {
       console.log("[REDUX] ADD_TO_SELECTED", action.payload);
       return {
-        selectedFsEnties: [...state.selectedFsEnties, action.payload] //concat because it does not modify the original array
+        selectedFsEntities: [...state.selectedFsEntities, action.payload] //concat because it does not modify the original array
       };
     }
     case REMOVE_FROM_SELECTED: {
       return {
-        selectedFsEnties: state.selectedFsEnties.filter(
+        selectedFsEntities: state.selectedFsEntities.filter(
           (e: FsEntity) => e.fileSystemId !== action.payload.fileSystemId
         ) //filter return a new array
       };
     }
     case CLEAR_SELECTED: {
       return {
-        selectedFsEnties: []
+        selectedFsEntities: []
       };
     }
     case REPLACE_SELECTED: {
       return {
-        selectedFsEnties: action.payload
+        selectedFsEntities: action.payload
       };
     }
     default:

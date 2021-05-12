@@ -4,7 +4,7 @@ import { SystemState } from "../../../background/redux/actions/sytemState";
 import { connect, ConnectedProps } from "react-redux";
 
 const mapState = (state: SystemState) => ({
-  selectedFsEntiesCount: state.filesystem.selectedFsEnties.length
+  selectedFsEntiesCount: state.filesystem.selectedFsEntities.length
 });
 
 const connector = connect(mapState);

@@ -6,7 +6,7 @@ import { FsEntity } from "../../../background/api/filesystemTypes";
 import { clearSelected } from "../../../background/redux/actions/filesystem";
 
 const mapState = (state: SystemState) => ({
-  selectedFsEnties: state.filesystem.selectedFsEnties
+  selectedFsEntities: state.filesystem.selectedFsEntities
 });
 
 const mapDispatch = {

@@ -18,7 +18,7 @@ import { FFLoading } from "../../basicElements/Loading";
 
 const mapState = (state: SystemState) => ({
   filesystem: {
-    selectedFsEnties: state.filesystem.selectedFsEnties
+    selectedFsEntities: state.filesystem.selectedFsEntities
   }
 });
 
