@@ -76,7 +76,6 @@ export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], par
                 }
             )
                 .then((response: AxiosResponse<[FsEntity]>) => {
-                    console.log(response)
                     const currentPath = store.getState().filesystem.currentPath;
 
                     const fsEntityToShow = response.data.find((fsEntity: FsEntity) =>
@@ -93,27 +92,7 @@ export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], par
     };
     handleMultipleApiActions(files, apiCall, ApiActionType.UPLOAD);
 };
-/*
-export const downloadFiles = (files : FsEntity[]) => {
-  Axios.get(fhHostname + "/download", {
-    responseType: "blob", // Important
-    headers: {
-      "Content-Type": "multipart/form-data",
-      "X-FF-IDS": files.map((e:FsEntity) => e.fileSystemId).toString()
-    },
-    onDownloadProgress(progress) {
-      //console.log("download progress:", progress);
-    }
-  }).then((response) => {
-    // fileDownload(response.data, "bild.png");
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "file.pdf");
-    document.body.appendChild(link);
-    link.click();
-  });
-};*/
+
 
 export const deleteFsEntities = (files: FsEntity[]) => {
     const apiCall = (fsEntity: FsEntity) => {
