@@ -32,7 +32,6 @@ export const uploadPreflight = (
     files: File[] | EditableFileWithPreflightInfo[],
     parentFolderID: string
 ): Promise<PreflightEntity[]> => {
-    parentFolderID = "0" //TODO
     const postData = files.map((f: File | EditableFileWithPreflightInfo) => ({
         // @ts-ignore
         name: f.newName ?? f.name,
@@ -54,7 +53,6 @@ export const uploadPreflight = (
 };
 
 export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], parentFolderID: string) => {
-    parentFolderID = "0"; //TODO
     console.log("[API filesystem] uploading files to folderID", parentFolderID , files);
     const apiCall = (file: File | EditableFileWithPreflightInfo) => {
         return new Promise((resolve, reject) => {

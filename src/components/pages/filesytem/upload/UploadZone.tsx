@@ -41,6 +41,7 @@ export const UploadZone = (): ReactElement => {
   const onDrop = useCallback(
     (acceptedFiles: EditableFileWithPreflightInfo[]) => {
 
+
       if (!acceptedFiles.length){
         return
       }
@@ -56,7 +57,7 @@ export const UploadZone = (): ReactElement => {
           );
         }
       );
-      console.log(acceptedFiles, preflightNeeded);
+      console.log("[Upload Zone, add files]",acceptedFiles, preflightNeeded);
 
       if (preflightNeeded) {
         setFsItemIdToUpload(currentFsItemId);
