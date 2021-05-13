@@ -303,35 +303,6 @@ exports[`Storyshots Filesystem default 1`] = `
     </div>
     <div />
   </div>
-  <div
-    className="text-center border py-4 mx-3"
-    onBlur={[Function]}
-    onClick={[Function]}
-    onDragEnter={[Function]}
-    onDragLeave={[Function]}
-    onDragOver={[Function]}
-    onDrop={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    tabIndex={0}
-  >
-    <input
-      autoComplete="off"
-      multiple={true}
-      onChange={[Function]}
-      onClick={[Function]}
-      style={
-        Object {
-          "display": "none",
-        }
-      }
-      tabIndex={-1}
-      type="file"
-    />
-    <p>
-      Drag 'n' drop files or folders here, or click to select files
-    </p>
-  </div>
 </div>
 `;
 
