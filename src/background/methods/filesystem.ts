@@ -17,11 +17,8 @@ export const removeTrailingBackslash = (path : string): string => {
 
 
 export  const  isFsEntityInFolder = (fsEntity: FsEntity, path :string) =>{
-  console.log(fsEntity,path)
   let fsEntityPath = getPathWithoutName(fsEntity.path,fsEntity.name);
-  console.log(fsEntityPath)
   fsEntityPath = removeTrailingBackslash(fsEntityPath);
-  console.log(fsEntityPath)
 
   return fsEntityPath === path.toLocaleLowerCase();
 }

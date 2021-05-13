@@ -43,7 +43,7 @@ export const UploadZone = (): ReactElement => {
 
 
       if (!acceptedFiles.length){
-        return
+        return // TODO: dispatch a action to show that a empty folder could not be uploaded
       }
 
       //check if preflight is needed

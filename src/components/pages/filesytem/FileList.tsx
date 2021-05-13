@@ -65,7 +65,6 @@ function FileList(props: Props): ReactElement {
                 .then((response: AxiosResponse<FsEntity[]>) => {
                     console.log("got folder content",response);
 
-                    console.log(response.data)
                     setContents([
                         ...response.data.filter(
                             (fsEntity: FsEntity) => fsEntity.type === "FOLDER"
