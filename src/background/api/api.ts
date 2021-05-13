@@ -5,12 +5,12 @@ export const hostname: string = constants.url.API_URL;
 
 export const userPath: string = "/v1/users";
 
-export const filesystemPath: string = "/v1/filesystem";
+export const filesystemPath: string = "/v1/filesystem/";
 
 enum DataIntegrity {
   STABLE = "bg-success",
   POSSIBLE_RISK = "bg-warning",
-  UNSTABLE = "bg-danger",
+  UNSTABLE = "bg-danger"
 }
 
 interface SystemHealthData {

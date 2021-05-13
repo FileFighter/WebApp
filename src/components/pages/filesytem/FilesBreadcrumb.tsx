@@ -9,7 +9,6 @@ type Props = {
 };
 
 export function FilesBreadcrumb(props: Props): ReactElement {
-  console.log("[FilesBreadcrumb]: " + props.path);
   return (
     <Breadcrumb>
       <Link
@@ -17,7 +16,7 @@ export function FilesBreadcrumb(props: Props): ReactElement {
         to={filesBaseUrl}
         onClick={() => props.setPath("/")}
       >
-        Home{" "}
+        Home
       </Link>
       {props.path
         .split("/")

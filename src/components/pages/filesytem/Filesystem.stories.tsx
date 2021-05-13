@@ -11,7 +11,7 @@ import axios from "axios";
 import folderContentMock from "./__tests__/folderContentMock.json";
 
 const mock = new MockAdapter(axios);
-const API_REQUEST = hostname + filesystemPath + "/contents";
+const API_REQUEST = hostname + filesystemPath + "contents";
 
 storiesOf("Filesystem", module).add("default", () => {
   mock.onGet(API_REQUEST).reply(200, folderContentMock);
