@@ -54,7 +54,7 @@ Array [
         onKeyDown={[Function]}
       >
         <div
-          className="list-group-item list-group-item-dark"
+          className="bg-body border list-group-item"
           data-rb-event-key={null}
           disabled={false}
           onClick={[Function]}
@@ -63,7 +63,7 @@ Array [
            
         </div>
         <div
-          className="list-group-item list-group-item-dark"
+          className="bg-body border list-group-item"
           data-rb-event-key={null}
           disabled={false}
           onClick={[Function]}
@@ -72,16 +72,6 @@ Array [
            
         </div>
       </div>
-      <button
-        className="btn btn-primary"
-        disabled={false}
-        onClick={[Function]}
-        type="button"
-      >
-        Show all (
-        3
-        ) 
-      </button>
     </div>
     <div>
       Files that would be overwritten:
@@ -90,7 +80,7 @@ Array [
         onKeyDown={[Function]}
       >
         <div
-          className="list-group-item list-group-item-dark"
+          className="bg-body border list-group-item"
           data-rb-event-key={null}
           disabled={false}
           onClick={[Function]}
@@ -99,7 +89,7 @@ Array [
            
         </div>
         <div
-          className="list-group-item list-group-item-dark"
+          className="bg-body border list-group-item"
           data-rb-event-key={null}
           disabled={false}
           onClick={[Function]}
@@ -141,7 +131,7 @@ Array [
       </button>
       <div>
         <button
-          className="btn btn-secondary"
+          className="mx-2 btn btn-secondary"
           disabled={false}
           onClick={[Function]}
           type="button"

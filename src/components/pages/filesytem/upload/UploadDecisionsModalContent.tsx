@@ -80,7 +80,7 @@ export const UploadDecisionsModalContent = ({
     return (
       <ListGroup variant="flush">
         {files.map((f: EditablePreflightEntityOrFile) => (
-          <ListGroup.Item  key={f.path} variant="dark">{f.path} </ListGroup.Item>
+          <ListGroup.Item  key={f.path} className="bg-body border">{f.path} </ListGroup.Item>
         ))}
       </ListGroup>
     );
@@ -158,7 +158,7 @@ export const UploadDecisionsModalContent = ({
               Cancel
             </Button>
             <div>
-              <Button variant="secondary" onClick={nextPage}>
+              <Button variant="secondary"   className="mx-2" onClick={nextPage}>
                 Decide for each one
               </Button>
               <Button

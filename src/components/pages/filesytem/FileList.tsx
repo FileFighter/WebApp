@@ -73,7 +73,7 @@ function FileList(props: Props): ReactElement {
                         ...response.data.filter((fsEntity: FsEntity) => fsEntity.type !== "FOLDER")
                     ]);
                     setError("");
-                    setCurrentFsItemId(response.headers["X-FF-CURRENT"]);
+                    setCurrentFsItemId(response.headers["x-ff-current"]);
                 })
                 .catch((err) => {
                     setError(err.response?.data?.message);
