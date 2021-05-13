@@ -40,6 +40,12 @@ export const UploadZone = (): ReactElement => {
 
   const onDrop = useCallback(
     (acceptedFiles: EditableFileWithPreflightInfo[]) => {
+
+
+      if (!acceptedFiles.length){
+        return // TODO: dispatch a action to show that a empty folder could not be uploaded
+      }
+
       //check if preflight is needed
       let preflightNeeded = acceptedFiles.some(
         (file: EditablePreflightEntityOrFile) => {
@@ -51,7 +57,7 @@ export const UploadZone = (): ReactElement => {
           );
         }
       );
-      console.log(acceptedFiles, preflightNeeded);
+      console.log("[Upload Zone, add files]",acceptedFiles, preflightNeeded);
 
       if (preflightNeeded) {
         setFsItemIdToUpload(currentFsItemId);
@@ -93,6 +99,9 @@ export const UploadZone = (): ReactElement => {
   // @ts-ignore
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
+  if (currentFsItemId === "-1" ){
+    return <></>
+  }
   return (
     <>
       <div {...getRootProps()} className={"text-center border py-4 mx-3"}>

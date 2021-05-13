@@ -55,13 +55,20 @@ export const UploadDecisionsModalContent = ({
           setPreflightResultDispatch({ type: PREFLIGHT_ADD_ENTITIES, payload: combined });
         } else {
           uploadFiles(combined.filter(
-            (f: EditablePreflightEntityOrFile) => !f.isFile) as EditableFileWithPreflightInfo[], fsItemIdToUpload);
+            (f: EditablePreflightEntityOrFile) => f.isFile) as EditableFileWithPreflightInfo[], fsItemIdToUpload);
           handleClose();
           setPreflightResultDispatch({ type: PREFLIGHT_ADD_ENTITIES, payload: [] });
         }
         setLoading(false);
       });
   };
+
+  const handleOverWriteAll = () => {
+      uploadFiles(preflightResult.filter(
+          (f: EditablePreflightEntityOrFile) => f.isFile) as EditableFileWithPreflightInfo[], fsItemIdToUpload);
+      handleClose();
+      setPreflightResultDispatch({ type: PREFLIGHT_ADD_ENTITIES, payload: [] });
+  }
 
   const foldersToMerge = preflightResult.filter(
     (f: EditablePreflightEntityOrFile) => !f.isFile && f.nameAlreadyInUse
@@ -80,7 +87,7 @@ export const UploadDecisionsModalContent = ({
     return (
       <ListGroup variant="flush">
         {files.map((f: EditablePreflightEntityOrFile) => (
-          <ListGroup.Item  key={f.path} variant="dark">{f.path} </ListGroup.Item>
+          <ListGroup.Item  key={f.path} className="bg-body border">{f.path} </ListGroup.Item>
         ))}
       </ListGroup>
     );
@@ -158,12 +165,12 @@ export const UploadDecisionsModalContent = ({
               Cancel
             </Button>
             <div>
-              <Button variant="secondary" onClick={nextPage}>
+              <Button variant="secondary"   className="mx-2" onClick={nextPage}>
                 Decide for each one
               </Button>
               <Button
                 variant="primary"
-                onClick={handleClose}
+                onClick={handleOverWriteAll}
                 disabled={
                   !!insufficientPermission.length ||
                   !!entitiesWithInvalidName.length

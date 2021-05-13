@@ -10,6 +10,7 @@ import {SystemState} from "../../../background/redux/actions/sytemState";
 import {addToSelected, clearSelected, removeFromSelected, replaceSelected, setContents, setCurrentFsItemId, setCurrentPath} from "../../../background/redux/actions/filesystem";
 import {connect, ConnectedProps} from "react-redux";
 import {FFLoading} from "../../basicElements/Loading";
+import {AxiosResponse} from "axios";
 
 const mapState = (state: SystemState) => ({
     filesystem: {
@@ -61,17 +62,17 @@ function FileList(props: Props): ReactElement {
     useEffect(() => {
         function updateStates(): void {
             getFolderContents(path)
-                .then((response: FsEntity[]) => {
-                    console.log("got folder content");
+                .then((response: AxiosResponse<FsEntity[]>) => {
+                    console.log("got folder content",response);
 
                     setContents([
-                        ...response.filter(
+                        ...response.data.filter(
                             (fsEntity: FsEntity) => fsEntity.type === "FOLDER"
                         ),
-                        ...response.filter((fsEntity: FsEntity) => fsEntity.type !== "FOLDER")
+                        ...response.data.filter((fsEntity: FsEntity) => fsEntity.type !== "FOLDER")
                     ]);
                     setError("");
-                    setCurrentFsItemId(path); // TODO change this to the id of the current folder
+                    setCurrentFsItemId(response.headers["x-ff-current"]);
                 })
                 .catch((err) => {
                     setError(err.response?.data?.message);
@@ -139,7 +140,7 @@ function FileList(props: Props): ReactElement {
         setFilesAndFolders(sortIncreasing ? toSort.reverse() : toSort);
     }
 
-    console.log("[FileList path]" + path);
+    console.log("[FileList path]" + path, filesAndFolders);
     return (
         <Container fluid>
             <FilesBreadcrumb path={path} setPath={setPath}/>

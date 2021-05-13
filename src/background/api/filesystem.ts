@@ -15,14 +15,14 @@ const fhHostname = constants.url.FH_URL;
 
 export const getFolderContents = (path: string) => {
     console.log("[Get folder content", path)
-    return new Promise<FsEntity[]>((resolve, reject) => {
+    return new Promise<AxiosResponse<FsEntity[]>>((resolve, reject) => {
         let config = {
             headers: {
                 "X-FF-PATH": path
             }
         };
         Axios.get<FsEntity[]>(hostname + filesystemPath + "contents", config)
-            .then((response: AxiosResponse<FsEntity[]>) => resolve(response.data))
+            .then((response: AxiosResponse<FsEntity[]>) => resolve(response))
             .catch((error) => reject(error));
     })
 }
@@ -32,7 +32,6 @@ export const uploadPreflight = (
     files: File[] | EditableFileWithPreflightInfo[],
     parentFolderID: string
 ): Promise<PreflightEntity[]> => {
-    parentFolderID = "0" //TODO
     const postData = files.map((f: File | EditableFileWithPreflightInfo) => ({
         // @ts-ignore
         name: f.newName ?? f.name,
@@ -54,7 +53,6 @@ export const uploadPreflight = (
 };
 
 export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], parentFolderID: string) => {
-    parentFolderID = "0"; //TODO
     console.log("[API filesystem] uploading files to folderID", parentFolderID , files);
     const apiCall = (file: File | EditableFileWithPreflightInfo) => {
         return new Promise((resolve, reject) => {
@@ -94,27 +92,7 @@ export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], par
     };
     handleMultipleApiActions(files, apiCall, ApiActionType.UPLOAD);
 };
-/*
-export const downloadFiles = (files : FsEntity[]) => {
-  Axios.get(fhHostname + "/download", {
-    responseType: "blob", // Important
-    headers: {
-      "Content-Type": "multipart/form-data",
-      "X-FF-IDS": files.map((e:FsEntity) => e.fileSystemId).toString()
-    },
-    onDownloadProgress(progress) {
-      //console.log("download progress:", progress);
-    }
-  }).then((response) => {
-    // fileDownload(response.data, "bild.png");
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "file.pdf");
-    document.body.appendChild(link);
-    link.click();
-  });
-};*/
+
 
 export const deleteFsEntities = (files: FsEntity[]) => {
     const apiCall = (fsEntity: FsEntity) => {

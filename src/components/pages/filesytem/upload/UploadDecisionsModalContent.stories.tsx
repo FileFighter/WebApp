@@ -53,9 +53,17 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
         {
             name: "blubfdhjsgfhj---fsd/",
             path: "fasel/blubfdhjsgfhj---fsd/",
-            permissionIsSufficient: false,
-            nameAlreadyInUse: true,
+            permissionIsSufficient: true,
+            nameAlreadyInUse: false,
             nameIsValid: false,
+            isFile: false
+        },
+        {
+            name: "notAllowed",
+            path: "fasel/notAllowed",
+            permissionIsSufficient: false,
+            nameAlreadyInUse: false,
+            nameIsValid: true,
             isFile: false
         }
     ];
