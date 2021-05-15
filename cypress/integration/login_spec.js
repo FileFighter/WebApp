@@ -6,8 +6,8 @@ describe('The Home Page', () => {
 
     it('sets auth cookie when logging in via form submission', function () {
         // destructuring assignment of the this.currentUser object
-        const  username = 'user1';
-        const  password = '12345';
+        const  username = 'admin';
+        const  password = 'admin';
 
         //cy.visit('/login')
 
