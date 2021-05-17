@@ -126,5 +126,15 @@
 
 .login-input {
   max-width: 450px;
+}
 
+/********Context Menu*********/
+.fileListContextMenu {
+  background-color: black;
+  border-radius: 2px;
+  padding: 10px;
+  margin: 10px;
+  position: absolute;
+  list-style: none;
+  z-index: 1000;
 }

@@ -1,5 +1,3 @@
-// thx to https://dev.to/rafi993/implementing-context-menu-using-react-hooks-34ke
-
 import {RefObject, useCallback, useEffect, useState} from "react";
 
 const useContextMenu = (outerRef: RefObject<HTMLElement>) => {
@@ -10,6 +8,7 @@ const useContextMenu = (outerRef: RefObject<HTMLElement>) => {
     const handleContextMenu = useCallback(
         event => {
             event.preventDefault();
+            console.log(outerRef)
             if (!outerRef?.current?.contains(event.target)) {
                 return showMenu(false)
             }

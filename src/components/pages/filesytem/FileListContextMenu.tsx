@@ -8,7 +8,7 @@ const FileListContextMenu = ({outerRef}: any) => {
         return <></>
     }
     return (
-        <ul className="menu" style={{ top: yPos, left: xPos }}>
+        <ul className="fileListContextMenu" style={{ top: yPos, left: xPos }}>
             <li>Item1</li>
             <li>Item2</li>
             <li>Item3</li>
