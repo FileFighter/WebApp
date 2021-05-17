@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useState} from "react";
+import React, {ReactElement, useEffect, useRef, useState} from "react";
 import {getFolderContents} from "../../../background/api/filesystem";
 import {FsEntity} from "../../../background/api/filesystemTypes";
 import {Col, Container, Form, Row} from "react-bootstrap";
@@ -11,6 +11,7 @@ import {addToSelected, clearSelected, removeFromSelected, replaceSelected, setCo
 import {connect, ConnectedProps} from "react-redux";
 import {FFLoading} from "../../basicElements/Loading";
 import {AxiosResponse} from "axios";
+import FileListContextMenu from "./FileListContextMenu";
 
 const mapState = (state: SystemState) => ({
     filesystem: {
@@ -58,6 +59,7 @@ function FileList(props: Props): ReactElement {
     const setCurrentPath = props.setCurrentPath;
     const setCurrentFsItemId = props.setCurrentFsItemId;
 
+    const outerRef = useRef(null);
 
     useEffect(() => {
         function updateStates(): void {
@@ -143,7 +145,9 @@ function FileList(props: Props): ReactElement {
     console.log("[FileList path]" + path, filesAndFolders);
     return (
         <Container fluid>
+            <FileListContextMenu outerRef={outerRef}/>
             <FilesBreadcrumb path={path} setPath={setPath}/>
+            {/*//Head*/}
             <Row>
                 <Col xs={2} md={1}>
                     <Form.Group controlId="formBasicCheckbox">
@@ -179,7 +183,8 @@ function FileList(props: Props): ReactElement {
                 </Col>
             </Row>
             <hr/>
-            <Row>
+            {/*//Body*/}
+            <Row ref={outerRef}>
                 {error ? (
                     <Col className={"text-center"}> {error}</Col>
                 ) : filesAndFolders?.length === 0 ? (

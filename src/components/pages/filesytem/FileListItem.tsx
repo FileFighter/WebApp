@@ -47,11 +47,11 @@ function FileListItem(props: Props): ReactElement {
     };
 
     const handleSelectedChanged = () => {
-        if (isSelected) {
-            props.removeFromSelected(props.fileListItem);
-        } else {
-            props.addToSelected(props.fileListItem);
+        if (!isSelected){
+            return props.addToSelected(props.fileListItem);
         }
+        props.removeFromSelected(props.fileListItem);
+
     };
 
     return (
