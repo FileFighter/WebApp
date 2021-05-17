@@ -1,5 +1,6 @@
 import Axios, {AxiosError, AxiosResponse} from "axios";
 import {hostname, userPath} from "./api";
+import {hashPassword} from "../methods/passwords";
 
 export interface IRegisterServerResponse {
     httpStatus: number,
@@ -7,13 +8,18 @@ export interface IRegisterServerResponse {
     outputMessage?: string
 }
 
-export const registerNewUser = (username: string, password: string, passwordConfirmation: string): Promise<IRegisterServerResponse> => {
+export const registerNewUser = async (username: string, password: string, passwordConfirmation: string): Promise<IRegisterServerResponse> => {
+
+    if (password !== passwordConfirmation){
+        throw new Error("Password did not match passwordConfirmation");
+    }
+    let hashedPassword = await hashPassword(password);
 
     return new Promise((resolve, reject) => {
         const newUser = {
             username: username,
-            password: password,
-            confirmationPassword: passwordConfirmation
+            password: hashedPassword,
+            confirmationPassword: hashedPassword
         }
 
 

@@ -7,6 +7,7 @@ import {DEFAULT_ALERT_DURATION, MIN_PASSWORD_LENGTH} from "../../../background/c
 import {changeUserInformation, UserInformation} from "../../../background/api/userInformation";
 import {notMinStrLength} from "../../../background/methods/checkInput";
 import edit_svg from "../../../assets/images/icons/material.io/edit_white_24dp.svg";
+import {hashPassword} from "../../../background/methods/passwords";
 
 
 export default function Profile(): ReactElement {
@@ -52,8 +53,8 @@ export default function Profile(): ReactElement {
                 handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", "Error: Please pay attention to the notes below the input fields.")
                 return;
             }
-            newUser["password"] = inputUser.password
-            newUser["confirmationPassword"] = inputUser.passwordConfirmation
+            newUser["password"] = await hashPassword(inputUser.password);
+            newUser["confirmationPassword"] = newUser["password"];
         }
 
         await changeUserInformation(newUser)
