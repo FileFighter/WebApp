@@ -4,7 +4,7 @@ import { SystemState } from "../../../background/redux/actions/sytemState";
 import { connect, ConnectedProps } from "react-redux";
 
 const mapState = (state: SystemState) => ({
-  selectedFsEntiesCount: state.filesystem.selectedFsEntities.length
+  selectedFsEntitiesCount: state.filesystem.selectedFsEntities.length
 });
 
 const connector = connect(mapState);
@@ -16,10 +16,10 @@ type Props = PropsFromRedux & {};
 function ToolbarActions(props: Props): ReactElement | null {
   return (
     <span>
-      <Fade in={props.selectedFsEntiesCount === 1}>
+      <Fade in={props.selectedFsEntitiesCount === 1}>
         <Button>Rename</Button>
       </Fade>
-      <Fade in={props.selectedFsEntiesCount > 0}>
+      <Fade in={props.selectedFsEntitiesCount > 0}>
         <span>
           <Button>Delete</Button>
           <Button>Download</Button>
