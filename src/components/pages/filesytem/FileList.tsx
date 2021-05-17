@@ -118,6 +118,33 @@ function FileList(props: Props): ReactElement {
         setSortIncreasing(true);
     }
 
+    function getSortingFunction(property: keyof FsEntity) {
+        switch (property) {
+            case "lastUpdatedBy":
+            case "size":
+                return (a: any, b: any) =>
+                    a[property] - b[property] === 0
+                        ? a.fileSystemId - b.fileSystemId
+                        : a[property] - b[property]
+            case "name":
+            case "type":
+                return (a:any, b:any) =>
+                    a[property].toLowerCase().localeCompare(b[property].toLowerCase()) === 0
+                        ? a.fileSystemId - b.fileSystemId
+                        : a[property].toLowerCase().localeCompare(b[property].toLowerCase())
+            case "lastUpdated":
+            default:
+                return (a:any, b:any) =>
+                    a.lastUpdatedBy.username
+                        .toLowerCase()
+                        .localeCompare(b.lastUpdatedBy.username.toLowerCase()) === 0
+                        ? a.fileSystemId - b.fileSystemId
+                        : a.lastUpdatedBy.username
+                            .toLowerCase()
+                            .localeCompare(b.lastUpdatedBy.username.toLowerCase())
+        }
+    }
+
     function handleSortClick(property: keyof FsEntity) {
         if (!filesAndFolders || filesAndFolders.length < 2) {
             return;
@@ -126,29 +153,7 @@ function FileList(props: Props): ReactElement {
         setSortingOrder(property)
         let toSort = [...(filesAndFolders ?? [])];
 
-        if (property === "lastUpdated" || property === "size") {
-            toSort.sort((a, b) =>
-                a[property] - b[property] === 0
-                    ? a.fileSystemId - b.fileSystemId
-                    : a[property] - b[property]
-            );
-        } else if (property === "name" || property === "type") {
-            toSort.sort((a, b) =>
-                a[property].toLowerCase().localeCompare(b[property].toLowerCase()) === 0
-                    ? a.fileSystemId - b.fileSystemId
-                    : a[property].toLowerCase().localeCompare(b[property].toLowerCase())
-            );
-        } else if (property === "lastUpdatedBy") {
-            toSort.sort((a, b) =>
-                a.lastUpdatedBy.username
-                    .toLowerCase()
-                    .localeCompare(b.lastUpdatedBy.username.toLowerCase()) === 0
-                    ? a.fileSystemId - b.fileSystemId
-                    : a.lastUpdatedBy.username
-                        .toLowerCase()
-                        .localeCompare(b.lastUpdatedBy.username.toLowerCase())
-            );
-        }
+        toSort.sort(getSortingFunction(property))
         setFilesAndFolders(sortIncreasing ? toSort.reverse() : toSort);
     }
 
