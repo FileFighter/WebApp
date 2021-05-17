@@ -1,8 +1,8 @@
 import {RefObject, useCallback, useEffect, useState} from "react";
 
 const useContextMenu = (outerRef: RefObject<HTMLElement>) => {
-    const [xPos, setXPos] = useState<string|0>("0px");
-    const [yPos, setYPos] = useState<string|0>("0px");
+    const [xPos, setXPos] = useState<string|0>(0); //e.g. "5px"
+    const [yPos, setYPos] = useState<string|0>(0); //e.g. "5px"
     const [menu, showMenu] = useState<boolean>(false);
 
     const handleContextMenu = useCallback(
