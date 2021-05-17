@@ -10,7 +10,8 @@ function mergeObjectArraysByProperty(leftArray: any, rightArray: any, propertyNa
             let help: FsEntity | undefined = leftArray.shift();
             if (help) arr.push(help)
             continue;
-        } else if (leftArray[0] === undefined || leftArray[0][propertyName] === undefined || !leftArray[0].hasOwnProperty(propertyName)) {
+        }
+        if (leftArray[0] === undefined || leftArray[0][propertyName] === undefined || !leftArray[0].hasOwnProperty(propertyName)) {
             let help: (FsEntity) | undefined = rightArray.shift();
             if (help) arr.push(help)
             continue;
@@ -26,10 +27,10 @@ function mergeObjectArraysByProperty(leftArray: any, rightArray: any, propertyNa
         ) {
             let help: (FsEntity) | undefined = leftArray.shift();
             if (help) arr.push(help)
-        } else {
-            let help: (FsEntity) | undefined = rightArray.shift();
-            if (help) arr.push(help)
+            continue;
         }
+        let help: (FsEntity) | undefined = rightArray.shift();
+        if (help) arr.push(help)
     }
 
     // Concatenating leftover elements
