@@ -9,11 +9,11 @@ const FileListContextMenu = ({outerRef}: any) => {
     }
     return (
         <ul className="fileListContextMenu" style={{ top: yPos, left: xPos }}>
-            <li><a href={"./"}>Rename</a></li>
-            <li><a href={"./"}>Delete</a></li>
-            <li><a href={"./"}>Details</a></li>
+            <li><a href={"./"}>&#128393; Rename</a></li>
+            <li><a href={"./"}>&#9959; Delete</a></li>
+            <li><a href={"./"}>&#128712; Details</a></li>
             <hr/>
-            <li>Share</li>
+            <li>&#11177; Share</li>
         </ul>
     );
 
