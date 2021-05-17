@@ -13,6 +13,7 @@ import {
 import { AccessToken, CookieStatus } from "../redux/actions/tokenTypes";
 import { deleteCookie, getCookie, setCookie } from "../methods/cookies";
 import {updateUser} from "../redux/actions/user";
+import {hashPassword} from "../methods/passwords";
 
 // reference: https://daveceddia.com/access-redux-store-outside-react/
 
@@ -40,16 +41,17 @@ export const checkForCookie = () => {
   }
 };
 
-export const loginWithUsernameAndPassword = (
+export const  loginWithUsernameAndPassword = async (
   userName: string,
   password: string,
   stayLoggedIn: boolean
 ): Promise<BackendLoginData> => {
-  console.log("[Auth] loginWithUsernameAndPassword", userName, password);
+  console.log("[Auth] loginWithUsernameAndPassword", userName);
+  let hashed = await hashPassword(password);
   return new Promise<BackendLoginData>((resolve, reject) => {
     let config = {
       headers: {
-        Authorization: `Basic ${btoa(userName + ":" + password)}`
+        Authorization: `Basic ${btoa(userName + ":" + hashed)}`
       }
     };
 
