@@ -60,9 +60,9 @@ function FileList(props: Props): ReactElement {
           console.log("got folder content");
           setFilesAndFolders([
             ...response.filter(
-              (fsEntiy: FsEntity) => fsEntiy.type === "FOLDER"
+              (fsEntity: FsEntity) => fsEntity.type === "FOLDER"
             ),
-            ...response.filter((fsEntiy: FsEntity) => fsEntiy.type !== "FOLDER")
+            ...response.filter((fsEntity: FsEntity) => fsEntity.type !== "FOLDER")
           ]);
           setError("");
         })
