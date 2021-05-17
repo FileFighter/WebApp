@@ -127,3 +127,9 @@
 .login-input {
   max-width: 450px;
 }
+
+/***********Context Menu**************/
+.dropdown-toggle:after{
+  /* overwrites bootstrap dropdown-toggle:after */
+  content: none;
+}

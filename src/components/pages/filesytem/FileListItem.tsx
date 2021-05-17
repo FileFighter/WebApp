@@ -8,6 +8,7 @@ import {connect, ConnectedProps} from "react-redux";
 import {SystemState} from "../../../background/redux/actions/sytemState";
 import {addToSelected, removeFromSelected} from "../../../background/redux/actions/filesystem";
 import FileIcon from "./FileIcon";
+import FileItemContextMenu from "./FileItemContextMenu";
 
 const mapState = (state: SystemState) => ({
     filesystem: {
@@ -71,7 +72,7 @@ function FileListItem(props: Props): ReactElement {
                     props.fileListItem.name
                 )}
             </Col>
-            <Col xs={1}>...</Col>
+            <Col xs={1}><FileItemContextMenu id={props.fileListItem.fileSystemId}/></Col>
             <Col xs={7} md={4}>
                 <Link
                     to={
