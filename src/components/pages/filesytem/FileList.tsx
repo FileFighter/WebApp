@@ -181,7 +181,7 @@ function FileList(props: Props): ReactElement {
                     {"Type"}
                 </Col>
                 <Col xs={2} md={1}>
-                    {"Share"}
+                    {"Interact"}
                 </Col>
                 <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
                     {"Name"}
