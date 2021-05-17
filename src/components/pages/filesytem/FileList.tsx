@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useRef, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {getFolderContents} from "../../../background/api/filesystem";
 import {FsEntity} from "../../../background/api/filesystemTypes";
 import {Col, Container, Form, Row} from "react-bootstrap";
@@ -7,7 +7,15 @@ import {FilesBreadcrumb} from "./FilesBreadcrumb";
 import {filesBaseUrl} from "./Filesystem";
 import FileListItem from "./FileListItem";
 import {SystemState} from "../../../background/redux/actions/sytemState";
-import {addToSelected, clearSelected, removeFromSelected, replaceSelected, setContents, setCurrentFsItemId, setCurrentPath} from "../../../background/redux/actions/filesystem";
+import {
+    addToSelected,
+    clearSelected,
+    removeFromSelected,
+    replaceSelected,
+    setContents,
+    setCurrentFsItemId,
+    setCurrentPath
+} from "../../../background/redux/actions/filesystem";
 import {connect, ConnectedProps} from "react-redux";
 import {FFLoading} from "../../basicElements/Loading";
 import {AxiosResponse} from "axios";
@@ -62,7 +70,7 @@ function FileList(props: Props): ReactElement {
         function updateStates(): void {
             getFolderContents(path)
                 .then((response: AxiosResponse<FsEntity[]>) => {
-                    console.log("got folder content",response);
+                    console.log("got folder content", response);
 
                     setContents([
                         ...response.data.filter(
@@ -95,22 +103,27 @@ function FileList(props: Props): ReactElement {
 
     const handleSelectAllChanged = () => {
         if (allAreSelected) {
-            props.clearSelected();
-        } else {
-            if (filesAndFolders) {
-                props.replaceSelected([...filesAndFolders]);
-            }
+            return props.clearSelected();
+        }
+        if (filesAndFolders) {
+            props.replaceSelected([...filesAndFolders]);
         }
     };
 
-    function handleSortClick(property: keyof FsEntity) {
-        if (!filesAndFolders || filesAndFolders.length < 2) return;
+    function setSortingOrder(property: keyof FsEntity) {
         if (sortedBy === property) {
-            setSortIncreasing(!sortIncreasing);
-        } else {
-            setSortedBy(property);
-            setSortIncreasing(true);
+            return setSortIncreasing(!sortIncreasing);
         }
+        setSortedBy(property);
+        setSortIncreasing(true);
+    }
+
+    function handleSortClick(property: keyof FsEntity) {
+        if (!filesAndFolders || filesAndFolders.length < 2) {
+            return;
+        }
+
+        setSortingOrder(property)
         let toSort = [...(filesAndFolders ?? [])];
 
         if (property === "lastUpdated" || property === "size") {
