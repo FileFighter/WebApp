@@ -70,7 +70,7 @@
     "eslint-plugin-cypress": "2.11.2",
     "husky": "^6.0.0",
     "npm-check-updates": "11.5.4",
-    "prettier": "2.2.1",
+    "prettier": "2.3.0",
     "rc-util": "5.12.1",
     "react-is": "17.0.2",
     "react-test-renderer": "17.0.2",
