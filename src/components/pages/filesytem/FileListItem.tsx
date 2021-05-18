@@ -7,7 +7,7 @@ import {formatBytes} from "../../../background/methods/bytes";
 import {connect, ConnectedProps} from "react-redux";
 import {SystemState} from "../../../background/redux/actions/sytemState";
 import {addToSelected, removeFromSelected} from "../../../background/redux/actions/filesystem";
-import FileIcon from "./FileIcon";
+import FileIcon from "./fileIcon/FileIcon";
 import FileItemContextMenu from "./FileItemContextMenu";
 
 const mapState = (state: SystemState) => ({
@@ -48,7 +48,7 @@ function FileListItem(props: Props): ReactElement {
     };
 
     const handleSelectedChanged = () => {
-        if (!isSelected){
+        if (!isSelected) {
             return props.addToSelected(props.fileListItem);
         }
         props.removeFromSelected(props.fileListItem);
@@ -67,10 +67,11 @@ function FileListItem(props: Props): ReactElement {
                 </Form.Group>
             </Col>
             <Col xs={2} md={1}>
-                {FileIcon(
-                    props.fileListItem.type === "FOLDER",
-                    props.fileListItem.name
-                )}
+                <FileIcon
+                    type={props.fileListItem.type}
+                    mimeType={props.fileListItem.mimeType}
+                    name={props.fileListItem.name}
+                />
             </Col>
             <Col xs={1}><FileItemContextMenu id={props.fileListItem.fileSystemId}/></Col>
             <Col xs={7} md={4}>

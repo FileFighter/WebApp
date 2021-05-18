@@ -199,8 +199,6 @@ export function FileEarmarkBinaryIcon(props: React.SVGProps<SVGSVGElement>) {
     );
 }
 
-export default FileEarmarkBinaryIcon;
-
 
 
 //--------------------------------------------------------------------\\
