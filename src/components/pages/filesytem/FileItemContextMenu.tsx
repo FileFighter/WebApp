@@ -7,16 +7,20 @@ interface FileItemContextMenuInterface {
 
 interface DropdownItemTitleInterface {
     icon?: string;
-    description: string
+    description: string;
+    target: string;
+    disabled?:boolean;
 }
 
-const DropdownItemTitle = (props:DropdownItemTitleInterface) => {
-    const {icon, description} = props;
+const DropdownItem = (props:DropdownItemTitleInterface) => {
+    const {icon, description, target, disabled=false} = props;
     return(
-        <span className="d-flex w-100">
-            <span className="flex-grow-0 pr-2 w-75">{icon}</span>
+        <Dropdown.Item href={target} disabled={disabled}>
+            <span className="d-flex w-100">
+            <span className="flex-grow-0 pr-1 w-25 align-content-center">{icon}</span>
             <span className="flex-grow-1"> {description}</span>
         </span>
+        </Dropdown.Item>
     )
 }
 
@@ -29,11 +33,11 @@ function FileItemContextMenu(props:FileItemContextMenuInterface) {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1"><DropdownItemTitle icon={"&#128393;"} description={"Rename"}/></Dropdown.Item>
-                <Dropdown.Item href="#/action-2">&#128190; Download</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">&#9959; Details</Dropdown.Item>
+                <DropdownItem icon="&#128393;" description="Rename" target="#/action-1" disabled={true}/>
+                <DropdownItem icon="&#128190;" description="Download" target={"#/action-2"}/>
+                <DropdownItem icon="&#9959;" description="Delete" target={"#/action-3"} disabled={true}/>
                 <Dropdown.Divider />
-                <Dropdown.Item href="#/action-4">&#10551; Share</Dropdown.Item>
+                <DropdownItem icon="&#10551;" description="Share" target={"#/action-4"} disabled={true}/>
             </Dropdown.Menu>
         </Dropdown>
     )
