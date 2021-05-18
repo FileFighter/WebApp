@@ -67,7 +67,7 @@
     "axios-mock-adapter": "1.19.0",
     "babel-loader": "8.1.0",
     "cypress": "7.3.0",
-    "eslint-plugin-cypress": "2.11.2",
+    "eslint-plugin-cypress": "2.11.3",
     "husky": "^6.0.0",
     "npm-check-updates": "11.5.4",
     "prettier": "2.2.1",
