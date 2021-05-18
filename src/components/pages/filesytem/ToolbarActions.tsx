@@ -1,10 +1,10 @@
-import React, {ReactElement} from "react";
-import {Button, Fade} from "react-bootstrap";
-import {SystemState} from "../../../background/redux/actions/sytemState";
-import {connect, ConnectedProps} from "react-redux";
-import {deleteFsEntities} from "../../../background/api/filesystem";
-import {constants} from "../../../background/constants";
-import {FsEntity} from "../../../background/api/filesystemTypes";
+import React, { ReactElement } from "react";
+import { Button, Fade } from "react-bootstrap";
+import { SystemState } from "../../../background/redux/actions/sytemState";
+import { connect, ConnectedProps } from "react-redux";
+import { deleteFsEntities } from "../../../background/api/filesystem";
+import { constants } from "../../../background/constants";
+import { FsEntity } from "../../../background/api/filesystemTypes";
 
 const mapState = (state: SystemState) => ({
     selectedFsEntities: state.filesystem.selectedFsEntities
@@ -22,19 +22,21 @@ function ToolbarActions(props: Props): ReactElement | null {
     }
 
     /*    function handleDownloadClicked() {
-            downloadFiles(props.selectedFsEnties)
+            downloadFiles(props.selectedFsEntities)
         } */
 
     return (
         <span>
       <Fade in={props.selectedFsEntities.length === 1}>
-        <Button>Rename</Button>
+        <Button disabled={props.selectedFsEntities.length !== 1}>Rename</Button>
       </Fade>
       <Fade in={props.selectedFsEntities.length > 0}>
         <span>
-          <Button onClick={handleDeleteClicked}>Delete</Button>
-        <form method="get" className="d-inline" action={constants.url.FH_URL + "/download?=" + props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId + ",")}>
-            <Button type="submit">Download</Button>
+          <Button onClick={handleDeleteClicked} disabled={props.selectedFsEntities.length < 1}>Delete</Button>
+            <form method="get" className="d-inline"
+                  action={constants.url.FH_URL + "/download"}>
+               <input className="d-none" type='text' name='ids' value={props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId.toString())}/>
+            <Button  type="submit" disabled={props.selectedFsEntities.length < 1}>Download</Button>
         </form>
         </span>
       </Fade>
