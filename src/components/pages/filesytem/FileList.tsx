@@ -7,7 +7,15 @@ import {FilesBreadcrumb} from "./FilesBreadcrumb";
 import {filesBaseUrl} from "./Filesystem";
 import FileListItem from "./FileListItem";
 import {SystemState} from "../../../background/redux/actions/sytemState";
-import {addToSelected, clearSelected, removeFromSelected, replaceSelected, setContents, setCurrentFsItemId, setCurrentPath} from "../../../background/redux/actions/filesystem";
+import {
+    addToSelected,
+    clearSelected,
+    removeFromSelected,
+    replaceSelected,
+    setContents,
+    setCurrentFsItemId,
+    setCurrentPath
+} from "../../../background/redux/actions/filesystem";
 import {connect, ConnectedProps} from "react-redux";
 import {FFLoading} from "../../basicElements/Loading";
 import {AxiosResponse} from "axios";
@@ -58,12 +66,11 @@ function FileList(props: Props): ReactElement {
     const setCurrentPath = props.setCurrentPath;
     const setCurrentFsItemId = props.setCurrentFsItemId;
 
-
     useEffect(() => {
         function updateStates(): void {
             getFolderContents(path)
                 .then((response: AxiosResponse<FsEntity[]>) => {
-                    console.log("got folder content",response);
+                    console.log("got folder content", response);
 
                     setContents([
                         ...response.data.filter(
@@ -96,47 +103,57 @@ function FileList(props: Props): ReactElement {
 
     const handleSelectAllChanged = () => {
         if (allAreSelected) {
-            props.clearSelected();
-        } else {
-            if (filesAndFolders) {
-                props.replaceSelected([...filesAndFolders]);
-            }
+            return props.clearSelected();
+        }
+        if (filesAndFolders) {
+            props.replaceSelected([...filesAndFolders]);
         }
     };
 
-    function handleSortClick(property: keyof FsEntity) {
-        if (!filesAndFolders || filesAndFolders.length < 2) return;
+    function setSortingOrder(property: keyof FsEntity) {
         if (sortedBy === property) {
-            setSortIncreasing(!sortIncreasing);
-        } else {
-            setSortedBy(property);
-            setSortIncreasing(true);
+            return setSortIncreasing(!sortIncreasing);
         }
+        setSortedBy(property);
+        setSortIncreasing(true);
+    }
+
+    function getSortingFunction(property: keyof FsEntity) {
+        switch (property) {
+            case "lastUpdatedBy":
+            case "size":
+                return (a: any, b: any) =>
+                    a[property] - b[property] === 0
+                        ? a.fileSystemId - b.fileSystemId
+                        : a[property] - b[property]
+            case "name":
+            case "type":
+                return (a:any, b:any) =>
+                    a[property].toLowerCase().localeCompare(b[property].toLowerCase()) === 0
+                        ? a.fileSystemId - b.fileSystemId
+                        : a[property].toLowerCase().localeCompare(b[property].toLowerCase())
+            case "lastUpdated":
+            default:
+                return (a:any, b:any) =>
+                    a.lastUpdatedBy.username
+                        .toLowerCase()
+                        .localeCompare(b.lastUpdatedBy.username.toLowerCase()) === 0
+                        ? a.fileSystemId - b.fileSystemId
+                        : a.lastUpdatedBy.username
+                            .toLowerCase()
+                            .localeCompare(b.lastUpdatedBy.username.toLowerCase())
+        }
+    }
+
+    function handleSortClick(property: keyof FsEntity) {
+        if (!filesAndFolders || filesAndFolders.length < 2) {
+            return;
+        }
+
+        setSortingOrder(property)
         let toSort = [...(filesAndFolders ?? [])];
 
-        if (property === "lastUpdated" || property === "size") {
-            toSort.sort((a, b) =>
-                a[property] - b[property] === 0
-                    ? a.fileSystemId - b.fileSystemId
-                    : a[property] - b[property]
-            );
-        } else if (property === "name" || property === "type") {
-            toSort.sort((a, b) =>
-                a[property].toLowerCase().localeCompare(b[property].toLowerCase()) === 0
-                    ? a.fileSystemId - b.fileSystemId
-                    : a[property].toLowerCase().localeCompare(b[property].toLowerCase())
-            );
-        } else if (property === "lastUpdatedBy") {
-            toSort.sort((a, b) =>
-                a.lastUpdatedBy.username
-                    .toLowerCase()
-                    .localeCompare(b.lastUpdatedBy.username.toLowerCase()) === 0
-                    ? a.fileSystemId - b.fileSystemId
-                    : a.lastUpdatedBy.username
-                        .toLowerCase()
-                        .localeCompare(b.lastUpdatedBy.username.toLowerCase())
-            );
-        }
+        toSort.sort(getSortingFunction(property))
         setFilesAndFolders(sortIncreasing ? toSort.reverse() : toSort);
     }
 
@@ -144,6 +161,7 @@ function FileList(props: Props): ReactElement {
     return (
         <Container fluid>
             <FilesBreadcrumb path={path} setPath={setPath}/>
+            {/*//Head*/}
             <Row>
                 <Col xs={2} md={1}>
                     <Form.Group controlId="formBasicCheckbox">
@@ -163,7 +181,7 @@ function FileList(props: Props): ReactElement {
                     {"Type"}
                 </Col>
                 <Col xs={2} md={1}>
-                    {"Share"}
+                    {"Interact"}
                 </Col>
                 <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
                     {"Name"}
@@ -179,6 +197,7 @@ function FileList(props: Props): ReactElement {
                 </Col>
             </Row>
             <hr/>
+            {/*//Body*/}
             <Row>
                 {error ? (
                     <Col className={"text-center"}> {error}</Col>

@@ -27,4 +27,5 @@ export interface FsEntity {
   shared: boolean;
   size: number;
   type: string;
+  mimeType:string;
 }
