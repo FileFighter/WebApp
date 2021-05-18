@@ -30,7 +30,8 @@ const DropdownItemDownload = (props: DropdownItemTitleInterface) => {
     const { icon, description, selectedID, disabled = false } = props;
     return (
         <form method="get" className="d-inline"
-              action={constants.url.FH_URL + "/download?ids=" + selectedID}>
+              action={constants.url.FH_URL + "/download"}>
+          <input className="d-none" type='text' name='ids' value={selectedID}/>
             <Dropdown.Item as={Button} type="submit" disabled={disabled}>
                 <span className="d-flex w-100">
                     <span className="flex-grow-0 pr-1 w-25 align-content-center">{icon}</span>
