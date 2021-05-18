@@ -1,10 +1,10 @@
-import React, {ReactElement} from "react";
-import {Button, Fade} from "react-bootstrap";
-import {SystemState} from "../../../background/redux/actions/sytemState";
-import {connect, ConnectedProps} from "react-redux";
-import {deleteFsEntities} from "../../../background/api/filesystem";
-import {constants} from "../../../background/constants";
-import {FsEntity} from "../../../background/api/filesystemTypes";
+import React, { ReactElement } from "react";
+import { Button, Fade } from "react-bootstrap";
+import { SystemState } from "../../../background/redux/actions/sytemState";
+import { connect, ConnectedProps } from "react-redux";
+import { deleteFsEntities } from "../../../background/api/filesystem";
+import { constants } from "../../../background/constants";
+import { FsEntity } from "../../../background/api/filesystemTypes";
 
 const mapState = (state: SystemState) => ({
     selectedFsEntities: state.filesystem.selectedFsEntities
@@ -30,11 +30,11 @@ function ToolbarActions(props: Props): ReactElement | null {
       <Fade in={props.selectedFsEntities.length === 1}>
         <Button disabled={props.selectedFsEntities.length !== 1}>Rename</Button>
       </Fade>
-      <Fade in={props.selectedFsEntities.length > 0} >
+      <Fade in={props.selectedFsEntities.length > 0}>
         <span>
           <Button onClick={handleDeleteClicked} disabled={props.selectedFsEntities.length < 1}>Delete</Button>
-        <form method="get" className="d-inline"
-              action={constants.url.FH_URL + "/download?=" + props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId + ",")}>
+            <form method="get" className="d-inline"
+                  action={constants.url.FH_URL + "/download?ids=" + props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId)}>
             <Button type="submit" disabled={props.selectedFsEntities.length < 1}>Download</Button>
         </form>
         </span>

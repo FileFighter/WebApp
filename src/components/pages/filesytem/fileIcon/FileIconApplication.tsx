@@ -1,6 +1,6 @@
 import React from "react";
 import { FileIconInterface, IconPreferencesInterface } from "./FileIcon";
-import { getFileExtension, getMimeType } from "../../../../background/methods/filesystem";
+import { getFileExtension } from "../../../../background/methods/filesystem";
 import {
     FileEarmarkBinaryIcon,
     FileEarmarkCodeIcon,
@@ -13,11 +13,11 @@ import {
 
 export default function FileIconApplication(props: { ICON_PREFERENCES: IconPreferencesInterface, FileInformation: FileIconInterface }) {
     const { ICON_PREFERENCES, FileInformation } = props;
-    console.log("-------------------------");
-    console.log(getFileExtension(FileInformation.name.toLowerCase()));
-    console.table(FileInformation);
-    console.log(getMimeType(FileInformation.mimeType));
-    console.log("_________________________");
+    // console.log("-------------------------");
+    // console.log(getFileExtension(FileInformation.name.toLowerCase()));
+    // console.table(FileInformation);
+    // console.log(getMimeType(FileInformation.mimeType));
+    // console.log("_________________________");
     switch (getFileExtension(FileInformation.name.toLowerCase())) {
         case "java":
         case "jsx":
