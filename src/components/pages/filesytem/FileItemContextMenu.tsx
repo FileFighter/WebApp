@@ -45,7 +45,7 @@ function FileItemContextMenu(props: FileItemContextMenuInterface) {
     const { id } = props;
     return (
         <Dropdown id={"fileListItemDropdownButton-" + id} className="fileListItemDropdownButton">
-            <Dropdown.Toggle variant="primary" id={"fileListItemDropdownButton-" + id + "-button"}>
+            <Dropdown.Toggle variant="primary" id={"fileListItemDropdownButton-" + id + "-button"} className="no-after">
                 &#9679;&#9679;&#9679;
             </Dropdown.Toggle>
 

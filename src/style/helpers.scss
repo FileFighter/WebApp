@@ -129,7 +129,7 @@
 }
 
 /***********Context Menu**************/
-.dropdown-toggle:after{
+.no-after.dropdown-toggle:after{
   /* overwrites bootstrap dropdown-toggle:after */
   content: none;
 }
