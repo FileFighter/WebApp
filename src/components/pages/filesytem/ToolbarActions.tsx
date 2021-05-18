@@ -22,7 +22,7 @@ function ToolbarActions(props: Props): ReactElement | null {
     }
 
     /*    function handleDownloadClicked() {
-            downloadFiles(props.selectedFsEnties)
+            downloadFiles(props.selectedFsEntities)
         } */
 
     return (
@@ -33,7 +33,8 @@ function ToolbarActions(props: Props): ReactElement | null {
       <Fade in={props.selectedFsEntities.length > 0}>
         <span>
           <Button onClick={handleDeleteClicked}>Delete</Button>
-        <form method="get" className="d-inline" action={constants.url.FH_URL + "/download?=" + props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId + ",")}>
+        <form method="get" className="d-inline"
+              action={constants.url.FH_URL + "/download?=" + props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId + ",")}>
             <Button type="submit">Download</Button>
         </form>
         </span>
