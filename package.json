@@ -75,5 +75,10 @@
     "react-is": "17.0.2",
     "react-test-renderer": "17.0.2",
     "sonarqube-scanner": "2.8.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test  -- --watchAll=false"
+    }
   }
 }
