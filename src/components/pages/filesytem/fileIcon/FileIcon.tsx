@@ -3,7 +3,6 @@ import {
     FileEarmarkIcon,
     FileEarmarkImageIcon,
     FileEarmarkMusicIcon,
-    FileEarmarkPlayIcon,
     FolderIcon
 } from "../../../../assets/images/icons/reactSvgIcons/SymbolFile";
 import { getFileExtension } from "../../../../background/methods/filesystem";
