@@ -1,6 +1,6 @@
 import React from "react";
 import { FileIconInterface, IconPreferencesInterface } from "./FileIcon";
-import { getFileExtension } from "../../../../background/methods/filesystem";
+import { getFileExtension, getMimeType } from "../../../../background/methods/filesystem";
 import {
     FileEarmarkBinaryIcon,
     FileEarmarkCodeIcon,
@@ -10,15 +10,24 @@ import {
     FileEarmarkRichtextIcon,
     FileEarmarkZipIcon
 } from "../../../../assets/images/icons/reactSvgIcons/SymbolFile";
+import FileIconVideo from "./FileIconVideo";
 
 export default function FileIconApplication(props: { ICON_PREFERENCES: IconPreferencesInterface, FileInformation: FileIconInterface }) {
     const { ICON_PREFERENCES, FileInformation } = props;
-    // console.log("-------------------------");
-    // console.log(getFileExtension(FileInformation.name.toLowerCase()));
-    // console.table(FileInformation);
-    // console.log(getMimeType(FileInformation.mimeType));
-    // console.log("_________________________");
+    console.log("-------------------------");
+    console.log(getFileExtension(FileInformation.name.toLowerCase()));
+    console.table(FileInformation);
+    console.log(getMimeType(FileInformation.mimeType));
+    console.log("_________________________");
     switch (getFileExtension(FileInformation.name.toLowerCase())) {
+        case "avi":
+        case "mp4":
+        case "mpeg":
+        case "ogv":
+        case "webm":
+        case "3gp":
+        case "3g2":
+            return <FileIconVideo {...ICON_PREFERENCES} />;
         case "java":
         case "jsx":
         case "ts":

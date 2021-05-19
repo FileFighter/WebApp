@@ -9,6 +9,7 @@ import {
 import { getFileExtension } from "../../../../background/methods/filesystem";
 import FileIconApplication from "./FileIconApplication";
 import FileIconText from "./FileIconText";
+import FileIconVideo from "./FileIconVideo";
 
 export interface IconPreferencesInterface {
     height: string,
@@ -42,7 +43,7 @@ function FileIcon(props: FileIconInterface): ReactElement {
         case "image":
             return <FileEarmarkImageIcon {...ICON_PREFERENCES} />;
         case "video":
-            return <FileEarmarkPlayIcon {...ICON_PREFERENCES} />;
+            return <FileIconVideo {...ICON_PREFERENCES} />;
         case "audio":
             return <FileEarmarkMusicIcon {...ICON_PREFERENCES} />;
         case "application":
