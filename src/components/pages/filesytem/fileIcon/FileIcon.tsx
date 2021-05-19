@@ -9,6 +9,7 @@ import {
 import { getFileExtension } from "../../../../background/methods/filesystem";
 import FileIconApplication from "./FileIconApplication";
 import FileIconText from "./FileIconText";
+import FileIconVideo from "./FileIconVideo";
 
 export interface IconPreferencesInterface {
     height: string,
@@ -33,7 +34,6 @@ function FileIcon(props: FileIconInterface): ReactElement {
     const { type, name } = props;
     if (type.toUpperCase() === "FOLDER") return <FolderIcon {...ICON_PREFERENCES} />;
     if (getFileExtension(name) === "") return <FileEarmarkIcon {...ICON_PREFERENCES} />;
-
     switch (type.toLowerCase()) {
         case "folder":
             return <FolderIcon {...ICON_PREFERENCES} />;
@@ -42,7 +42,7 @@ function FileIcon(props: FileIconInterface): ReactElement {
         case "image":
             return <FileEarmarkImageIcon {...ICON_PREFERENCES} />;
         case "video":
-            return <FileEarmarkPlayIcon {...ICON_PREFERENCES} />;
+            return <FileIconVideo {...ICON_PREFERENCES} />;
         case "audio":
             return <FileEarmarkMusicIcon {...ICON_PREFERENCES} />;
         case "application":
