@@ -12,9 +12,9 @@ export interface PermissionSet {
 }
 
 export interface User {
-  id: number;
+  userId: number;
   username: string;
-  groups: number[];
+  groups: string[];
 }
 
 export interface FsEntity {

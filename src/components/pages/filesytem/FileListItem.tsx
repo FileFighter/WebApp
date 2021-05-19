@@ -73,7 +73,7 @@ function FileListItem(props: Props): ReactElement {
                     name={props.fileListItem.name}
                 />
             </Col>
-            <Col xs={1}><FileItemContextMenu id={props.fileListItem.fileSystemId}/></Col>
+            <Col xs={1}><FileItemContextMenu fsEntity={props.fileListItem}/></Col>
             <Col xs={7} md={4}>
                 <Link
                     to={
