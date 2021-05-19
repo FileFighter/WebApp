@@ -33,11 +33,8 @@ function ToolbarActions(props: Props): ReactElement | null {
       <Fade in={props.selectedFsEntities.length > 0}>
         <span>
           <Button onClick={handleDeleteClicked} disabled={props.selectedFsEntities.length < 1}>Delete</Button>
-            <form method="get" className="d-inline"
-                  action={constants.url.FH_URL + "/download"}>
-               <input className="d-none" type='text' name='ids' value={props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId.toString())}/>
-            <Button  type="submit" disabled={props.selectedFsEntities.length < 1}>Download</Button>
-        </form>
+            <Button disabled={props.selectedFsEntities.length < 1}
+                    href={constants.url.FH_URL + "/download?ids=" + props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId.toString())}>Download</Button>
         </span>
       </Fade>
       <Button>New Folder</Button>
