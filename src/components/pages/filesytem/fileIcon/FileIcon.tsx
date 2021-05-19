@@ -34,7 +34,6 @@ function FileIcon(props: FileIconInterface): ReactElement {
     const { type, name } = props;
     if (type.toUpperCase() === "FOLDER") return <FolderIcon {...ICON_PREFERENCES} />;
     if (getFileExtension(name) === "") return <FileEarmarkIcon {...ICON_PREFERENCES} />;
-
     switch (type.toLowerCase()) {
         case "folder":
             return <FolderIcon {...ICON_PREFERENCES} />;
