@@ -10,6 +10,7 @@ import {
     FileEarmarkRichtextIcon,
     FileEarmarkZipIcon
 } from "../../../../assets/images/icons/reactSvgIcons/SymbolFile";
+import FileIconVideo from "./FileIconVideo";
 
 export default function FileIconApplication(props: { ICON_PREFERENCES: IconPreferencesInterface, FileInformation: FileIconInterface }) {
     const { ICON_PREFERENCES, FileInformation } = props;
@@ -19,6 +20,14 @@ export default function FileIconApplication(props: { ICON_PREFERENCES: IconPrefe
     // console.log(getMimeType(FileInformation.mimeType));
     // console.log("_________________________");
     switch (getFileExtension(FileInformation.name.toLowerCase())) {
+        case "avi":
+        case "mp4":
+        case "mpeg":
+        case "ogv":
+        case "webm":
+        case "3gp":
+        case "3g2":
+            return <FileIconVideo {...ICON_PREFERENCES} />;
         case "java":
         case "jsx":
         case "ts":
