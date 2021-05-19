@@ -20,14 +20,14 @@ exports[`Storyshots Error404 default 1`] = `
 exports[`Storyshots Filesystem Context Menu default 1`] = `
 <div
   className="fileListItemDropdownButton dropdown"
-  id="fileListItemDropdownButton-0"
+  id="fileListItemDropdownButton-34"
 >
   <button
     aria-expanded={false}
     aria-haspopup={true}
     className="no-after dropdown-toggle btn btn-primary"
     disabled={false}
-    id="fileListItemDropdownButton-0-button"
+    id="fileListItemDropdownButton-34-button"
     onClick={[Function]}
     type="button"
   >
@@ -199,25 +199,16 @@ exports[`Storyshots Filesystem default 1`] = `
           >
             Delete
           </button>
-          <form
-            action="http://localhost/data/download"
-            className="d-inline"
-            method="get"
+          <a
+            aria-disabled={true}
+            className="btn btn-primary disabled"
+            href="http://localhost/data/download?ids="
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            tabIndex={-1}
           >
-            <input
-              className="d-none"
-              name="ids"
-              type="text"
-              value={Array []}
-            />
-            <button
-              className="btn btn-primary"
-              disabled={true}
-              type="submit"
-            >
-              Download
-            </button>
-          </form>
+            Download
+          </a>
         </span>
         <button
           className="btn btn-primary"

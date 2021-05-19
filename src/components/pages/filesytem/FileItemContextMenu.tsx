@@ -1,9 +1,11 @@
-import React, { ReactElement } from "react";
-import { Button, Dropdown } from "react-bootstrap";
+import React, { ReactElement, useCallback } from "react";
+import { Dropdown } from "react-bootstrap";
 import { constants } from "../../../background/constants";
+import { FsEntity } from "../../../background/api/filesystemTypes";
+import { deleteFsEntities } from "../../../background/api/filesystem";
 
 interface FileItemContextMenuInterface {
-    id: number
+    fsEntity: FsEntity;
 }
 
 interface DropdownItemTitleInterface {
@@ -11,13 +13,16 @@ interface DropdownItemTitleInterface {
     description: string;
     selectedID: number;
     target?: string;
+    onclick?: ()=> void;
     disabled?: boolean;
 }
 
+
+
 const DropdownItem = (props: DropdownItemTitleInterface): ReactElement => {
-    const { icon, description, target, disabled = false } = props;
+    const { icon, description, target, disabled = false , onclick = () => {}} = props;
     return (
-        <Dropdown.Item href={target} disabled={disabled}>
+        <Dropdown.Item href={target} disabled={disabled} onClick={onclick}>
             <span className="d-flex w-100">
             <span className="flex-grow-0 pr-1 w-25 align-content-center">{icon}</span>
             <span className="flex-grow-1"> {description}</span>
@@ -29,21 +34,19 @@ const DropdownItem = (props: DropdownItemTitleInterface): ReactElement => {
 const DropdownItemDownload = (props: DropdownItemTitleInterface) => {
     const { icon, description, selectedID, disabled = false } = props;
     return (
-        <form method="get" className="d-inline"
-              action={constants.url.FH_URL + "/download"}>
-          <input className="d-none" type='text' name='ids' value={selectedID}/>
-            <Dropdown.Item as={Button} type="submit" disabled={disabled}>
+        <Dropdown.Item disabled={disabled} href={constants.url.FH_URL + "/download?ids=" + selectedID} download>
                 <span className="d-flex w-100">
                     <span className="flex-grow-0 pr-1 w-25 align-content-center">{icon}</span>
                     <span className="flex-grow-1"> {description}</span>
                 </span>
-            </Dropdown.Item>
-        </form>
+        </Dropdown.Item>
     );
 };
 
 function FileItemContextMenu(props: FileItemContextMenuInterface) {
-    const { id } = props;
+    const deleteAction = useCallback(()=>deleteFsEntities([props.fsEntity]),[props.fsEntity])
+    const  id  = props.fsEntity.fileSystemId;
+
     return (
         <Dropdown id={"fileListItemDropdownButton-" + id} className="fileListItemDropdownButton">
             <Dropdown.Toggle variant="primary" id={"fileListItemDropdownButton-" + id + "-button"} className="no-after">
@@ -54,8 +57,9 @@ function FileItemContextMenu(props: FileItemContextMenuInterface) {
                 <DropdownItem icon="&#128393;" description="Rename" selectedID={id} target="#/action-1"
                               disabled={true} />
                 <DropdownItemDownload icon="&#128190;" description="Download" selectedID={id} />
-                <DropdownItem icon="&#9959;" description="Delete" selectedID={id} target={"#/action-3"}
-                              disabled={true} />
+                {/* @ts-ignore */ }
+                <DropdownItem icon="&#9959;" description="Delete" onclick={deleteAction} selectedID={id}
+                />
                 <Dropdown.Divider />
                 <DropdownItem icon="&#10551;" description="Share" selectedID={id} target={"#/action-4"}
                               disabled={true} />
