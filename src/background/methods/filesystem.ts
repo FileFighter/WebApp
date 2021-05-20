@@ -29,7 +29,8 @@ export const getFileExtension = (fileName: string): string => {
     return reverseString(reverseString(fileName).substr(0, positionOfPoint));
 };
 
-export const getMimeType = (fileName: string): string => {
-    let positionOfFirstSlash = fileName.indexOf("/");
-    return fileName.substr(0, positionOfFirstSlash);
-};
+export const isFileNameValid = (name: string) =>{
+    return !(!name ||
+        name.includes("/") ||
+        name.match("[~#@*+:!?&%<>|\"^\\\\]"))
+}

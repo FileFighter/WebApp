@@ -7,7 +7,7 @@ import { uploadFiles, uploadPreflight } from "../../../../background/api/filesys
 import { FsEntity } from "../../../../background/api/filesystemTypes";
 import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent";
 import { divideArrayByCondition } from "../../../../background/methods/arrays";
-import { getPathWithoutName } from "../../../../background/methods/filesystem";
+import { getPathWithoutName, isFileNameValid } from "../../../../background/methods/filesystem";
 import {
   EditableEntityError,
   EditableFileWithPreflightInfo,
@@ -50,7 +50,7 @@ export const UploadZone = (): ReactElement => {
       let preflightNeeded = acceptedFiles.some(
         (file: EditablePreflightEntityOrFile) => {
           return (
-            file.path.includes("/") ||
+            file.path.includes("/") || !isFileNameValid(file.name) ||
             currentFsContent.some(
               (fsEntiy: FsEntity) => fsEntiy.name === file.name
             )
@@ -197,13 +197,9 @@ export const preflightResultReducer: Reducer<EditablePreflightEntityOrFile[],
         }
       );
 
-      let newNameIsValidNot =
-        !action.payload.newName ||
-        action.payload.newName.includes("/") ||
-        action.payload.newName.includes(" ") ||
-        action.payload.newName.match("[~#@*+:!?&%<>|\"^\\\\]");
+      let newNameIsNotValid = !isFileNameValid(action.payload.newName)
 
-      if (newPathAlreadyExits || newNameIsValidNot) {
+      if (newPathAlreadyExits || newNameIsNotValid) {
         elementToReplace.error = newPathAlreadyExits
           ? EditableEntityError.ALREADYEXITS
           : EditableEntityError.INVALIDNAME;

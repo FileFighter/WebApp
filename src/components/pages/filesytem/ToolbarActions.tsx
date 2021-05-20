@@ -21,9 +21,6 @@ function ToolbarActions(props: Props): ReactElement | null {
         deleteFsEntities(props.selectedFsEntities);
     }
 
-    /*    function handleDownloadClicked() {
-            downloadFiles(props.selectedFsEntities)
-        } */
 
     return (
         <span>
