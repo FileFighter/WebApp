@@ -5,9 +5,9 @@ import React from "react";
 
 export default function HeadArea(){
     return(
-        <>
+        <div className="fixed-top">
             <TopBanner />
             <Header />
-        </>
+        </div>
     )
 }

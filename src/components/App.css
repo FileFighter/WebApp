@@ -1,5 +1,5 @@
-main > .container {
-  padding: 60px 15px 0;
+main {
+  padding: calc(56px + 32px) 15px 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
