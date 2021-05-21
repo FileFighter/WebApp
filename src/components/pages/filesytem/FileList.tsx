@@ -159,65 +159,66 @@ function FileList(props: Props): ReactElement {
 
     console.log("[FileList path]" + path, filesAndFolders);
     return (
-        <Container fluid className="d-flex flex-column">
+        <Container fluid className="d-flex flex-column h-100">
             <div className="flex-shrink-0">
                 <FilesBreadcrumb path={path} setPath={setPath} />
+                {/*Table Head*/}
+                <Row>
+                    <Col xs={2} md={1}>
+                        <Form.Group controlId="formBasicCheckbox">
+                            <Form.Check
+                                checked={allAreSelected}
+                                type="checkbox"
+                                onChange={handleSelectAllChanged}
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col
+                        xs={2}
+                        md={1}
+                        className="text-center"
+                        onClick={() => handleSortClick("type")}
+                    >
+                        {"Type"}
+                    </Col>
+                    <Col xs={2} md={1}>
+                        {"Interact"}
+                    </Col>
+                    <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
+                        {"Name"}
+                    </Col>
+                    <Col xs={6} md={3} onClick={() => handleSortClick("lastUpdatedBy")}>
+                        Last updated by
+                    </Col>
+                    <Col xs={3} md={1} onClick={() => handleSortClick("lastUpdated")}>
+                        {"Last changes"}
+                    </Col>
+                    <Col xs={3} md={1} onClick={() => handleSortClick("size")}>
+                        {"Size"}
+                    </Col>
+                </Row>
             </div>
-            {/*//Head*/}
-            <Row className="overflow-auto flex-grow-1">
-                <Col xs={2} md={1}>
-                    <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check
-                            checked={allAreSelected}
-                            type="checkbox"
-                            onChange={handleSelectAllChanged}
-                        />
-                    </Form.Group>
-                </Col>
-                <Col
-                    xs={2}
-                    md={1}
-                    className="text-center"
-                    onClick={() => handleSortClick("type")}
-                >
-                    {"Type"}
-                </Col>
-                <Col xs={2} md={1}>
-                    {"Interact"}
-                </Col>
-                <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
-                    {"Name"}
-                </Col>
-                <Col xs={6} md={3} onClick={() => handleSortClick("lastUpdatedBy")}>
-                    Last updated by
-                </Col>
-                <Col xs={3} md={1} onClick={() => handleSortClick("lastUpdated")}>
-                    {"Last changes"}
-                </Col>
-                <Col xs={3} md={1} onClick={() => handleSortClick("size")}>
-                    {"Size"}
-                </Col>
-            </Row>
-            <hr />
-            {/*//Body*/}
-            <Row>
-                {error ? (
-                    <Col className={"text-center"}> {error}</Col>
-                ) : filesAndFolders?.length === 0 ? (
-                    <Col className={"text-center"}> Nothing to see here.</Col>
-                ) : (
-                    !filesAndFolders && <FFLoading />
-                )}
+            <div className="overflow-auto flex-grow-1">
+                {/*Table Body*/}
+                <Row>
+                    {error ? (
+                        <Col className={"text-center"}> {error}</Col>
+                    ) : filesAndFolders?.length === 0 ? (
+                        <Col className={"text-center"}> Nothing to see here.</Col>
+                    ) : (
+                        !filesAndFolders && <FFLoading />
+                    )}
 
-                {filesAndFolders?.map((folder: FsEntity) => {
-                    return (
-                        <React.Fragment key={folder.fileSystemId}>
-                            <FileListItem setPath={setPath} fileListItem={folder} />
-                            <Col xs={12} className="border-top my-2" />
-                        </React.Fragment>
-                    );
-                })}
-            </Row>
+                    {filesAndFolders?.map((folder: FsEntity) => {
+                        return (
+                            <React.Fragment key={folder.fileSystemId}>
+                                <FileListItem setPath={setPath} fileListItem={folder} />
+                                <Col xs={12} className="border-top my-2" />
+                            </React.Fragment>
+                        );
+                    })}
+                </Row>
+            </div>
         </Container>
     );
 }

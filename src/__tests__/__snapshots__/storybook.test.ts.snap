@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Banner BottomBanner 1`] = `
+<div
+  className="d-flex justify-content-center bg-dark queer-banner p-1"
+>
+  Queer Lives Matter
+</div>
+`;
+
+exports[`Storyshots Banner TopBanner 1`] = `
+<div
+  className="d-flex justify-content-center bg-dark text-yellow p-1"
+>
+  Black Lives Matter
+</div>
+`;
+
 exports[`Storyshots Error404 default 1`] = `
 <div
   className="container"
@@ -310,6 +326,61 @@ exports[`Storyshots Filesystem default 1`] = `
     <div />
   </div>
 </div>
+`;
+
+exports[`Storyshots Footer default 1`] = `
+<footer
+  className="footer mt-autotext-white bg-primary"
+>
+  <div
+    className="d-flex flex-column justify-content-center p-0 container"
+  >
+    <span
+      className="align-self-center mt-2"
+    >
+      <a
+        className="text-white"
+        href="https://github.com/filefighter"
+      >
+        FileFighter 
+        <img
+          alt="github logo"
+          height="16px"
+          src="github.svg"
+        />
+      </a>
+       is made with &lt;3 by
+    </span>
+    <div
+      className="d-flex justify-content-around"
+    >
+      <span>
+        <a
+          className="text-white"
+          href="https://github.com/Gimleux"
+        >
+          Gimleux
+        </a>
+      </span>
+      <span>
+        <a
+          className="text-white"
+          href="https://github.com/open-schnick"
+        >
+          Open-Schnick
+        </a>
+      </span>
+      <span>
+        <a
+          className="text-white"
+          href="https://github.com/qvalentin"
+        >
+          qvalentin
+        </a>
+      </span>
+    </div>
+  </div>
+</footer>
 `;
 
 exports[`Storyshots Health default 1`] = `
