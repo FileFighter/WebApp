@@ -27,7 +27,7 @@ export default function Health() {
   const errorMsg = "not reachable";
 
   useEffect(() => {
-    updateVariables();
+    updateletiables();
   }, []);
 
   useEffect(() => {

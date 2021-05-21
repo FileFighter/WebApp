@@ -17,15 +17,15 @@ function getDateAsStringFromTimestamp(ts: number): string {
 // 1 day 20 hours 29 minutes, 10 seconds
 function getDurationAsString(duration: number): string {
     // props to https://stackoverflow.com/questions/36098913/convert-seconds-to-days-hours-minutes-and-seconds
-    var d = Math.floor(duration / (3600 * 24));
-    var h = Math.floor(duration % (3600 * 24) / 3600);
-    var m = Math.floor(duration % 3600 / 60);
-    var s = Math.floor(duration % 60);
+    let d = Math.floor(duration / (3600 * 24));
+    let h = Math.floor(duration % (3600 * 24) / 3600);
+    let m = Math.floor(duration % 3600 / 60);
+    let s = Math.floor(duration % 60);
 
-    var dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
-    var hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
-    var mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
-    var sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
+    let dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
+    let hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
+    let mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
+    let sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
     return dDisplay + hDisplay + mDisplay + sDisplay;
 }
 
