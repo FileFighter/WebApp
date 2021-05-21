@@ -1,12 +1,12 @@
-import React, {ReactElement, useEffect, useState} from "react";
-import {getFolderContents} from "../../../background/api/filesystem";
-import {FsEntity} from "../../../background/api/filesystemTypes";
-import {Col, Container, Form, Row} from "react-bootstrap";
-import {useLocation} from "react-router-dom";
-import {FilesBreadcrumb} from "./FilesBreadcrumb";
-import {filesBaseUrl} from "./Filesystem";
+import React, { ReactElement, useEffect, useState } from "react";
+import { getFolderContents } from "../../../background/api/filesystem";
+import { FsEntity } from "../../../background/api/filesystemTypes";
+import { Col, Container, Form, Row } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
+import { FilesBreadcrumb } from "./FilesBreadcrumb";
+import { filesBaseUrl } from "./Filesystem";
 import FileListItem from "./FileListItem";
-import {SystemState} from "../../../background/redux/actions/sytemState";
+import { SystemState } from "../../../background/redux/actions/sytemState";
 import {
     addToSelected,
     clearSelected,
@@ -16,9 +16,9 @@ import {
     setCurrentFsItemId,
     setCurrentPath
 } from "../../../background/redux/actions/filesystem";
-import {connect, ConnectedProps} from "react-redux";
-import {FFLoading} from "../../basicElements/Loading";
-import {AxiosResponse} from "axios";
+import { connect, ConnectedProps } from "react-redux";
+import { FFLoading } from "../../basicElements/Loading";
+import { AxiosResponse } from "axios";
 
 const mapState = (state: SystemState) => ({
     filesystem: {
@@ -88,7 +88,7 @@ function FileList(props: Props): ReactElement {
         }
 
         setPath(location.pathname.slice(filesBaseUrl.length) || "/");
-        setCurrentPath(path)
+        setCurrentPath(path);
         clearSelected();
         updateStates();
     }, [
@@ -125,23 +125,23 @@ function FileList(props: Props): ReactElement {
                 return (a: any, b: any) =>
                     a[property] - b[property] === 0
                         ? a.fileSystemId - b.fileSystemId
-                        : a[property] - b[property]
+                        : a[property] - b[property];
             case "name":
             case "type":
-                return (a:any, b:any) =>
+                return (a: any, b: any) =>
                     a[property].toLowerCase().localeCompare(b[property].toLowerCase()) === 0
                         ? a.fileSystemId - b.fileSystemId
-                        : a[property].toLowerCase().localeCompare(b[property].toLowerCase())
+                        : a[property].toLowerCase().localeCompare(b[property].toLowerCase());
             case "lastUpdated":
             default:
-                return (a:any, b:any) =>
+                return (a: any, b: any) =>
                     a.lastUpdatedBy.username
                         .toLowerCase()
                         .localeCompare(b.lastUpdatedBy.username.toLowerCase()) === 0
                         ? a.fileSystemId - b.fileSystemId
                         : a.lastUpdatedBy.username
                             .toLowerCase()
-                            .localeCompare(b.lastUpdatedBy.username.toLowerCase())
+                            .localeCompare(b.lastUpdatedBy.username.toLowerCase());
         }
     }
 
@@ -150,19 +150,21 @@ function FileList(props: Props): ReactElement {
             return;
         }
 
-        setSortingOrder(property)
+        setSortingOrder(property);
         let toSort = [...(filesAndFolders ?? [])];
 
-        toSort.sort(getSortingFunction(property))
+        toSort.sort(getSortingFunction(property));
         setFilesAndFolders(sortIncreasing ? toSort.reverse() : toSort);
     }
 
     console.log("[FileList path]" + path, filesAndFolders);
     return (
-        <Container fluid>
-            <FilesBreadcrumb path={path} setPath={setPath}/>
+        <Container fluid className="d-flex flex-column">
+            <div className="flex-shrink-0">
+                <FilesBreadcrumb path={path} setPath={setPath} />
+            </div>
             {/*//Head*/}
-            <Row>
+            <Row className="overflow-auto flex-grow-1">
                 <Col xs={2} md={1}>
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check
@@ -196,7 +198,7 @@ function FileList(props: Props): ReactElement {
                     {"Size"}
                 </Col>
             </Row>
-            <hr/>
+            <hr />
             {/*//Body*/}
             <Row>
                 {error ? (
@@ -204,14 +206,14 @@ function FileList(props: Props): ReactElement {
                 ) : filesAndFolders?.length === 0 ? (
                     <Col className={"text-center"}> Nothing to see here.</Col>
                 ) : (
-                    !filesAndFolders && <FFLoading/>
+                    !filesAndFolders && <FFLoading />
                 )}
 
                 {filesAndFolders?.map((folder: FsEntity) => {
                     return (
                         <React.Fragment key={folder.fileSystemId}>
-                            <FileListItem setPath={setPath} fileListItem={folder}/>
-                            <Col xs={12} className="border-top my-2"/>
+                            <FileListItem setPath={setPath} fileListItem={folder} />
+                            <Col xs={12} className="border-top my-2" />
                         </React.Fragment>
                     );
                 })}

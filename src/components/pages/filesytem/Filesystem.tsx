@@ -12,23 +12,25 @@ type Props = {};
 
 function FileSystem(props: Props): ReactElement {
 
-  return (
-    <div className="d-flex flex-column align-content-between justify-content-between h-100">
-      <div>
-        <Container
-          fluid
-          className={"py-1 border d-flex justify-content-between"}
-        >
-          <SelectedFsEntities />
-          <ToolbarActions />
-        </Container>
-        <FileList />
-        <ApiActionsInfo />
-      </div>
-
-      <UploadZone />
-    </div>
-  );
+    return (
+        <div className="d-flex flex-column align-content-between justify-content-between h-100">
+            <Container
+                id="fileToolbar"
+                fluid
+                className={"py-1 border d-flex justify-content-between flex-shrink-0"}
+            >
+                <SelectedFsEntities />
+                <ToolbarActions />
+            </Container>
+            <div className="flex-grow-1 overflow-auto" id="fileView">
+                <FileList />
+                <ApiActionsInfo />
+            </div>
+            <div className="flex-shrink-0" id="uploadZone">
+                <UploadZone />
+            </div>
+        </div>
+    );
 }
 
 export default FileSystem;
