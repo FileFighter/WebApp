@@ -5,7 +5,7 @@ import React from "react";
 
 export default function HeadArea(){
     return(
-        <div className="fixed-top">
+        <div className="flex-shrink-0" id="headArea">
             <TopBanner />
             <Header />
         </div>

@@ -53,7 +53,7 @@ function App(props: Props): ReactElement {
                 <div className="App h-100 d-flex flex-column">
                     <BrowserRouter>
                         <HeadArea />
-                        <main role="main" className="flex-shrink-0 flex-grow-1">
+                        <main role="main" className="flex-grow-1 overflow-auto">
                             <Router />
                         </main>
                         <BottomArea />
