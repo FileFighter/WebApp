@@ -1,11 +1,11 @@
 import React, { ReactElement } from "react";
 import { useHistory } from "react-router-dom";
-import { redirect } from "../../background/methods/redirect";
-import logo from "../../assets/images/logos/logo.png";
+import { redirect } from "../../../background/methods/redirect";
+import logo from "../../../assets/images/logos/logo.png";
 import { Container, Nav, Navbar, NavbarBrand, NavDropdown } from "react-bootstrap";
-import { SystemState } from "../../background/redux/actions/sytemState";
+import { SystemState } from "../../../background/redux/actions/sytemState";
 import { connect, ConnectedProps } from "react-redux";
-import { logout } from "../../background/api/auth";
+import { logout } from "../../../background/api/auth";
 
 export interface navBarElement_Interface {
     name: string;

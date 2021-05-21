@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/react";
-import { BottomBanner } from "../BottomBanner";
-import { TopBanner } from "../TopBanner";
+import { BottomBanner } from "../bottomArea/BottomBanner";
+import { TopBanner } from "../topArea/TopBanner";
 
 storiesOf("Banner", module)
     .add("BottomBanner", () =>
