@@ -1,11 +1,11 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
-import "../../style/custom.scss";
+import "../../../style/custom.scss";
 import Health from "./Health";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { hostname } from "../../background/api/api";
+import { hostname } from "../../../background/api/api";
 import healthApiMock from "./__tests__/healthApiMock.json";
 
 const mock = new MockAdapter(axios);

@@ -1,6 +1,6 @@
 import React, {ReactElement} from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
-import Health from "../pages/Health";
+import Health from "../pages/health/Health";
 import Error404 from "../pages/errors/Error404";
 import Login from "../basicElements/login/Login";
 import Registration from "../pages/User/Registration";
