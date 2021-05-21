@@ -14,9 +14,9 @@ import {
 } from "../../../background/api/api";
 import { audioOnOff, setAudioVolumeByID } from "../../../background/methods/sound";
 import { logout } from "../../../background/api/auth";
-import { getDurationAsString } from "../../../background/methods/time";
-import { hasKey } from "../../../background/methods/ObjectKeysTS";
-import { formatBytes } from "../../../background/methods/bytes";
+import { getDurationAsString } from "../../../background/methods/dataTypes/time";
+import { hasKey } from "../../../background/methods/dataTypes/objects/ObjectKeysTS";
+import { formatBytes } from "../../../background/methods/dataTypes/bytes";
 import { FFLoading } from "../../basicElements/Loading";
 import traffic_light from "../../../assets/images/icons/material.io/traffic_light.svg";
 
