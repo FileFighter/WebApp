@@ -19,6 +19,7 @@ import {
 import { connect, ConnectedProps } from "react-redux";
 import { FFLoading } from "../../basicElements/Loading";
 import { AxiosResponse } from "axios";
+import { ClearSelected } from "../../../background/redux/actions/filesystemTypes";
 
 const mapState = (state: SystemState) => ({
     filesystem: {
@@ -66,7 +67,7 @@ function FileList(props: Props): ReactElement {
     const setCurrentPath = props.setCurrentPath;
     const setCurrentFsItemId = props.setCurrentFsItemId;
 
-    useEffect(() => {
+    useEffect(():void => {
         function updateStates(): void {
             getFolderContents(path)
                 .then((response: AxiosResponse<FsEntity[]>) => {
@@ -101,7 +102,7 @@ function FileList(props: Props): ReactElement {
         location
     ]);
 
-    const handleSelectAllChanged = () => {
+    const handleSelectAllChanged = ():void|ClearSelected => {
         if (allAreSelected) {
             return props.clearSelected();
         }
@@ -110,7 +111,7 @@ function FileList(props: Props): ReactElement {
         }
     };
 
-    function setSortingOrder(property: keyof FsEntity) {
+    function setSortingOrder(property: keyof FsEntity):void {
         if (sortedBy === property) {
             return setSortIncreasing(!sortIncreasing);
         }
@@ -118,7 +119,7 @@ function FileList(props: Props): ReactElement {
         setSortIncreasing(true);
     }
 
-    function getSortingFunction(property: keyof FsEntity) {
+    function getSortingFunction(property: keyof FsEntity):(a:any,b:any)=>number {
         switch (property) {
             case "lastUpdatedBy":
             case "size":
@@ -145,7 +146,7 @@ function FileList(props: Props): ReactElement {
         }
     }
 
-    function handleSortClick(property: keyof FsEntity) {
+    function handleSortClick(property: keyof FsEntity):void {
         if (!filesAndFolders || filesAndFolders.length < 2) {
             return;
         }
