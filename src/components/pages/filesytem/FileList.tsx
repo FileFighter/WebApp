@@ -67,7 +67,7 @@ function FileList(props: Props): ReactElement {
     const setCurrentPath = props.setCurrentPath;
     const setCurrentFsItemId = props.setCurrentFsItemId;
 
-    useEffect(():void => {
+    useEffect((): void => {
         function updateStates(): void {
             getFolderContents(path)
                 .then((response: AxiosResponse<FsEntity[]>) => {
@@ -102,7 +102,7 @@ function FileList(props: Props): ReactElement {
         location
     ]);
 
-    const handleSelectAllChanged = ():void|ClearSelected => {
+    const handleSelectAllChanged = (): void | ClearSelected => {
         if (allAreSelected) {
             return props.clearSelected();
         }
@@ -111,7 +111,7 @@ function FileList(props: Props): ReactElement {
         }
     };
 
-    function setSortingOrder(property: keyof FsEntity):void {
+    function setSortingOrder(property: keyof FsEntity): void {
         if (sortedBy === property) {
             return setSortIncreasing(!sortIncreasing);
         }
@@ -119,7 +119,7 @@ function FileList(props: Props): ReactElement {
         setSortIncreasing(true);
     }
 
-    function getSortingFunction(property: keyof FsEntity):(a:any,b:any)=>number {
+    function getSortingFunction(property: keyof FsEntity): (a: any, b: any) => number {
         switch (property) {
             case "lastUpdatedBy":
             case "size":
@@ -146,7 +146,7 @@ function FileList(props: Props): ReactElement {
         }
     }
 
-    function handleSortClick(property: keyof FsEntity):void {
+    function handleSortClick(property: keyof FsEntity): void {
         if (!filesAndFolders || filesAndFolders.length < 2) {
             return;
         }

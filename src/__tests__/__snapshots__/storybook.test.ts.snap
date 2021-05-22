@@ -2,7 +2,7 @@
 
 exports[`Storyshots Banner BottomBanner 1`] = `
 <div
-  className="d-flex justify-content-center bg-dark queer-banner p-1"
+  className="d-flex justify-content-center bg-dark queer-banner p-0"
 >
   Queer Lives Matter
 </div>
@@ -10,7 +10,7 @@ exports[`Storyshots Banner BottomBanner 1`] = `
 
 exports[`Storyshots Banner TopBanner 1`] = `
 <div
-  className="d-flex justify-content-center bg-dark text-yellow p-1"
+  className="d-flex justify-content-center bg-dark text-yellow p-0"
 >
   Black Lives Matter
 </div>
@@ -33,7 +33,7 @@ exports[`Storyshots Error404 default 1`] = `
 </div>
 `;
 
-exports[`Storyshots Filesystem Context Menu default 1`] = `
+exports[`Storyshots Filesystem FilesystemContextMenu 1`] = `
 <div
   className="fileListItemDropdownButton dropdown"
   id="fileListItemDropdownButton-34"
@@ -236,105 +236,113 @@ exports[`Storyshots Filesystem default 1`] = `
     </span>
   </div>
   <div
-    className="flex-grow-1 overflow-auto"
+    className="flex-grow-1 overflow-auto d-flex h-100 flex-column"
     id="fileView"
   >
     <div
-      className="d-flex flex-column h-100 container-fluid"
+      className="flex-grow-1 overflow-auto"
+      id="fileList"
     >
       <div
-        className="flex-shrink-0"
+        className="d-flex flex-column h-100 container-fluid"
       >
-        <nav
-          aria-label="breadcrumb"
-        >
-          <ol
-            className="breadcrumb"
-          >
-            <a
-              className="breadcrumb-item active"
-              href="/file"
-              onClick={[Function]}
-            >
-              Home
-            </a>
-          </ol>
-        </nav>
         <div
-          className="row"
+          className="flex-shrink-0"
         >
+          <nav
+            aria-label="breadcrumb"
+          >
+            <ol
+              className="breadcrumb"
+            >
+              <a
+                className="breadcrumb-item active"
+                href="/file"
+                onClick={[Function]}
+              >
+                Home
+              </a>
+            </ol>
+          </nav>
           <div
-            className="col-md-1 col-2"
+            className="row"
           >
             <div
-              className="form-group"
+              className="col-md-1 col-2"
             >
               <div
-                className="form-check"
+                className="form-group"
               >
-                <input
-                  checked={false}
-                  className="form-check-input position-static"
-                  disabled={false}
-                  id="formBasicCheckbox"
-                  onChange={[Function]}
-                  type="checkbox"
-                />
+                <div
+                  className="form-check"
+                >
+                  <input
+                    checked={false}
+                    className="form-check-input position-static"
+                    disabled={false}
+                    id="formBasicCheckbox"
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            className="text-center col-md-1 col-2"
-            onClick={[Function]}
-          >
-            Type
-          </div>
-          <div
-            className="col-md-1 col-2"
-          >
-            Interact
-          </div>
-          <div
-            className="col-md-4 col-6"
-            onClick={[Function]}
-          >
-            Name
-          </div>
-          <div
-            className="col-md-3 col-6"
-            onClick={[Function]}
-          >
-            Last updated by
-          </div>
-          <div
-            className="col-md-1 col-3"
-            onClick={[Function]}
-          >
-            Last changes
-          </div>
-          <div
-            className="col-md-1 col-3"
-            onClick={[Function]}
-          >
-            Size
+            <div
+              className="text-center col-md-1 col-2"
+              onClick={[Function]}
+            >
+              Type
+            </div>
+            <div
+              className="col-md-1 col-2"
+            >
+              Interact
+            </div>
+            <div
+              className="col-md-4 col-6"
+              onClick={[Function]}
+            >
+              Name
+            </div>
+            <div
+              className="col-md-3 col-6"
+              onClick={[Function]}
+            >
+              Last updated by
+            </div>
+            <div
+              className="col-md-1 col-3"
+              onClick={[Function]}
+            >
+              Last changes
+            </div>
+            <div
+              className="col-md-1 col-3"
+              onClick={[Function]}
+            >
+              Size
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        className="overflow-auto flex-grow-1"
-      >
         <div
-          className="row"
+          className="overflow-auto flex-grow-1"
         >
           <div
-            className="text-center col"
+            className="row"
           >
-             Nothing to see here.
+            <div
+              className="text-center col"
+            >
+               Nothing to see here.
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div />
+    <div
+      className="flex-shrink-0"
+      id="uploadInformation"
+    />
   </div>
   <div
     className="flex-shrink-0"
