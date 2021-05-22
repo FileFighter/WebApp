@@ -8,7 +8,7 @@ export const ApiActionsInfo = (): ReactElement => {
   );
 
   return (
-    <div>
+    <>
       {ongoingActions
         .sort((a, b) => {
           return a.timestamp - b.timestamp;
@@ -26,6 +26,6 @@ export const ApiActionsInfo = (): ReactElement => {
             {a.currentFsEntity.name}
           </div>
         ))}
-    </div>
+    </>
   );
 };

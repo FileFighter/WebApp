@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Banner BottomBanner 1`] = `
+<div
+  className="d-flex justify-content-center bg-dark queer-banner p-0"
+>
+  Queer Lives Matter
+</div>
+`;
+
+exports[`Storyshots Banner TopBanner 1`] = `
+<div
+  className="d-flex justify-content-center bg-dark text-yellow p-0"
+>
+  Black Lives Matter
+</div>
+`;
+
 exports[`Storyshots Error404 default 1`] = `
 <div
   className="container"
@@ -17,7 +33,7 @@ exports[`Storyshots Error404 default 1`] = `
 </div>
 `;
 
-exports[`Storyshots Filesystem Context Menu default 1`] = `
+exports[`Storyshots Filesystem FilesystemContextMenu 1`] = `
 <div
   className="fileListItemDropdownButton dropdown"
   id="fileListItemDropdownButton-34"
@@ -175,141 +191,220 @@ exports[`Storyshots Filesystem default 1`] = `
 <div
   className="d-flex flex-column align-content-between justify-content-between h-100"
 >
-  <div>
-    <div
-      className="py-1 border d-flex justify-content-between container-fluid"
-    >
-      <span />
-      <span>
-        <button
-          className="fade btn btn-primary"
-          disabled={true}
-          type="button"
-        >
-          Rename
-        </button>
-        <span
-          className="fade"
-        >
-          <button
-            className="btn btn-primary"
-            disabled={true}
-            onClick={[Function]}
-            type="button"
-          >
-            Delete
-          </button>
-          <a
-            aria-disabled={true}
-            className="btn btn-primary disabled"
-            href="http://localhost/data/download?ids="
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            tabIndex={-1}
-          >
-            Download
-          </a>
-        </span>
+  <div
+    className="py-1 border d-flex justify-content-between flex-shrink-0 container-fluid"
+    id="fileToolbar"
+  >
+    <span />
+    <span>
+      <button
+        className="fade btn btn-primary"
+        disabled={true}
+        type="button"
+      >
+        Rename
+      </button>
+      <span
+        className="fade"
+      >
         <button
           className="btn btn-primary"
-          disabled={false}
+          disabled={true}
+          onClick={[Function]}
           type="button"
         >
-          New Folder
+          Delete
         </button>
-      </span>
-    </div>
-    <div
-      className="container-fluid"
-    >
-      <nav
-        aria-label="breadcrumb"
-      >
-        <ol
-          className="breadcrumb"
+        <a
+          aria-disabled={true}
+          className="btn btn-primary disabled"
+          href="http://localhost/data/download?ids="
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          tabIndex={-1}
         >
-          <a
-            className="breadcrumb-item active"
-            href="/file"
-            onClick={[Function]}
-          >
-            Home
-          </a>
-        </ol>
-      </nav>
+          Download
+        </a>
+      </span>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        type="button"
+      >
+        New Folder
+      </button>
+    </span>
+  </div>
+  <div
+    className="flex-grow-1 overflow-auto d-flex h-100 flex-column"
+    id="fileView"
+  >
+    <div
+      className="flex-grow-1 overflow-auto"
+      id="fileList"
+    >
       <div
-        className="row"
+        className="d-flex flex-column h-100 container-fluid"
       >
         <div
-          className="col-md-1 col-2"
+          className="flex-shrink-0"
         >
+          <nav
+            aria-label="breadcrumb"
+          >
+            <ol
+              className="breadcrumb"
+            >
+              <a
+                className="breadcrumb-item active"
+                href="/file"
+                onClick={[Function]}
+              >
+                Home
+              </a>
+            </ol>
+          </nav>
           <div
-            className="form-group"
+            className="row"
           >
             <div
-              className="form-check"
+              className="col-md-1 col-2"
             >
-              <input
-                checked={false}
-                className="form-check-input position-static"
-                disabled={false}
-                id="formBasicCheckbox"
-                onChange={[Function]}
-                type="checkbox"
-              />
+              <div
+                className="form-group"
+              >
+                <div
+                  className="form-check"
+                >
+                  <input
+                    checked={false}
+                    className="form-check-input position-static"
+                    disabled={false}
+                    id="formBasicCheckbox"
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="text-center col-md-1 col-2"
+              onClick={[Function]}
+            >
+              Type
+            </div>
+            <div
+              className="col-md-1 col-2"
+            >
+              Interact
+            </div>
+            <div
+              className="col-md-4 col-6"
+              onClick={[Function]}
+            >
+              Name
+            </div>
+            <div
+              className="col-md-3 col-6"
+              onClick={[Function]}
+            >
+              Last updated by
+            </div>
+            <div
+              className="col-md-1 col-3"
+              onClick={[Function]}
+            >
+              Last changes
+            </div>
+            <div
+              className="col-md-1 col-3"
+              onClick={[Function]}
+            >
+              Size
             </div>
           </div>
         </div>
         <div
-          className="text-center col-md-1 col-2"
-          onClick={[Function]}
+          className="overflow-auto flex-grow-1"
         >
-          Type
-        </div>
-        <div
-          className="col-md-1 col-2"
-        >
-          Interact
-        </div>
-        <div
-          className="col-md-4 col-6"
-          onClick={[Function]}
-        >
-          Name
-        </div>
-        <div
-          className="col-md-3 col-6"
-          onClick={[Function]}
-        >
-          Last updated by
-        </div>
-        <div
-          className="col-md-1 col-3"
-          onClick={[Function]}
-        >
-          Last changes
-        </div>
-        <div
-          className="col-md-1 col-3"
-          onClick={[Function]}
-        >
-          Size
-        </div>
-      </div>
-      <hr />
-      <div
-        className="row"
-      >
-        <div
-          className="text-center col"
-        >
-           Nothing to see here.
+          <div
+            className="m-0 row"
+          >
+            <div
+              className="text-center col"
+            >
+               
+              Nothing to see here.
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div />
+    <div
+      className="flex-shrink-0"
+      id="uploadInformation"
+    />
   </div>
+  <div
+    className="flex-shrink-0"
+    id="uploadZone"
+  />
 </div>
+`;
+
+exports[`Storyshots Footer default 1`] = `
+<footer
+  className="footer mt-autotext-white bg-primary"
+>
+  <div
+    className="d-flex flex-column justify-content-center p-0 container"
+  >
+    <span
+      className="align-self-center mt-2"
+    >
+      <a
+        className="text-white"
+        href="https://github.com/filefighter"
+      >
+        FileFighter 
+        <img
+          alt="github logo"
+          height="16px"
+          src="github.svg"
+        />
+      </a>
+       is made with &lt;3 by
+    </span>
+    <div
+      className="d-flex justify-content-around"
+    >
+      <span>
+        <a
+          className="text-white"
+          href="https://github.com/Gimleux"
+        >
+          Gimleux
+        </a>
+      </span>
+      <span>
+        <a
+          className="text-white"
+          href="https://github.com/open-schnick"
+        >
+          Open-Schnick
+        </a>
+      </span>
+      <span>
+        <a
+          className="text-white"
+          href="https://github.com/qvalentin"
+        >
+          qvalentin
+        </a>
+      </span>
+    </div>
+  </div>
+</footer>
 `;
 
 exports[`Storyshots Health default 1`] = `

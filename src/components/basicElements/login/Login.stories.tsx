@@ -1,7 +1,7 @@
 import React from "react";
 import {storiesOf} from "@storybook/react";
 import {BrowserRouter} from "react-router-dom";
-import '../../style/custom.scss';
+import '../../../style/custom.scss';
 import Login, {LoginHeader, LoginInput, LoginInteractionArea} from "./Login";
 import {action} from "@storybook/addon-actions";
 

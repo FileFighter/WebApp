@@ -1,8 +1,8 @@
 import React, {Dispatch, FormEvent, ReactElement, SetStateAction, useState} from 'react';
 import {Button, Col, Container, Form, Image, Row, Spinner} from "react-bootstrap";
-import {loginWithUsernameAndPassword} from "../../background/api/auth";
+import {loginWithUsernameAndPassword} from "../../../background/api/auth";
 
-import logo from "../../assets/images/logos/logoWithWhiteBorder.png";
+import logo from "../../../assets/images/logos/logoWithWhiteBorder.png";
 
 export interface LoginInputInterface {
     handleSubmit: (event: FormEvent) => void,
