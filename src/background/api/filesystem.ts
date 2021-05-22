@@ -1,20 +1,30 @@
-import {FsEntity} from "./filesystemTypes";
-import {filesystemPath, hostname} from "./api";
-import Axios, {AxiosResponse} from "axios";
-import {constants} from "../constants";
+import { FsEntity } from "./filesystemTypes";
+import { filesystemPath, hostname } from "./api";
+import Axios, { AxiosError, AxiosResponse } from "axios";
+import { constants } from "../constants";
 
 import store from "../redux/store";
-import {ApiAction, ApiActionStatus, ApiActionType} from "../redux/actions/apiActionsTypes";
-import {addApiAction, changeStatus, nextFsEntity} from "../redux/actions/apiActions";
-import {addToContents, removeFromContents} from "../redux/actions/filesystem";
-import {EditableFileWithPreflightInfo, PreflightEntity} from "../../components/pages/filesytem/upload/preflightTypes";
-import {isFsEntityInFolder} from "../methods/filesystem";
-
+import {
+    ApiAction,
+    ApiActionStatus,
+    ApiActionType
+} from "../redux/actions/apiActionsTypes";
+import {
+    addApiAction,
+    changeStatus,
+    nextFsEntity
+} from "../redux/actions/apiActions";
+import { addToContents, removeFromContents } from "../redux/actions/filesystem";
+import {
+    EditableFileWithPreflightInfo,
+    PreflightEntity
+} from "../../components/pages/filesytem/upload/preflightTypes";
+import { isFsEntityInFolder } from "../methods/filesystem";
 
 const fhHostname = constants.url.FH_URL;
 
 export const getFolderContents = (path: string) => {
-    console.log("[Get folder content", path)
+    console.log("[Get folder content", path);
     return new Promise<AxiosResponse<FsEntity[]>>((resolve, reject) => {
         let config = {
             headers: {
@@ -24,9 +34,8 @@ export const getFolderContents = (path: string) => {
         Axios.get<FsEntity[]>(hostname + filesystemPath + "contents", config)
             .then((response: AxiosResponse<FsEntity[]>) => resolve(response))
             .catch((error) => reject(error));
-    })
-}
-
+    });
+};
 
 export const uploadPreflight = (
     files: File[] | EditableFileWithPreflightInfo[],
@@ -43,7 +52,8 @@ export const uploadPreflight = (
     }));
     return new Promise<PreflightEntity[]>((resolve, reject) => {
         Axios.post<PreflightEntity[]>(
-            hostname + filesystemPath + parentFolderID + "/upload/preflight", postData
+            hostname + filesystemPath + parentFolderID + "/upload/preflight",
+            postData
         )
             .then((response: AxiosResponse<PreflightEntity[]>) => {
                 resolve(response.data);
@@ -52,8 +62,15 @@ export const uploadPreflight = (
     });
 };
 
-export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], parentFolderID: string) => {
-    console.log("[API filesystem] uploading files to folderID", parentFolderID , files);
+export const uploadFiles = (
+    files: File[] | EditableFileWithPreflightInfo[],
+    parentFolderID: string
+) => {
+    console.log(
+        "[API filesystem] uploading files to folderID",
+        parentFolderID,
+        files
+    );
     const apiCall = (file: File | EditableFileWithPreflightInfo) => {
         return new Promise((resolve, reject) => {
             let formData = new FormData();
@@ -78,9 +95,10 @@ export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], par
                 .then((response: AxiosResponse<[FsEntity]>) => {
                     const currentPath = store.getState().filesystem.currentPath;
 
-                    const fsEntityToShow = response.data.find((fsEntity: FsEntity) =>
-                        isFsEntityInFolder(fsEntity, currentPath)
-                    )
+                    const fsEntityToShow = response.data.find(
+                        (fsEntity: FsEntity) =>
+                            isFsEntityInFolder(fsEntity, currentPath)
+                    );
 
                     if (fsEntityToShow) {
                         store.dispatch(addToContents(fsEntityToShow));
@@ -93,7 +111,6 @@ export const uploadFiles = (files: File[] | EditableFileWithPreflightInfo[], par
     handleMultipleApiActions(files, apiCall, ApiActionType.UPLOAD);
 };
 
-
 export const deleteFsEntities = (files: FsEntity[]) => {
     const apiCall = (fsEntity: FsEntity) => {
         return new Promise((resolve, reject) => {
@@ -101,7 +118,9 @@ export const deleteFsEntities = (files: FsEntity[]) => {
                 fhHostname + "/delete/" + fsEntity.fileSystemId
             )
                 .then((response: AxiosResponse<FsEntity[]>) => {
-                    response.data.forEach((e) => store.dispatch(removeFromContents(e)));
+                    response.data.forEach((e) =>
+                        store.dispatch(removeFromContents(e))
+                    );
                     resolve(response);
                 })
                 .catch((error) => reject(error));
@@ -110,6 +129,21 @@ export const deleteFsEntities = (files: FsEntity[]) => {
     handleMultipleApiActions(files, apiCall, ApiActionType.DELETE);
 };
 
+export const createNewFolder = (
+    folderName: string,
+    parentFolderID: string
+): Promise<AxiosResponse<FsEntity>> => {
+    const body = { name: folderName };
+
+    return new Promise((resolve, reject) => {
+        Axios.post<FsEntity>(
+            hostname + filesystemPath + parentFolderID + "/folder/create",
+            body
+        )
+            .then((response: AxiosResponse<FsEntity>) => resolve(response))
+            .catch((error: AxiosError) => reject(error));
+    });
+};
 
 function handleMultipleApiActions<Type extends File | FsEntity>(
     items: Type[],
@@ -134,7 +168,9 @@ function handleMultipleApiActions<Type extends File | FsEntity>(
         // get the info from the store
         apiAction = store
             .getState()
-            .apiActions.actions.find((a: ApiAction) => a.key === apiAction?.key);
+            .apiActions.actions.find(
+                (a: ApiAction) => a.key === apiAction?.key
+            );
 
         if (
             !apiAction ||
@@ -150,7 +186,10 @@ function handleMultipleApiActions<Type extends File | FsEntity>(
 
         if (currentIndex === apiAction.totalAmount) {
             store.dispatch(
-                changeStatus({key: apiAction.key, status: ApiActionStatus.FINISHED})
+                changeStatus({
+                    key: apiAction.key,
+                    status: ApiActionStatus.FINISHED
+                })
             );
             return;
         } else {
@@ -166,7 +205,9 @@ function handleMultipleApiActions<Type extends File | FsEntity>(
 
     action(items[currentIndex])
         .then((response) => {
-            console.log("[API filesystem] handleMultipleApiActions next iteration");
+            console.log(
+                "[API filesystem] handleMultipleApiActions next iteration"
+            );
             handleMultipleApiActions(items, action, type, apiAction);
         })
         .catch((error) => {
