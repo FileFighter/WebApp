@@ -36,10 +36,7 @@ describe('The register Page', () => {
         cy.get(".btn.btn-primary").contains("Submit").click()
         cy.get("span.navbar-link-description").contains("Main").click()
 
-
-
-        cy.get(".btn.btn-primary").contains("Logout").click()
-
+        cy.logout()
 
         cy.get('input[id=formBasicUsername]').type(username)
 

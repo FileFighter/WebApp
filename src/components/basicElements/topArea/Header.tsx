@@ -105,7 +105,7 @@ function Header(props: PropsFromRedux): ReactElement {
                                             logout();
                                         }}
                                     >
-                                        Logout1
+                                        Logout
                                     </NavDropdown.Item>
                                 </NavDropdown>
                             </Nav>
