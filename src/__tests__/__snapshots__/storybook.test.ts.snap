@@ -328,12 +328,13 @@ exports[`Storyshots Filesystem default 1`] = `
           className="overflow-auto flex-grow-1"
         >
           <div
-            className="row"
+            className="m-0 row"
           >
             <div
               className="text-center col"
             >
-               Nothing to see here.
+               
+              Nothing to see here.
             </div>
           </div>
         </div>

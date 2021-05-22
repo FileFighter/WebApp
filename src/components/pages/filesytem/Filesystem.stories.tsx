@@ -13,8 +13,6 @@ import folderContentMock from "./__tests__/folderContentMock.json";
 const API_REQUEST = hostname + filesystemPath + "contents";
 
 storiesOf("Filesystem", module).add("default", () => {
-    // @ts-ignore
-
     const mock = new MockAdapter(axios);
     mock.onGet(API_REQUEST).reply(200, folderContentMock, {
         "x-ff-current": "3"
