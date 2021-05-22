@@ -22,9 +22,13 @@ function FileSystem(props: Props): ReactElement {
                 <SelectedFsEntities />
                 <ToolbarActions />
             </Container>
-            <div className="flex-grow-1 overflow-auto" id="fileView">
+            <div className="flex-grow-1 overflow-auto d-flex h-100 flex-column" id="fileView">
+                <div id="fileList" className="flex-grow-1 overflow-auto">
                 <FileList />
+                </div>
+                <div id="uploadInformation" className="flex-shrink-0">
                 <ApiActionsInfo />
+                </div>
             </div>
             <div className="flex-shrink-0" id="uploadZone">
                 <UploadZone />
