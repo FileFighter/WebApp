@@ -5,6 +5,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { deleteFsEntities } from "../../../background/api/filesystem";
 import { constants } from "../../../background/constants";
 import { FsEntity } from "../../../background/api/filesystemTypes";
+import { NewFolder } from "./upload/NewFolder";
 
 const mapState = (state: SystemState) => ({
     selectedFsEntities: state.filesystem.selectedFsEntities
@@ -34,7 +35,7 @@ function ToolbarActions(props: Props): ReactElement | null {
                     href={constants.url.FH_URL + "/download?ids=" + props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId.toString())}>Download</Button>
         </span>
       </Fade>
-      <Button>New Folder</Button>
+      <NewFolder/>
     </span>
     );
 }

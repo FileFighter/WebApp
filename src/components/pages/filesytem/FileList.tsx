@@ -223,11 +223,10 @@ function FileList(props: Props): ReactElement {
             <div className="overflow-auto flex-grow-1">
                 {/*Table Body*/}
                 <Row className="m-0">
-                    {error ? (
+                    {error  && !filesAndFolders.length ? (
                         <Col className={"text-center"}> {error}</Col>
                     ) : filesAndFolders?.length === 0 ? (
                         <Col className={"text-center"}>
-                            {" "}
                             Nothing to see here.
                         </Col>
                     ) : (
