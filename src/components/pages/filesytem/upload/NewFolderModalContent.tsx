@@ -1,5 +1,5 @@
 import { Button, Form, Modal, Row } from "react-bootstrap";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { createNewFolder } from "../../../../background/api/filesystem";
 import { isFileNameValid } from "../../../../background/methods/filesystem";
 import { useDispatch } from "react-redux";
@@ -15,7 +15,8 @@ function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
     const [folderName, setFolderName] = useState("");
     const [error, setError] = useState("");
 
-    function handleApply() {
+    function handleApply(event: FormEvent) {
+        event.preventDefault();
         console.log("[NEW FOLDER ]", folderName);
         if (!isFileNameValid(folderName)) {
             setError("The name is not a valid foldername.");
