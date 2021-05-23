@@ -226,13 +226,6 @@ exports[`Storyshots Filesystem default 1`] = `
           Download
         </a>
       </span>
-      <button
-        className="btn btn-primary"
-        disabled={false}
-        type="button"
-      >
-        New Folder
-      </button>
     </span>
   </div>
   <div
@@ -333,7 +326,6 @@ exports[`Storyshots Filesystem default 1`] = `
             <div
               className="text-center col"
             >
-               
               Nothing to see here.
             </div>
           </div>

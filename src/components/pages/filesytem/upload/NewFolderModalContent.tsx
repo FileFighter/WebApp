@@ -29,7 +29,11 @@ function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
                 setError("");
                 handleClose();
             })
-            .catch((error) => setError(error.response?.data.message));
+            .catch((error) =>
+                setError(
+                    error.response?.data.message ?? "Something went wrong :("
+                )
+            );
     }
 
     return (
@@ -53,10 +57,10 @@ function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
             <Modal.Footer>
                 <Row className="w-100 justify-content-between">
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Abort
                     </Button>
                     <Button variant="primary" onClick={handleApply}>
-                        Save Changes
+                        Creat Folder
                     </Button>
                 </Row>
             </Modal.Footer>
