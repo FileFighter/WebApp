@@ -1,5 +1,5 @@
 import { FsEntity } from "../api/filesystemTypes";
-import { reverseString } from "./strings";
+import { reverseString } from "./dataTypes/strings";
 
 export const getPathWithoutName = (
     pathWithName: string,

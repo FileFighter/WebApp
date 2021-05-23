@@ -19,6 +19,7 @@ import {
 import { connect, ConnectedProps } from "react-redux";
 import { FFLoading } from "../../basicElements/Loading";
 import { AxiosResponse } from "axios";
+import { ClearSelected } from "../../../background/redux/actions/filesystemTypes";
 
 const mapState = (state: SystemState) => ({
     filesystem: {
@@ -67,7 +68,7 @@ function FileList(props: Props): ReactElement {
     const setCurrentPath = props.setCurrentPath;
     const setCurrentFsItemId = props.setCurrentFsItemId;
 
-    useEffect(() => {
+    useEffect((): void => {
         function updateStates(): void {
             getFolderContents(path)
                 .then((response: AxiosResponse<FsEntity[]>) => {
@@ -104,7 +105,7 @@ function FileList(props: Props): ReactElement {
         location
     ]);
 
-    const handleSelectAllChanged = () => {
+    const handleSelectAllChanged = (): void | ClearSelected => {
         if (allAreSelected) {
             return props.clearSelected();
         }
@@ -113,7 +114,7 @@ function FileList(props: Props): ReactElement {
         }
     };
 
-    function setSortingOrder(property: keyof FsEntity) {
+    function setSortingOrder(property: keyof FsEntity): void {
         if (sortedBy === property) {
             return setSortIncreasing(!sortIncreasing);
         }
@@ -121,7 +122,9 @@ function FileList(props: Props): ReactElement {
         setSortIncreasing(true);
     }
 
-    function getSortingFunction(property: keyof FsEntity) {
+    function getSortingFunction(
+        property: keyof FsEntity
+    ): (a: any, b: any) => number {
         switch (property) {
             case "lastUpdatedBy":
             case "size":
@@ -156,7 +159,7 @@ function FileList(props: Props): ReactElement {
         }
     }
 
-    function handleSortClick(property: keyof FsEntity) {
+    function handleSortClick(property: keyof FsEntity): void {
         if (!filesAndFolders || filesAndFolders.length < 2) {
             return;
         }
@@ -170,74 +173,79 @@ function FileList(props: Props): ReactElement {
 
     console.log("[FileList path]" + path, filesAndFolders);
     return (
-        <Container fluid>
-            <FilesBreadcrumb path={path} setPath={setPath} />
-            {/*//Head*/}
-            <Row>
-                <Col xs={2} md={1}>
-                    <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check
-                            checked={allAreSelected}
-                            type="checkbox"
-                            onChange={handleSelectAllChanged}
-                        />
-                    </Form.Group>
-                </Col>
-                <Col
-                    xs={2}
-                    md={1}
-                    className="text-center"
-                    onClick={() => handleSortClick("type")}
-                >
-                    {"Type"}
-                </Col>
-                <Col xs={2} md={1}>
-                    {"Interact"}
-                </Col>
-                <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
-                    {"Name"}
-                </Col>
-                <Col
-                    xs={6}
-                    md={3}
-                    onClick={() => handleSortClick("lastUpdatedBy")}
-                >
-                    Last updated by
-                </Col>
-                <Col
-                    xs={3}
-                    md={1}
-                    onClick={() => handleSortClick("lastUpdated")}
-                >
-                    {"Last changes"}
-                </Col>
-                <Col xs={3} md={1} onClick={() => handleSortClick("size")}>
-                    {"Size"}
-                </Col>
-            </Row>
-            <hr />
-            {/*//Body*/}
-            <Row>
-                {error && !filesAndFolders.length ? (
-                    <Col className={"text-center"}> {error}</Col>
-                ) : filesAndFolders?.length === 0 ? (
-                    <Col className={"text-center"}> Nothing to see here.</Col>
-                ) : (
-                    !filesAndFolders && <FFLoading />
-                )}
-
-                {filesAndFolders?.map((folder: FsEntity) => {
-                    return (
-                        <React.Fragment key={folder.fileSystemId}>
-                            <FileListItem
-                                setPath={setPath}
-                                fileListItem={folder}
+        <Container fluid className="d-flex flex-column h-100">
+            <div className="flex-shrink-0">
+                <FilesBreadcrumb path={path} setPath={setPath} />
+                {/*Table Head*/}
+                <Row>
+                    <Col xs={2} md={1}>
+                        <Form.Group controlId="formBasicCheckbox">
+                            <Form.Check
+                                checked={allAreSelected}
+                                type="checkbox"
+                                onChange={handleSelectAllChanged}
                             />
-                            <Col xs={12} className="border-top my-2" />
-                        </React.Fragment>
-                    );
-                })}
-            </Row>
+                        </Form.Group>
+                    </Col>
+                    <Col
+                        xs={2}
+                        md={1}
+                        className="text-center"
+                        onClick={() => handleSortClick("type")}
+                    >
+                        {"Type"}
+                    </Col>
+                    <Col xs={2} md={1}>
+                        {"Interact"}
+                    </Col>
+                    <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
+                        {"Name"}
+                    </Col>
+                    <Col
+                        xs={6}
+                        md={3}
+                        onClick={() => handleSortClick("lastUpdatedBy")}
+                    >
+                        Last updated by
+                    </Col>
+                    <Col
+                        xs={3}
+                        md={1}
+                        onClick={() => handleSortClick("lastUpdated")}
+                    >
+                        {"Last changes"}
+                    </Col>
+                    <Col xs={3} md={1} onClick={() => handleSortClick("size")}>
+                        {"Size"}
+                    </Col>
+                </Row>
+            </div>
+            <div className="overflow-auto flex-grow-1">
+                {/*Table Body*/}
+                <Row className="m-0">
+                    {error  && !filesAndFolders.length ? (
+                        <Col className={"text-center"}> {error}</Col>
+                    ) : filesAndFolders?.length === 0 ? (
+                        <Col className={"text-center"}>
+                            Nothing to see here.
+                        </Col>
+                    ) : (
+                        !filesAndFolders && <FFLoading />
+                    )}
+
+                    {filesAndFolders?.map((folder: FsEntity) => {
+                        return (
+                            <React.Fragment key={folder.fileSystemId}>
+                                <FileListItem
+                                    setPath={setPath}
+                                    fileListItem={folder}
+                                />
+                                <Col xs={12} className="border-top my-2" />
+                            </React.Fragment>
+                        );
+                    })}
+                </Row>
+            </div>
         </Container>
     );
 }

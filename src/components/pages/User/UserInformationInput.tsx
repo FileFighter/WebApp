@@ -4,7 +4,7 @@ import check_svg from "../../../assets/images/icons/material.io/check_circle-24p
 import info_svg from "../../../assets/images/icons/material.io/info-24px.svg";
 import error_svg from "../../../assets/images/icons/material.io/error-24px.svg";
 import {biggerMaxStrLength, notMinStrLength} from "../../../background/methods/checkInput";
-import {deleteSpaces} from "../../../background/methods/strings";
+import {deleteSpaces} from "../../../background/methods/dataTypes/strings";
 import {DEFAULT_ALERT_DURATION, MAX_PASSWORD_LENGTH, MIN_PASSWORD_LENGTH} from "../../../background/constants";
 
 export interface UserInformationInputInterface {

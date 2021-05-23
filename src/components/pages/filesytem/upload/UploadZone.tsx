@@ -15,11 +15,8 @@ import {
 } from "../../../../background/api/filesystem";
 import { FsEntity } from "../../../../background/api/filesystemTypes";
 import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent";
-import { divideArrayByCondition } from "../../../../background/methods/arrays";
-import {
-    getPathWithoutName,
-    isFileNameValid
-} from "../../../../background/methods/filesystem";
+import { divideArrayByCondition } from "../../../../background/methods/dataTypes/arrays";
+import { getPathWithoutName, isFileNameValid } from "../../../../background/methods/filesystem";
 import {
     EditableEntityError,
     EditableFileWithPreflightInfo,
