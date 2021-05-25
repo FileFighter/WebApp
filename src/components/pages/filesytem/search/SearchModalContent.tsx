@@ -71,6 +71,8 @@ function SearchModalContent({ handleClose }: Props): ReactElement {
                               />
                           ))
                         : "Nothing found"
+                    : error
+                    ? error
                     : "Enter something"}
             </Modal.Body>
         </>
