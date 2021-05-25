@@ -226,6 +226,14 @@ exports[`Storyshots Filesystem default 1`] = `
           Download
         </a>
       </span>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Search
+      </button>
     </span>
   </div>
   <div
