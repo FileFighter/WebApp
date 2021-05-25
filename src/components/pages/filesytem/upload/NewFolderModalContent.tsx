@@ -60,7 +60,7 @@ function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
                         Abort
                     </Button>
                     <Button variant="primary" onClick={handleApply}>
-                        Creat Folder
+                        Create Folder
                     </Button>
                 </Row>
             </Modal.Footer>

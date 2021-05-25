@@ -23,7 +23,8 @@ function NewFolder(): ReactElement {
             <Modal
                 show={showModal}
                 onHide={handleClose}
-                contentClassName={"bg-body"}
+                contentClassName="bg-body"
+                backdropClassName="bg-blur"
             >
                 <NewFolderModalContent
                     handleClose={handleClose}
