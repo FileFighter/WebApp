@@ -132,3 +132,8 @@
   /* overwrites bootstrap dropdown-toggle:after */
   content: none;
 }
+
+
+body.modal-open .App{
+  filter: blur(5px);
+}
