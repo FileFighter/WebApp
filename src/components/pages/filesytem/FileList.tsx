@@ -25,7 +25,8 @@ const mapState = (state: SystemState) => ({
     filesystem: {
         selectedFsEntities: state.filesystem.selectedFsEntities,
         folderContents: state.filesystem.folderContents,
-        currentFsItemId: state.filesystem.currentFsItemId
+        currentFsItemId: state.filesystem.currentFsItemId,
+        currentPath: state.filesystem.currentPath
     }
 });
 
@@ -49,7 +50,7 @@ type Props = PropsFromRedux & {};
 function FileList(props: Props): ReactElement {
     let location = useLocation();
 
-    const [path, setPath] = useState<string>("");
+    const path = props.filesystem.currentPath;
 
     const filesAndFolders = props.filesystem.folderContents;
     const setFilesAndFolders = props.setContents;
@@ -89,7 +90,6 @@ function FileList(props: Props): ReactElement {
                 });
         }
         const newPath = location.pathname.slice(filesBaseUrl.length) || "/";
-        setPath(newPath);
         setCurrentPath(newPath);
         clearSelected();
         updateStates(newPath);
@@ -172,7 +172,7 @@ function FileList(props: Props): ReactElement {
     return (
         <Container fluid className="d-flex flex-column h-100">
             <div className="flex-shrink-0">
-                <FilesBreadcrumb path={path} setPath={setPath} />
+                <FilesBreadcrumb path={path} />
                 {/*Table Head*/}
                 <Row>
                     <Col xs={2} md={1}>
@@ -233,10 +233,7 @@ function FileList(props: Props): ReactElement {
                     {filesAndFolders?.map((folder: FsEntity) => {
                         return (
                             <React.Fragment key={folder.fileSystemId}>
-                                <FileListItem
-                                    setPath={setPath}
-                                    fileListItem={folder}
-                                />
+                                <FileListItem fileListItem={folder} />
                                 <Col xs={12} className="border-top my-2" />
                             </React.Fragment>
                         );
