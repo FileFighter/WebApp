@@ -3,6 +3,7 @@ import { Form, Modal } from "react-bootstrap";
 import { FsEntity } from "../../../../background/api/filesystemTypes";
 import { searchFsEntities } from "../../../../background/api/filesystem";
 import SearchResult from "./SearchResult";
+import { FFLoading } from "../../../basicElements/Loading";
 
 interface Props {
     handleClose: () => void;
@@ -23,43 +24,67 @@ function SearchModalContent({ handleClose }: Props): ReactElement {
         }
     }, []);
 
-    function refreshSearch(newValue: string) {
-        if (!requestOngoing && lastRequestValue !== newValue) {
-            setRequestOngoing(true);
-            searchFsEntities(newValue)
-                .then((response) => {
-                    setSearchResult(response.data);
-                    setLastRequestValue(newValue);
-                    setRequestOngoing(false);
-                    setError("");
-                })
-                .catch((error) => {
-                    setLastRequestValue(newValue);
-                    setRequestOngoing(false);
-                    setError(error.data.message);
-                });
+    useEffect(() => {
+        function refreshSearch(newValue: string) {
+            if (!requestOngoing && lastRequestValue !== newValue) {
+                setRequestOngoing(true);
+                searchFsEntities(newValue)
+                    .then((response) => {
+                        setSearchResult(response.data);
+                        setLastRequestValue(newValue);
+                        setRequestOngoing(false);
+                        setError("");
+                    })
+                    .catch((error) => {
+                        setLastRequestValue(newValue);
+                        setRequestOngoing(false);
+                        setError(error.data.message);
+                    });
+            }
         }
-    }
+
+        if (searchValue !== lastRequestValue && !requestOngoing) {
+            refreshSearch(searchValue);
+            return;
+        }
+    }, [searchValue, lastRequestValue, requestOngoing]);
 
     const updateSearchValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
         setSearchValue(newValue);
-
-        if (newValue && newValue.length > 2) {
-            refreshSearch(newValue);
-            return;
-        }
-        setSearchResult([]);
     };
 
     console.log(searchResult);
+
+    function SearchModalBody() {
+        if (requestOngoing) {
+            return <FFLoading />;
+        }
+        if (error) {
+            return error;
+        }
+        if (!searchValue) {
+            return "Enter something";
+        }
+        if (searchResult.length === 0) {
+            return "Noting found.";
+        }
+        return searchResult?.map((fsEntity: FsEntity) => (
+            <SearchResult handleClose={handleClose} fsEntity={fsEntity} />
+        ));
+    }
+
     return (
         <>
             <Modal.Header closeButton>
                 <div>
                     <Modal.Title>Search for files or folders</Modal.Title>
                     <Form.Group controlId="searchValue">
-                        <Form.Label>Folder name</Form.Label>
+                        <Form.Label>
+                            Query
+                            {searchResult.length > 0 &&
+                                " (" + searchResult.length + " found)"}
+                        </Form.Label>
                         <Form.Control
                             ref={inputElement}
                             type="text"
@@ -70,20 +95,7 @@ function SearchModalContent({ handleClose }: Props): ReactElement {
                     </Form.Group>
                 </div>
             </Modal.Header>
-            <Modal.Body>
-                {searchValue
-                    ? searchResult.length > 0
-                        ? searchResult?.map((fsEntity: FsEntity) => (
-                              <SearchResult
-                                  handleClose={handleClose}
-                                  fsEntity={fsEntity}
-                              />
-                          ))
-                        : "Nothing found"
-                    : error
-                    ? error
-                    : "Enter something"}
-            </Modal.Body>
+            <Modal.Body>{SearchModalBody()}</Modal.Body>
         </>
     );
 }

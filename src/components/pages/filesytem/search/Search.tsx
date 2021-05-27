@@ -11,6 +11,8 @@ function Search(): ReactElement {
         <>
             <Button onClick={handleShow}>Search</Button>
             <Modal
+                size="xl"
+                scrollable
                 show={showModal}
                 onHide={handleClose}
                 contentClassName={"bg-body"}

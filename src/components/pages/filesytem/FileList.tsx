@@ -49,9 +49,7 @@ type Props = PropsFromRedux & {};
 function FileList(props: Props): ReactElement {
     let location = useLocation();
 
-    const [path, setPath] = useState<string>(
-        location.pathname.slice(filesBaseUrl.length) || "/"
-    );
+    const [path, setPath] = useState<string>("");
 
     const filesAndFolders = props.filesystem.folderContents;
     const setFilesAndFolders = props.setContents;
@@ -69,8 +67,8 @@ function FileList(props: Props): ReactElement {
     const setCurrentFsItemId = props.setCurrentFsItemId;
 
     useEffect((): void => {
-        function updateStates(): void {
-            getFolderContents(path)
+        function updateStates(newPath: string): void {
+            getFolderContents(newPath)
                 .then((response: AxiosResponse<FsEntity[]>) => {
                     console.log("got folder content", response);
 
@@ -90,17 +88,16 @@ function FileList(props: Props): ReactElement {
                     setFilesAndFolders([]);
                 });
         }
-
-        setPath(location.pathname.slice(filesBaseUrl.length) || "/");
-        setCurrentPath(path);
+        const newPath = location.pathname.slice(filesBaseUrl.length) || "/";
+        setPath(newPath);
+        setCurrentPath(newPath);
         clearSelected();
-        updateStates();
+        updateStates(newPath);
     }, [
         setContents,
         setCurrentFsItemId,
         setFilesAndFolders,
         clearSelected,
-        path,
         setCurrentPath,
         location
     ]);
@@ -223,7 +220,7 @@ function FileList(props: Props): ReactElement {
             <div className="overflow-auto flex-grow-1">
                 {/*Table Body*/}
                 <Row className="m-0">
-                    {error  && !filesAndFolders.length ? (
+                    {error && !filesAndFolders.length ? (
                         <Col className={"text-center"}> {error}</Col>
                     ) : filesAndFolders?.length === 0 ? (
                         <Col className={"text-center"}>
