@@ -47,7 +47,7 @@ function FileListItem(props: Props): ReactElement {
 
     return (
         <>
-            <Col xs={2} md={1} className="fileRow">
+            <Col xs={1} className="fileRow">
                 <Form.Group controlId="formBasicCheckbox">
                     <Form.Check
                         checked={isSelected}
@@ -63,10 +63,10 @@ function FileListItem(props: Props): ReactElement {
                     name={props.fileListItem.name}
                 />
             </Col>
-            <Col xs={1}>
+            <Col xs={3} md={1}>
                 <FileItemContextMenu fsEntity={props.fileListItem} />
             </Col>
-            <Col xs={7} md={4}>
+            <Col xs={6} md={4} className="text-truncate">
                 <Link
                     to={
                         props.fileListItem.path &&

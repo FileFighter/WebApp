@@ -175,7 +175,7 @@ function FileList(props: Props): ReactElement {
                 <FilesBreadcrumb path={path} />
                 {/*Table Head*/}
                 <Row>
-                    <Col xs={2} md={1}>
+                    <Col xs={1}>
                         <Form.Group controlId="formBasicCheckbox">
                             <Form.Check
                                 checked={allAreSelected}
@@ -192,7 +192,7 @@ function FileList(props: Props): ReactElement {
                     >
                         {"Type"}
                     </Col>
-                    <Col xs={2} md={1}>
+                    <Col xs={3} md={1}>
                         {"Interact"}
                     </Col>
                     <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
@@ -217,9 +217,9 @@ function FileList(props: Props): ReactElement {
                     </Col>
                 </Row>
             </div>
-            <div className="overflow-auto flex-grow-1">
+            <div className="overflow-y-auto flex-grow-1">
                 {/*Table Body*/}
-                <Row className="m-0">
+                <Row>
                     {error && !filesAndFolders.length ? (
                         <Col className={"text-center"}> {error}</Col>
                     ) : filesAndFolders?.length === 0 ? (

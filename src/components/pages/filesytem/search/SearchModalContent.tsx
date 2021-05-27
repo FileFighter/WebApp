@@ -67,7 +67,7 @@ function SearchModalContent({ handleClose }: Props): ReactElement {
             return "Enter something";
         }
         if (searchResult.length === 0) {
-            return "Noting found.";
+            return "Nothing found.";
         }
         return searchResult?.map((fsEntity: FsEntity) => (
             <SearchResult handleClose={handleClose} fsEntity={fsEntity} />
