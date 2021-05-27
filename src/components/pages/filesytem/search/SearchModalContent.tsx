@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { FsEntity } from "../../../../background/api/filesystemTypes";
 import { searchFsEntities } from "../../../../background/api/filesystem";
@@ -14,6 +14,14 @@ function SearchModalContent({ handleClose }: Props): ReactElement {
     const [requestOngoing, setRequestOngoing] = useState(false);
     const [lastRequestValue, setLastRequestValue] = useState("");
     const [error, setError] = useState("");
+
+    const inputElement = useRef(null);
+    useEffect(() => {
+        if (inputElement?.current) {
+            // @ts-ignore
+            inputElement.current.focus();
+        }
+    }, []);
 
     function refreshSearch(newValue: string) {
         if (!requestOngoing && lastRequestValue !== newValue) {
@@ -53,6 +61,7 @@ function SearchModalContent({ handleClose }: Props): ReactElement {
                     <Form.Group controlId="searchValue">
                         <Form.Label>Folder name</Form.Label>
                         <Form.Control
+                            ref={inputElement}
                             type="text"
                             placeholder="e.g. Pictures"
                             value={searchValue}

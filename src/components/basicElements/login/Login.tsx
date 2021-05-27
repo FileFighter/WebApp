@@ -1,20 +1,34 @@
-import React, {Dispatch, FormEvent, ReactElement, SetStateAction, useState} from 'react';
-import {Button, Col, Container, Form, Image, Row, Spinner} from "react-bootstrap";
-import {loginWithUsernameAndPassword} from "../../../background/api/auth";
+import React, {
+    Dispatch,
+    FormEvent,
+    ReactElement,
+    SetStateAction,
+    useState
+} from "react";
+import {
+    Button,
+    Col,
+    Container,
+    Form,
+    Image,
+    Row,
+    Spinner
+} from "react-bootstrap";
+import { loginWithUsernameAndPassword } from "../../../background/api/auth";
 
 import logo from "../../../assets/images/logos/logoWithWhiteBorder.png";
 
 export interface LoginInputInterface {
-    handleSubmit: (event: FormEvent) => void,
-    username: string | number | string[] | undefined,
-    setUsername: Dispatch<SetStateAction<string>>,
-    password: string | number | string[] | undefined,
-    setPassword: Dispatch<SetStateAction<string>>,
-    isLoading: boolean,
-    setIsLoading: Dispatch<SetStateAction<boolean>>,
-    stayLoggedIn: boolean,
-    setStayLoggedIn: Dispatch<SetStateAction<boolean>>,
-    errorMessage: string | null
+    handleSubmit: (event: FormEvent) => void;
+    username: string | number | string[] | undefined;
+    setUsername: Dispatch<SetStateAction<string>>;
+    password: string | number | string[] | undefined;
+    setPassword: Dispatch<SetStateAction<string>>;
+    isLoading: boolean;
+    setIsLoading: Dispatch<SetStateAction<boolean>>;
+    stayLoggedIn: boolean;
+    setStayLoggedIn: Dispatch<SetStateAction<boolean>>;
+    errorMessage: string | null;
 }
 
 function Login(): ReactElement {
@@ -24,23 +38,20 @@ function Login(): ReactElement {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
-        setIsLoading(true)
+        setIsLoading(true);
         loginWithUsernameAndPassword(userName, password, stayLoggedIn)
             .then(() => {
                 //nothing to do here :)
                 setErrorMessage("");
                 setIsLoading(false);
             })
-            .catch(((error) => {
+            .catch((error) => {
                 console.log(error);
-                setIsLoading(false)
+                setIsLoading(false);
                 setErrorMessage(error.response?.data.message);
-            }))
-
-
+            });
     };
 
     return (
@@ -57,7 +68,8 @@ function Login(): ReactElement {
                 setStayLoggedIn={setStayLoggedIn}
                 errorMessage={errorMessage}
             />
-        </Container>);
+        </Container>
+    );
 }
 
 export function LoginInteractionArea(props: LoginInputInterface) {
@@ -71,11 +83,11 @@ export function LoginInteractionArea(props: LoginInputInterface) {
         setIsLoading,
         stayLoggedIn,
         setStayLoggedIn,
-        errorMessage,
-    } = props
+        errorMessage
+    } = props;
     return (
         <div className="login-container pr-1 pl-1 mr-auto ml-auto">
-            <LoginHeader/>
+            <LoginHeader />
             <LoginInput
                 handleSubmit={handleSubmit}
                 username={username}
@@ -89,14 +101,14 @@ export function LoginInteractionArea(props: LoginInputInterface) {
                 errorMessage={errorMessage}
             />
         </div>
-    )
+    );
 }
 
 export function LoginHeader() {
     return (
         <div className="login-intro">
             <Row className="justify-content-center">
-                <Image rounded src={logo} height="200px" width="auto"/>
+                <Image rounded src={logo} height="200px" width="auto" />
             </Row>
             <Row className="justify-content-center">
                 <h1>Greetings Traveller!</h1>
@@ -105,7 +117,7 @@ export function LoginHeader() {
                 <h2>Be welcome at FileFighter</h2>
             </Row>
         </div>
-    )
+    );
 }
 
 export function LoginInput(props: LoginInputInterface) {
@@ -118,8 +130,8 @@ export function LoginInput(props: LoginInputInterface) {
         isLoading,
         stayLoggedIn,
         setStayLoggedIn,
-        errorMessage,
-    } = props
+        errorMessage
+    } = props;
 
     return (
         <div>
@@ -127,15 +139,28 @@ export function LoginInput(props: LoginInputInterface) {
                 <Col className="login-input">
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicUsername">
-                            <Form.Control placeholder="Username" value={username}
-                                          onChange={event => setUsername(event.target.value)}/>
+                            <Form.Control
+                                autoFocus
+                                placeholder="Username"
+                                value={username}
+                                onChange={(event) =>
+                                    setUsername(event.target.value)
+                                }
+                            />
                         </Form.Group>
 
                         <Form.Group controlId="formBasicPassword">
-                            <Form.Control type="password" placeholder="Password" value={password}
-                                          onChange={event => setPassword(event.target.value)}/>
+                            <Form.Control
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(event) =>
+                                    setPassword(event.target.value)
+                                }
+                            />
                             <Form.Text className="text-muted">
-                                Contact your administrator if you have forgotten your login details.
+                                Contact your administrator if you have forgotten
+                                your login details.
                             </Form.Text>
                         </Form.Group>
 
@@ -147,13 +172,25 @@ export function LoginInput(props: LoginInputInterface) {
                                 role="status"
                                 aria-hidden="true"
                                 className={isLoading ? "" : "d-none"}
-                            /> <span className={isLoading ? "sr-only" : "d-none"}>isLoading...</span>Sign in
+                            />{" "}
+                            <span className={isLoading ? "sr-only" : "d-none"}>
+                                isLoading...
+                            </span>
+                            Sign in
                         </Button>
-                        <Form.Group controlId="formBasicCheckbox" className="mt-3 justify-content-center">
-                            <Form.Check checked={stayLoggedIn} type="checkbox" label="Keep me signed in*"
-                                        onChange={() => setStayLoggedIn(!stayLoggedIn)}/>
+                        <Form.Group
+                            controlId="formBasicCheckbox"
+                            className="mt-3 justify-content-center"
+                        >
+                            <Form.Check
+                                checked={stayLoggedIn}
+                                type="checkbox"
+                                label="Keep me signed in*"
+                                onChange={() => setStayLoggedIn(!stayLoggedIn)}
+                            />
                             <Form.Text className="text-muted">
-                                *By clicking this, you accept the usage of cookies.
+                                *By clicking this, you accept the usage of
+                                cookies.
                             </Form.Text>
                         </Form.Group>
                         <p className="text-danger">{errorMessage}</p>
@@ -161,7 +198,7 @@ export function LoginInput(props: LoginInputInterface) {
                 </Col>
             </Row>
         </div>
-    )
+    );
 }
 
 export default Login;
