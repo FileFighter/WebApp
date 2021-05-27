@@ -77,7 +77,7 @@ function SearchModalContent({ handleClose }: Props): ReactElement {
     return (
         <>
             <Modal.Header closeButton>
-                <div>
+                <div className="w-100 text-center">
                     <Modal.Title>Search for files or folders</Modal.Title>
                     <Form.Group controlId="searchValue">
                         <Form.Label>
@@ -95,7 +95,9 @@ function SearchModalContent({ handleClose }: Props): ReactElement {
                     </Form.Group>
                 </div>
             </Modal.Header>
-            <Modal.Body>{SearchModalBody()}</Modal.Body>
+            <Modal.Body>
+                <div className="minh-35">{SearchModalBody()}</div>
+            </Modal.Body>
         </>
     );
 }
