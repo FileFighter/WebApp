@@ -486,6 +486,7 @@ exports[`Storyshots Login default 1`] = `
               className="form-group"
             >
               <input
+                autoFocus={true}
                 className="form-control"
                 id="formBasicUsername"
                 onChange={[Function]}
@@ -616,6 +617,7 @@ exports[`Storyshots Login interactionArea 1`] = `
             className="form-group"
           >
             <input
+              autoFocus={true}
               className="form-control"
               id="formBasicUsername"
               onChange={[Function]}
@@ -745,6 +747,7 @@ exports[`Storyshots Login onlyInput 1`] = `
           className="form-group"
         >
           <input
+            autoFocus={true}
             className="form-control"
             id="formBasicUsername"
             onChange={[Function]}
