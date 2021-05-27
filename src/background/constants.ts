@@ -11,12 +11,12 @@ const prod: constantsdef = {
 
 const dev: constantsdef = {
     url: {
-        API_URL: "https://demo.filefighter.de/api",
+        //API_URL: "https://demo.filefighter.de/api",
         //API_URL: "http://localhost:8080",
-        //API_URL: "http://localhost/api",
+        API_URL: "http://localhost/api",
         //FH_URL: "http://localhost:5000/data"
-        //FH_URL: "http://localhost/data"
-        FH_URL: "https://demo.filefighter.de/data"
+        FH_URL: "http://localhost/data"
+        //FH_URL: "https://demo.filefighter.de/data"
     }
 };
 export const constants = process.env.NODE_ENV === "development" ? dev : prod;
