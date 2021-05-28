@@ -6,16 +6,15 @@
 .breadcrumb {
   padding: 0.33rem 1rem !important;
 }
-
-
 // Override default variables before the import (see node_modules/bootstrap/scss/_variables.scss for all)
-$body-bg: #25040F;
-$body-color: #B9CAC8;
-$blue: #1a4965;
-$primary: #771A18;
-$secondary: #FF6337;
-$yellow: #ffc107;
-$dark: black;
+@import "variables";
+$body-bg: $body-bg;
+$body-color: $body-color;
+$blue: $blue;
+$primary: $primary;
+$secondary: $secondary;
+$yellow: $yellow;
+$dark: $dark;
 
 // Import Bootstrap and its default variables
 
