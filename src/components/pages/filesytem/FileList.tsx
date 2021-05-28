@@ -20,6 +20,8 @@ import { connect, ConnectedProps } from "react-redux";
 import { FFLoading } from "../../basicElements/Loading";
 import { AxiosResponse } from "axios";
 import FileListHeader from "./FileListHeader";
+import SelectedFsEntities from "./SelectedFsEntities";
+import ToolbarActions from "./ToolbarActions";
 
 const mapState = (state: SystemState) => ({
     filesystem: {
@@ -125,6 +127,13 @@ function FileList(props: Props): ReactElement {
         <Container fluid className="py-1 d-flex flex-column h-100">
             <div className="flex-shrink-0">
                 <FilesBreadcrumb path={path} setPath={setPath} />
+                <div
+                    id="fileToolbar"
+                    className={"pb-1 d-flex justify-content-between align-items-center"}
+                >
+                    <SelectedFsEntities />
+                    <ToolbarActions />
+                </div>
                 {/*Table Head*/}
                 <FileListHeader
                     allAreSelected={allAreSelected}

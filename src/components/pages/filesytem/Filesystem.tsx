@@ -13,14 +13,6 @@ type Props = {};
 function FileSystem(props: Props): ReactElement {
     return (
         <div className="d-flex flex-column align-content-between justify-content-between h-100">
-            <Container
-                id="fileToolbar"
-                fluid
-                className={"pb-1 d-flex justify-content-between flex-shrink-0 align-items-center"}
-            >
-                <SelectedFsEntities />
-                <ToolbarActions />
-            </Container>
             <div className="flex-grow-1 overflow-auto d-flex h-100 flex-column" id="fileView">
                 <div id="fileList" className="flex-grow-1 overflow-auto">
                     <FileList />

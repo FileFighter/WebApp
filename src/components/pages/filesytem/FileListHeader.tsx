@@ -141,6 +141,7 @@ function FileListHeader(props: FileListHeaderInterface): ReactElement {
             <Col xs={3} md={1} onClick={() => handleSortClick("size")}>
                 {"Size"}
             </Col>
+            <Col xs={12} className="border-top my-2" />
         </Row>
     );
 }

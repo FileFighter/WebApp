@@ -3,6 +3,10 @@
 .breadcrumb-item:not(:first-child)::before {
   content: ">" !important;
 }
+.breadcrumb {
+  padding: 0.33rem 1rem !important;
+}
+
 
 // Override default variables before the import (see node_modules/bootstrap/scss/_variables.scss for all)
 $body-bg: #25040F;
