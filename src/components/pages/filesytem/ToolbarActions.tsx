@@ -26,16 +26,30 @@ function ToolbarActions(props: Props): ReactElement | null {
     return (
         <span>
       <Fade in={props.selectedFsEntities.length === 1}>
-        <Button disabled={props.selectedFsEntities.length !== 1}>Rename</Button>
+        <Button
+            size="sm"
+            variant="outline-secondary"
+            disabled={props.selectedFsEntities.length !== 1}
+        >Rename</Button>
       </Fade>
       <Fade in={props.selectedFsEntities.length > 0}>
         <span>
-          <Button onClick={handleDeleteClicked} disabled={props.selectedFsEntities.length < 1}>Delete</Button>
-            <Button disabled={props.selectedFsEntities.length < 1}
-                    href={constants.url.FH_URL + "/download?ids=" + props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId.toString())}>Download</Button>
+          <Button
+              size="sm"
+              variant="outline-secondary"
+              onClick={handleDeleteClicked}
+              disabled={props.selectedFsEntities.length < 1}
+              className="mx-1"
+          >Delete</Button>
+            <Button
+                size="sm"
+                variant="outline-secondary"
+                disabled={props.selectedFsEntities.length < 1}
+                href={constants.url.FH_URL + "/download?ids=" + props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId.toString())}
+            >Download</Button>
         </span>
       </Fade>
-      <NewFolder/>
+      <NewFolder />
     </span>
     );
 }

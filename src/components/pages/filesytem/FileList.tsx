@@ -173,7 +173,7 @@ function FileList(props: Props): ReactElement {
 
     console.log("[FileList path]" + path, filesAndFolders);
     return (
-        <Container fluid className="d-flex flex-column h-100">
+        <Container fluid className="py-1 d-flex flex-column h-100">
             <div className="flex-shrink-0">
                 <FilesBreadcrumb path={path} setPath={setPath} />
                 {/*Table Head*/}
