@@ -16,7 +16,7 @@ function FileSystem(props: Props): ReactElement {
             <Container
                 id="fileToolbar"
                 fluid
-                className={"py-1 d-flex justify-content-between flex-shrink-0"}
+                className={"pb-1 d-flex justify-content-between flex-shrink-0 align-items-center"}
             >
                 <SelectedFsEntities />
                 <ToolbarActions />

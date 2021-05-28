@@ -171,7 +171,7 @@ function FileList(props: Props): ReactElement {
         setFilesAndFolders(sortIncreasing ? toSort.reverse() : toSort);
     }
 
-    console.log("[FileList path]" + path, filesAndFolders);
+    // console.log("[FileList path]" + path, filesAndFolders);
     return (
         <Container fluid className="py-1 d-flex flex-column h-100">
             <div className="flex-shrink-0">
