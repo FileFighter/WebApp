@@ -10,8 +10,6 @@ import { SystemState } from "../../../background/redux/actions/sytemState";
 import {
     addToSelected,
     clearSelected,
-    removeFromSelected,
-    replaceSelected,
     setContents,
     setCurrentFsItemId,
     setCurrentPath
@@ -22,6 +20,7 @@ import { AxiosResponse } from "axios";
 import FileListHeader from "./FileListHeader";
 import SelectedFsEntities from "./SelectedFsEntities";
 import ToolbarActions from "./ToolbarActions";
+import fileListSize from "./fileListSize";
 
 const mapState = (state: SystemState) => ({
     filesystem: {
@@ -34,8 +33,6 @@ const mapState = (state: SystemState) => ({
 // this takes the redux actions and maps them to the props
 const mapDispatch = {
     addToSelected,
-    removeFromSelected,
-    replaceSelected,
     clearSelected,
     setContents,
     setCurrentFsItemId,
@@ -46,9 +43,9 @@ const connector = connect(mapState, mapDispatch);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & {};
+type reduxProps = PropsFromRedux & {};
 
-function FileList(props: Props): ReactElement {
+function FileList(props: reduxProps): ReactElement {
     let location = useLocation();
 
     const [path, setPath] = useState<string>(
@@ -119,7 +116,7 @@ function FileList(props: Props): ReactElement {
         if (!filesAndFolders) {
             return <FFLoading />;
         }
-        return <></>
+        return <></>;
     }
 
 // console.log("[FileList path]" + path, filesAndFolders);
@@ -143,20 +140,20 @@ function FileList(props: Props): ReactElement {
             </div>
             <div className="overflow-auto flex-grow-1">
                 {/*Table Body*/}
-                <Row className="m-0">
-                    <FileListStatus />
-                    {filesAndFolders?.map((folder: FsEntity) => {
-                        return (
-                            <React.Fragment key={folder.fileSystemId}>
-                                <FileListItem
-                                    setPath={setPath}
-                                    fileListItem={folder}
-                                />
-                                <Col xs={12} className="border-top my-2" />
-                            </React.Fragment>
-                        );
-                    })}
-                </Row>
+                <FileListStatus />
+                {filesAndFolders?.map((folder: FsEntity) => {
+                    return (
+                        <Row>
+                            {/*<React.Fragment key={folder.fileSystemId}>*/}
+                            <FileListItem
+                                setPath={setPath}
+                                fileListItem={folder}
+                            />
+                            <Col xs={fileListSize.border.xs} className="border-top my-2" />
+                            {/*</React.Fragment>*/}
+                        </Row>
+                    );
+                })}
             </div>
         </Container>
     );

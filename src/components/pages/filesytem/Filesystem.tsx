@@ -1,8 +1,5 @@
 import React, { ReactElement } from "react";
 import FileList from "./FileList";
-import SelectedFsEntities from "./SelectedFsEntities";
-import { Container } from "react-bootstrap";
-import ToolbarActions from "./ToolbarActions";
 import { ApiActionsInfo } from "./ApiActionsInfo";
 import UploadZone from "./upload/UploadZone";
 
