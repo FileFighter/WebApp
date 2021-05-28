@@ -19,7 +19,7 @@ import {
 import { connect, ConnectedProps } from "react-redux";
 import { FFLoading } from "../../basicElements/Loading";
 import { AxiosResponse } from "axios";
-import { ClearSelected } from "../../../background/redux/actions/filesystemTypes";
+import FileListHeader from "./FileListHeader";
 
 const mapState = (state: SystemState) => ({
     filesystem: {
@@ -53,14 +53,12 @@ function FileList(props: Props): ReactElement {
         location.pathname.slice(filesBaseUrl.length) || "/"
     );
 
-    const filesAndFolders = props.filesystem.folderContents;
+    const filesAndFolders:FsEntity[] = props.filesystem.folderContents;
     const setFilesAndFolders = props.setContents;
     const [error, setError] = useState<string>("");
-    const [sortedBy, setSortedBy] = useState<keyof FsEntity | null>(null);
-    const [sortIncreasing, setSortIncreasing] = useState<boolean>(false);
     const allAreSelected =
         filesAndFolders?.length ===
-            props.filesystem.selectedFsEntities.length &&
+        props.filesystem.selectedFsEntities.length &&
         !!filesAndFolders?.length;
 
     const clearSelected = props.clearSelected;
@@ -105,125 +103,22 @@ function FileList(props: Props): ReactElement {
         location
     ]);
 
-    const handleSelectAllChanged = (): void | ClearSelected => {
-        if (allAreSelected) {
-            return props.clearSelected();
-        }
-        if (filesAndFolders) {
-            props.replaceSelected([...filesAndFolders]);
-        }
-    };
-
-    function setSortingOrder(property: keyof FsEntity): void {
-        if (sortedBy === property) {
-            return setSortIncreasing(!sortIncreasing);
-        }
-        setSortedBy(property);
-        setSortIncreasing(true);
-    }
-
-    function getSortingFunction(
-        property: keyof FsEntity
-    ): (a: any, b: any) => number {
-        switch (property) {
-            case "lastUpdatedBy":
-            case "size":
-                return (a: any, b: any) =>
-                    a[property] - b[property] === 0
-                        ? a.fileSystemId - b.fileSystemId
-                        : a[property] - b[property];
-            case "name":
-            case "type":
-                return (a: any, b: any) =>
-                    a[property]
-                        .toLowerCase()
-                        .localeCompare(b[property].toLowerCase()) === 0
-                        ? a.fileSystemId - b.fileSystemId
-                        : a[property]
-                              .toLowerCase()
-                              .localeCompare(b[property].toLowerCase());
-            case "lastUpdated":
-            default:
-                return (a: any, b: any) =>
-                    a.lastUpdatedBy.username
-                        .toLowerCase()
-                        .localeCompare(
-                            b.lastUpdatedBy.username.toLowerCase()
-                        ) === 0
-                        ? a.fileSystemId - b.fileSystemId
-                        : a.lastUpdatedBy.username
-                              .toLowerCase()
-                              .localeCompare(
-                                  b.lastUpdatedBy.username.toLowerCase()
-                              );
-        }
-    }
-
-    function handleSortClick(property: keyof FsEntity): void {
-        if (!filesAndFolders || filesAndFolders.length < 2) {
-            return;
-        }
-
-        setSortingOrder(property);
-        let toSort = [...(filesAndFolders ?? [])];
-
-        toSort.sort(getSortingFunction(property));
-        setFilesAndFolders(sortIncreasing ? toSort.reverse() : toSort);
-    }
-
     // console.log("[FileList path]" + path, filesAndFolders);
     return (
         <Container fluid className="py-1 d-flex flex-column h-100">
             <div className="flex-shrink-0">
                 <FilesBreadcrumb path={path} setPath={setPath} />
                 {/*Table Head*/}
-                <Row>
-                    <Col xs={2} md={1}>
-                        <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check
-                                checked={allAreSelected}
-                                type="checkbox"
-                                onChange={handleSelectAllChanged}
-                            />
-                        </Form.Group>
-                    </Col>
-                    <Col
-                        xs={2}
-                        md={1}
-                        className="text-center"
-                        onClick={() => handleSortClick("type")}
-                    >
-                        {"Type"}
-                    </Col>
-                    <Col xs={2} md={1}>
-                        {"Interact"}
-                    </Col>
-                    <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
-                        {"Name"}
-                    </Col>
-                    <Col
-                        xs={6}
-                        md={3}
-                        onClick={() => handleSortClick("lastUpdatedBy")}
-                    >
-                        Last updated by
-                    </Col>
-                    <Col
-                        xs={3}
-                        md={1}
-                        onClick={() => handleSortClick("lastUpdated")}
-                    >
-                        {"Last changes"}
-                    </Col>
-                    <Col xs={3} md={1} onClick={() => handleSortClick("size")}>
-                        {"Size"}
-                    </Col>
-                </Row>
+                <FileListHeader
+                    allAreSelected={allAreSelected}
+                    filesAndFolders={filesAndFolders}
+                    setFilesAndFolders={setFilesAndFolders}
+                />
             </div>
             <div className="overflow-auto flex-grow-1">
                 {/*Table Body*/}
                 <Row className="m-0">
-                    {error  && !filesAndFolders.length ? (
+                    {error && !filesAndFolders.length ? (
                         <Col className={"text-center"}> {error}</Col>
                     ) : filesAndFolders?.length === 0 ? (
                         <Col className={"text-center"}>

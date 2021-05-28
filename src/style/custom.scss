@@ -1,5 +1,9 @@
 //read this: https://getbootstrap.com/docs/4.1/getting-started/theming
 
+.breadcrumb-item:not(:first-child)::before {
+  content: ">" !important;
+}
+
 // Override default variables before the import (see node_modules/bootstrap/scss/_variables.scss for all)
 $body-bg: #25040F;
 $body-color: #B9CAC8;
