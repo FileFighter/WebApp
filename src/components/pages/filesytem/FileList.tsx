@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { getFolderContents } from "../../../background/api/filesystem";
 import { FsEntity } from "../../../background/api/filesystemTypes";
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { FilesBreadcrumb } from "./FilesBreadcrumb";
 import { filesBaseUrl } from "./Filesystem";
@@ -53,7 +53,7 @@ function FileList(props: Props): ReactElement {
         location.pathname.slice(filesBaseUrl.length) || "/"
     );
 
-    const filesAndFolders:FsEntity[] = props.filesystem.folderContents;
+    const filesAndFolders: FsEntity[] = props.filesystem.folderContents;
     const setFilesAndFolders = props.setContents;
     const [error, setError] = useState<string>("");
     const allAreSelected =
@@ -103,7 +103,24 @@ function FileList(props: Props): ReactElement {
         location
     ]);
 
-    // console.log("[FileList path]" + path, filesAndFolders);
+    function FileListStatus(): ReactElement {
+        if (error && !filesAndFolders.length) {
+            return <Col className={"text-center"}> {error}</Col>;
+        }
+        if (filesAndFolders.length === 0) {
+            return (
+                <Col className={"text-center"}>
+                    Nothing to see here.
+                </Col>
+            );
+        }
+        if (!filesAndFolders) {
+            return <FFLoading />;
+        }
+        return <></>
+    }
+
+// console.log("[FileList path]" + path, filesAndFolders);
     return (
         <Container fluid className="py-1 d-flex flex-column h-100">
             <div className="flex-shrink-0">
@@ -118,16 +135,7 @@ function FileList(props: Props): ReactElement {
             <div className="overflow-auto flex-grow-1">
                 {/*Table Body*/}
                 <Row className="m-0">
-                    {error && !filesAndFolders.length ? (
-                        <Col className={"text-center"}> {error}</Col>
-                    ) : filesAndFolders?.length === 0 ? (
-                        <Col className={"text-center"}>
-                            Nothing to see here.
-                        </Col>
-                    ) : (
-                        !filesAndFolders && <FFLoading />
-                    )}
-
+                    <FileListStatus />
                     {filesAndFolders?.map((folder: FsEntity) => {
                         return (
                             <React.Fragment key={folder.fileSystemId}>
