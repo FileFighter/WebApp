@@ -25,7 +25,8 @@ const mapState = (state: SystemState) => ({
     filesystem: {
         selectedFsEntities: state.filesystem.selectedFsEntities,
         folderContents: state.filesystem.folderContents,
-        currentFsItemId: state.filesystem.currentFsItemId
+        currentFsItemId: state.filesystem.currentFsItemId,
+        currentPath: state.filesystem.currentPath
     }
 });
 
@@ -49,9 +50,7 @@ type Props = PropsFromRedux & {};
 function FileList(props: Props): ReactElement {
     let location = useLocation();
 
-    const [path, setPath] = useState<string>(
-        location.pathname.slice(filesBaseUrl.length) || "/"
-    );
+    const path = props.filesystem.currentPath;
 
     const filesAndFolders = props.filesystem.folderContents;
     const setFilesAndFolders = props.setContents;
@@ -69,8 +68,8 @@ function FileList(props: Props): ReactElement {
     const setCurrentFsItemId = props.setCurrentFsItemId;
 
     useEffect((): void => {
-        function updateStates(): void {
-            getFolderContents(path)
+        function updateStates(newPath: string): void {
+            getFolderContents(newPath)
                 .then((response: AxiosResponse<FsEntity[]>) => {
                     console.log("got folder content", response);
 
@@ -90,17 +89,15 @@ function FileList(props: Props): ReactElement {
                     setFilesAndFolders([]);
                 });
         }
-
-        setPath(location.pathname.slice(filesBaseUrl.length) || "/");
-        setCurrentPath(path);
+        const newPath = location.pathname.slice(filesBaseUrl.length) || "/";
+        setCurrentPath(newPath);
         clearSelected();
-        updateStates();
+        updateStates(newPath);
     }, [
         setContents,
         setCurrentFsItemId,
         setFilesAndFolders,
         clearSelected,
-        path,
         setCurrentPath,
         location
     ]);
@@ -175,10 +172,10 @@ function FileList(props: Props): ReactElement {
     return (
         <Container fluid className="d-flex flex-column h-100">
             <div className="flex-shrink-0">
-                <FilesBreadcrumb path={path} setPath={setPath} />
+                <FilesBreadcrumb path={path} />
                 {/*Table Head*/}
                 <Row>
-                    <Col xs={2} md={1}>
+                    <Col xs={1}>
                         <Form.Group controlId="formBasicCheckbox">
                             <Form.Check
                                 checked={allAreSelected}
@@ -195,7 +192,7 @@ function FileList(props: Props): ReactElement {
                     >
                         {"Type"}
                     </Col>
-                    <Col xs={2} md={1}>
+                    <Col xs={3} md={1}>
                         {"Interact"}
                     </Col>
                     <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
@@ -220,10 +217,10 @@ function FileList(props: Props): ReactElement {
                     </Col>
                 </Row>
             </div>
-            <div className="overflow-auto flex-grow-1">
+            <div className="overflow-y-auto flex-grow-1">
                 {/*Table Body*/}
-                <Row className="m-0">
-                    {error  && !filesAndFolders.length ? (
+                <Row>
+                    {error && !filesAndFolders.length ? (
                         <Col className={"text-center"}> {error}</Col>
                     ) : filesAndFolders?.length === 0 ? (
                         <Col className={"text-center"}>
@@ -236,10 +233,7 @@ function FileList(props: Props): ReactElement {
                     {filesAndFolders?.map((folder: FsEntity) => {
                         return (
                             <React.Fragment key={folder.fileSystemId}>
-                                <FileListItem
-                                    setPath={setPath}
-                                    fileListItem={folder}
-                                />
+                                <FileListItem fileListItem={folder} />
                                 <Col xs={12} className="border-top my-2" />
                             </React.Fragment>
                         );

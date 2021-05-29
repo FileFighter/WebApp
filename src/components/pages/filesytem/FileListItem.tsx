@@ -1,12 +1,15 @@
-import {FsEntity} from "../../../background/api/filesystemTypes";
-import React, {ReactElement} from "react";
-import {Col, Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {getDateAsStringFromTimestamp} from "../../../background/methods/dataTypes/time";
-import {formatBytes} from "../../../background/methods/dataTypes/bytes";
-import {connect, ConnectedProps} from "react-redux";
-import {SystemState} from "../../../background/redux/actions/sytemState";
-import {addToSelected, removeFromSelected} from "../../../background/redux/actions/filesystem";
+import { FsEntity } from "../../../background/api/filesystemTypes";
+import React, { ReactElement } from "react";
+import { Col, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { getDateAsStringFromTimestamp } from "../../../background/methods/dataTypes/time";
+import { formatBytes } from "../../../background/methods/dataTypes/bytes";
+import { connect, ConnectedProps } from "react-redux";
+import { SystemState } from "../../../background/redux/actions/sytemState";
+import {
+    addToSelected,
+    removeFromSelected
+} from "../../../background/redux/actions/filesystem";
 import FileIcon from "./fileIcon/FileIcon";
 import FileItemContextMenu from "./FileItemContextMenu";
 
@@ -28,7 +31,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
     fileListItem: FsEntity;
-    setPath?: Function;
 };
 
 function FileListItem(props: Props): ReactElement {
@@ -36,28 +38,16 @@ function FileListItem(props: Props): ReactElement {
         (e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId
     );
 
-
-    const onClick = () => {
-        if (
-            props.fileListItem.type === "FOLDER" &&
-            props.setPath &&
-            props.fileListItem.path
-        ) {
-            props.setPath(props.fileListItem.path);
-        }
-    };
-
     const handleSelectedChanged = () => {
         if (!isSelected) {
             return props.addToSelected(props.fileListItem);
         }
         props.removeFromSelected(props.fileListItem);
-
     };
 
     return (
         <>
-            <Col xs={2} md={1} className="fileRow">
+            <Col xs={1} className="fileRow">
                 <Form.Group controlId="formBasicCheckbox">
                     <Form.Check
                         checked={isSelected}
@@ -73,15 +63,17 @@ function FileListItem(props: Props): ReactElement {
                     name={props.fileListItem.name}
                 />
             </Col>
-            <Col xs={1}><FileItemContextMenu fsEntity={props.fileListItem}/></Col>
-            <Col xs={7} md={4}>
+            <Col xs={3} md={1}>
+                <FileItemContextMenu fsEntity={props.fileListItem} />
+            </Col>
+            <Col xs={6} md={4} className="text-truncate">
                 <Link
                     to={
-                        props.fileListItem.path && props.fileListItem.type === "FOLDER"
+                        props.fileListItem.path &&
+                        props.fileListItem.type === "FOLDER"
                             ? `/file${props.fileListItem.path ?? ""}`
                             : `#${props.fileListItem.name}`
                     }
-                    onClick={onClick}
                 >
                     {props.fileListItem.name}
                 </Link>
