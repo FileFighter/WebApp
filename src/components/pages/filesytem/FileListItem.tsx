@@ -46,6 +46,9 @@ function FileListItem(props: Props): ReactElement {
         props.removeFromSelected(props.fileListItem);
     };
 
+    const isFolder =
+        props.fileListItem.type && props.fileListItem.type === "FOLDER";
+
     return (
         <>
             {/*Checkbox*/}
@@ -84,11 +87,11 @@ function FileListItem(props: Props): ReactElement {
                 className="text-truncate"
             >
                 <Link
+                    target={isFolder ? undefined : "_blank"}
                     to={
-                        props.fileListItem.path &&
-                        props.fileListItem.type === "FOLDER"
+                        isFolder
                             ? `/file${props.fileListItem.path ?? ""}`
-                            : `#${props.fileListItem.name}`
+                            : "/data/preview/" + props.fileListItem.fileSystemId
                     }
                 >
                     {props.fileListItem.name}

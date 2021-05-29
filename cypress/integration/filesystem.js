@@ -32,6 +32,8 @@ describe("The filesystem page", () => {
             .contains("Search")
             .click();
         cy.get("input[id=searchValue]").type("admin");
-        cy.get("div.text-truncate.col-6 a").click();
+        cy.get(
+            " div.modal-body > div > div > div.text-truncate.col-6 > a"
+        ).click();
     });
 });
