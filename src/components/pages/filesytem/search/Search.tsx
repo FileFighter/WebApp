@@ -9,7 +9,9 @@ function Search(): ReactElement {
 
     return (
         <>
-            <Button onClick={handleShow}>Search</Button>
+            <Button size="sm" variant="outline-secondary" onClick={handleShow}>
+                Search
+            </Button>
             <Modal
                 size="xl"
                 scrollable

@@ -1,3 +1,5 @@
+/* eslint no-undef: 0 */
+
 import "../support/index";
 
 describe("The filesystem page", () => {
@@ -22,5 +24,14 @@ describe("The filesystem page", () => {
         cy.get("div").contains(
             "Folder does not exist, or you are not allowed to see the folder."
         );
+    });
+
+    it("finds a folder and enters it", () => {
+        cy.loginWithUrl("/file");
+        cy.get("button.btn.btn-outline-secondary.btn-sm")
+            .contains("Search")
+            .click();
+        cy.get("input[id=searchValue]").type("admin");
+        cy.get("div.text-truncate.col-6 a").click();
     });
 });
