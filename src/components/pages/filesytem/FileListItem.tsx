@@ -6,7 +6,10 @@ import { getDateAsStringFromTimestamp } from "../../../background/methods/dataTy
 import { formatBytes } from "../../../background/methods/dataTypes/bytes";
 import { connect, ConnectedProps } from "react-redux";
 import { SystemState } from "../../../background/redux/actions/sytemState";
-import { addToSelected, removeFromSelected } from "../../../background/redux/actions/filesystem";
+import {
+    addToSelected,
+    removeFromSelected
+} from "../../../background/redux/actions/filesystem";
 import FileIcon from "./fileIcon/FileIcon";
 import FileItemContextMenu from "./FileItemContextMenu";
 import fileListSize from "./fileListSize";
@@ -29,7 +32,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
     fileListItem: FsEntity;
-    setPath?: Function;
 };
 
 function FileListItem(props: Props): ReactElement {
@@ -37,23 +39,11 @@ function FileListItem(props: Props): ReactElement {
         (e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId
     );
 
-
-    const onClick = () => {
-        if (
-            props.fileListItem.type === "FOLDER" &&
-            props.setPath &&
-            props.fileListItem.path
-        ) {
-            props.setPath(props.fileListItem.path);
-        }
-    };
-
     const handleSelectedChanged = () => {
         if (!isSelected) {
             return props.addToSelected(props.fileListItem);
         }
         props.removeFromSelected(props.fileListItem);
-
     };
 
     return (
@@ -73,10 +63,7 @@ function FileListItem(props: Props): ReactElement {
                 </Form.Group>
             </Col>
             {/*Icon*/}
-            <Col
-                xs={fileListSize.icon.xs}
-                md={fileListSize.icon.md}
-            >
+            <Col xs={fileListSize.icon.xs} md={fileListSize.icon.md}>
                 <FileIcon
                     type={props.fileListItem.type}
                     mimeType={props.fileListItem.mimeType}
@@ -94,14 +81,15 @@ function FileListItem(props: Props): ReactElement {
             <Col
                 xs={fileListSize.name.xs}
                 md={fileListSize.name.md}
+                className="text-truncate"
             >
                 <Link
                     to={
-                        props.fileListItem.path && props.fileListItem.type === "FOLDER"
+                        props.fileListItem.path &&
+                        props.fileListItem.type === "FOLDER"
                             ? `/file${props.fileListItem.path ?? ""}`
                             : `#${props.fileListItem.name}`
                     }
-                    onClick={onClick}
                 >
                     {props.fileListItem.name}
                 </Link>
@@ -110,6 +98,7 @@ function FileListItem(props: Props): ReactElement {
             <Col
                 xs={fileListSize.modifiedBy.xs}
                 md={fileListSize.modifiedBy.md}
+                className="text-truncate"
             >
                 {props.fileListItem.lastUpdatedBy.username}
             </Col>
@@ -121,10 +110,7 @@ function FileListItem(props: Props): ReactElement {
                 {getDateAsStringFromTimestamp(props.fileListItem.lastUpdated)}
             </Col>
             {/*Size*/}
-            <Col
-                xs={fileListSize.size.xs}
-                md={fileListSize.size.md}
-            >
+            <Col xs={fileListSize.size.xs} md={fileListSize.size.md}>
                 {formatBytes(props.fileListItem.size)}
             </Col>
         </>

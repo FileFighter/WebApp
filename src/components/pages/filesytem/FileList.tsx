@@ -26,7 +26,8 @@ const mapState = (state: SystemState) => ({
     filesystem: {
         selectedFsEntities: state.filesystem.selectedFsEntities,
         folderContents: state.filesystem.folderContents,
-        currentFsItemId: state.filesystem.currentFsItemId
+        currentFsItemId: state.filesystem.currentFsItemId,
+        currentPath: state.filesystem.currentPath
     }
 });
 
@@ -48,16 +49,15 @@ type reduxProps = PropsFromRedux & {};
 function FileList(props: reduxProps): ReactElement {
     let location = useLocation();
 
-    const [path, setPath] = useState<string>(
-        location.pathname.slice(filesBaseUrl.length) || "/"
-    );
+    const path = props.filesystem.currentPath;
 
     const filesAndFolders: FsEntity[] = props.filesystem.folderContents;
     const setFilesAndFolders = props.setContents;
     const [error, setError] = useState<string>("");
+    const [loading, setLoading] = useState(true);
     const allAreSelected =
         filesAndFolders?.length ===
-        props.filesystem.selectedFsEntities.length &&
+            props.filesystem.selectedFsEntities.length &&
         !!filesAndFolders?.length;
 
     const clearSelected = props.clearSelected;
@@ -66,11 +66,11 @@ function FileList(props: reduxProps): ReactElement {
     const setCurrentFsItemId = props.setCurrentFsItemId;
 
     useEffect((): void => {
-        function updateStates(): void {
-            getFolderContents(path)
+        function updateStates(newPath: string): void {
+            getFolderContents(newPath)
                 .then((response: AxiosResponse<FsEntity[]>) => {
                     console.log("got folder content", response);
-
+                    setLoading(false);
                     setContents([
                         ...response.data.filter(
                             (fsEntity: FsEntity) => fsEntity.type === "FOLDER"
@@ -87,46 +87,44 @@ function FileList(props: reduxProps): ReactElement {
                     setFilesAndFolders([]);
                 });
         }
-
-        setPath(location.pathname.slice(filesBaseUrl.length) || "/");
-        setCurrentPath(path);
+        const newPath = location.pathname.slice(filesBaseUrl.length) || "/";
+        setCurrentPath(newPath);
         clearSelected();
-        updateStates();
+        setLoading(true);
+        updateStates(newPath);
     }, [
         setContents,
         setCurrentFsItemId,
         setFilesAndFolders,
         clearSelected,
-        path,
         setCurrentPath,
         location
     ]);
 
     function FileListStatus(): ReactElement {
         if (error && !filesAndFolders.length) {
-            return <Col className={"text-center"}> {error}</Col>;
+            return <Col className={"text-center"}>{error}</Col>;
         }
-        if (filesAndFolders.length === 0) {
-            return (
-                <Col className={"text-center"}>
-                    Nothing to see here.
-                </Col>
-            );
-        }
-        if (!filesAndFolders) {
+        if (loading) {
             return <FFLoading />;
         }
+        if (filesAndFolders.length === 0) {
+            return <Col className={"text-center"}>Nothing to see here.</Col>;
+        }
+
         return <></>;
     }
 
-// console.log("[FileList path]" + path, filesAndFolders);
+    // console.log("[FileList path]" + path, filesAndFolders);
     return (
         <Container fluid className="py-1 d-flex flex-column h-100">
             <div className="flex-shrink-0">
-                <FilesBreadcrumb path={path} setPath={setPath} />
+                <FilesBreadcrumb path={path} />
                 <div
                     id="fileToolbar"
-                    className={"pb-1 d-flex justify-content-between align-items-center"}
+                    className={
+                        "pb-1 d-flex justify-content-between align-items-center"
+                    }
                 >
                     <SelectedFsEntities />
                     <ToolbarActions />
@@ -143,13 +141,13 @@ function FileList(props: reduxProps): ReactElement {
                 <FileListStatus />
                 {filesAndFolders?.map((folder: FsEntity) => {
                     return (
-                        <Row>
+                        <Row className="m-0">
                             {/*<React.Fragment key={folder.fileSystemId}>*/}
-                            <FileListItem
-                                setPath={setPath}
-                                fileListItem={folder}
+                            <FileListItem fileListItem={folder} />
+                            <Col
+                                xs={fileListSize.border.xs}
+                                className="border-top my-2"
                             />
-                            <Col xs={fileListSize.border.xs} className="border-top my-2" />
                             {/*</React.Fragment>*/}
                         </Row>
                     );

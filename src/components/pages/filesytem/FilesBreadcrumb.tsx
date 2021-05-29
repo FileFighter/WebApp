@@ -5,7 +5,6 @@ import { filesBaseUrl } from "./Filesystem";
 
 type Props = {
     path: string;
-    setPath: Function;
 };
 
 export function FilesBreadcrumb(props: Props): ReactElement {
@@ -16,9 +15,7 @@ export function FilesBreadcrumb(props: Props): ReactElement {
         <Breadcrumb>
             <Link
                 className={"breadcrumb-item" + (props.path === "/" ? " active" : "")}
-                to={filesBaseUrl}
-                onClick={() => props.setPath("/")}
-            >
+                to={filesBaseUrl}>
                 Main
             </Link>
             {folders.map((folder: string, i: number) => {
@@ -31,14 +28,6 @@ export function FilesBreadcrumb(props: Props): ReactElement {
                                     .split("/")
                                     .slice(0, i + 2)
                                     .join("/")
-                            }
-                            onClick={() =>
-                                props.setPath(
-                                    props.path
-                                        .split("/")
-                                        .slice(0, i + 2)
-                                        .join("/")
-                                )
                             }
                             key={i}
                         >

@@ -41,7 +41,7 @@ exports[`Storyshots Filesystem FilesystemContextMenu 1`] = `
   <button
     aria-expanded={false}
     aria-haspopup={true}
-    className="no-after dropdown-toggle btn btn-primary"
+    className="no-after btn-sm dropdown-toggle btn btn-primary"
     disabled={false}
     id="fileListItemDropdownButton-34-button"
     onClick={[Function]}
@@ -50,6 +50,67 @@ exports[`Storyshots Filesystem FilesystemContextMenu 1`] = `
     ●●●
   </button>
 </div>
+`;
+
+exports[`Storyshots Filesystem SearchModal 1`] = `
+Array [
+  <div
+    className="modal-header"
+  >
+    <div
+      className="w-100 text-center"
+    >
+      <div
+        className="modal-title h4"
+      >
+        Search for files or folders
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          className="form-label"
+          htmlFor="searchValue"
+        >
+          Query
+        </label>
+        <input
+          className="form-control"
+          id="searchValue"
+          onChange={[Function]}
+          placeholder="e.g. Pictures"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <button
+      className="close"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+      <span
+        className="sr-only"
+      >
+        Close
+      </span>
+    </button>
+  </div>,
+  <div
+    className="modal-body"
+  >
+    <div
+      className="minh-35"
+    >
+      Enter something
+    </div>
+  </div>,
+]
 `;
 
 exports[`Storyshots Filesystem UploadDecisionsModal 1`] = `
@@ -255,6 +316,14 @@ exports[`Storyshots Filesystem default 1`] = `
                   Download
                 </a>
               </span>
+              <button
+                className="btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Search
+              </button>
             </span>
           </div>
           <div
@@ -324,9 +393,18 @@ exports[`Storyshots Filesystem default 1`] = `
           className="overflow-auto flex-grow-1"
         >
           <div
-            className="text-center col"
+            className="d-flex justify-content-center align-items-center h-100 container"
           >
-            Nothing to see here.
+            <div
+              className="spinner-border"
+              role="status"
+            >
+              <span
+                className="sr-only"
+              >
+                Loading...
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -477,6 +555,7 @@ exports[`Storyshots Login default 1`] = `
               className="form-group"
             >
               <input
+                autoFocus={true}
                 className="form-control"
                 id="formBasicUsername"
                 onChange={[Function]}
@@ -607,6 +686,7 @@ exports[`Storyshots Login interactionArea 1`] = `
             className="form-group"
           >
             <input
+              autoFocus={true}
               className="form-control"
               id="formBasicUsername"
               onChange={[Function]}
@@ -736,6 +816,7 @@ exports[`Storyshots Login onlyInput 1`] = `
           className="form-group"
         >
           <input
+            autoFocus={true}
             className="form-control"
             id="formBasicUsername"
             onChange={[Function]}
