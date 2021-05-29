@@ -4,48 +4,48 @@ import { Link } from "react-router-dom";
 import { filesBaseUrl } from "./Filesystem";
 
 type Props = {
-  path: string;
-  setPath: Function;
+    path: string;
+    setPath: Function;
 };
 
 export function FilesBreadcrumb(props: Props): ReactElement {
-  return (
-    <Breadcrumb>
-      <Link
-        className={"breadcrumb-item active"}
-        to={filesBaseUrl}
-        onClick={() => props.setPath("/")}
-      >
-        Home
-      </Link>
-      {props.path
+    const folders = props.path
         .split("/")
         .filter((s: string) => s)
-        .map((folder: string, i: number) => {
-          return (
+    return (
+        <Breadcrumb>
             <Link
-              className={"breadcrumb-item active"}
-              to={
-                filesBaseUrl +
-                props.path
-                  .split("/")
-                  .slice(0, i + 2)
-                  .join("/")
-              }
-              onClick={() =>
-                props.setPath(
-                  props.path
-                    .split("/")
-                    .slice(0, i + 2)
-                    .join("/")
-                )
-              }
-              key={i}
+                className={"breadcrumb-item" + (props.path === "/" ? " active" : "")}
+                to={filesBaseUrl}
+                onClick={() => props.setPath("/")}
             >
-              {folder}{" "}
+                Main
             </Link>
-          );
-        })}
-    </Breadcrumb>
-  );
+            {folders.map((folder: string, i: number) => {
+                    return (
+                        <Link
+                            className={"breadcrumb-item" + (i === folders.length-1 ? " active" : "")}
+                            to={
+                                filesBaseUrl +
+                                props.path
+                                    .split("/")
+                                    .slice(0, i + 2)
+                                    .join("/")
+                            }
+                            onClick={() =>
+                                props.setPath(
+                                    props.path
+                                        .split("/")
+                                        .slice(0, i + 2)
+                                        .join("/")
+                                )
+                            }
+                            key={i}
+                        >
+                            {folder}{" "}
+                        </Link>
+                    );
+                })}
+        </Breadcrumb>
+    );
 }

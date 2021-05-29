@@ -19,7 +19,12 @@ function NewFolder(): ReactElement {
 
     return (
         <>
-            <Button onClick={handleShow}>New Folder</Button>
+            <Button
+                size="sm"
+                variant="outline-secondary"
+                onClick={handleShow}
+                className="ml-1"
+            >New Folder</Button>
             <Modal
                 show={showModal}
                 onHide={handleClose}
