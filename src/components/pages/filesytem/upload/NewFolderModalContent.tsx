@@ -1,5 +1,5 @@
 import { Button, Form, Modal, Row } from "react-bootstrap";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { createNewFolder } from "../../../../background/api/filesystem";
 import { isFileNameValid } from "../../../../background/methods/filesystem";
 import { useDispatch } from "react-redux";
@@ -14,6 +14,11 @@ function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
     const dispatch = useDispatch();
     const [folderName, setFolderName] = useState("");
     const [error, setError] = useState("");
+
+    const inputElement = useRef<HTMLInputElement>(null);
+    useEffect(() => {
+        inputElement?.current?.focus();
+    }, []);
 
     function handleApply(event: FormEvent) {
         event.preventDefault();
@@ -45,6 +50,7 @@ function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
                 <Form.Group controlId="formFolderName">
                     <Form.Label>Folder name</Form.Label>
                     <Form.Control
+                        ref={inputElement}
                         type="text"
                         placeholder="e.g. My Cat Pictures"
                         value={folderName}
@@ -60,7 +66,7 @@ function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
                         Abort
                     </Button>
                     <Button variant="primary" onClick={handleApply}>
-                        Creat Folder
+                        Create Folder
                     </Button>
                 </Row>
             </Modal.Footer>

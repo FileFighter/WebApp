@@ -1,14 +1,18 @@
-import {FsEntity} from "../../../background/api/filesystemTypes";
-import React, {ReactElement} from "react";
-import {Col, Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {getDateAsStringFromTimestamp} from "../../../background/methods/dataTypes/time";
-import {formatBytes} from "../../../background/methods/dataTypes/bytes";
-import {connect, ConnectedProps} from "react-redux";
-import {SystemState} from "../../../background/redux/actions/sytemState";
-import {addToSelected, removeFromSelected} from "../../../background/redux/actions/filesystem";
+import { FsEntity } from "../../../background/api/filesystemTypes";
+import React, { ReactElement } from "react";
+import { Col, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { getDateAsStringFromTimestamp } from "../../../background/methods/dataTypes/time";
+import { formatBytes } from "../../../background/methods/dataTypes/bytes";
+import { connect, ConnectedProps } from "react-redux";
+import { SystemState } from "../../../background/redux/actions/sytemState";
+import {
+    addToSelected,
+    removeFromSelected
+} from "../../../background/redux/actions/filesystem";
 import FileIcon from "./fileIcon/FileIcon";
 import FileItemContextMenu from "./FileItemContextMenu";
+import fileListSize from "./fileListSize";
 
 const mapState = (state: SystemState) => ({
     filesystem: {
@@ -28,7 +32,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
     fileListItem: FsEntity;
-    setPath?: Function;
 };
 
 function FileListItem(props: Props): ReactElement {
@@ -36,28 +39,24 @@ function FileListItem(props: Props): ReactElement {
         (e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId
     );
 
-
-    const onClick = () => {
-        if (
-            props.fileListItem.type === "FOLDER" &&
-            props.setPath &&
-            props.fileListItem.path
-        ) {
-            props.setPath(props.fileListItem.path);
-        }
-    };
-
     const handleSelectedChanged = () => {
         if (!isSelected) {
             return props.addToSelected(props.fileListItem);
         }
         props.removeFromSelected(props.fileListItem);
-
     };
+
+    const isFolder =
+        props.fileListItem.type && props.fileListItem.type === "FOLDER";
 
     return (
         <>
-            <Col xs={2} md={1} className="fileRow">
+            {/*Checkbox*/}
+            <Col
+                xs={fileListSize.checkbox.xs}
+                md={fileListSize.checkbox.md}
+                className="fileRow"
+            >
                 <Form.Group controlId="formBasicCheckbox">
                     <Form.Check
                         checked={isSelected}
@@ -66,33 +65,55 @@ function FileListItem(props: Props): ReactElement {
                     />
                 </Form.Group>
             </Col>
-            <Col xs={2} md={1}>
+            {/*Icon*/}
+            <Col xs={fileListSize.icon.xs} md={fileListSize.icon.md}>
                 <FileIcon
                     type={props.fileListItem.type}
                     mimeType={props.fileListItem.mimeType}
                     name={props.fileListItem.name}
                 />
             </Col>
-            <Col xs={1}><FileItemContextMenu fsEntity={props.fileListItem}/></Col>
-            <Col xs={7} md={4}>
+            {/*Context Menu*/}
+            <Col
+                xs={fileListSize.contextMenu.xs}
+                md={fileListSize.contextMenu.md}
+            >
+                <FileItemContextMenu fsEntity={props.fileListItem} />
+            </Col>
+            {/*Name*/}
+            <Col
+                xs={fileListSize.name.xs}
+                md={fileListSize.name.md}
+                className="text-truncate"
+            >
                 <Link
+                    target={isFolder ? undefined : "_blank"}
                     to={
-                        props.fileListItem.path && props.fileListItem.type === "FOLDER"
+                        isFolder
                             ? `/file${props.fileListItem.path ?? ""}`
-                            : `#${props.fileListItem.name}`
+                            : "/data/preview/" + props.fileListItem.fileSystemId
                     }
-                    onClick={onClick}
                 >
                     {props.fileListItem.name}
                 </Link>
             </Col>
-            <Col xs={6} md={3}>
+            {/*Modified by*/}
+            <Col
+                xs={fileListSize.modifiedBy.xs}
+                md={fileListSize.modifiedBy.md}
+                className="text-truncate"
+            >
                 {props.fileListItem.lastUpdatedBy.username}
             </Col>
-            <Col xs={3} md={1}>
+            {/*Modified on*/}
+            <Col
+                xs={fileListSize.modifiedOn.xs}
+                md={fileListSize.modifiedOn.md}
+            >
                 {getDateAsStringFromTimestamp(props.fileListItem.lastUpdated)}
             </Col>
-            <Col xs={3} md={1}>
+            {/*Size*/}
+            <Col xs={fileListSize.size.xs} md={fileListSize.size.md}>
                 {formatBytes(props.fileListItem.size)}
             </Col>
         </>

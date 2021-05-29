@@ -13,20 +13,20 @@ Object {
           class="breadcrumb"
         >
           <a
-            class="breadcrumb-item active"
+            class="breadcrumb-item"
             href="/file"
           >
-            Home
+            Main
           </a>
           <a
-            class="breadcrumb-item active"
+            class="breadcrumb-item"
             href="/file/bla"
           >
             bla
              
           </a>
           <a
-            class="breadcrumb-item active"
+            class="breadcrumb-item"
             href="/file/bla/fasel"
           >
             fasel
@@ -53,20 +53,20 @@ Object {
         class="breadcrumb"
       >
         <a
-          class="breadcrumb-item active"
+          class="breadcrumb-item"
           href="/file"
         >
-          Home
+          Main
         </a>
         <a
-          class="breadcrumb-item active"
+          class="breadcrumb-item"
           href="/file/bla"
         >
           bla
            
         </a>
         <a
-          class="breadcrumb-item active"
+          class="breadcrumb-item"
           href="/file/bla/fasel"
         >
           fasel

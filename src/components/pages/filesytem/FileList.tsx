@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { getFolderContents } from "../../../background/api/filesystem";
 import { FsEntity } from "../../../background/api/filesystemTypes";
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { FilesBreadcrumb } from "./FilesBreadcrumb";
 import { filesBaseUrl } from "./Filesystem";
@@ -10,8 +10,6 @@ import { SystemState } from "../../../background/redux/actions/sytemState";
 import {
     addToSelected,
     clearSelected,
-    removeFromSelected,
-    replaceSelected,
     setContents,
     setCurrentFsItemId,
     setCurrentPath
@@ -19,21 +17,23 @@ import {
 import { connect, ConnectedProps } from "react-redux";
 import { FFLoading } from "../../basicElements/Loading";
 import { AxiosResponse } from "axios";
-import { ClearSelected } from "../../../background/redux/actions/filesystemTypes";
+import FileListHeader from "./FileListHeader";
+import SelectedFsEntities from "./SelectedFsEntities";
+import ToolbarActions from "./ToolbarActions";
+import fileListSize from "./fileListSize";
 
 const mapState = (state: SystemState) => ({
     filesystem: {
         selectedFsEntities: state.filesystem.selectedFsEntities,
         folderContents: state.filesystem.folderContents,
-        currentFsItemId: state.filesystem.currentFsItemId
+        currentFsItemId: state.filesystem.currentFsItemId,
+        currentPath: state.filesystem.currentPath
     }
 });
 
 // this takes the redux actions and maps them to the props
 const mapDispatch = {
     addToSelected,
-    removeFromSelected,
-    replaceSelected,
     clearSelected,
     setContents,
     setCurrentFsItemId,
@@ -44,20 +44,17 @@ const connector = connect(mapState, mapDispatch);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & {};
+type reduxProps = PropsFromRedux & {};
 
-function FileList(props: Props): ReactElement {
+function FileList(props: reduxProps): ReactElement {
     let location = useLocation();
 
-    const [path, setPath] = useState<string>(
-        location.pathname.slice(filesBaseUrl.length) || "/"
-    );
+    const path = props.filesystem.currentPath;
 
-    const filesAndFolders = props.filesystem.folderContents;
+    const filesAndFolders: FsEntity[] = props.filesystem.folderContents;
     const setFilesAndFolders = props.setContents;
     const [error, setError] = useState<string>("");
-    const [sortedBy, setSortedBy] = useState<keyof FsEntity | null>(null);
-    const [sortIncreasing, setSortIncreasing] = useState<boolean>(false);
+    const [loading, setLoading] = useState(true);
     const allAreSelected =
         filesAndFolders?.length ===
             props.filesystem.selectedFsEntities.length &&
@@ -69,11 +66,11 @@ function FileList(props: Props): ReactElement {
     const setCurrentFsItemId = props.setCurrentFsItemId;
 
     useEffect((): void => {
-        function updateStates(): void {
-            getFolderContents(path)
+        function updateStates(newPath: string): void {
+            getFolderContents(newPath)
                 .then((response: AxiosResponse<FsEntity[]>) => {
                     console.log("got folder content", response);
-
+                    setLoading(false);
                     setContents([
                         ...response.data.filter(
                             (fsEntity: FsEntity) => fsEntity.type === "FOLDER"
@@ -90,161 +87,71 @@ function FileList(props: Props): ReactElement {
                     setFilesAndFolders([]);
                 });
         }
-
-        setPath(location.pathname.slice(filesBaseUrl.length) || "/");
-        setCurrentPath(path);
+        const newPath = location.pathname.slice(filesBaseUrl.length) || "/";
+        setCurrentPath(newPath);
         clearSelected();
-        updateStates();
+        setLoading(true);
+        updateStates(newPath);
     }, [
         setContents,
         setCurrentFsItemId,
         setFilesAndFolders,
         clearSelected,
-        path,
         setCurrentPath,
         location
     ]);
 
-    const handleSelectAllChanged = (): void | ClearSelected => {
-        if (allAreSelected) {
-            return props.clearSelected();
+    function FileListStatus(): ReactElement {
+        if (error && !filesAndFolders.length) {
+            return <Col className={"text-center"}>{error}</Col>;
         }
-        if (filesAndFolders) {
-            props.replaceSelected([...filesAndFolders]);
+        if (loading) {
+            return <FFLoading />;
         }
-    };
+        if (filesAndFolders.length === 0) {
+            return <Col className={"text-center"}>Nothing to see here.</Col>;
+        }
 
-    function setSortingOrder(property: keyof FsEntity): void {
-        if (sortedBy === property) {
-            return setSortIncreasing(!sortIncreasing);
-        }
-        setSortedBy(property);
-        setSortIncreasing(true);
+        return <></>;
     }
 
-    function getSortingFunction(
-        property: keyof FsEntity
-    ): (a: any, b: any) => number {
-        switch (property) {
-            case "lastUpdatedBy":
-            case "size":
-                return (a: any, b: any) =>
-                    a[property] - b[property] === 0
-                        ? a.fileSystemId - b.fileSystemId
-                        : a[property] - b[property];
-            case "name":
-            case "type":
-                return (a: any, b: any) =>
-                    a[property]
-                        .toLowerCase()
-                        .localeCompare(b[property].toLowerCase()) === 0
-                        ? a.fileSystemId - b.fileSystemId
-                        : a[property]
-                              .toLowerCase()
-                              .localeCompare(b[property].toLowerCase());
-            case "lastUpdated":
-            default:
-                return (a: any, b: any) =>
-                    a.lastUpdatedBy.username
-                        .toLowerCase()
-                        .localeCompare(
-                            b.lastUpdatedBy.username.toLowerCase()
-                        ) === 0
-                        ? a.fileSystemId - b.fileSystemId
-                        : a.lastUpdatedBy.username
-                              .toLowerCase()
-                              .localeCompare(
-                                  b.lastUpdatedBy.username.toLowerCase()
-                              );
-        }
-    }
-
-    function handleSortClick(property: keyof FsEntity): void {
-        if (!filesAndFolders || filesAndFolders.length < 2) {
-            return;
-        }
-
-        setSortingOrder(property);
-        let toSort = [...(filesAndFolders ?? [])];
-
-        toSort.sort(getSortingFunction(property));
-        setFilesAndFolders(sortIncreasing ? toSort.reverse() : toSort);
-    }
-
-    console.log("[FileList path]" + path, filesAndFolders);
+    // console.log("[FileList path]" + path, filesAndFolders);
     return (
-        <Container fluid className="d-flex flex-column h-100">
+        <Container fluid className="py-1 d-flex flex-column h-100">
             <div className="flex-shrink-0">
-                <FilesBreadcrumb path={path} setPath={setPath} />
+                <FilesBreadcrumb path={path} />
+                <div
+                    id="fileToolbar"
+                    className={
+                        "pb-1 d-flex justify-content-between align-items-center"
+                    }
+                >
+                    <SelectedFsEntities />
+                    <ToolbarActions />
+                </div>
                 {/*Table Head*/}
-                <Row>
-                    <Col xs={2} md={1}>
-                        <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check
-                                checked={allAreSelected}
-                                type="checkbox"
-                                onChange={handleSelectAllChanged}
-                            />
-                        </Form.Group>
-                    </Col>
-                    <Col
-                        xs={2}
-                        md={1}
-                        className="text-center"
-                        onClick={() => handleSortClick("type")}
-                    >
-                        {"Type"}
-                    </Col>
-                    <Col xs={2} md={1}>
-                        {"Interact"}
-                    </Col>
-                    <Col xs={6} md={4} onClick={() => handleSortClick("name")}>
-                        {"Name"}
-                    </Col>
-                    <Col
-                        xs={6}
-                        md={3}
-                        onClick={() => handleSortClick("lastUpdatedBy")}
-                    >
-                        Last updated by
-                    </Col>
-                    <Col
-                        xs={3}
-                        md={1}
-                        onClick={() => handleSortClick("lastUpdated")}
-                    >
-                        {"Last changes"}
-                    </Col>
-                    <Col xs={3} md={1} onClick={() => handleSortClick("size")}>
-                        {"Size"}
-                    </Col>
-                </Row>
+                <FileListHeader
+                    allAreSelected={allAreSelected}
+                    filesAndFolders={filesAndFolders}
+                    setFilesAndFolders={setFilesAndFolders}
+                />
             </div>
             <div className="overflow-auto flex-grow-1">
                 {/*Table Body*/}
-                <Row className="m-0">
-                    {error  && !filesAndFolders.length ? (
-                        <Col className={"text-center"}> {error}</Col>
-                    ) : filesAndFolders?.length === 0 ? (
-                        <Col className={"text-center"}>
-                            Nothing to see here.
-                        </Col>
-                    ) : (
-                        !filesAndFolders && <FFLoading />
-                    )}
-
-                    {filesAndFolders?.map((folder: FsEntity) => {
-                        return (
-                            <React.Fragment key={folder.fileSystemId}>
-                                <FileListItem
-                                    setPath={setPath}
-                                    fileListItem={folder}
-                                />
-                                <Col xs={12} className="border-top my-2" />
-                            </React.Fragment>
-                        );
-                    })}
-                </Row>
+                <FileListStatus />
+                {filesAndFolders?.map((folder: FsEntity) => {
+                    return (
+                        <Row className="m-0">
+                            {/*<React.Fragment key={folder.fileSystemId}>*/}
+                            <FileListItem fileListItem={folder} />
+                            <Col
+                                xs={fileListSize.border.xs}
+                                className="border-top my-2"
+                            />
+                            {/*</React.Fragment>*/}
+                        </Row>
+                    );
+                })}
             </div>
         </Container>
     );

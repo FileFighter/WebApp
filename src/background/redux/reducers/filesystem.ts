@@ -45,6 +45,7 @@ export default function filesystem(
             };
         }
         case CLEAR_SELECTED: {
+            console.log("Clear Selected")
             return {
                 selectedFsEntities: [],
                 folderContents: state.folderContents,
@@ -53,6 +54,7 @@ export default function filesystem(
             };
         }
         case REPLACE_SELECTED: {
+            console.log("Replace Selected")
             return {
                 selectedFsEntities: action.payload,
                 folderContents: state.folderContents,
