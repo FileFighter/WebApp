@@ -145,18 +145,6 @@ export const createNewFolder = (
     });
 };
 
-export const searchFsEntities = (
-    searchString: string
-): Promise<AxiosResponse<FsEntity[]>> => {
-    const config = { params: { name: searchString } };
-
-    return new Promise((resolve, reject) => {
-        Axios.get<FsEntity[]>(hostname + filesystemPath + "search", config)
-            .then((response: AxiosResponse<FsEntity[]>) => resolve(response))
-            .catch((error: AxiosError) => reject(error));
-    });
-};
-
 function handleMultipleApiActions<Type extends File | FsEntity>(
     items: Type[],
     action: (a: Type) => Promise<any>,

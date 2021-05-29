@@ -41,7 +41,7 @@ exports[`Storyshots Filesystem FilesystemContextMenu 1`] = `
   <button
     aria-expanded={false}
     aria-haspopup={true}
-    className="no-after btn-sm dropdown-toggle btn btn-primary"
+    className="no-after dropdown-toggle btn btn-primary"
     disabled={false}
     id="fileListItemDropdownButton-34-button"
     onClick={[Function]}
@@ -226,14 +226,6 @@ exports[`Storyshots Filesystem default 1`] = `
           Download
         </a>
       </span>
-      <button
-        className="btn btn-primary"
-        disabled={false}
-        onClick={[Function]}
-        type="button"
-      >
-        Search
-      </button>
     </span>
   </div>
   <div
@@ -269,7 +261,7 @@ exports[`Storyshots Filesystem default 1`] = `
             className="row"
           >
             <div
-              className="col-1"
+              className="col-md-1 col-2"
             >
               <div
                 className="form-group"
@@ -295,7 +287,7 @@ exports[`Storyshots Filesystem default 1`] = `
               Type
             </div>
             <div
-              className="col-md-1 col-3"
+              className="col-md-1 col-2"
             >
               Interact
             </div>
@@ -326,10 +318,10 @@ exports[`Storyshots Filesystem default 1`] = `
           </div>
         </div>
         <div
-          className="overflow-y-auto flex-grow-1"
+          className="overflow-auto flex-grow-1"
         >
           <div
-            className="row"
+            className="m-0 row"
           >
             <div
               className="text-center col"
@@ -486,7 +478,6 @@ exports[`Storyshots Login default 1`] = `
               className="form-group"
             >
               <input
-                autoFocus={true}
                 className="form-control"
                 id="formBasicUsername"
                 onChange={[Function]}
@@ -617,7 +608,6 @@ exports[`Storyshots Login interactionArea 1`] = `
             className="form-group"
           >
             <input
-              autoFocus={true}
               className="form-control"
               id="formBasicUsername"
               onChange={[Function]}
@@ -747,7 +737,6 @@ exports[`Storyshots Login onlyInput 1`] = `
           className="form-group"
         >
           <input
-            autoFocus={true}
             className="form-control"
             id="formBasicUsername"
             onChange={[Function]}

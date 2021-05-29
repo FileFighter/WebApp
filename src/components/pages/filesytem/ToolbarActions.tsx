@@ -6,7 +6,6 @@ import { deleteFsEntities } from "../../../background/api/filesystem";
 import { constants } from "../../../background/constants";
 import { FsEntity } from "../../../background/api/filesystemTypes";
 import { NewFolder } from "./upload/NewFolder";
-import { Search } from "./search/Search";
 
 const mapState = (state: SystemState) => ({
     selectedFsEntities: state.filesystem.selectedFsEntities
@@ -23,38 +22,21 @@ function ToolbarActions(props: Props): ReactElement | null {
         deleteFsEntities(props.selectedFsEntities);
     }
 
+
     return (
         <span>
-            <Fade in={props.selectedFsEntities.length === 1}>
-                <Button disabled={props.selectedFsEntities.length !== 1}>
-                    Rename
-                </Button>
-            </Fade>
-            <Fade in={props.selectedFsEntities.length > 0}>
-                <span>
-                    <Button
-                        onClick={handleDeleteClicked}
-                        disabled={props.selectedFsEntities.length < 1}
-                    >
-                        Delete
-                    </Button>
-                    <Button
-                        disabled={props.selectedFsEntities.length < 1}
-                        href={
-                            constants.url.FH_URL +
-                            "/download?ids=" +
-                            props.selectedFsEntities.map((e: FsEntity) =>
-                                e.fileSystemId.toString()
-                            )
-                        }
-                    >
-                        Download
-                    </Button>
-                </span>
-            </Fade>
-            <NewFolder />
-            <Search />
+      <Fade in={props.selectedFsEntities.length === 1}>
+        <Button disabled={props.selectedFsEntities.length !== 1}>Rename</Button>
+      </Fade>
+      <Fade in={props.selectedFsEntities.length > 0}>
+        <span>
+          <Button onClick={handleDeleteClicked} disabled={props.selectedFsEntities.length < 1}>Delete</Button>
+            <Button disabled={props.selectedFsEntities.length < 1}
+                    href={constants.url.FH_URL + "/download?ids=" + props.selectedFsEntities.map((e: FsEntity) => e.fileSystemId.toString())}>Download</Button>
         </span>
+      </Fade>
+      <NewFolder/>
+    </span>
     );
 }
 
