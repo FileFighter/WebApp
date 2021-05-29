@@ -78,7 +78,11 @@ function FileListItem(props: Props): ReactElement {
                 <FileItemContextMenu fsEntity={props.fileListItem} />
             </Col>
             {/*Name*/}
-            <Col xs={fileListSize.name.xs} md={fileListSize.name.md}>
+            <Col
+                xs={fileListSize.name.xs}
+                md={fileListSize.name.md}
+                className="text-truncate"
+            >
                 <Link
                     to={
                         props.fileListItem.path &&
@@ -94,6 +98,7 @@ function FileListItem(props: Props): ReactElement {
             <Col
                 xs={fileListSize.modifiedBy.xs}
                 md={fileListSize.modifiedBy.md}
+                className="text-truncate"
             >
                 {props.fileListItem.lastUpdatedBy.username}
             </Col>
