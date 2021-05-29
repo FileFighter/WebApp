@@ -8,7 +8,6 @@ export const getPathWithoutName = (
     return pathWithName.substr(0, pathWithName.lastIndexOf(name.toLowerCase()));
 };
 
-
 export const removeTrailingBackslash = (path: string): string => {
     if (path.lastIndexOf("/") + 1 === path.length) {
         return path.substr(0, path.length - 1);
@@ -16,6 +15,12 @@ export const removeTrailingBackslash = (path: string): string => {
     return path;
 };
 
+export const removeLeadingBackslash = (path: string): string => {
+    if (path.indexOf("/") === 0) {
+        return path.substr(1, path.length);
+    }
+    return path;
+};
 
 export const isFsEntityInFolder = (fsEntity: FsEntity, path: string) => {
     let fsEntityPath = getPathWithoutName(fsEntity.path, fsEntity.name);
@@ -29,8 +34,10 @@ export const getFileExtension = (fileName: string): string => {
     return reverseString(reverseString(fileName).substr(0, positionOfPoint));
 };
 
-export const isFileNameValid = (name: string) =>{
-    return !(!name ||
+export const isFileNameValid = (name: string) => {
+    return !(
+        !name ||
         name.includes("/") ||
-        name.match("[~#@*+:!?&%<>|\"^\\\\]"))
-}
+        name.match('[~#@*+:!?&%<>|"^\\\\]')
+    );
+};

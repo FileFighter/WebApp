@@ -16,7 +16,11 @@ import {
 import { FsEntity } from "../../../../background/api/filesystemTypes";
 import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent";
 import { divideArrayByCondition } from "../../../../background/methods/dataTypes/arrays";
-import { getPathWithoutName, isFileNameValid } from "../../../../background/methods/filesystem";
+import {
+    getPathWithoutName,
+    isFileNameValid,
+    removeLeadingBackslash
+} from "../../../../background/methods/filesystem";
 import {
     EditableEntityError,
     EditableFileWithPreflightInfo,
@@ -202,7 +206,6 @@ export const preflightResultReducer: Reducer<
                 (e) => e.path === action.payload.path
             );
             let oldPath = elementToReplace.newPath ?? elementToReplace.path;
-
             elementToReplace.newPath =
                 oldPath.substring(
                     0,
@@ -249,14 +252,18 @@ export const preflightResultReducer: Reducer<
                     elementToReplace.prefNewName ?? elementToReplace.name;
             } else {
                 console.log(
+                    "PREFLIGHT_UPDATE_NAME",
                     elementToReplace.newPath,
                     elementToReplace.prefNewPath,
-                    elementToReplace.path
+                    elementToReplace.path,
+                    elementToReplace.newName
                 );
                 let prevOldPath =
-                    elementToReplace.prefNewPath ?? elementToReplace.path;
+                    elementToReplace.prefNewPath ??
+                    removeLeadingBackslash(elementToReplace.path);
                 restOfElements = restOfElements.map((e) => {
-                    let currentPath = e.newPath ?? e.path;
+                    let currentPath =
+                        e.newPath ?? removeLeadingBackslash(e.path);
                     let currentName = e.newName ?? e.name;
                     let currentPathWithoutName = getPathWithoutName(
                         currentPath,
@@ -265,14 +272,19 @@ export const preflightResultReducer: Reducer<
 
                     let index = currentPathWithoutName.indexOf(prevOldPath);
 
+                    let pathNeedsChange = index === 0;
                     console.log(
+                        "PREFLIGHT_UPDATE_NAME",
                         prevOldPath,
                         currentPathWithoutName,
                         currentName
                     );
-                    if (index === 0) {
+                    if (pathNeedsChange) {
                         e.newPath =
-                            newPath + currentPath.substr(prevOldPath?.length);
+                            newPath +
+                            removeLeadingBackslash(currentPath).substr(
+                                prevOldPath?.length
+                            );
                         e.prefNewPath = e.newPath;
                     }
                     return e;
