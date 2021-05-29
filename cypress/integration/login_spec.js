@@ -1,32 +1,23 @@
-describe('The Home Page', () => {
-    it('successfully loads', () => {
-        cy.visit('/')
-    })
+/* eslint no-undef: 0 */
 
+describe("The Home Page", () => {
+    it("successfully loads", () => {
+        cy.visit("/");
+    });
 
-    it('sets auth cookie when logging in via form submission', function () {
-        // destructuring assignment of the this.currentUser object
-        const  username = 'admin';
-        const  password = 'admin';
+    it("sets auth cookie when logging in via form submission", function () {
+        const username = "admin";
+        const password = "admin";
 
-        //cy.visit('/login')
-
-        cy.get('input[id=formBasicUsername]').type(username)
+        cy.get("input[id=formBasicUsername]").type(username);
 
         // {enter} causes the form to submit
-        cy.get('input[id=formBasicPassword]').type(`${password}{enter}`)
-
-        // we should be redirected to /dashboard
-        //cy.url().should('include', '/dashboard')
-
-
-
+        cy.get("input[id=formBasicPassword]").type(`${password}{enter}`);
 
         // UI should reflect this user being logged in
-        cy.get('h1').should('contain', 'FileFighter')
+        cy.get("h1").should("contain", "FileFighter");
 
         // our auth cookie should be present
-        cy.getCookie('refreshToken').should('exist')
-    })
-
-})
+        cy.getCookie("refreshToken").should("exist");
+    });
+});
