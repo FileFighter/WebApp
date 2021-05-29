@@ -41,7 +41,7 @@ exports[`Storyshots Filesystem FilesystemContextMenu 1`] = `
   <button
     aria-expanded={false}
     aria-haspopup={true}
-    className="no-after dropdown-toggle btn btn-primary"
+    className="no-after btn-sm dropdown-toggle btn btn-primary"
     disabled={false}
     id="fileListItemDropdownButton-34-button"
     onClick={[Function]}
@@ -255,6 +255,14 @@ exports[`Storyshots Filesystem default 1`] = `
                   Download
                 </a>
               </span>
+              <button
+                className="btn btn-primary"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Search
+              </button>
             </span>
           </div>
           <div
@@ -477,6 +485,7 @@ exports[`Storyshots Login default 1`] = `
               className="form-group"
             >
               <input
+                autoFocus={true}
                 className="form-control"
                 id="formBasicUsername"
                 onChange={[Function]}
@@ -607,6 +616,7 @@ exports[`Storyshots Login interactionArea 1`] = `
             className="form-group"
           >
             <input
+              autoFocus={true}
               className="form-control"
               id="formBasicUsername"
               onChange={[Function]}
@@ -736,6 +746,7 @@ exports[`Storyshots Login onlyInput 1`] = `
           className="form-group"
         >
           <input
+            autoFocus={true}
             className="form-control"
             id="formBasicUsername"
             onChange={[Function]}
