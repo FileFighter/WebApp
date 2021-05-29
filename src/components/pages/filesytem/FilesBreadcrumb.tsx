@@ -8,18 +8,20 @@ type Props = {
 };
 
 export function FilesBreadcrumb(props: Props): ReactElement {
+    const folders = props.path
+        .split("/")
+        .filter((s: string) => s)
     return (
         <Breadcrumb>
-            <Link className={"breadcrumb-item active"} to={filesBaseUrl}>
-                Home
+            <Link
+                className={"breadcrumb-item" + (props.path === "/" ? " active" : "")}
+                to={filesBaseUrl}>
+                Main
             </Link>
-            {props.path
-                .split("/")
-                .filter((s: string) => s)
-                .map((folder: string, i: number) => {
+            {folders.map((folder: string, i: number) => {
                     return (
                         <Link
-                            className={"breadcrumb-item active"}
+                            className={"breadcrumb-item" + (i === folders.length-1 ? " active" : "")}
                             to={
                                 filesBaseUrl +
                                 props.path

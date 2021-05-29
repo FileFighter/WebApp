@@ -12,6 +12,7 @@ import {
 } from "../../../background/redux/actions/filesystem";
 import FileIcon from "./fileIcon/FileIcon";
 import FileItemContextMenu from "./FileItemContextMenu";
+import fileListSize from "./fileListSize";
 
 const mapState = (state: SystemState) => ({
     filesystem: {
@@ -47,7 +48,12 @@ function FileListItem(props: Props): ReactElement {
 
     return (
         <>
-            <Col xs={1} className="fileRow">
+            {/*Checkbox*/}
+            <Col
+                xs={fileListSize.checkbox.xs}
+                md={fileListSize.checkbox.md}
+                className="fileRow"
+            >
                 <Form.Group controlId="formBasicCheckbox">
                     <Form.Check
                         checked={isSelected}
@@ -56,17 +62,23 @@ function FileListItem(props: Props): ReactElement {
                     />
                 </Form.Group>
             </Col>
-            <Col xs={2} md={1}>
+            {/*Icon*/}
+            <Col xs={fileListSize.icon.xs} md={fileListSize.icon.md}>
                 <FileIcon
                     type={props.fileListItem.type}
                     mimeType={props.fileListItem.mimeType}
                     name={props.fileListItem.name}
                 />
             </Col>
-            <Col xs={3} md={1}>
+            {/*Context Menu*/}
+            <Col
+                xs={fileListSize.contextMenu.xs}
+                md={fileListSize.contextMenu.md}
+            >
                 <FileItemContextMenu fsEntity={props.fileListItem} />
             </Col>
-            <Col xs={6} md={4} className="text-truncate">
+            {/*Name*/}
+            <Col xs={fileListSize.name.xs} md={fileListSize.name.md}>
                 <Link
                     to={
                         props.fileListItem.path &&
@@ -78,13 +90,22 @@ function FileListItem(props: Props): ReactElement {
                     {props.fileListItem.name}
                 </Link>
             </Col>
-            <Col xs={6} md={3}>
+            {/*Modified by*/}
+            <Col
+                xs={fileListSize.modifiedBy.xs}
+                md={fileListSize.modifiedBy.md}
+            >
                 {props.fileListItem.lastUpdatedBy.username}
             </Col>
-            <Col xs={3} md={1}>
+            {/*Modified on*/}
+            <Col
+                xs={fileListSize.modifiedOn.xs}
+                md={fileListSize.modifiedOn.md}
+            >
                 {getDateAsStringFromTimestamp(props.fileListItem.lastUpdated)}
             </Col>
-            <Col xs={3} md={1}>
+            {/*Size*/}
+            <Col xs={fileListSize.size.xs} md={fileListSize.size.md}>
                 {formatBytes(props.fileListItem.size)}
             </Col>
         </>

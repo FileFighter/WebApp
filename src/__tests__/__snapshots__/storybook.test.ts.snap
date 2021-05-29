@@ -41,7 +41,7 @@ exports[`Storyshots Filesystem FilesystemContextMenu 1`] = `
   <button
     aria-expanded={false}
     aria-haspopup={true}
-    className="no-after btn-sm dropdown-toggle btn btn-primary"
+    className="no-after dropdown-toggle btn btn-primary"
     disabled={false}
     id="fileListItemDropdownButton-34-button"
     onClick={[Function]}
@@ -192,51 +192,6 @@ exports[`Storyshots Filesystem default 1`] = `
   className="d-flex flex-column align-content-between justify-content-between h-100"
 >
   <div
-    className="py-1 border d-flex justify-content-between flex-shrink-0 container-fluid"
-    id="fileToolbar"
-  >
-    <span />
-    <span>
-      <button
-        className="fade btn btn-primary"
-        disabled={true}
-        type="button"
-      >
-        Rename
-      </button>
-      <span
-        className="fade"
-      >
-        <button
-          className="btn btn-primary"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
-        >
-          Delete
-        </button>
-        <a
-          aria-disabled={true}
-          className="btn btn-primary disabled"
-          href="http://localhost/data/download?ids="
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          tabIndex={-1}
-        >
-          Download
-        </a>
-      </span>
-      <button
-        className="btn btn-primary"
-        disabled={false}
-        onClick={[Function]}
-        type="button"
-      >
-        Search
-      </button>
-    </span>
-  </div>
-  <div
     className="flex-grow-1 overflow-auto d-flex h-100 flex-column"
     id="fileView"
   >
@@ -245,7 +200,7 @@ exports[`Storyshots Filesystem default 1`] = `
       id="fileList"
     >
       <div
-        className="d-flex flex-column h-100 container-fluid"
+        className="py-1 d-flex flex-column h-100 container-fluid"
       >
         <div
           className="flex-shrink-0"
@@ -261,15 +216,52 @@ exports[`Storyshots Filesystem default 1`] = `
                 href="/file"
                 onClick={[Function]}
               >
-                Home
+                Main
               </a>
             </ol>
           </nav>
           <div
+            className="pb-1 d-flex justify-content-between align-items-center"
+            id="fileToolbar"
+          >
+            <span />
+            <span>
+              <button
+                className="fade btn btn-outline-secondary btn-sm"
+                disabled={true}
+                type="button"
+              >
+                Rename
+              </button>
+              <span
+                className="fade"
+              >
+                <button
+                  className="mx-1 btn btn-outline-secondary btn-sm"
+                  disabled={true}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Delete
+                </button>
+                <a
+                  aria-disabled={true}
+                  className="btn btn-outline-secondary btn-sm disabled"
+                  href="http://localhost/data/download?ids="
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  tabIndex={-1}
+                >
+                  Download
+                </a>
+              </span>
+            </span>
+          </div>
+          <div
             className="row"
           >
             <div
-              className="col-1"
+              className="col-md-1 col-2"
             >
               <div
                 className="form-group"
@@ -295,7 +287,7 @@ exports[`Storyshots Filesystem default 1`] = `
               Type
             </div>
             <div
-              className="col-md-1 col-3"
+              className="col-md-1 col-2"
             >
               Interact
             </div>
@@ -309,13 +301,13 @@ exports[`Storyshots Filesystem default 1`] = `
               className="col-md-3 col-6"
               onClick={[Function]}
             >
-              Last updated by
+              Modified by
             </div>
             <div
               className="col-md-1 col-3"
               onClick={[Function]}
             >
-              Last changes
+              Modified on
             </div>
             <div
               className="col-md-1 col-3"
@@ -323,19 +315,18 @@ exports[`Storyshots Filesystem default 1`] = `
             >
               Size
             </div>
+            <div
+              className="border-top my-2 col-12"
+            />
           </div>
         </div>
         <div
-          className="overflow-y-auto flex-grow-1"
+          className="overflow-auto flex-grow-1"
         >
           <div
-            className="row"
+            className="text-center col"
           >
-            <div
-              className="text-center col"
-            >
-              Nothing to see here.
-            </div>
+            Nothing to see here.
           </div>
         </div>
       </div>
@@ -486,7 +477,6 @@ exports[`Storyshots Login default 1`] = `
               className="form-group"
             >
               <input
-                autoFocus={true}
                 className="form-control"
                 id="formBasicUsername"
                 onChange={[Function]}
@@ -617,7 +607,6 @@ exports[`Storyshots Login interactionArea 1`] = `
             className="form-group"
           >
             <input
-              autoFocus={true}
               className="form-control"
               id="formBasicUsername"
               onChange={[Function]}
@@ -747,7 +736,6 @@ exports[`Storyshots Login onlyInput 1`] = `
           className="form-group"
         >
           <input
-            autoFocus={true}
             className="form-control"
             id="formBasicUsername"
             onChange={[Function]}
