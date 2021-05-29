@@ -15,12 +15,9 @@ function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
     const [folderName, setFolderName] = useState("");
     const [error, setError] = useState("");
 
-    const inputElement = useRef(null);
+    const inputElement = useRef<HTMLInputElement>(null);
     useEffect(() => {
-        if (inputElement?.current) {
-            // @ts-ignore
-            inputElement.current.focus();
-        }
+        inputElement?.current?.focus();
     }, []);
 
     function handleApply(event: FormEvent) {
@@ -69,7 +66,7 @@ function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
                         Abort
                     </Button>
                     <Button variant="primary" onClick={handleApply}>
-                        Creat Folder
+                        Create Folder
                     </Button>
                 </Row>
             </Modal.Footer>

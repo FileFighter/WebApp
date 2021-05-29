@@ -16,12 +16,9 @@ function SearchModalContent({ handleClose }: Props): ReactElement {
     const [lastRequestValue, setLastRequestValue] = useState("");
     const [error, setError] = useState("");
 
-    const inputElement = useRef(null);
+    const inputElement = useRef<HTMLInputElement>(null);
     useEffect(() => {
-        if (inputElement?.current) {
-            // @ts-ignore
-            inputElement.current.focus();
-        }
+        inputElement?.current?.focus();
     }, []);
 
     useEffect(() => {
