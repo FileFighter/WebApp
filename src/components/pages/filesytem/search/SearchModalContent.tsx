@@ -38,7 +38,9 @@ function SearchModalContent({ handleClose }: Props): ReactElement {
                     .catch((error) => {
                         setLastRequestValue(newValue);
                         setRequestOngoing(false);
-                        setError(error.data.message);
+                        setError(
+                            error.data?.message ?? "Something went wrong."
+                        );
                     });
             }
         }
