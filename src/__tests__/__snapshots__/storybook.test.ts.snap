@@ -52,7 +52,7 @@ exports[`Storyshots Filesystem FilesystemContextMenu 1`] = `
 </div>
 `;
 
-exports[`Storyshots Filesystem New Folder Modal 1`] = `
+exports[`Storyshots Filesystem NewFolderModal 1`] = `
 <form
   className=""
   onSubmit={[Function]}
