@@ -52,6 +52,86 @@ exports[`Storyshots Filesystem FilesystemContextMenu 1`] = `
 </div>
 `;
 
+exports[`Storyshots Filesystem New Folder Modal 1`] = `
+<form
+  className=""
+  onSubmit={[Function]}
+>
+  <div
+    className="modal-header"
+  >
+    <div
+      className="modal-title h4"
+    >
+      Create new Directory
+    </div>
+    <button
+      className="close"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+      <span
+        className="sr-only"
+      >
+        Close
+      </span>
+    </button>
+  </div>
+  <div
+    className="modal-body"
+  >
+    <div
+      className="form-group"
+    >
+      <label
+        className="form-label"
+        htmlFor="formFolderName"
+      >
+        Folder name
+      </label>
+      <input
+        className="form-control"
+        id="formFolderName"
+        onChange={[Function]}
+        placeholder="e.g. My Cat Pictures"
+        type="text"
+        value=""
+      />
+    </div>
+    
+  </div>
+  <div
+    className="modal-footer"
+  >
+    <div
+      className="w-100 justify-content-between row"
+    >
+      <button
+        className="btn btn-secondary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Abort
+      </button>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Create Folder
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
 exports[`Storyshots Filesystem SearchModal 1`] = `
 Array [
   <div
