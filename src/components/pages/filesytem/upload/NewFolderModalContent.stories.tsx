@@ -9,7 +9,7 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import folderContentMock from "../__tests__/folderContentMock.json";
 
-storiesOf("Filesystem", module).add("New Folder Modal", () => {
+storiesOf("Filesystem", module).add("NewFolderModal", () => {
     const API_REQUEST = hostname + filesystemPath + "2/folder/create";
 
     const mock = new MockAdapter(axios);
