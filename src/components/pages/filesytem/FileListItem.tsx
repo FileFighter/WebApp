@@ -91,7 +91,10 @@ function FileListItem(props: Props): ReactElement {
                     to={
                         isFolder
                             ? `/file${props.fileListItem.path ?? ""}`
-                            : "/data/preview/" + props.fileListItem.fileSystemId
+                            : "/data/preview/" +
+                              props.fileListItem.fileSystemId +
+                              "/" +
+                              props.fileListItem.name
                     }
                 >
                     {props.fileListItem.name}

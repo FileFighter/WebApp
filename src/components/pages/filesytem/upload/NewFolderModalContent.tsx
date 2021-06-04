@@ -34,11 +34,11 @@ function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
                 setError("");
                 handleClose();
             })
-            .catch((error) =>
+            .catch((error) => {
                 setError(
-                    error.response?.data.message ?? "Something went wrong :("
-                )
-            );
+                    error.response?.data?.message ?? "Something went wrong :("
+                );
+            });
     }
 
     return (
