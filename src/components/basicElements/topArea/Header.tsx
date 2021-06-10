@@ -2,7 +2,13 @@ import React, { ReactElement } from "react";
 import { useHistory } from "react-router-dom";
 import { redirect } from "../../../background/methods/redirect";
 import logo from "../../../assets/images/logos/logo.png";
-import { Container, Nav, Navbar, NavbarBrand, NavDropdown } from "react-bootstrap";
+import {
+    Container,
+    Nav,
+    Navbar,
+    NavbarBrand,
+    NavDropdown
+} from "react-bootstrap";
 import { SystemState } from "../../../background/redux/actions/sytemState";
 import { connect, ConnectedProps } from "react-redux";
 import { logout } from "../../../background/api/auth";
@@ -17,7 +23,8 @@ export interface navBarElement_Interface {
 }
 
 const mapState = (state: SystemState) => ({
-    username: state.user.username
+    username: state.user.username,
+    groups: state.user.groups
 });
 
 const connector = connect(mapState);
@@ -39,15 +46,17 @@ function Header(props: PropsFromRedux): ReactElement {
             text: "Files",
             link: "/file",
             logo: null
-        },
-        {
+        }
+    ];
+
+    if (props.groups.includes("ADMIN")) {
+        navBarElements.push({
             name: "registration",
             text: "Registration",
             link: "/registration",
             logo: null
-        }
-    ];
-
+        });
+    }
     const final: ReactElement[] = [];
     navBarElements.forEach((element) => {
         final.push(
@@ -70,7 +79,6 @@ function Header(props: PropsFromRedux): ReactElement {
         <header>
             <Navbar bg="primary" expand="lg" sticky="top">
                 <Container>
-
                     <NavbarBrand
                         href="/start"
                         onClick={(event: any) => {
@@ -91,11 +99,18 @@ function Header(props: PropsFromRedux): ReactElement {
                         {props.username && (
                             <Nav className="navbar-collapse justify-content-end">
                                 {final}
-                                <NavDropdown title={props.username} id="basic-nav-dropdown">
+                                <NavDropdown
+                                    title={props.username}
+                                    id="basic-nav-dropdown"
+                                >
                                     <NavDropdown.Item
                                         href="/profile"
                                         onClick={(event: any) => {
-                                            redirect(history, "/profile", event);
+                                            redirect(
+                                                history,
+                                                "/profile",
+                                                event
+                                            );
                                         }}
                                     >
                                         Profile
@@ -114,8 +129,7 @@ function Header(props: PropsFromRedux): ReactElement {
                 </Container>
             </Navbar>
         </header>
-    )
-        ;
+    );
 }
 
 export default connector(Header);

@@ -3,28 +3,33 @@ import Axios, { AxiosResponse } from "axios";
 import { hostname, userPath } from "./api";
 
 import store from "../redux/store";
-import {updateUser} from "../redux/actions/user";
-import {UserState} from "../redux/actions/userTypes";
+import { updateUser } from "../redux/actions/user";
+import { UserState } from "../redux/actions/userTypes";
 
 export interface UserInformation {
     userId: number | null;
     username?: string | null;
-    groups?: number[]|null;
+    groups?: string[] | null;
     password?: string;
     confirmationPassword?: string;
 }
 
-export const changeUserInformation = (userWithNewInformation: UserInformation): Promise<UserState> => {
-    console.log("[API] userinformation: User given to update user api:")
-    console.log(userWithNewInformation)
+export const changeUserInformation = (
+    userWithNewInformation: UserInformation
+): Promise<UserState> => {
+    console.log("[API] userinformation: User given to update user api:");
+    console.log(userWithNewInformation);
     return new Promise((resolve, reject) => {
-        return Axios.put(`${hostname}${userPath}/${userWithNewInformation.userId}/edit`, userWithNewInformation)
+        return Axios.put(
+            `${hostname}${userPath}/${userWithNewInformation.userId}/edit`,
+            userWithNewInformation
+        )
             .then((response: AxiosResponse<UserState>) => {
                 store.dispatch(updateUser(JSON.parse(response.config.data)));
-                resolve(response.data)
+                resolve(response.data);
             })
             .catch((error) => {
                 reject(error.response?.data?.message);
             });
-    })
+    });
 };
