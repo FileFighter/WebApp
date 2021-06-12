@@ -11,9 +11,9 @@ import FileIconText from "./FileIconText";
 import FileIconVideo from "./FileIconVideo";
 
 export interface IconPreferencesInterface {
-    height: string,
-    width: string,
-    color: string
+    height: string;
+    width: string;
+    color: string;
 }
 
 const ICON_PREFERENCES: IconPreferencesInterface = {
@@ -31,8 +31,10 @@ export interface FileIconInterface {
 function FileIcon(props: FileIconInterface): ReactElement {
     //https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
     const { type, name } = props;
-    if (type.toUpperCase() === "FOLDER") return <FolderIcon {...ICON_PREFERENCES} />;
-    if (getFileExtension(name) === "") return <FileEarmarkIcon {...ICON_PREFERENCES} />;
+    if (type.toUpperCase() === "FOLDER")
+        return <FolderIcon {...ICON_PREFERENCES} />;
+    if (getFileExtension(name) === "")
+        return <FileEarmarkIcon {...ICON_PREFERENCES} />;
     switch (type.toLowerCase()) {
         case "folder":
             return <FolderIcon {...ICON_PREFERENCES} />;
@@ -46,7 +48,12 @@ function FileIcon(props: FileIconInterface): ReactElement {
             return <FileEarmarkMusicIcon {...ICON_PREFERENCES} />;
         case "application":
         default:
-            return <FileIconApplication ICON_PREFERENCES={ICON_PREFERENCES} FileInformation={props} />;
+            return (
+                <FileIconApplication
+                    ICON_PREFERENCES={ICON_PREFERENCES}
+                    FileInformation={props}
+                />
+            );
     }
 }
 

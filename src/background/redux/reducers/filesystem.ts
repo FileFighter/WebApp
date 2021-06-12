@@ -11,7 +11,7 @@ import {
     SET_CURRENT_FSITEMID,
     SET_CURRENT_PATH
 } from "../actions/filesystemTypes";
-import {FsEntity} from "../../api/filesystemTypes";
+import { FsEntity } from "../../api/filesystemTypes";
 
 const initialState: FilesystemState = {
     selectedFsEntities: [],
@@ -28,7 +28,10 @@ export default function filesystem(
         case ADD_TO_SELECTED: {
             console.log("[REDUX] ADD_TO_SELECTED", action.payload);
             return {
-                selectedFsEntities: [...state.selectedFsEntities, action.payload], //concat because it does not modify the original array
+                selectedFsEntities: [
+                    ...state.selectedFsEntities,
+                    action.payload
+                ], //concat because it does not modify the original array
                 folderContents: state.folderContents,
                 currentFsItemId: state.currentFsItemId,
                 currentPath: state.currentPath
@@ -37,7 +40,8 @@ export default function filesystem(
         case REMOVE_FROM_SELECTED: {
             return {
                 selectedFsEntities: state.selectedFsEntities.filter(
-                    (e: FsEntity) => e.fileSystemId !== action.payload.fileSystemId
+                    (e: FsEntity) =>
+                        e.fileSystemId !== action.payload.fileSystemId
                 ), //filter return a new array
                 folderContents: state.folderContents,
                 currentFsItemId: state.currentFsItemId,
@@ -45,7 +49,7 @@ export default function filesystem(
             };
         }
         case CLEAR_SELECTED: {
-            console.log("Clear Selected")
+            console.log("Clear Selected");
             return {
                 selectedFsEntities: [],
                 folderContents: state.folderContents,
@@ -54,7 +58,7 @@ export default function filesystem(
             };
         }
         case REPLACE_SELECTED: {
-            console.log("Replace Selected")
+            console.log("Replace Selected");
             return {
                 selectedFsEntities: action.payload,
                 folderContents: state.folderContents,
@@ -73,7 +77,12 @@ export default function filesystem(
         case ADD_TO_CONTENTS: {
             return {
                 selectedFsEntities: state.selectedFsEntities,
-                folderContents: [...state.folderContents.filter((fsEntity: FsEntity) => dontReplaceFsEntity(fsEntity, action.payload)), action.payload],
+                folderContents: [
+                    ...state.folderContents.filter((fsEntity: FsEntity) =>
+                        dontReplaceFsEntity(fsEntity, action.payload)
+                    ),
+                    action.payload
+                ],
                 currentFsItemId: state.currentFsItemId,
                 currentPath: state.currentPath
             };
@@ -82,7 +91,8 @@ export default function filesystem(
             return {
                 selectedFsEntities: state.selectedFsEntities,
                 folderContents: state.folderContents.filter(
-                    (fse: FsEntity) => fse.fileSystemId !== action.payload.fileSystemId
+                    (fse: FsEntity) =>
+                        fse.fileSystemId !== action.payload.fileSystemId
                 ),
                 currentFsItemId: state.currentFsItemId,
                 currentPath: state.currentPath
@@ -108,6 +118,12 @@ export default function filesystem(
             return state;
     }
 }
-const dontReplaceFsEntity = (existingFsEntity: FsEntity, newFsEntity: FsEntity): boolean => {
-    return existingFsEntity.fileSystemId !== newFsEntity.fileSystemId && existingFsEntity.path !== newFsEntity.path;
-}
+const dontReplaceFsEntity = (
+    existingFsEntity: FsEntity,
+    newFsEntity: FsEntity
+): boolean => {
+    return (
+        existingFsEntity.fileSystemId !== newFsEntity.fileSystemId &&
+        existingFsEntity.path !== newFsEntity.path
+    );
+};

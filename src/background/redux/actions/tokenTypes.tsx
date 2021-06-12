@@ -4,43 +4,43 @@ export const CHECKED_COOKIES = "CHECKED_COOKIES";
 export const REMOVE_TOKENS = "REMOVE_TOKENS";
 
 export interface AccessToken {
-  token: string | null;
-  timestamp: number | null;
+    token: string | null;
+    timestamp: number | null;
 }
 
 export enum CookieStatus {
-  NOT_STARTED,
-  LOADING,
-  FINISHED
+    NOT_STARTED,
+    LOADING,
+    FINISHED
 }
 
 export interface TokensState {
-  refreshToken: string | null;
-  accessToken: AccessToken | null;
-  checkedCookies: number;
+    refreshToken: string | null;
+    accessToken: AccessToken | null;
+    checkedCookies: number;
 }
 
 export interface AddRefreshToken {
-  type: typeof ADD_REFRESH_TOKEN;
-  payload: string;
+    type: typeof ADD_REFRESH_TOKEN;
+    payload: string;
 }
 
 export interface AddAccessToken {
-  type: typeof ADD_ACCESS_TOKEN;
-  payload: AccessToken;
+    type: typeof ADD_ACCESS_TOKEN;
+    payload: AccessToken;
 }
 
 export interface RemoveTokens {
-  type: typeof REMOVE_TOKENS;
+    type: typeof REMOVE_TOKENS;
 }
 
 export interface CheckedCookies {
-  type: typeof CHECKED_COOKIES;
-  payload: CookieStatus;
+    type: typeof CHECKED_COOKIES;
+    payload: CookieStatus;
 }
 
 export type TokenActionsTypes =
-  | AddRefreshToken
-  | AddAccessToken
-  | RemoveTokens
-  | CheckedCookies;
+    | AddRefreshToken
+    | AddAccessToken
+    | RemoveTokens
+    | CheckedCookies;

@@ -2,7 +2,10 @@ import { FsEntity } from "../../../background/api/filesystemTypes";
 import React, { ReactElement, useState } from "react";
 import { ClearSelected } from "../../../background/redux/actions/filesystemTypes";
 import { Col, Form, Row } from "react-bootstrap";
-import { clearSelected, replaceSelected } from "../../../background/redux/actions/filesystem";
+import {
+    clearSelected,
+    replaceSelected
+} from "../../../background/redux/actions/filesystem";
 import { connect, ConnectedProps } from "react-redux";
 import { SystemState } from "../../../background/redux/actions/sytemState";
 import fileListSize from "./fileListSize";
@@ -34,7 +37,13 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type TReduxProps = PropsFromRedux & FileListHeaderInterface;
 
 function FileListHeader(props: TReduxProps): ReactElement {
-    const { allAreSelected, filesAndFolders, setFilesAndFolders, clearSelected, replaceSelected } = props;
+    const {
+        allAreSelected,
+        filesAndFolders,
+        setFilesAndFolders,
+        clearSelected,
+        replaceSelected
+    } = props;
 
     const [sortIncreasing, setSortIncreasing] = useState<boolean>(false);
     const [sortedBy, setSortedBy] = useState<keyof FsEntity | null>(null);
@@ -86,8 +95,8 @@ function FileListHeader(props: TReduxProps): ReactElement {
                         .localeCompare(b[property].toLowerCase()) === 0
                         ? a.fileSystemId - b.fileSystemId
                         : a[property]
-                            .toLowerCase()
-                            .localeCompare(b[property].toLowerCase());
+                              .toLowerCase()
+                              .localeCompare(b[property].toLowerCase());
             case "lastUpdated":
             default:
                 return (a: any, b: any) =>
@@ -98,20 +107,17 @@ function FileListHeader(props: TReduxProps): ReactElement {
                         ) === 0
                         ? a.fileSystemId - b.fileSystemId
                         : a.lastUpdatedBy.username
-                            .toLowerCase()
-                            .localeCompare(
-                                b.lastUpdatedBy.username.toLowerCase()
-                            );
+                              .toLowerCase()
+                              .localeCompare(
+                                  b.lastUpdatedBy.username.toLowerCase()
+                              );
         }
     }
 
     return (
         <Row>
             {/*Checkbox*/}
-            <Col
-                xs={fileListSize.checkbox.xs}
-                md={fileListSize.checkbox.md}
-            >
+            <Col xs={fileListSize.checkbox.xs} md={fileListSize.checkbox.md}>
                 <Form.Group controlId="formBasicCheckbox">
                     <Form.Check
                         checked={allAreSelected}
@@ -140,7 +146,8 @@ function FileListHeader(props: TReduxProps): ReactElement {
             <Col
                 xs={fileListSize.name.xs}
                 md={fileListSize.name.md}
-                onClick={() => handleSortClick("name")}>
+                onClick={() => handleSortClick("name")}
+            >
                 Name
             </Col>
             {/*Modified by*/}
@@ -163,7 +170,8 @@ function FileListHeader(props: TReduxProps): ReactElement {
             <Col
                 xs={fileListSize.size.xs}
                 md={fileListSize.size.md}
-                onClick={() => handleSortClick("size")}>
+                onClick={() => handleSortClick("size")}
+            >
                 {"Size"}
             </Col>
             <Col xs={fileListSize.border.xs} className="border-top my-2" />

@@ -10,7 +10,10 @@ type Props = {};
 function FileSystem(props: Props): ReactElement {
     return (
         <div className="d-flex flex-column align-content-between justify-content-between h-100">
-            <div className="flex-grow-1 overflow-auto d-flex h-100 flex-column" id="fileView">
+            <div
+                className="flex-grow-1 overflow-auto d-flex h-100 flex-column"
+                id="fileView"
+            >
                 <div id="fileList" className="flex-grow-1 overflow-auto">
                     <FileList />
                 </div>

@@ -18,8 +18,8 @@ function getDateAsStringFromTimestamp(ts: number): string {
 function getDurationAsString(duration: number): string {
     // props to https://stackoverflow.com/questions/36098913/convert-seconds-to-days-hours-minutes-and-seconds
     let d = Math.floor(duration / (3600 * 24));
-    let h = Math.floor(duration % (3600 * 24) / 3600);
-    let m = Math.floor(duration % 3600 / 60);
+    let h = Math.floor((duration % (3600 * 24)) / 3600);
+    let m = Math.floor((duration % 3600) / 60);
     let s = Math.floor(duration % 60);
 
     let dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
@@ -29,4 +29,9 @@ function getDurationAsString(duration: number): string {
     return dDisplay + hDisplay + mDisplay + sDisplay;
 }
 
-export { getTimeStamp, getDateAsStringFromTimestamp, getTimeStampFromDate, getDurationAsString };
+export {
+    getTimeStamp,
+    getDateAsStringFromTimestamp,
+    getTimeStampFromDate,
+    getDurationAsString
+};

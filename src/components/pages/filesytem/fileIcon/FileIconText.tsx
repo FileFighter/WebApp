@@ -1,5 +1,8 @@
 import React from "react";
-import FileIcon, { FileIconInterface, IconPreferencesInterface } from "./FileIcon";
+import FileIcon, {
+    FileIconInterface,
+    IconPreferencesInterface
+} from "./FileIcon";
 import { getFileExtension } from "../../../../background/methods/filesystem";
 import {
     FileEarmarkCodeIcon,
@@ -7,7 +10,10 @@ import {
     FileEarmarkTextIcon
 } from "../../../../assets/images/icons/reactSvgIcons/SymbolFile";
 
-export default function FileIconText(ICON_PREFERENCES: IconPreferencesInterface, FileInformation: FileIconInterface) {
+export default function FileIconText(
+    ICON_PREFERENCES: IconPreferencesInterface,
+    FileInformation: FileIconInterface
+) {
     switch (getFileExtension(FileIcon.name.toLowerCase())) {
         case "css":
         case "java":

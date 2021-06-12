@@ -24,7 +24,9 @@ function NewFolder(): ReactElement {
                 variant="outline-secondary"
                 onClick={handleShow}
                 className="ml-1"
-            >New Folder</Button>
+            >
+                New Folder
+            </Button>
             <Modal
                 show={showModal}
                 onHide={handleClose}
