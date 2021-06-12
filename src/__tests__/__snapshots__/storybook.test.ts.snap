@@ -282,7 +282,8 @@ Array [
       >
         Show all (
         3
-        ) 
+        )
+         
       </button>
     </div>
   </div>,
@@ -292,7 +293,8 @@ Array [
     <div
       className="w-100 text-warning row"
     >
-      Some files or folders need to be renamed, because their name is invalid or you have not the permission to overwrite them 
+      Some files or folders need to be renamed, because their name is invalid or you have not the permission to overwrite them
+       
     </div>
     <div
       className="w-100 justify-content-between row"
@@ -522,7 +524,8 @@ exports[`Storyshots Footer default 1`] = `
           src="github.svg"
         />
       </a>
-       is made with &lt;3 by
+       
+      is made with &lt;3 by
     </span>
     <div
       className="d-flex justify-content-around"
