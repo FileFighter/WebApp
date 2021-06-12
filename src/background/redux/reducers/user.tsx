@@ -1,4 +1,4 @@
-import {UPDATE_USER, UserActionTypes, UserState} from "../actions/userTypes";
+import { UPDATE_USER, UserActionTypes, UserState } from "../actions/userTypes";
 
 const initialState: UserState = {
     groups: [],

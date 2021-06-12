@@ -5,5 +5,5 @@
 // in TS 3.0+, putting just "string" raises an error
 // https://dev.to/kingdaro/indexing-objects-in-typescript-1cgi
 export function hasKey<O>(obj: O, key: keyof any): key is keyof O {
-    return key in obj
+    return key in obj;
 }

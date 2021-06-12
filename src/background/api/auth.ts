@@ -1,14 +1,19 @@
-import Axios, {AxiosResponse} from "axios";
+import Axios, { AxiosResponse } from "axios";
 
-import {hostname, userPath} from "./api";
+import { hostname, userPath } from "./api";
 
-import {UserState} from "../redux/actions/userTypes";
+import { UserState } from "../redux/actions/userTypes";
 import store from "../redux/store";
-import {addAccessToken, addRefreshToken, checkedCookies, removeTokens} from "../redux/actions/tokens";
-import {AccessToken, CookieStatus} from "../redux/actions/tokenTypes";
-import {deleteCookie, getCookie, setCookie} from "../methods/cookies";
-import {updateUser} from "../redux/actions/user";
-import {hashPassword} from "../methods/passwords";
+import {
+    addAccessToken,
+    addRefreshToken,
+    checkedCookies,
+    removeTokens
+} from "../redux/actions/tokens";
+import { AccessToken, CookieStatus } from "../redux/actions/tokenTypes";
+import { deleteCookie, getCookie, setCookie } from "../methods/cookies";
+import { updateUser } from "../redux/actions/user";
+import { hashPassword } from "../methods/passwords";
 
 // reference: https://daveceddia.com/access-redux-store-outside-react/
 
@@ -34,7 +39,6 @@ export const checkForCookie = () => {
     store.dispatch(addRefreshToken(refreshTokenCookieValue));
     store.dispatch(checkedCookies(CookieStatus.LOADING));
     getAccessTokenWithRefreshToken();
-
 };
 
 export const loginWithUsernameAndPassword = async (
@@ -51,7 +55,10 @@ export const loginWithUsernameAndPassword = async (
             }
         };
 
-        return Axios.get<BackendLoginData>(hostname + userPath + "/login", config)
+        return Axios.get<BackendLoginData>(
+            hostname + userPath + "/login",
+            config
+        )
             .then((data: AxiosResponse<BackendLoginData>) => {
                 console.log(data.data);
                 store.dispatch(addRefreshToken(data.data.tokenValue));

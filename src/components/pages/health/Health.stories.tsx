@@ -14,10 +14,10 @@ const mock = new MockAdapter(axios);
 const API_REQUEST = hostname + "/health";
 
 storiesOf("Health", module).add("default", () => {
-  mock.onGet(API_REQUEST).reply(200, healthApiMock);
-  return (
-    <BrowserRouter>
-      <Health />
-    </BrowserRouter>
-  );
+    mock.onGet(API_REQUEST).reply(200, healthApiMock);
+    return (
+        <BrowserRouter>
+            <Health />
+        </BrowserRouter>
+    );
 });

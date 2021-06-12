@@ -3,7 +3,7 @@ import { UserState } from "./userTypes";
 import { FilesystemState } from "./filesystemTypes";
 
 export interface SystemState {
-  tokens: TokensState;
-  user: UserState;
-  filesystem: FilesystemState;
+    tokens: TokensState;
+    user: UserState;
+    filesystem: FilesystemState;
 }

@@ -1,12 +1,14 @@
-import {storiesOf} from "@storybook/react";
-import {Provider} from "react-redux";
+import { storiesOf } from "@storybook/react";
+import { Provider } from "react-redux";
 import store from "../../../../background/redux/store";
-import {BrowserRouter} from "react-router-dom";
-import React, {Reducer, useReducer} from "react";
-import {UploadDecisionsModalContent} from "./UploadDecisionsModalContent";
-import {preflightResultReducer} from "./UploadZone";
-import {EditablePreflightEntityOrFile, PeflightEntiesActionTypes} from "./preflightTypes";
-
+import { BrowserRouter } from "react-router-dom";
+import React, { Reducer, useReducer } from "react";
+import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent";
+import { preflightResultReducer } from "./UploadZone";
+import {
+    EditablePreflightEntityOrFile,
+    PeflightEntiesActionTypes
+} from "./preflightTypes";
 
 storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
     const preflightResultInit: EditablePreflightEntityOrFile[] = [
@@ -68,17 +70,19 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
         }
     ];
 
-    const [preflightResult, setPreflightResultDispatch] = useReducer<Reducer<EditablePreflightEntityOrFile[], PeflightEntiesActionTypes>>(preflightResultReducer, preflightResultInit);
+    const [preflightResult, setPreflightResultDispatch] = useReducer<
+        Reducer<EditablePreflightEntityOrFile[], PeflightEntiesActionTypes>
+    >(preflightResultReducer, preflightResultInit);
 
     return (
         <Provider store={store}>
             <BrowserRouter>
                 <UploadDecisionsModalContent
-                    handleClose={() => {
-                    }}
+                    handleClose={() => {}}
                     preflightResult={preflightResult}
                     setPreflightResultDispatch={setPreflightResultDispatch}
-                    fsItemIdToUpload="1"/>
+                    fsItemIdToUpload="1"
+                />
             </BrowserRouter>
         </Provider>
     );

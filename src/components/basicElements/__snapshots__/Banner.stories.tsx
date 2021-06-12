@@ -3,10 +3,6 @@ import { BottomBanner } from "../bottomArea/BottomBanner";
 import { TopBanner } from "../topArea/TopBanner";
 
 storiesOf("Banner", module)
-    .add("BottomBanner", () =>
-        <BottomBanner />
-    )
+    .add("BottomBanner", () => <BottomBanner />)
 
-    .add("TopBanner", () =>
-        <TopBanner />
-    );
+    .add("TopBanner", () => <TopBanner />);

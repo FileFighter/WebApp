@@ -12,7 +12,10 @@ import {
 } from "../../../../assets/images/icons/reactSvgIcons/SymbolFile";
 import FileIconVideo from "./FileIconVideo";
 
-export default function FileIconApplication(props: { ICON_PREFERENCES: IconPreferencesInterface, FileInformation: FileIconInterface }) {
+export default function FileIconApplication(props: {
+    ICON_PREFERENCES: IconPreferencesInterface;
+    FileInformation: FileIconInterface;
+}) {
     const { ICON_PREFERENCES, FileInformation } = props;
     // console.log("-------------------------");
     // console.log(getFileExtension(FileInformation.name.toLowerCase()));
@@ -43,13 +46,14 @@ export default function FileIconApplication(props: { ICON_PREFERENCES: IconPrefe
         case "zip":
             return <FileEarmarkZipIcon {...ICON_PREFERENCES} />;
         default: {
-            if (FileInformation.mimeType.toLowerCase() === "application/octet-stream") {
+            if (
+                FileInformation.mimeType.toLowerCase() ===
+                "application/octet-stream"
+            ) {
                 //mime default type
                 return <FileEarmarkIcon {...ICON_PREFERENCES} />;
             }
             return <FileEarmarkBinaryIcon {...ICON_PREFERENCES} />;
-
         }
-
     }
 }

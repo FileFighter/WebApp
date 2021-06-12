@@ -9,7 +9,11 @@ import HeadArea from "./basicElements/topArea/TopArea";
 import BottomArea from "./basicElements/bottomArea/BottomArea";
 
 import { connect, ConnectedProps } from "react-redux";
-import { addAccessToken, addRefreshToken, checkedCookies } from "../background/redux/actions/tokens";
+import {
+    addAccessToken,
+    addRefreshToken,
+    checkedCookies
+} from "../background/redux/actions/tokens";
 import { SystemState } from "../background/redux/actions/sytemState";
 import { checkForCookie } from "../background/api/auth";
 import { FFLoading } from "./basicElements/Loading";

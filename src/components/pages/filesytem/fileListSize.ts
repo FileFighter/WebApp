@@ -1,25 +1,25 @@
 interface tableSizesInterface {
-    checkbox:tableSizeElementInterface,
-    icon: tableSizeElementInterface,
-    contextMenu: tableSizeElementInterface,
-    name: tableSizeElementInterface,
-    modifiedBy: tableSizeElementInterface,
-    modifiedOn: tableSizeElementInterface,
-    size: tableSizeElementInterface,
-    border: {xs: number}
+    checkbox: tableSizeElementInterface;
+    icon: tableSizeElementInterface;
+    contextMenu: tableSizeElementInterface;
+    name: tableSizeElementInterface;
+    modifiedBy: tableSizeElementInterface;
+    modifiedOn: tableSizeElementInterface;
+    size: tableSizeElementInterface;
+    border: { xs: number };
 }
 
 interface tableSizeElementInterface {
-    xs: number,
-    md: number
+    xs: number;
+    md: number;
 }
 
-const tableSizes:tableSizesInterface = {
-    checkbox : {
-        xs : 2,
-        md : 1
-    } ,
-    icon : {
+const tableSizes: tableSizesInterface = {
+    checkbox: {
+        xs: 2,
+        md: 1
+    },
+    icon: {
         xs: 2,
         md: 1
     },
@@ -46,7 +46,6 @@ const tableSizes:tableSizesInterface = {
     border: {
         xs: 12
     }
-
-}
+};
 
 export default tableSizes;
