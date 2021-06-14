@@ -11,6 +11,10 @@ describe("The register Page", () => {
     });
 
     it("registers a user successfully", () => {
+        cy.get("span.navbar-link-description")
+            .contains("Health")
+            .click();
+
         cy.get("#ff-heath-table > tbody > tr:nth-child(4) > td:nth-child(2)")
             .contains(/^\d+/)
             .then(($tr) => {
@@ -33,7 +37,7 @@ describe("The register Page", () => {
                 cy.get("#formConfirmPassword").type(password);
 
                 cy.get(".btn.btn-primary").contains("Submit").click();
-                cy.get("span.navbar-link-description").contains("Main").click();
+                cy.get("span.navbar-link-description").contains("Health").click();
 
                 cy.logout();
 
@@ -42,6 +46,10 @@ describe("The register Page", () => {
                 cy.get("input[id=formBasicPassword]").type(
                     `${password}{enter}`
                 );
+
+                cy.get("span.navbar-link-description")
+                    .contains("Health")
+                    .click();
 
                 cy.get("h1").should("contain", "FileFighter");
 

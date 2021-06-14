@@ -35,10 +35,10 @@ function Header(props: PropsFromRedux): ReactElement {
     const history = useHistory();
     const navBarElements: navBarElement_Interface[] = [
         {
-            name: "main",
-            text: "Main",
-            link: "/",
-            deviantVisibleLink: "/start",
+            name: "health",
+            text: "Health",
+            link: "/health",
+            deviantVisibleLink: "/health",
             logo: null
         },
         {

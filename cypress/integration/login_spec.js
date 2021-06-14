@@ -14,6 +14,10 @@ describe("The Home Page", () => {
         // {enter} causes the form to submit
         cy.get("input[id=formBasicPassword]").type(`${password}{enter}`);
 
+        cy.get("span.navbar-link-description")
+            .contains("Health")
+            .click();
+
         // UI should reflect this user being logged in
         cy.get("h1").should("contain", "FileFighter");
 
