@@ -6,24 +6,24 @@ export default function sha256(ascii) {
     }
 
     const mathPow = Math.pow;
-    var maxWord = mathPow(2, 32);
-    var lengthProperty = "length";
-    var i, j; // Used as a counter across the whole file
-    var result = "";
+    let maxWord = mathPow(2, 32);
+    let lengthProperty = "length";
+    let i, j; // Used as a counter across the whole file
+    let result = "";
 
-    var words = [];
-    var asciiBitLength = ascii[lengthProperty] * 8;
+    let words = [];
+    let asciiBitLength = ascii[lengthProperty] * 8;
 
     //* caching results is optional - remove/add slash from front of this line to toggle
     // Initial hash value: first 32 bits of the fractional parts of the square roots of the first 8 primes
     // (we actually calculate the first 64, but extra values are just ignored)
-    var hash = (sha256.h = sha256.h || []);
+    let hash = (sha256.h = sha256.h || []);
     // Round constants: first 32 bits of the fractional parts of the cube roots of the first 64 primes
-    var k = (sha256.k = sha256.k || []);
-    var primeCounter = k[lengthProperty];
+    let k = (sha256.k = sha256.k || []);
+    let primeCounter = k[lengthProperty];
 
-    var isComposite = {};
-    for (var candidate = 2; primeCounter < 64; candidate++) {
+    let isComposite = {};
+    for (let candidate = 2; primeCounter < 64; candidate++) {
         if (!isComposite[candidate]) {
             for (i = 0; i < 313; i += candidate) {
                 isComposite[i] = candidate;
@@ -45,8 +45,8 @@ export default function sha256(ascii) {
 
     // process each chunk
     for (j = 0; j < words[lengthProperty]; ) {
-        var w = words.slice(j, (j += 16)); // The message is expanded into 64 words as part of the iteration
-        var oldHash = hash;
+        let w = words.slice(j, (j += 16)); // The message is expanded into 64 words as part of the iteration
+        let oldHash = hash;
         // This is now the undefinedworking hash", often labelled as variables a...g
         // (we have to truncate as well, otherwise extra entries at the end accumulate
         hash = hash.slice(0, 8);
@@ -54,13 +54,13 @@ export default function sha256(ascii) {
         for (i = 0; i < 64; i++) {
             // Expand the message into 64 words
             // Used below if
-            var w15 = w[i - 15],
+            let w15 = w[i - 15],
                 w2 = w[i - 2];
 
             // Iterate
-            var a = hash[0],
+            let a = hash[0],
                 e = hash[4];
-            var temp1 =
+            let temp1 =
                 hash[7] +
                 (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) + // S1
                 ((e & hash[5]) ^ (~e & hash[6])) + // ch
@@ -79,7 +79,7 @@ export default function sha256(ascii) {
                                   (w2 >>> 10))) | // s1
                           0);
             // This is only used once, so *could* be moved below, but it only saves 4 bytes and makes things unreadble
-            var temp2 =
+            let temp2 =
                 (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) + // S0
                 ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2])); // maj
 
@@ -94,7 +94,7 @@ export default function sha256(ascii) {
 
     for (i = 0; i < 8; i++) {
         for (j = 3; j + 1; j--) {
-            var b = (hash[i] >> (j * 8)) & 255;
+            let b = (hash[i] >> (j * 8)) & 255;
             result += (b < 16 ? 0 : "") + b.toString(16);
         }
     }
