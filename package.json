@@ -68,7 +68,7 @@
     "babel-loader": "8.1.0",
     "cypress": "7.6.0",
     "eslint-plugin-cypress": "2.11.3",
-    "husky": "6.0.0",
+    "husky": "7.0.0",
     "npm-check-updates": "11.8.1",
     "prettier": "2.3.2",
     "rc-util": "5.13.1",
