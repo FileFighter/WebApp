@@ -77,7 +77,7 @@ function Header(props: PropsFromRedux): ReactElement {
 
     return (
         <header>
-            <Navbar bg="primary" expand="lg" sticky="top">
+            <Navbar bg="primary" expand="lg" sticky="top" collapseOnSelect>
                 <Container>
                     <NavbarBrand
                         href="/start"
@@ -102,6 +102,7 @@ function Header(props: PropsFromRedux): ReactElement {
                                 <NavDropdown
                                     title={props.username}
                                     id="basic-nav-dropdown"
+                                    className="text-center"
                                 >
                                     <NavDropdown.Item
                                         href="/profile"
