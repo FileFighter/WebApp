@@ -10,9 +10,9 @@ function getRelativeTime(ts: number): string {
     const diff = Number(new Date()) - ts * 1000;
     const minute = 60 * 1000;
     const hour = minute * 60;
-    const day = hour * 24;
-    const month = day * 30;
-    const year = day * 365;
+    /* const day = hour * 24;
+     const month = day * 30;
+    const year = day * 365;*/
     switch (true) {
         case diff < minute:
             return "just now";
