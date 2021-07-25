@@ -6,7 +6,42 @@ function getTimeStampFromDate(date: Date): number {
     return Math.round(new Date(date).getTime() / 1000);
 }
 
+function getRelativeTime(ts: number): string {
+    const diff = Number(new Date()) - ts * 1000;
+    const minute = 60 * 1000;
+    const hour = minute * 60;
+    const day = hour * 24;
+    const month = day * 30;
+    const year = day * 365;
+    switch (true) {
+        case diff < minute:
+            return "just now";
+        case diff < hour:
+            const minutes = Math.round(diff / minute);
+            return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+        /* case diff < day:
+            const hours = Math.round(diff / hour);
+            return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+        case diff < month:
+            const days = Math.round(diff / day);
+            return `${days} day${days > 1 ? "s" : ""} ago`;
+        case diff < year:
+            const months = Math.round(diff / month);
+            return `${months} month${months > 1 ? "s" : ""} ago`;
+        case diff > year:
+            const years = Math.round(diff / year);
+            return `${years} year${years > 1 ? "s" : ""} ago`;*/
+        default:
+            return "";
+    }
+}
+
 function getDateAsStringFromTimestamp(ts: number): string {
+    const relativeTime = getRelativeTime(ts);
+    if (relativeTime) {
+        return relativeTime;
+    }
+
     let dateFromTs = new Date(ts * 1000);
     let year = dateFromTs.getFullYear();
     let month = dateFromTs.getMonth() + 1;
