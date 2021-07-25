@@ -9,7 +9,8 @@ import { NewFolder } from "./upload/NewFolder";
 import { Search } from "./search/Search";
 
 const mapState = (state: SystemState) => ({
-    selectedFsEntities: state.filesystem.selectedFsEntities
+    selectedFsEntities: state.filesystem.selectedFsEntities,
+    currentFsItemId: state.filesystem.currentFsItemId
 });
 
 const connector = connect(mapState);
@@ -25,30 +26,34 @@ function ToolbarActions(props: Props): ReactElement | null {
 
     return (
         <span>
+            {/*
             <Fade in={props.selectedFsEntities.length === 1}>
-                <Button
-                    size="sm"
-                    variant="outline-secondary"
-                    disabled={props.selectedFsEntities.length !== 1}
-                >
-                    Rename
-                </Button>
-            </Fade>
+                    <Button
+                        size="sm"
+                        variant="outline-secondary"
+                        disabled={props.selectedFsEntities.length !== 1}
+                    >
+                        Rename
+                    </Button>
+            </Fade> */}
             <Fade in={props.selectedFsEntities.length > 0}>
                 <span>
+                    {props.currentFsItemId !== "-1" && (
+                        <Button
+                            size="sm"
+                            variant="outline-secondary"
+                            onClick={handleDeleteClicked}
+                            disabled={props.selectedFsEntities.length < 1}
+                            className="mx-1"
+                        >
+                            Delete
+                        </Button>
+                    )}
                     <Button
                         size="sm"
                         variant="outline-secondary"
-                        onClick={handleDeleteClicked}
                         disabled={props.selectedFsEntities.length < 1}
                         className="mx-1"
-                    >
-                        Delete
-                    </Button>
-                    <Button
-                        size="sm"
-                        variant="outline-secondary"
-                        disabled={props.selectedFsEntities.length < 1}
                         href={
                             constants.url.FH_URL +
                             "/download?ids=" +
