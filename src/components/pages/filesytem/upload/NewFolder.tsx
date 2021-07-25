@@ -23,7 +23,7 @@ function NewFolder(): ReactElement {
                 size="sm"
                 variant="outline-secondary"
                 onClick={handleShow}
-                className="ml-1"
+                className="mx-1"
             >
                 New Folder
             </Button>

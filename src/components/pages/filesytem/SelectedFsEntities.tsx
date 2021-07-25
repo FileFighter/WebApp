@@ -23,7 +23,7 @@ function SelectedFsEntities(props: Props): ReactElement {
     if (props.selectedFsEntities?.length < 1) return <span>{}</span>;
 
     return (
-        <div className={"pt-2"}>
+        <div>
             <OverlayTrigger
                 placement={"bottom"}
                 overlay={

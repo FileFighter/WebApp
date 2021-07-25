@@ -9,7 +9,12 @@ function Search(): ReactElement {
 
     return (
         <>
-            <Button size="sm" variant="outline-secondary" onClick={handleShow}>
+            <Button
+                size="sm"
+                variant="outline-secondary"
+                className="ml-1"
+                onClick={handleShow}
+            >
                 Search
             </Button>
             <Modal
