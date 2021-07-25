@@ -40,9 +40,11 @@ export const registerNewUser = async (
             .catch((error: AxiosError) => {
                 console.log(error.response);
                 const response: IRegisterServerResponse = {
-                    httpStatus: error.response!.status,
-                    httpMessage: error.response!.statusText,
-                    outputMessage: error.response!.data.message
+                    httpStatus: error.response?.status ?? 500,
+                    httpMessage:
+                        error.response?.statusText ?? "Internal Server Error",
+                    outputMessage:
+                        error.response?.data.message ?? "Internal Server Error"
                 };
                 reject(response);
             });
