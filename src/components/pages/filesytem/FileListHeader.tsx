@@ -164,7 +164,7 @@ function FileListHeader(props: TReduxProps): ReactElement {
                 md={fileListSize.modifiedOn.md}
                 onClick={() => handleSortClick("lastUpdated")}
             >
-                Modified on
+                Last Modified
             </Col>
             {/*Size*/}
             <Col
