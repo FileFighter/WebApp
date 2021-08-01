@@ -623,6 +623,7 @@ exports[`Storyshots Login default 1`] = `
               className="form-group"
             >
               <input
+                autoComplete="username"
                 autoFocus={true}
                 className="form-control"
                 id="formBasicUsername"
@@ -635,6 +636,7 @@ exports[`Storyshots Login default 1`] = `
               className="form-group"
             >
               <input
+                autoComplete="current-password"
                 className="form-control"
                 id="formBasicPassword"
                 onChange={[Function]}
@@ -754,6 +756,7 @@ exports[`Storyshots Login interactionArea 1`] = `
             className="form-group"
           >
             <input
+              autoComplete="username"
               autoFocus={true}
               className="form-control"
               id="formBasicUsername"
@@ -766,6 +769,7 @@ exports[`Storyshots Login interactionArea 1`] = `
             className="form-group"
           >
             <input
+              autoComplete="current-password"
               className="form-control"
               id="formBasicPassword"
               onChange={[Function]}
@@ -884,6 +888,7 @@ exports[`Storyshots Login onlyInput 1`] = `
           className="form-group"
         >
           <input
+            autoComplete="username"
             autoFocus={true}
             className="form-control"
             id="formBasicUsername"
@@ -896,6 +901,7 @@ exports[`Storyshots Login onlyInput 1`] = `
           className="form-group"
         >
           <input
+            autoComplete="current-password"
             className="form-control"
             id="formBasicPassword"
             onChange={[Function]}

@@ -54,6 +54,7 @@ Object {
                     class="form-group"
                   >
                     <input
+                      autocomplete="username"
                       class="form-control"
                       id="formBasicUsername"
                       placeholder="Username"
@@ -64,6 +65,7 @@ Object {
                     class="form-group"
                   >
                     <input
+                      autocomplete="current-password"
                       class="form-control"
                       id="formBasicPassword"
                       placeholder="Password"
@@ -181,6 +183,7 @@ Object {
                   class="form-group"
                 >
                   <input
+                    autocomplete="username"
                     class="form-control"
                     id="formBasicUsername"
                     placeholder="Username"
@@ -191,6 +194,7 @@ Object {
                   class="form-group"
                 >
                   <input
+                    autocomplete="current-password"
                     class="form-control"
                     id="formBasicPassword"
                     placeholder="Password"

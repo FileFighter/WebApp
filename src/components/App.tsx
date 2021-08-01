@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import "./App.css";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Router from "./Router/Router";
 import PermanentAssets from "./basicElements/PermanentAssets";
 
@@ -18,6 +18,7 @@ import { SystemState } from "../background/redux/actions/sytemState";
 import { checkForCookie } from "../background/api/auth";
 import { FFLoading } from "./basicElements/Loading";
 import { CookieStatus } from "../background/redux/actions/tokenTypes";
+import Error400 from "./pages/errors/Error400";
 
 // this takes the redux store and maps everything that is needed to the function props
 const mapState = (state: SystemState) => ({
@@ -67,7 +68,17 @@ function App(props: Props): ReactElement {
             );
         } else {
             console.log("[APP] showing login");
-            return <Login />;
+            return (
+                <BrowserRouter>
+                    <Switch>
+                        <Route
+                            path={"/error"}
+                            component={() => <Error400 needsLogin />}
+                        />
+                        <Route path={"*"} component={Login} />
+                    </Switch>
+                </BrowserRouter>
+            );
         }
     } else {
         if (props.tokens.checkedCookies === CookieStatus.NOT_STARTED) {
