@@ -14,7 +14,11 @@ import {
     changeStatus,
     nextFsEntity
 } from "../redux/actions/apiActions";
-import { addToContents, removeFromContents } from "../redux/actions/filesystem";
+import {
+    addToContents,
+    removeFromContents,
+    removeFromSelected
+} from "../redux/actions/filesystem";
 import {
     EditableFileWithPreflightInfo,
     PreflightEntity
@@ -118,9 +122,10 @@ export const deleteFsEntities = (files: FsEntity[]) => {
                 fhHostname + "/delete/" + fsEntity.fileSystemId
             )
                 .then((response: AxiosResponse<FsEntity[]>) => {
-                    response.data.forEach((e) =>
-                        store.dispatch(removeFromContents(e))
-                    );
+                    response.data.forEach((e) => {
+                        store.dispatch(removeFromContents(e));
+                        store.dispatch(removeFromSelected(e));
+                    });
                     resolve(response);
                 })
                 .catch((error) => reject(error));

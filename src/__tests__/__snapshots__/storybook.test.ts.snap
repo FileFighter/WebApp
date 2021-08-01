@@ -369,27 +369,12 @@ exports[`Storyshots Filesystem default 1`] = `
           >
             <span />
             <span>
-              <button
-                className="fade btn btn-outline-secondary btn-sm"
-                disabled={true}
-                type="button"
-              >
-                Rename
-              </button>
               <span
                 className="fade"
               >
-                <button
-                  className="mx-1 btn btn-outline-secondary btn-sm"
-                  disabled={true}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Delete
-                </button>
                 <a
                   aria-disabled={true}
-                  className="btn btn-outline-secondary btn-sm disabled"
+                  className="mx-1 btn btn-outline-secondary btn-sm disabled"
                   href="http://localhost/data/download?ids="
                   onClick={[Function]}
                   onKeyDown={[Function]}
@@ -399,7 +384,7 @@ exports[`Storyshots Filesystem default 1`] = `
                 </a>
               </span>
               <button
-                className="btn btn-outline-secondary btn-sm"
+                className="ml-1 btn btn-outline-secondary btn-sm"
                 disabled={false}
                 onClick={[Function]}
                 type="button"
