@@ -51,6 +51,7 @@ function Login(): ReactElement {
     if (tokens.refreshToken && tokens.accessToken?.token) {
         if (dest) {
             history.push(decodeURIComponent(dest));
+            window.location.reload(); // reload because we are leaving the spa
         } else {
             history.push("/");
         }
