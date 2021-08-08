@@ -7,6 +7,7 @@ import Registration from "../pages/User/Registration";
 import FileSystem, { filesBaseUrl } from "../pages/filesytem/Filesystem";
 import Profile from "../pages/User/Profile";
 import Error400 from "../pages/errors/Error400";
+import BackendRedirect from "./BackendRedirect";
 
 export default function Router(): ReactElement {
     return (
@@ -24,13 +25,7 @@ export default function Router(): ReactElement {
             <Route path={"/profile"} component={Profile} />
             <Route path={"/profile"} component={Profile} />
             <Route path={"/error"} component={Error400} />
-            <Route
-                path={["/data", "/api"]}
-                component={() => {
-                    window.location.reload(); // leave the spa, to access the apis. This could cause a endless loop if the nginx is not present
-                    return null;
-                }}
-            />
+            <Route path={["/data", "/api"]} component={BackendRedirect} />
             <Route path={"*"} component={Error404} />
         </Switch>
     );
