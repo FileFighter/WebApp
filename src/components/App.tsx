@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Router from "./Router/Router";
 import PermanentAssets from "./basicElements/PermanentAssets";
 
-import Login from "./basicElements/login/Login";
+import Login, { LoginHeader } from "./basicElements/login/Login";
 import HeadArea from "./basicElements/topArea/TopArea";
 import BottomArea from "./basicElements/bottomArea/BottomArea";
 
@@ -19,6 +19,7 @@ import { checkForCookie } from "../background/api/auth";
 import { FFLoading } from "./basicElements/Loading";
 import { CookieStatus } from "../background/redux/actions/tokenTypes";
 import Error400 from "./pages/errors/Error400";
+import { Container } from "react-bootstrap";
 
 // this takes the redux store and maps everything that is needed to the function props
 const mapState = (state: SystemState) => ({
@@ -69,15 +70,20 @@ function App(props: Props): ReactElement {
         } else {
             console.log("[APP] showing login");
             return (
-                <BrowserRouter>
-                    <Switch>
-                        <Route
-                            path={"/error"}
-                            component={() => <Error400 needsLogin />}
-                        />
-                        <Route path={"*"} component={Login} />
-                    </Switch>
-                </BrowserRouter>
+                <Container fluid className="h-100 ml-0 mr-0 login-page">
+                    <div className="login-container pr-1 pl-1 mr-auto ml-auto">
+                        <LoginHeader />
+                        <BrowserRouter>
+                            <Switch>
+                                <Route
+                                    path={"/error"}
+                                    component={() => <Error400 needsLogin />}
+                                />
+                                <Route path={"*"} component={Login} />
+                            </Switch>
+                        </BrowserRouter>
+                    </div>
+                </Container>
             );
         }
     } else {

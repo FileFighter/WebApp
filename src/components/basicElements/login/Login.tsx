@@ -5,15 +5,7 @@ import React, {
     SetStateAction,
     useState
 } from "react";
-import {
-    Button,
-    Col,
-    Container,
-    Form,
-    Image,
-    Row,
-    Spinner
-} from "react-bootstrap";
+import { Button, Col, Form, Image, Row, Spinner } from "react-bootstrap";
 import { loginWithUsernameAndPassword } from "../../../background/api/auth";
 
 import logo from "../../../assets/images/logos/logoWithWhiteBorder.png";
@@ -51,7 +43,6 @@ function Login(): ReactElement {
     if (tokens.refreshToken && tokens.accessToken?.token) {
         if (dest) {
             history.push(decodeURIComponent(dest));
-            window.location.reload(); // reload because we are leaving the spa
         } else {
             history.push("/");
         }
@@ -73,20 +64,18 @@ function Login(): ReactElement {
     };
 
     return (
-        <Container fluid className="h-100 ml-0 mr-0 login-page">
-            <LoginInteractionArea
-                handleSubmit={handleSubmit}
-                username={userName}
-                setUsername={setUsername}
-                password={password}
-                setPassword={setPassword}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
-                stayLoggedIn={stayLoggedIn}
-                setStayLoggedIn={setStayLoggedIn}
-                errorMessage={errorMessage}
-            />
-        </Container>
+        <LoginInteractionArea
+            handleSubmit={handleSubmit}
+            username={userName}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            stayLoggedIn={stayLoggedIn}
+            setStayLoggedIn={setStayLoggedIn}
+            errorMessage={errorMessage}
+        />
     );
 }
 
@@ -104,21 +93,18 @@ export function LoginInteractionArea(props: LoginInputInterface) {
         errorMessage
     } = props;
     return (
-        <div className="login-container pr-1 pl-1 mr-auto ml-auto">
-            <LoginHeader />
-            <LoginInput
-                handleSubmit={handleSubmit}
-                username={username}
-                setUsername={setUsername}
-                password={password}
-                setPassword={setPassword}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
-                stayLoggedIn={stayLoggedIn}
-                setStayLoggedIn={setStayLoggedIn}
-                errorMessage={errorMessage}
-            />
-        </div>
+        <LoginInput
+            handleSubmit={handleSubmit}
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            stayLoggedIn={stayLoggedIn}
+            setStayLoggedIn={setStayLoggedIn}
+            errorMessage={errorMessage}
+        />
     );
 }
 

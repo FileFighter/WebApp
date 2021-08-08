@@ -21,9 +21,16 @@ export default function Router(): ReactElement {
             <Route path={"/health"} component={Health} />
             <Route path={filesBaseUrl} component={FileSystem} />
             <Route path={"/registration"} component={Registration} />
-            {<Route path={"/profile"} component={Profile} />}
-            {<Route path={"/profile"} component={Profile} />}
-            {<Route path={"/error"} component={Error400} />}
+            <Route path={"/profile"} component={Profile} />
+            <Route path={"/profile"} component={Profile} />
+            <Route path={"/error"} component={Error400} />
+            <Route
+                path={["/data", "/api"]}
+                component={() => {
+                    window.location.reload(); // leave the spa, to access the apis. This could cause a endless loop if the nginx is not present
+                    return null;
+                }}
+            />
             <Route path={"*"} component={Error404} />
         </Switch>
     );

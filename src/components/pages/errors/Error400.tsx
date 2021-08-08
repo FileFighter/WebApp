@@ -20,12 +20,13 @@ export default function Error400({ needsLogin }: Props) {
 
     return (
         <Container className={"text-center"}>
-            <h2>Something went wrong!</h2>
-            <h3>The file could not be loaded</h3>
+            <h2 className={"text-danger"}>Something went wrong!</h2>
+            <h3 className="text-danger"> The file could not be loaded</h3>
             {message && <h4>{message}</h4>}
-            {tryAgainUrl && <p></p>}
-            <Link to="/">Go to Home</Link>
-            {tryAgainUrl}
+            {dest && tryAgainUrl}
+            <p>
+                <Link to="/">Go to Home</Link>
+            </p>
         </Container>
     );
 }
