@@ -12,18 +12,22 @@ export default function Error400({ needsLogin }: Props) {
     const dest = urlSearchParams.get("dest");
     const message = urlSearchParams.get("message");
 
-    const tryAgainUrl = needsLogin ? (
-        <Link to={"/login?dest=" + dest}>Try again</Link>
-    ) : (
-        <a href={decodeURIComponent(dest ?? "")}> Try again </a> // a tag because we are leaving the spa
-    );
-
+    let tryAgainUrl;
+    if (dest) {
+        tryAgainUrl = needsLogin ? (
+            <Link to={"/login?dest=" + encodeURIComponent(dest)}>
+                Try again
+            </Link>
+        ) : (
+            <a href={decodeURIComponent(dest)}> Try again </a> // a tag because we are leaving the spa
+        );
+    }
     return (
         <Container className={"text-center"}>
             <h2 className={"text-danger"}>Something went wrong!</h2>
             <h3 className="text-danger"> The file could not be loaded</h3>
             {message && <h4>{message}</h4>}
-            {dest && tryAgainUrl}
+            {tryAgainUrl && tryAgainUrl}
             <p>
                 <Link to="/">Go to Home</Link>
             </p>
