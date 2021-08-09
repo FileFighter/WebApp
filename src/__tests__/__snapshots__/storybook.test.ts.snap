@@ -16,6 +16,39 @@ exports[`Storyshots Banner TopBanner 1`] = `
 </div>
 `;
 
+exports[`Storyshots Error400 default 1`] = `
+<div
+  className="text-center container"
+>
+  <h2
+    className="text-danger"
+  >
+    Something went wrong!
+  </h2>
+  <h3
+    className="text-danger"
+  >
+     The file could not be loaded
+  </h3>
+  <h4>
+    foo
+  </h4>
+  <a
+    href="/data/test/fuidshfjk"
+  >
+     Try again 
+  </a>
+  <p>
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      Go to Home
+    </a>
+  </p>
+</div>
+`;
+
 exports[`Storyshots Error404 default 1`] = `
 <div
   className="container"
