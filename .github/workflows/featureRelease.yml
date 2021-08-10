@@ -27,7 +27,7 @@ jobs:
       -
         name: Checkout frontend
         run: |
-            npm i
+            npm ci
       -
         name: Update Sonar
         run: |

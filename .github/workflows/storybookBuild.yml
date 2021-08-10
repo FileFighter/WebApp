@@ -17,7 +17,7 @@ jobs:
           node-version: 12
       - name: Build storybook
         run: |
-          npm i
+          npm ci
           npm run build-storybook
           cp -r storybook-static  storybook_provider/public
       - name: Login to DockerHub

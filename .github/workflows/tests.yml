@@ -16,7 +16,7 @@ jobs:
       # and run all Cypress tests
       - name: Start FE and run jest tests
         run: |
-            npm i
+            npm ci
             npm test -- --watchAll=false
             npm start &
       - name: Wait
