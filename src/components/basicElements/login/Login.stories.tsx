@@ -1,25 +1,25 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { BrowserRouter } from "react-router-dom";
 import "../../../style/custom.scss";
 import Login, { LoginHeader, LoginInput, LoginInteractionArea } from "./Login";
 import { action } from "@storybook/addon-actions";
+import { Wrapper } from "../../../dev/testUtils/Wrapper";
 
 storiesOf("Login", module)
     .add("default", () => (
-        <BrowserRouter>
+        <Wrapper>
             <Login />
-        </BrowserRouter>
+        </Wrapper>
     ))
 
     .add("onlyHeader", () => (
-        <BrowserRouter>
+        <Wrapper>
             <LoginHeader />
-        </BrowserRouter>
+        </Wrapper>
     ))
 
     .add("onlyInput", () => (
-        <BrowserRouter>
+        <Wrapper>
             <LoginInput
                 handleSubmit={() => console.log("Clicked on submit")}
                 username={""}
@@ -32,11 +32,11 @@ storiesOf("Login", module)
                 setStayLoggedIn={action("changed stay logged in")}
                 errorMessage={""}
             />
-        </BrowserRouter>
+        </Wrapper>
     ))
 
     .add("interactionArea", () => (
-        <BrowserRouter>
+        <Wrapper>
             <LoginInteractionArea
                 handleSubmit={() => console.log("Clicked on submit")}
                 username={""}
@@ -49,5 +49,5 @@ storiesOf("Login", module)
                 setStayLoggedIn={action("changed stay logged in")}
                 errorMessage={""}
             />
-        </BrowserRouter>
+        </Wrapper>
     ));

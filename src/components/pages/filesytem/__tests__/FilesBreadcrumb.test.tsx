@@ -1,13 +1,13 @@
 import { render } from "@testing-library/react";
 import React from "react";
 import { FilesBreadcrumb } from "../FilesBreadcrumb";
-import { RouterWrapper } from "../../../../dev/testUtils/RouterWrapper";
+import { Wrapper } from "../../../../dev/testUtils/Wrapper";
 
 test("renders path Breadcrumb", () => {
     const breadcrumb = render(
-        <RouterWrapper>
+        <Wrapper>
             <FilesBreadcrumb path={"/bla/fasel/file"} />
-        </RouterWrapper>
+        </Wrapper>
     );
 
     expect(breadcrumb).toMatchSnapshot();

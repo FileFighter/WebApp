@@ -10,23 +10,29 @@
 //
 //
 // -- This is a parent command --
-Cypress.Commands.add('loginWithUrl', (path) => {
-    const user = {username:"Admin",password:"admin"}
+Cypress.Commands.add("loginWithUrl", (path) => {
+    const user = { username: "Admin", password: "admin" };
 
-    cy.visit(path)
-    cy.get('input[id=formBasicUsername]')
-        .type(user.username)
+    cy.visit(path);
+    cy.get("input[id=formBasicUsername]").type(user.username);
 
-    cy.get('input[id=formBasicPassword]')
-        .type(`${user.password}{enter}`)
-})
+    cy.get("input[id=formBasicPassword]").type(`${user.password}{enter}`);
+});
 
-Cypress.Commands.add('logout', () => {
-    const user = {username:"Admin",password:"admin"}
+Cypress.Commands.add("loginNow", (path) => {
+    const user = { username: "Admin", password: "admin" };
 
-    cy.get("#basic-nav-dropdown").contains(user.username).click()
-    cy.get(".dropdown-item").contains("Logout").click()
-})
+    cy.get("input[id=formBasicUsername]").type(user.username);
+
+    cy.get("input[id=formBasicPassword]").type(`${user.password}{enter}`);
+});
+
+Cypress.Commands.add("logout", () => {
+    const user = { username: "Admin", password: "admin" };
+
+    cy.get("#basic-nav-dropdown").contains(user.username).click();
+    cy.get(".dropdown-item").contains("Logout").click();
+});
 
 //
 //

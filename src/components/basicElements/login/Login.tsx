@@ -5,18 +5,13 @@ import React, {
     SetStateAction,
     useState
 } from "react";
-import {
-    Button,
-    Col,
-    Container,
-    Form,
-    Image,
-    Row,
-    Spinner
-} from "react-bootstrap";
+import { Button, Col, Form, Image, Row, Spinner } from "react-bootstrap";
 import { loginWithUsernameAndPassword } from "../../../background/api/auth";
 
 import logo from "../../../assets/images/logos/logoWithWhiteBorder.png";
+import { useHistory, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../background/redux/store";
 
 export interface LoginInputInterface {
     handleSubmit: (event: FormEvent) => void;
@@ -38,6 +33,20 @@ function Login(): ReactElement {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
+    const location = useLocation();
+    const urlSearchParams = new URLSearchParams(location.search);
+    const dest = urlSearchParams.get("dest");
+    const history = useHistory();
+
+    const tokens = useSelector((state: RootState) => state.tokens);
+
+    if (tokens.refreshToken && tokens.accessToken?.token) {
+        if (dest) {
+            history.push(decodeURIComponent(dest));
+        } else {
+            history.push("/");
+        }
+    }
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
         setIsLoading(true);
@@ -55,20 +64,18 @@ function Login(): ReactElement {
     };
 
     return (
-        <Container fluid className="h-100 ml-0 mr-0 login-page">
-            <LoginInteractionArea
-                handleSubmit={handleSubmit}
-                username={userName}
-                setUsername={setUsername}
-                password={password}
-                setPassword={setPassword}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
-                stayLoggedIn={stayLoggedIn}
-                setStayLoggedIn={setStayLoggedIn}
-                errorMessage={errorMessage}
-            />
-        </Container>
+        <LoginInteractionArea
+            handleSubmit={handleSubmit}
+            username={userName}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            stayLoggedIn={stayLoggedIn}
+            setStayLoggedIn={setStayLoggedIn}
+            errorMessage={errorMessage}
+        />
     );
 }
 
@@ -86,21 +93,18 @@ export function LoginInteractionArea(props: LoginInputInterface) {
         errorMessage
     } = props;
     return (
-        <div className="login-container pr-1 pl-1 mr-auto ml-auto">
-            <LoginHeader />
-            <LoginInput
-                handleSubmit={handleSubmit}
-                username={username}
-                setUsername={setUsername}
-                password={password}
-                setPassword={setPassword}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
-                stayLoggedIn={stayLoggedIn}
-                setStayLoggedIn={setStayLoggedIn}
-                errorMessage={errorMessage}
-            />
-        </div>
+        <LoginInput
+            handleSubmit={handleSubmit}
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            stayLoggedIn={stayLoggedIn}
+            setStayLoggedIn={setStayLoggedIn}
+            errorMessage={errorMessage}
+        />
     );
 }
 
@@ -142,6 +146,7 @@ export function LoginInput(props: LoginInputInterface) {
                             <Form.Control
                                 autoFocus
                                 placeholder="Username"
+                                autoComplete="username"
                                 value={username}
                                 onChange={(event) =>
                                     setUsername(event.target.value)
@@ -154,6 +159,7 @@ export function LoginInput(props: LoginInputInterface) {
                                 type="password"
                                 placeholder="Password"
                                 value={password}
+                                autoComplete="current-password"
                                 onChange={(event) =>
                                     setPassword(event.target.value)
                                 }

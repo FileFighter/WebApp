@@ -16,6 +16,39 @@ exports[`Storyshots Banner TopBanner 1`] = `
 </div>
 `;
 
+exports[`Storyshots Error400 default 1`] = `
+<div
+  className="text-center container"
+>
+  <h2
+    className="text-danger"
+  >
+    Something went wrong!
+  </h2>
+  <h3
+    className="text-danger"
+  >
+     The file could not be loaded
+  </h3>
+  <h4>
+    foo
+  </h4>
+  <a
+    href="/data/test/fuidshfjk"
+  >
+     Try again 
+  </a>
+  <p>
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      Go to Home
+    </a>
+  </p>
+</div>
+`;
+
 exports[`Storyshots Error404 default 1`] = `
 <div
   className="container"
@@ -574,171 +607,8 @@ exports[`Storyshots Health default 1`] = `
 `;
 
 exports[`Storyshots Login default 1`] = `
-<div
-  className="h-100 ml-0 mr-0 login-page container-fluid"
->
-  <div
-    className="login-container pr-1 pl-1 mr-auto ml-auto"
-  >
-    <div
-      className="login-intro"
-    >
-      <div
-        className="justify-content-center row"
-      >
-        <img
-          className="rounded"
-          height="200px"
-          src="logoWithWhiteBorder.png"
-          width="auto"
-        />
-      </div>
-      <div
-        className="justify-content-center row"
-      >
-        <h1>
-          Greetings Traveller!
-        </h1>
-      </div>
-      <div
-        className="justify-content-center row"
-      >
-        <h2>
-          Be welcome at FileFighter
-        </h2>
-      </div>
-    </div>
-    <div>
-      <div
-        className="mt-4 justify-content-center row"
-      >
-        <div
-          className="login-input col"
-        >
-          <form
-            className=""
-            onSubmit={[Function]}
-          >
-            <div
-              className="form-group"
-            >
-              <input
-                autoFocus={true}
-                className="form-control"
-                id="formBasicUsername"
-                onChange={[Function]}
-                placeholder="Username"
-                value=""
-              />
-            </div>
-            <div
-              className="form-group"
-            >
-              <input
-                className="form-control"
-                id="formBasicPassword"
-                onChange={[Function]}
-                placeholder="Password"
-                type="password"
-                value=""
-              />
-              <small
-                className="text-muted form-text"
-              >
-                Contact your administrator if you have forgotten your login details.
-              </small>
-            </div>
-            <button
-              className="btn btn-primary btn-block"
-              disabled={false}
-              type="submit"
-            >
-              <span
-                aria-hidden="true"
-                className="d-none spinner-grow spinner-grow-sm"
-                role="status"
-              />
-               
-              <span
-                className="d-none"
-              >
-                isLoading...
-              </span>
-              Sign in
-            </button>
-            <div
-              className="mt-3 justify-content-center form-group"
-            >
-              <div
-                className="form-check"
-              >
-                <input
-                  checked={true}
-                  className="form-check-input"
-                  disabled={false}
-                  id="formBasicCheckbox"
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <label
-                  className="form-check-label"
-                  htmlFor="formBasicCheckbox"
-                  title=""
-                >
-                  Keep me signed in*
-                </label>
-              </div>
-              <small
-                className="text-muted form-text"
-              >
-                *By clicking this, you accept the usage of cookies.
-              </small>
-            </div>
-            <p
-              className="text-danger"
-            >
-              
-            </p>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Login interactionArea 1`] = `
-<div
-  className="login-container pr-1 pl-1 mr-auto ml-auto"
->
-  <div
-    className="login-intro"
-  >
-    <div
-      className="justify-content-center row"
-    >
-      <img
-        className="rounded"
-        height="200px"
-        src="logoWithWhiteBorder.png"
-        width="auto"
-      />
-    </div>
-    <div
-      className="justify-content-center row"
-    >
-      <h1>
-        Greetings Traveller!
-      </h1>
-    </div>
-    <div
-      className="justify-content-center row"
-    >
-      <h2>
-        Be welcome at FileFighter
-      </h2>
-    </div>
-  </div>
+Array [
+  " ",
   <div>
     <div
       className="mt-4 justify-content-center row"
@@ -754,6 +624,7 @@ exports[`Storyshots Login interactionArea 1`] = `
             className="form-group"
           >
             <input
+              autoComplete="username"
               autoFocus={true}
               className="form-control"
               id="formBasicUsername"
@@ -766,6 +637,111 @@ exports[`Storyshots Login interactionArea 1`] = `
             className="form-group"
           >
             <input
+              autoComplete="current-password"
+              className="form-control"
+              id="formBasicPassword"
+              onChange={[Function]}
+              placeholder="Password"
+              type="password"
+              value=""
+            />
+            <small
+              className="text-muted form-text"
+            >
+              Contact your administrator if you have forgotten your login details.
+            </small>
+          </div>
+          <button
+            className="btn btn-primary btn-block"
+            disabled={false}
+            type="submit"
+          >
+            <span
+              aria-hidden="true"
+              className="d-none spinner-grow spinner-grow-sm"
+              role="status"
+            />
+             
+            <span
+              className="d-none"
+            >
+              isLoading...
+            </span>
+            Sign in
+          </button>
+          <div
+            className="mt-3 justify-content-center form-group"
+          >
+            <div
+              className="form-check"
+            >
+              <input
+                checked={true}
+                className="form-check-input"
+                disabled={false}
+                id="formBasicCheckbox"
+                onChange={[Function]}
+                type="checkbox"
+              />
+              <label
+                className="form-check-label"
+                htmlFor="formBasicCheckbox"
+                title=""
+              >
+                Keep me signed in*
+              </label>
+            </div>
+            <small
+              className="text-muted form-text"
+            >
+              *By clicking this, you accept the usage of cookies.
+            </small>
+          </div>
+          <p
+            className="text-danger"
+          >
+            
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>,
+  " ",
+]
+`;
+
+exports[`Storyshots Login interactionArea 1`] = `
+Array [
+  " ",
+  <div>
+    <div
+      className="mt-4 justify-content-center row"
+    >
+      <div
+        className="login-input col"
+      >
+        <form
+          className=""
+          onSubmit={[Function]}
+        >
+          <div
+            className="form-group"
+          >
+            <input
+              autoComplete="username"
+              autoFocus={true}
+              className="form-control"
+              id="formBasicUsername"
+              onChange={[Function]}
+              placeholder="Username"
+              value=""
+            />
+          </div>
+          <div
+            className="form-group"
+          >
+            <input
+              autoComplete="current-password"
               className="form-control"
               id="formBasicPassword"
               onChange={[Function]}
@@ -833,137 +809,148 @@ exports[`Storyshots Login interactionArea 1`] = `
         </form>
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+  " ",
+]
 `;
 
 exports[`Storyshots Login onlyHeader 1`] = `
-<div
-  className="login-intro"
->
+Array [
+  " ",
   <div
-    className="justify-content-center row"
+    className="login-intro"
   >
-    <img
-      className="rounded"
-      height="200px"
-      src="logoWithWhiteBorder.png"
-      width="auto"
-    />
-  </div>
-  <div
-    className="justify-content-center row"
-  >
-    <h1>
-      Greetings Traveller!
-    </h1>
-  </div>
-  <div
-    className="justify-content-center row"
-  >
-    <h2>
-      Be welcome at FileFighter
-    </h2>
-  </div>
-</div>
+    <div
+      className="justify-content-center row"
+    >
+      <img
+        className="rounded"
+        height="200px"
+        src="logoWithWhiteBorder.png"
+        width="auto"
+      />
+    </div>
+    <div
+      className="justify-content-center row"
+    >
+      <h1>
+        Greetings Traveller!
+      </h1>
+    </div>
+    <div
+      className="justify-content-center row"
+    >
+      <h2>
+        Be welcome at FileFighter
+      </h2>
+    </div>
+  </div>,
+  " ",
+]
 `;
 
 exports[`Storyshots Login onlyInput 1`] = `
-<div>
-  <div
-    className="mt-4 justify-content-center row"
-  >
+Array [
+  " ",
+  <div>
     <div
-      className="login-input col"
+      className="mt-4 justify-content-center row"
     >
-      <form
-        className=""
-        onSubmit={[Function]}
+      <div
+        className="login-input col"
       >
-        <div
-          className="form-group"
-        >
-          <input
-            autoFocus={true}
-            className="form-control"
-            id="formBasicUsername"
-            onChange={[Function]}
-            placeholder="Username"
-            value=""
-          />
-        </div>
-        <div
-          className="form-group"
-        >
-          <input
-            className="form-control"
-            id="formBasicPassword"
-            onChange={[Function]}
-            placeholder="Password"
-            type="password"
-            value=""
-          />
-          <small
-            className="text-muted form-text"
-          >
-            Contact your administrator if you have forgotten your login details.
-          </small>
-        </div>
-        <button
-          className="btn btn-primary btn-block"
-          disabled={false}
-          type="submit"
-        >
-          <span
-            aria-hidden="true"
-            className="d-none spinner-grow spinner-grow-sm"
-            role="status"
-          />
-           
-          <span
-            className="d-none"
-          >
-            isLoading...
-          </span>
-          Sign in
-        </button>
-        <div
-          className="mt-3 justify-content-center form-group"
+        <form
+          className=""
+          onSubmit={[Function]}
         >
           <div
-            className="form-check"
+            className="form-group"
           >
             <input
-              checked={false}
-              className="form-check-input"
-              disabled={false}
-              id="formBasicCheckbox"
+              autoComplete="username"
+              autoFocus={true}
+              className="form-control"
+              id="formBasicUsername"
               onChange={[Function]}
-              type="checkbox"
+              placeholder="Username"
+              value=""
             />
-            <label
-              className="form-check-label"
-              htmlFor="formBasicCheckbox"
-              title=""
-            >
-              Keep me signed in*
-            </label>
           </div>
-          <small
-            className="text-muted form-text"
+          <div
+            className="form-group"
           >
-            *By clicking this, you accept the usage of cookies.
-          </small>
-        </div>
-        <p
-          className="text-danger"
-        >
-          
-        </p>
-      </form>
+            <input
+              autoComplete="current-password"
+              className="form-control"
+              id="formBasicPassword"
+              onChange={[Function]}
+              placeholder="Password"
+              type="password"
+              value=""
+            />
+            <small
+              className="text-muted form-text"
+            >
+              Contact your administrator if you have forgotten your login details.
+            </small>
+          </div>
+          <button
+            className="btn btn-primary btn-block"
+            disabled={false}
+            type="submit"
+          >
+            <span
+              aria-hidden="true"
+              className="d-none spinner-grow spinner-grow-sm"
+              role="status"
+            />
+             
+            <span
+              className="d-none"
+            >
+              isLoading...
+            </span>
+            Sign in
+          </button>
+          <div
+            className="mt-3 justify-content-center form-group"
+          >
+            <div
+              className="form-check"
+            >
+              <input
+                checked={false}
+                className="form-check-input"
+                disabled={false}
+                id="formBasicCheckbox"
+                onChange={[Function]}
+                type="checkbox"
+              />
+              <label
+                className="form-check-label"
+                htmlFor="formBasicCheckbox"
+                title=""
+              >
+                Keep me signed in*
+              </label>
+            </div>
+            <small
+              className="text-muted form-text"
+            >
+              *By clicking this, you accept the usage of cookies.
+            </small>
+          </div>
+          <p
+            className="text-danger"
+          >
+            
+          </p>
+        </form>
+      </div>
     </div>
-  </div>
-</div>
+  </div>,
+  " ",
+]
 `;
 
 exports[`Storyshots Profile default 1`] = `
