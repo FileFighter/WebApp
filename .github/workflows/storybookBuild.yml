@@ -12,12 +12,13 @@ jobs:
       - name: Set up Project
         uses: actions/checkout@v2
       - name: Set up Node.js environment
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2
         with:
-          node-version: 12
+          node-version: 14
+          cache: 'npm'
       - name: Build storybook
         run: |
-          npm i
+          npm ci
           npm run build-storybook
           cp -r storybook-static  storybook_provider/public
       - name: Login to DockerHub
