@@ -37,5 +37,6 @@
   ], 
   "schedule": ["every weekend"],
   "recreateClosed":false,
-  "ignoreDeps": ["@babel/core", "babel-loader"]
+  "ignoreDeps": ["@babel/core", "babel-loader"],
+  "baseBranches": ["feature/deps"]
 }
