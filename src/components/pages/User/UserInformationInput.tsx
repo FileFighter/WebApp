@@ -80,7 +80,7 @@ export default function UserInformationInput(
         reviewPasswordMatch();
     }, [reviewPasswordMatch]);
 
-    const makePasswordInputFitRules = (input: string): [string, boolean] => {
+    const checkPasswordRules = (input: string): boolean => {
         input = deleteSpaces(input);
         if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)) {
             triggerAlert(
@@ -88,47 +88,40 @@ export default function UserInformationInput(
                 "warning",
                 "Maximum password length exceeded. Input was undone."
             );
-            return [input, false];
+            return false;
         }
-        return [input, true];
+        return true;
     };
 
     const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let newValue: string;
+        let newPassword: string = event.target.value;
 
-        let [stringValue, isOK]: [string, boolean] = makePasswordInputFitRules(
-            event.target.value
-        );
+        let isOK = checkPasswordRules(newPassword);
+        // if the password does not match the rules, do not change it.
         if (!isOK) {
-            newValue = password;
-        } else {
-            newValue = stringValue;
+            newPassword = password;
         }
         setPasswordInformationLength(
-            !notMinStrLength(newValue, MIN_PASSWORD_LENGTH)
+            !notMinStrLength(newPassword, MIN_PASSWORD_LENGTH)
         );
-        setPasswordInformationLowercase(newValue.match(/[a-z]/) !== null);
-        setPasswordInformationUppercase(newValue.match(/[A-Z]/) !== null);
-        setPasswordInformationNumber(newValue.match(/\d/) !== null);
-        setPassword(newValue);
+        setPasswordInformationLowercase(newPassword.match(/[a-z]/) !== null);
+        setPasswordInformationUppercase(newPassword.match(/[A-Z]/) !== null);
+        setPasswordInformationNumber(newPassword.match(/\d/) !== null);
+        setPassword(newPassword);
     };
 
     const handlePasswordConfirmationChange = async (
         event: ChangeEvent<HTMLInputElement>
     ) => {
         event.preventDefault();
-        let newValue: string;
-        const [stringValue, isOK]: [
-            string,
-            boolean
-        ] = makePasswordInputFitRules(event.target.value);
+        let newConfirmationPassword: string = event.target.value;
+        const isOK = checkPasswordRules(newConfirmationPassword);
+        // if the confirmationPassword does not match the rules do not change it
         if (!isOK) {
-            newValue = passwordConfirmation;
-        } else {
-            newValue = stringValue;
+            newConfirmationPassword = passwordConfirmation;
         }
-        setPasswordConfirmation(newValue);
+        setPasswordConfirmation(newConfirmationPassword);
     };
 
     const handleSubmit = async (event: FormEvent) => {
@@ -262,8 +255,8 @@ export default function UserInformationInput(
                             !passwordConfirmation
                                 ? info_svg
                                 : passwordsMatch
-                                ? check_svg
-                                : error_svg
+                                    ? check_svg
+                                    : error_svg
                         }
                     />
                     <span className={"sr-only"}>
@@ -274,8 +267,8 @@ export default function UserInformationInput(
                             !passwordConfirmation
                                 ? "text-muted"
                                 : passwordsMatch
-                                ? "text-success"
-                                : "text-danger"
+                                    ? "text-success"
+                                    : "text-danger"
                         }
                     >
                         Passwords must match.
