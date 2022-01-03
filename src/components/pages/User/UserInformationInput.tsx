@@ -4,7 +4,8 @@ import React, {
     ReactElement,
     useCallback,
     useEffect,
-    useState
+    useState,
+    Suspense
 } from "react";
 import { Button, Form, FormGroup } from "react-bootstrap";
 import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg";
@@ -20,6 +21,9 @@ import {
     MAX_PASSWORD_LENGTH,
     MIN_PASSWORD_LENGTH
 } from "../../../background/constants";
+
+// lazy load the lib
+const PasswordStrengthBar = React.lazy(() => import("react-password-strength-bar"));
 
 export interface UserInformationInputInterface {
     username: string;
@@ -152,6 +156,23 @@ export default function UserInformationInput(
         );
     };
 
+    // a small component wrapping the password strength checks by lazy loading the component if necessary.
+    type PasswordStrengthBarWrapperArgs = {
+        currentPassword: string
+    }
+    const PasswordStrengthBarWrapper = ({ currentPassword }: PasswordStrengthBarWrapperArgs): JSX.Element | null => {
+        // if the user typed something show the component
+        if (currentPassword.length > 0) {
+            return (
+                <Suspense fallback={""}>
+                    <PasswordStrengthBar password={password} />
+                </Suspense>
+            )
+        } else {
+            return null;
+        }
+    }
+
     return (
         <Form onSubmit={handleSubmit}>
             <FormGroup controlId="formBasicUsername">
@@ -172,33 +193,11 @@ export default function UserInformationInput(
                         handlePasswordChange(event)
                     }
                 />
+                <PasswordStrengthBarWrapper currentPassword={password} />
                 <RuleChecker
                     ruleToCheck={passwordInformationLength}
                     ruleDesc={"Passwords must be between 8 and 20 characters."}
                     imageAlt={"status icon password length"}
-                />
-                <RuleChecker
-                    ruleToCheck={passwordInformationUppercase}
-                    ruleDesc={
-                        "Passwords must be at least contain 1 uppercase character."
-                    }
-                    imageAlt={
-                        "status icon password contains uppercase character"
-                    }
-                />
-                <RuleChecker
-                    ruleToCheck={passwordInformationLowercase}
-                    ruleDesc={
-                        "Passwords must be at least contain 1 lowercase character."
-                    }
-                    imageAlt={
-                        "status icon password contains lowercase character"
-                    }
-                />
-                <RuleChecker
-                    ruleToCheck={passwordInformationNumber}
-                    ruleDesc={"Passwords must be at least contain 1 number."}
-                    imageAlt={"status icon password contains number"}
                 />
             </Form.Group>
             <Form.Group controlId="formConfirmPassword">
@@ -210,6 +209,7 @@ export default function UserInformationInput(
                         handlePasswordConfirmationChange(event)
                     }
                 />
+                <PasswordStrengthBarWrapper currentPassword={passwordConfirmation} />
                 <div>
                     <img
                         alt={"status icon passwords match"}
