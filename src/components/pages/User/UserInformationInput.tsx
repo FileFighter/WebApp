@@ -5,7 +5,6 @@ import React, {
     useCallback,
     useEffect,
     useState,
-    Suspense
 } from "react";
 import { Button, Form, FormGroup } from "react-bootstrap";
 import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg";
@@ -21,9 +20,9 @@ import {
     MAX_PASSWORD_LENGTH,
     MIN_PASSWORD_LENGTH
 } from "../../../background/constants";
+import { PasswordStrengthBarWrapper } from "./PasswordStrengthBar";
+import { RuleChecker } from "./RuleChecker";
 
-// lazy load the lib
-const PasswordStrengthBar = React.lazy(() => import("react-password-strength-bar"));
 
 export interface UserInformationInputInterface {
     username: string;
@@ -131,47 +130,6 @@ export default function UserInformationInput(
         };
         submitFunction(newUser);
     };
-
-    // inner component rendering the checks
-    type RuleCheckerProps = {
-        ruleToCheck: boolean;
-        ruleDesc: string;
-        imageAlt: string;
-    };
-    const RuleChecker = ({
-        ruleToCheck,
-        ruleDesc,
-        imageAlt
-    }: RuleCheckerProps): JSX.Element => {
-        return (
-            <div>
-                <img alt={imageAlt} src={ruleToCheck ? check_svg : info_svg} />
-                <span className={"sr-only"}>
-                    {ruleToCheck ? "Done: " : "Missing: "}
-                </span>
-                <span className={ruleToCheck ? "text-success" : "text-muted"}>
-                    {ruleDesc}
-                </span>
-            </div>
-        );
-    };
-
-    // a small component wrapping the password strength checks by lazy loading the component if necessary.
-    type PasswordStrengthBarWrapperArgs = {
-        currentPassword: string
-    }
-    const PasswordStrengthBarWrapper = ({ currentPassword }: PasswordStrengthBarWrapperArgs): JSX.Element | null => {
-        // if the user typed something show the component
-        if (currentPassword.length > 0) {
-            return (
-                <Suspense fallback={""}>
-                    <PasswordStrengthBar password={password} />
-                </Suspense>
-            )
-        } else {
-            return null;
-        }
-    }
 
     return (
         <Form onSubmit={handleSubmit}>
