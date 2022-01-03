@@ -54,22 +54,14 @@ export default function UserInformationInput(
     const [passwordConfirmation, setPasswordConfirmation] = useState<string>(
         presets?.password ?? ""
     );
-    const [
-        passwordInformationLength,
-        setPasswordInformationLength
-    ] = useState<boolean>(false);
-    const [
-        passwordInformationLowercase,
-        setPasswordInformationLowercase
-    ] = useState<boolean>(false);
-    const [
-        passwordInformationUppercase,
-        setPasswordInformationUppercase
-    ] = useState<boolean>(false);
-    const [
-        passwordInformationNumber,
-        setPasswordInformationNumber
-    ] = useState<boolean>(false);
+    const [passwordInformationLength, setPasswordInformationLength] =
+        useState<boolean>(false);
+    const [passwordInformationLowercase, setPasswordInformationLowercase] =
+        useState<boolean>(false);
+    const [passwordInformationUppercase, setPasswordInformationUppercase] =
+        useState<boolean>(false);
+    const [passwordInformationNumber, setPasswordInformationNumber] =
+        useState<boolean>(false);
     const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
 
     const reviewPasswordMatch = useCallback((): void => {
@@ -136,6 +128,30 @@ export default function UserInformationInput(
         submitFunction(newUser);
     };
 
+    // inner component rendering the checks
+    type RuleCheckerProps = {
+        ruleToCheck: boolean;
+        ruleDesc: string;
+        imageAlt: string;
+    };
+    const RuleChecker = ({
+        ruleToCheck,
+        ruleDesc,
+        imageAlt
+    }: RuleCheckerProps): JSX.Element => {
+        return (
+            <div>
+                <img alt={imageAlt} src={ruleToCheck ? check_svg : info_svg} />
+                <span className={"sr-only"}>
+                    {ruleToCheck ? "Done: " : "Missing: "}
+                </span>
+                <span className={ruleToCheck ? "text-success" : "text-muted"}>
+                    {ruleDesc}
+                </span>
+            </div>
+        );
+    };
+
     return (
         <Form onSubmit={handleSubmit}>
             <FormGroup controlId="formBasicUsername">
@@ -156,88 +172,34 @@ export default function UserInformationInput(
                         handlePasswordChange(event)
                     }
                 />
-                <div>
-                    <img
-                        alt={"status icon password length"}
-                        src={passwordInformationLength ? check_svg : info_svg}
-                    />
-                    <span className={"sr-only"}>
-                        {passwordInformationLength ? "Done: " : "Missing: "}
-                    </span>
-                    <span
-                        className={
-                            passwordInformationLength
-                                ? "text-success"
-                                : "text-muted"
-                        }
-                    >
-                        Passwords must be between 8 and 20 characters.
-                    </span>
-                </div>
-                <div>
-                    <img
-                        alt={
-                            "status icon password contains uppercase character"
-                        }
-                        src={
-                            passwordInformationUppercase ? check_svg : info_svg
-                        }
-                    />
-                    <span className={"sr-only"}>
-                        {passwordInformationUppercase ? "Done: " : "Missing: "}
-                    </span>
-                    <span
-                        className={
-                            passwordInformationUppercase
-                                ? "text-success"
-                                : "text-muted"
-                        }
-                    >
-                        Passwords must be at least contain 1 uppercase
-                        character.
-                    </span>
-                </div>
-                <div>
-                    <img
-                        alt={
-                            "status icon password contains lowercase character"
-                        }
-                        src={
-                            passwordInformationLowercase ? check_svg : info_svg
-                        }
-                    />
-                    <span className={"sr-only"}>
-                        {passwordInformationLowercase ? "Done: " : "Missing: "}
-                    </span>
-                    <span
-                        className={
-                            passwordInformationLowercase
-                                ? "text-success"
-                                : "text-muted"
-                        }
-                    >
-                        Passwords must be at least contain 1 lowercase
-                        character.
-                    </span>
-                </div>
-                <div>
-                    <img
-                        alt={"status icon password contains number"}
-                        src={passwordInformationNumber ? check_svg : info_svg}
-                    />
-                    <span className={"sr-only"}>
-                        {passwordInformationNumber ? "Done: " : "Missing: "}
-                    </span>
-                    <span
-                        className={
-                            passwordInformationNumber
-                                ? "text-success"
-                                : "text-muted"
-                        }
-                    >
-                        Passwords must be at least contain 1 number.
-                    </span>
-                </div>
+                <RuleChecker
+                    ruleToCheck={passwordInformationLength}
+                    ruleDesc={"Passwords must be between 8 and 20 characters."}
+                    imageAlt={"status icon password length"}
+                />
+                <RuleChecker
+                    ruleToCheck={passwordInformationUppercase}
+                    ruleDesc={
+                        "Passwords must be at least contain 1 uppercase character."
+                    }
+                    imageAlt={
+                        "status icon password contains uppercase character"
+                    }
+                />
+                <RuleChecker
+                    ruleToCheck={passwordInformationLowercase}
+                    ruleDesc={
+                        "Passwords must be at least contain 1 lowercase character."
+                    }
+                    imageAlt={
+                        "status icon password contains lowercase character"
+                    }
+                />
+                <RuleChecker
+                    ruleToCheck={passwordInformationNumber}
+                    ruleDesc={"Passwords must be at least contain 1 number."}
+                    imageAlt={"status icon password contains number"}
+                />
             </Form.Group>
             <Form.Group controlId="formConfirmPassword">
                 <Form.Label>Re-enter password</Form.Label>
