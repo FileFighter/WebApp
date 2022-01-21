@@ -61,48 +61,15 @@ export default function Profile(): ReactElement {
         setIsEditing(!isEditing);
     }
 
+    // TODO why is this async
     const handleSubmit = async (inputUser: UserInformationInputInterface) => {
         console.log("[PROFILE] handleSubmit");
-        let newUser: UserInformation = {
-            groups: user.groups,
-            userId: user.userId
-        };
-        if (!inputUser.username) {
-            handleAlertVisibility(
-                DEFAULT_ALERT_DURATION,
-                "danger",
-                "Error: Please choose an username."
-            );
-            return;
-        }
-        newUser["username"] = inputUser.username;
-        if (inputUser.password || inputUser.passwordConfirmation) {
-            if (inputUser.password !== inputUser.passwordConfirmation) {
-                handleAlertVisibility(
-                    DEFAULT_ALERT_DURATION,
-                    "danger",
-                    "Error: Password and password confirmation must match."
-                );
-                return;
-            }
-            // TODO: wtf is this shit
-            if (
-                inputUser.password.match(/\d/) == null ||
-                inputUser.password.match(/[a-z]/) == null ||
-                inputUser.password.match(/[A-Z]/) == null
-            ) {
-                handleAlertVisibility(
-                    DEFAULT_ALERT_DURATION,
-                    "danger",
-                    "Error: Please pay attention to the notes below the input fields."
-                );
-                return;
-            }
-            newUser["password"] = await hashPassword(inputUser.password);
-            newUser["confirmationPassword"] = newUser["password"];
-        }
+        // hash password
+        const hashedPassword = await hashPassword(inputUser.password)
 
-        await changeUserInformation(newUser)
+        // trigger api call
+        let updatedUser = { password: hashedPassword, confirmationPassword: hashedPassword, ...user }
+        await changeUserInformation(updatedUser)
             .then((res) => {
                 changeEditMode();
                 handleAlertVisibility(
@@ -112,7 +79,7 @@ export default function Profile(): ReactElement {
                 );
             })
             .catch((err) => {
-                console.log("Error:" + err);
+                console.log("[PROFILE] Error:" + err);
                 handleAlertVisibility(
                     DEFAULT_ALERT_DURATION,
                     "danger",

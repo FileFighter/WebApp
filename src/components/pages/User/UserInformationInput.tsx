@@ -2,9 +2,8 @@ import React, {
     ChangeEvent,
     FormEvent,
     ReactElement,
-    useCallback,
     useEffect,
-    useState,
+    useState
 } from "react";
 import { Button, Form, FormGroup } from "react-bootstrap";
 import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg";
@@ -12,18 +11,15 @@ import info_svg from "../../../assets/images/icons/material.io/info-24px.svg";
 import error_svg from "../../../assets/images/icons/material.io/error-24px.svg";
 import { deleteSpaces } from "../../../background/methods/dataTypes/strings";
 import {
-    DEFAULT_ALERT_DURATION,
-    MIN_PASSWORD_STRENGTH
+    REQUIRED_PASSWORD_STRENGTH
 } from "../../../background/constants";
 import { PasswordStrengthBarWrapper } from "./PasswordStrengthBar";
 import { RuleChecker } from "./RuleChecker";
 import { PasswordFeedback } from "react-password-strength-bar";
 
-
 export interface UserInformationInputInterface {
     username: string;
     password: string;
-    passwordConfirmation?: string;
 }
 
 type UserInformationInputProps = {
@@ -46,30 +42,52 @@ export default function UserInformationInput(
     const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
     const [passwordStrength, setPasswordStrength] = useState<number>(0);
 
-
+    // re-check passwords are equal after change
     useEffect(() => {
-        setPasswordsMatch(password === passwordConfirmation)
+        setPasswordsMatch(password === passwordConfirmation);
     }, [password, passwordConfirmation, setPasswordsMatch]);
 
-    const newHandlePasswordChange = (newPasswordEvent: ChangeEvent<HTMLInputElement>, updatePassword: React.Dispatch<React.SetStateAction<string>>) => {
-        newPasswordEvent.preventDefault()
-        // TODO: change this to newPassword.trim() instead
-        let newPassword = deleteSpaces(newPasswordEvent.target.value)
-        updatePassword(newPassword)
-    }
+    const newHandlePasswordChange = (
+        newPasswordEvent: ChangeEvent<HTMLInputElement>,
+        updatePassword: React.Dispatch<React.SetStateAction<string>>
+    ) => {
+        newPasswordEvent.preventDefault();
+        let newPassword = newPasswordEvent.target.value.trim()
+        updatePassword(newPassword);
+    };
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         console.log("[UserInformationInput] handleSubmit");
-        let newUser = {
+
+        // check if password is empty
+        if (!password) {
+            triggerAlert("Please specify a password.");
+            return;
+        }
+
+        // check password strength
+        if (passwordStrength <= REQUIRED_PASSWORD_STRENGTH) {
+            triggerAlert("Password is not strong enough");
+            return;
+        }
+
+        // check if passwords match
+        if (!passwordsMatch) {
+            triggerAlert("Password is not strong enough");
+            return;
+        }
+
+        submitFunction({
             username: username,
             password: password,
-            passwordConfirmation: passwordConfirmation
-        };
-        submitFunction(newUser);
+        });
     };
 
-    const parsePasswordStrengthFeedback = (score: number, feedback: PasswordFeedback) => {
+    const parsePasswordStrengthFeedback = (
+        score: number,
+        feedback: PasswordFeedback
+    ) => {
         console.log(score);
         console.log(feedback);
 
@@ -78,7 +96,7 @@ export default function UserInformationInput(
         if (feedback.warning) {
             // TODO: add some warning or hint
         }
-    }
+    };
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -102,7 +120,9 @@ export default function UserInformationInput(
                 />
                 <PasswordStrengthBarWrapper
                     currentPassword={password}
-                    scoreChangeCallback={(score, feedback) => parsePasswordStrengthFeedback(score, feedback)}
+                    scoreChangeCallback={(score, feedback) =>
+                        parsePasswordStrengthFeedback(score, feedback)
+                    }
                 />
             </Form.Group>
             <Form.Group controlId="formConfirmPassword">
@@ -115,7 +135,7 @@ export default function UserInformationInput(
                     }
                 />
                 <RuleChecker
-                    ruleToCheck={passwordStrength >= MIN_PASSWORD_STRENGTH}
+                    ruleToCheck={passwordStrength >= REQUIRED_PASSWORD_STRENGTH}
                     ruleDesc={"Passwords must be at least strong."}
                     imageAlt={"status icon password length"}
                 />

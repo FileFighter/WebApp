@@ -21,5 +21,5 @@ const dev: constantsdef = {
 };
 export const constants = process.env.NODE_ENV === "development" ? dev : prod;
 
-export const MIN_PASSWORD_STRENGTH = 3;
+export const REQUIRED_PASSWORD_STRENGTH = 3;
 export const DEFAULT_ALERT_DURATION = 3500;

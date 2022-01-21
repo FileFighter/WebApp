@@ -11,7 +11,7 @@ export interface UserInformation {
     username?: string | null;
     groups?: string[] | null;
     password?: string;
-    confirmationPassword?: string;
+    confirmationPassword?: string;  // TODO remove this.
 }
 
 export const changeUserInformation = (
