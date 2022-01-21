@@ -7,13 +7,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../background/redux/store";
 import {
     DEFAULT_ALERT_DURATION,
-    MIN_PASSWORD_LENGTH
 } from "../../../background/constants";
 import {
     changeUserInformation,
     UserInformation
 } from "../../../background/api/userInformation";
-import { notMinStrLength } from "../../../background/methods/checkInput";
 import edit_svg from "../../../assets/images/icons/material.io/edit_white_24dp.svg";
 import { hashPassword } from "../../../background/methods/passwords";
 
@@ -87,11 +85,11 @@ export default function Profile(): ReactElement {
                 );
                 return;
             }
+            // TODO: wtf is this shit
             if (
                 inputUser.password.match(/\d/) == null ||
                 inputUser.password.match(/[a-z]/) == null ||
-                inputUser.password.match(/[A-Z]/) == null ||
-                notMinStrLength(inputUser.password, MIN_PASSWORD_LENGTH)
+                inputUser.password.match(/[A-Z]/) == null
             ) {
                 handleAlertVisibility(
                     DEFAULT_ALERT_DURATION,
@@ -127,7 +125,9 @@ export default function Profile(): ReactElement {
         return (
             <>
                 <UserInformationInput
-                    triggerAlert={handleAlertVisibility}
+                    triggerAlert={
+                        (errorMessage: string) => handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", errorMessage)
+                    }
                     submitFunction={handleSubmit}
                     presets={{ username: user.username ?? "", password: "" }}
                 />

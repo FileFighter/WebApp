@@ -10,18 +10,14 @@ import { Button, Form, FormGroup } from "react-bootstrap";
 import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg";
 import info_svg from "../../../assets/images/icons/material.io/info-24px.svg";
 import error_svg from "../../../assets/images/icons/material.io/error-24px.svg";
-import {
-    biggerMaxStrLength,
-    notMinStrLength
-} from "../../../background/methods/checkInput";
 import { deleteSpaces } from "../../../background/methods/dataTypes/strings";
 import {
     DEFAULT_ALERT_DURATION,
-    MAX_PASSWORD_LENGTH,
-    MIN_PASSWORD_LENGTH
+    MIN_PASSWORD_STRENGTH
 } from "../../../background/constants";
 import { PasswordStrengthBarWrapper } from "./PasswordStrengthBar";
 import { RuleChecker } from "./RuleChecker";
+import { PasswordFeedback } from "react-password-strength-bar";
 
 
 export interface UserInformationInputInterface {
@@ -31,19 +27,7 @@ export interface UserInformationInputInterface {
 }
 
 type UserInformationInputProps = {
-    triggerAlert(
-        duration: number,
-        color:
-            | "primary"
-            | "secondary"
-            | "success"
-            | "danger"
-            | "warning"
-            | "info"
-            | "light"
-            | "dark",
-        message: string
-    ): void;
+    triggerAlert(errorMessage: string): void;
     submitFunction(newUser: UserInformationInputInterface): void;
     presets?: UserInformationInputInterface;
 };
@@ -57,72 +41,26 @@ export default function UserInformationInput(
     const [passwordConfirmation, setPasswordConfirmation] = useState<string>(
         presets?.password ?? ""
     );
-    const [passwordInformationLength, setPasswordInformationLength] =
-        useState<boolean>(false);
-    const [passwordInformationLowercase, setPasswordInformationLowercase] =
-        useState<boolean>(false);
-    const [passwordInformationUppercase, setPasswordInformationUppercase] =
-        useState<boolean>(false);
-    const [passwordInformationNumber, setPasswordInformationNumber] =
-        useState<boolean>(false);
-    const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
 
-    const reviewPasswordMatch = useCallback((): void => {
-        setPasswordsMatch(password === passwordConfirmation);
-    }, [password, passwordConfirmation]);
+    // states to check passwords
+    const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+    const [passwordStrength, setPasswordStrength] = useState<number>(0);
+
 
     useEffect(() => {
-        reviewPasswordMatch();
-    }, [reviewPasswordMatch]);
+        setPasswordsMatch(password === passwordConfirmation)
+    }, [password, passwordConfirmation, setPasswordsMatch]);
 
-    const checkPasswordRules = (input: string): boolean => {
-        input = deleteSpaces(input);
-        if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)) {
-            triggerAlert(
-                DEFAULT_ALERT_DURATION,
-                "warning",
-                "Maximum password length exceeded. Input was undone."
-            );
-            return false;
-        }
-        return true;
-    };
-
-    const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
-        let newPassword: string = event.target.value;
-
-        let isOK = checkPasswordRules(newPassword);
-        // if the password does not match the rules, do not change it.
-        if (!isOK) {
-            newPassword = password;
-        }
-        setPasswordInformationLength(
-            !notMinStrLength(newPassword, MIN_PASSWORD_LENGTH)
-        );
-        setPasswordInformationLowercase(newPassword.match(/[a-z]/) !== null);
-        setPasswordInformationUppercase(newPassword.match(/[A-Z]/) !== null);
-        setPasswordInformationNumber(newPassword.match(/\d/) !== null);
-        setPassword(newPassword);
-    };
-
-    const handlePasswordConfirmationChange = async (
-        event: ChangeEvent<HTMLInputElement>
-    ) => {
-        event.preventDefault();
-        let newConfirmationPassword: string = event.target.value;
-        const isOK = checkPasswordRules(newConfirmationPassword);
-        // if the confirmationPassword does not match the rules do not change it
-        if (!isOK) {
-            newConfirmationPassword = passwordConfirmation;
-        }
-        setPasswordConfirmation(newConfirmationPassword);
-    };
+    const newHandlePasswordChange = (newPasswordEvent: ChangeEvent<HTMLInputElement>, updatePassword: React.Dispatch<React.SetStateAction<string>>) => {
+        newPasswordEvent.preventDefault()
+        // TODO: change this to newPassword.trim() instead
+        let newPassword = deleteSpaces(newPasswordEvent.target.value)
+        updatePassword(newPassword)
+    }
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         console.log("[UserInformationInput] handleSubmit");
-        reviewPasswordMatch();
         let newUser = {
             username: username,
             password: password,
@@ -130,6 +68,17 @@ export default function UserInformationInput(
         };
         submitFunction(newUser);
     };
+
+    const parsePasswordStrengthFeedback = (score: number, feedback: PasswordFeedback) => {
+        console.log(score);
+        console.log(feedback);
+
+        setPasswordStrength(score);
+
+        if (feedback.warning) {
+            // TODO: add some warning or hint
+        }
+    }
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -148,14 +97,12 @@ export default function UserInformationInput(
                     placeholder="Must contain one number, uppercase & lowercase letter each"
                     value={password}
                     onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handlePasswordChange(event)
+                        newHandlePasswordChange(event, setPassword)
                     }
                 />
-                <PasswordStrengthBarWrapper currentPassword={password} />
-                <RuleChecker
-                    ruleToCheck={passwordInformationLength}
-                    ruleDesc={"Passwords must be between 8 and 20 characters."}
-                    imageAlt={"status icon password length"}
+                <PasswordStrengthBarWrapper
+                    currentPassword={password}
+                    scoreChangeCallback={(score, feedback) => parsePasswordStrengthFeedback(score, feedback)}
                 />
             </Form.Group>
             <Form.Group controlId="formConfirmPassword">
@@ -164,10 +111,14 @@ export default function UserInformationInput(
                     type="password"
                     value={passwordConfirmation}
                     onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handlePasswordConfirmationChange(event)
+                        newHandlePasswordChange(event, setPasswordConfirmation)
                     }
                 />
-                <PasswordStrengthBarWrapper currentPassword={passwordConfirmation} />
+                <RuleChecker
+                    ruleToCheck={passwordStrength >= MIN_PASSWORD_STRENGTH}
+                    ruleDesc={"Passwords must be at least strong."}
+                    imageAlt={"status icon password length"}
+                />
                 <div>
                     <img
                         alt={"status icon passwords match"}

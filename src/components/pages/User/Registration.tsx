@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { Alert, Container, Row } from "react-bootstrap";
-import { notMinStrLength } from "../../../background/methods/checkInput";
 import fileFighter from "../../../assets/images/logos/adventurer-run.gif";
 import { registerNewUser } from "../../../background/api/registration";
 import {
@@ -10,7 +9,6 @@ import {
 import { getStyleValue } from "../../../background/methods/style";
 import {
     DEFAULT_ALERT_DURATION,
-    MIN_PASSWORD_LENGTH
 } from "../../../background/constants";
 import UserInformationInput, {
     UserInformationInputInterface
@@ -86,8 +84,7 @@ export default function Registration(): ReactElement {
         } else if (
             newUser.password.match(/\d/) == null ||
             newUser.password.match(/[a-z]/) == null ||
-            newUser.password.match(/[A-Z]/) == null ||
-            notMinStrLength(newUser.password, MIN_PASSWORD_LENGTH)
+            newUser.password.match(/[A-Z]/) == null
         ) {
             handleAlertVisibility(
                 DEFAULT_ALERT_DURATION,
@@ -105,9 +102,9 @@ export default function Registration(): ReactElement {
                         DEFAULT_ALERT_DURATION,
                         "success",
                         "Worked: " +
-                            (res.outputMessage
-                                ? res.outputMessage
-                                : res.httpStatus + " " + res.httpMessage)
+                        (res.outputMessage
+                            ? res.outputMessage
+                            : res.httpStatus + " " + res.httpMessage)
                     );
                     toggleSubmitLogo();
                 })
@@ -116,9 +113,9 @@ export default function Registration(): ReactElement {
                         DEFAULT_ALERT_DURATION,
                         "danger",
                         "Error: " +
-                            (err.outputMessage
-                                ? err.outputMessage
-                                : err.httpStatus + " " + err.httpMessage)
+                        (err.outputMessage
+                            ? err.outputMessage
+                            : err.httpStatus + " " + err.httpMessage)
                     );
                 });
         }
@@ -153,7 +150,9 @@ export default function Registration(): ReactElement {
                 <div className="px-3 w-100">
                     <h1>Create new account</h1>
                     <UserInformationInput
-                        triggerAlert={handleAlertVisibility}
+                        triggerAlert={
+                            (errorMessage: string) => handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", errorMessage)
+                        }
                         submitFunction={handleSubmit}
                     />
                     <Alert
