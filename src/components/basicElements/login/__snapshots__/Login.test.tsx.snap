@@ -5,7 +5,6 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-       
       <div>
         <div
           class="mt-4 justify-content-center row"
@@ -94,11 +93,9 @@ Object {
           </div>
         </div>
       </div>
-       
     </div>
   </body>,
   "container": <div>
-     
     <div>
       <div
         class="mt-4 justify-content-center row"
@@ -187,7 +184,6 @@ Object {
         </div>
       </div>
     </div>
-     
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
