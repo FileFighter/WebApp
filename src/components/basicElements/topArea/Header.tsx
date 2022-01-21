@@ -1,17 +1,10 @@
-import React, { ReactElement } from "react";
-import { useHistory } from "react-router-dom";
-import { redirect } from "../../../background/methods/redirect";
+import React, {ReactElement} from "react";
+import {useNavigate} from "react-router-dom";
 import logo from "../../../assets/images/logos/logo.png";
-import {
-    Container,
-    Nav,
-    Navbar,
-    NavbarBrand,
-    NavDropdown
-} from "react-bootstrap";
-import { SystemState } from "../../../background/redux/actions/sytemState";
-import { connect, ConnectedProps } from "react-redux";
-import { logout } from "../../../background/api/auth";
+import {Container, Nav, Navbar, NavbarBrand, NavDropdown} from "react-bootstrap";
+import {SystemState} from "../../../background/redux/actions/sytemState";
+import {connect, ConnectedProps} from "react-redux";
+import {logout} from "../../../background/api/auth";
 
 export interface navBarElement_Interface {
     name: string;
@@ -32,7 +25,7 @@ const connector = connect(mapState);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function Header(props: PropsFromRedux): ReactElement {
-    const history = useHistory();
+    const navigate = useNavigate();
     const navBarElements: navBarElement_Interface[] = [
         {
             name: "health",
@@ -63,13 +56,12 @@ function Header(props: PropsFromRedux): ReactElement {
             <Nav.Link
                 className="nav-link nav-item"
                 key={"navBarElement-" + element.name}
-                href={element.deviantVisibleLink ?? element.link}
                 onClick={(event: any) => {
-                    redirect(history, element.link, event);
+                    navigate(element.link);
                     if (element.onClick) element.onClick();
                 }}
             >
-                <span />
+                <span/>
                 <span className="navbar-link-description">{element.text}</span>
             </Nav.Link>
         );
@@ -80,9 +72,8 @@ function Header(props: PropsFromRedux): ReactElement {
             <Navbar bg="primary" expand="lg" sticky="top" collapseOnSelect>
                 <Container>
                     <NavbarBrand
-                        href="/start"
                         onClick={(event: any) => {
-                            redirect(history, "/", event);
+                            navigate("/file");
                         }}
                     >
                         <img
@@ -94,7 +85,7 @@ function Header(props: PropsFromRedux): ReactElement {
                         />
                         FileFighter
                     </NavbarBrand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         {props.username && (
                             <Nav className="navbar-collapse justify-content-end">
@@ -105,12 +96,9 @@ function Header(props: PropsFromRedux): ReactElement {
                                     className="text-center"
                                 >
                                     <NavDropdown.Item
-                                        href="/profile"
                                         onClick={(event: any) => {
-                                            redirect(
-                                                history,
+                                            navigate(
                                                 "/profile",
-                                                event
                                             );
                                         }}
                                     >

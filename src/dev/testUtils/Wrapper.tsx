@@ -10,7 +10,7 @@ export const Wrapper: React.FC = ({ children }) => {
     return (
         <Provider store={store}>
             <BrowserRouter>
-                <Router history={history}> {children} </Router>
+                 {children} 
             </BrowserRouter>
         </Provider>
     );
