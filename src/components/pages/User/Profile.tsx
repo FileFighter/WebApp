@@ -9,8 +9,8 @@ import { DEFAULT_ALERT_DURATION } from "../../../background/constants";
 import {
     changeUserInformation,
     UserInformation,
-    UpdateUserErrorResponse
 } from "../../../background/api/userInformation";
+import { ApiStatusResponse } from "../../../background/api/sharedApiTypes"
 import edit_svg from "../../../assets/images/icons/material.io/edit_white_24dp.svg";
 import { hashPassword } from "../../../background/methods/passwords";
 
@@ -95,16 +95,16 @@ export default function Profile(): ReactElement {
                     "Worked: " + res
                 );
             })
-            .catch(({ errorCode, error }: UpdateUserErrorResponse) => {
+            .catch(({ responseStatus, responseCode }: ApiStatusResponse) => {
                 console.log(
                     "[Profile] Error: (" +
-                        errorCode +
-                        ") - " +
-                        error.errorMessage
+                    responseCode +
+                    ") - " +
+                    responseStatus.message
                 );
 
                 // 409 === Username already taken
-                if (errorCode === 409) {
+                if (responseCode === 409) {
                     handleAlertVisibility(
                         DEFAULT_ALERT_DURATION,
                         "danger",
@@ -114,7 +114,7 @@ export default function Profile(): ReactElement {
                     handleAlertVisibility(
                         DEFAULT_ALERT_DURATION,
                         "danger",
-                        "Error: " + error.errorMessage
+                        "Error: " + responseStatus.message
                     );
                 }
             });

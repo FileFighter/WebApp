@@ -63,7 +63,7 @@ export default function UserInformationInput(
 
         // check if username is valid
         if (!username) {
-            triggerAlert("Please specify a username.");
+            triggerAlert("Please specify a username!");
             return;
         }
 
@@ -71,13 +71,13 @@ export default function UserInformationInput(
         if (password) {
             // check password strength
             if (passwordStrength < REQUIRED_PASSWORD_STRENGTH) {
-                triggerAlert("Password is not strong enough");
+                triggerAlert("Password is not strong enough!");
                 return;
             }
 
             // check if passwords match
             if (!passwordsMatch) {
-                triggerAlert("Password is not strong enough");
+                triggerAlert("Passwords do not match!");
                 return;
             }
 
@@ -96,14 +96,15 @@ export default function UserInformationInput(
         score: number,
         feedback: PasswordFeedback
     ) => {
+        // FIXME one could implement some kind of hint system.
+
+        /*
         console.log(score);
         console.log(feedback);
-
         setPasswordStrength(score);
-
         if (feedback.warning) {
-            // TODO: add some warning or hint
         }
+        */
     };
 
     return (
@@ -120,7 +121,7 @@ export default function UserInformationInput(
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                     type="password"
-                    placeholder="Must contain one number, uppercase & lowercase letter each"
+                    placeholder="Enter your super secret strong password password."
                     value={password}
                     onChange={(event: ChangeEvent<HTMLInputElement>) =>
                         newHandlePasswordChange(event, setPassword)
@@ -154,8 +155,8 @@ export default function UserInformationInput(
                             !passwordConfirmation
                                 ? info_svg
                                 : passwordsMatch
-                                ? check_svg
-                                : error_svg
+                                    ? check_svg
+                                    : error_svg
                         }
                     />
                     <span className={"sr-only"}>
@@ -166,8 +167,8 @@ export default function UserInformationInput(
                             !passwordConfirmation
                                 ? "text-muted"
                                 : passwordsMatch
-                                ? "text-success"
-                                : "text-danger"
+                                    ? "text-success"
+                                    : "text-danger"
                         }
                     >
                         Passwords must match.

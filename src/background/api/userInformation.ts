@@ -5,22 +5,14 @@ import { hostname, userPath } from "./api";
 import store from "../redux/store";
 import { updateUser } from "../redux/actions/user";
 import { UserState } from "../redux/actions/userTypes";
+import { ApiStatusResponse } from "../api/sharedApiTypes";
 
 export interface UserInformation {
     userId: number | null;
     username?: string | null;
     groups?: string[] | null;
     password?: string;
-    confirmationPassword?: string; // TODO remove this.
-}
-
-/**
- * Interface describing the classic return value of the backend
- */
-// FIXME does this type already exist?
-export interface UpdateUserErrorResponse {
-    errorCode: number;
-    error: { statusMessage: string; errorMessage: string };
+    confirmationPassword?: string; // FIXME remove this in the backend
 }
 
 export const changeUserInformation = (
@@ -38,11 +30,11 @@ export const changeUserInformation = (
                 resolve(response.data);
             })
             .catch((error) => {
-                const errorResponse: UpdateUserErrorResponse = {
-                    errorCode: error.response.status,
-                    error: {
+                const errorResponse: ApiStatusResponse = {
+                    responseCode: error.response.status,
+                    responseStatus: {
                         statusMessage: error.response.data.status,
-                        errorMessage: error.response.data.message
+                        message: error.response.data.message
                     }
                 };
                 reject(errorResponse);
