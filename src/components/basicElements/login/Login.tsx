@@ -1,17 +1,11 @@
-import React, {
-    Dispatch,
-    FormEvent,
-    ReactElement,
-    SetStateAction,
-    useState
-} from "react";
-import { Button, Col, Form, Image, Row, Spinner } from "react-bootstrap";
-import { loginWithUsernameAndPassword } from "../../../background/api/auth";
+import React, {Dispatch, FormEvent, ReactElement, SetStateAction, useEffect, useState} from "react";
+import {Button, Col, Form, Image, Row, Spinner} from "react-bootstrap";
+import {loginWithUsernameAndPassword} from "../../../background/api/auth";
 
 import logo from "../../../assets/images/logos/logoWithWhiteBorder.png";
-import { useHistory, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../background/redux/store";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../background/redux/store";
 
 export interface LoginInputInterface {
     handleSubmit: (event: FormEvent) => void;
@@ -36,17 +30,20 @@ function Login(): ReactElement {
     const location = useLocation();
     const urlSearchParams = new URLSearchParams(location.search);
     const dest = urlSearchParams.get("dest");
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const tokens = useSelector((state: RootState) => state.tokens);
 
-    if (tokens.refreshToken && tokens.accessToken?.token) {
-        if (dest) {
-            history.push(decodeURIComponent(dest));
-        } else {
-            history.push("/");
+    useEffect(()=>{
+        if (tokens.refreshToken && tokens.accessToken?.token) {
+            if (dest) {
+                navigate(decodeURIComponent(dest));
+            } else {
+                navigate("/");
+            }
         }
-    }
+    },[dest,navigate,tokens])
+
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
         setIsLoading(true);
@@ -112,7 +109,7 @@ export function LoginHeader() {
     return (
         <div className="login-intro">
             <Row className="justify-content-center">
-                <Image rounded src={logo} height="200px" width="auto" />
+                <Image rounded src={logo} height="200px" width="auto"/>
             </Row>
             <Row className="justify-content-center">
                 <h1>Greetings Traveller!</h1>
