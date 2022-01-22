@@ -15,11 +15,12 @@ export interface UserInformation {
 }
 
 /**
- * Interface describing
+ * Interface describing the classic return value of the backend
  */
+// FIXME does this type already exist?
 export interface UpdateUserErrorResponse {
     errorCode: number;
-    error: { statusMessage: string, errorMessage: string }; // TODO does this type already exist?
+    error: { statusMessage: string, errorMessage: string };
 }
 
 export const changeUserInformation = (
