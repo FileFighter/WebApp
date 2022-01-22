@@ -97,7 +97,6 @@ export default function UserInformationInput(
         feedback: PasswordFeedback
     ) => {
         // FIXME one could implement some kind of hint system.
-
         /*
         console.log(score);
         console.log(feedback);
@@ -155,8 +154,8 @@ export default function UserInformationInput(
                             !passwordConfirmation
                                 ? info_svg
                                 : passwordsMatch
-                                    ? check_svg
-                                    : error_svg
+                                ? check_svg
+                                : error_svg
                         }
                     />
                     <span className={"sr-only"}>
@@ -167,8 +166,8 @@ export default function UserInformationInput(
                             !passwordConfirmation
                                 ? "text-muted"
                                 : passwordsMatch
-                                    ? "text-success"
-                                    : "text-danger"
+                                ? "text-success"
+                                : "text-danger"
                         }
                     >
                         Passwords must match.

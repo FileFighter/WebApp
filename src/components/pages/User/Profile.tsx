@@ -8,9 +8,9 @@ import { RootState } from "../../../background/redux/store";
 import { DEFAULT_ALERT_DURATION } from "../../../background/constants";
 import {
     changeUserInformation,
-    UserInformation,
+    UserInformation
 } from "../../../background/api/userInformation";
-import { ApiStatusResponse } from "../../../background/api/sharedApiTypes"
+import { ApiStatusResponse } from "../../../background/api/sharedApiTypes";
 import edit_svg from "../../../assets/images/icons/material.io/edit_white_24dp.svg";
 import { hashPassword } from "../../../background/methods/passwords";
 
@@ -98,9 +98,9 @@ export default function Profile(): ReactElement {
             .catch(({ responseStatus, responseCode }: ApiStatusResponse) => {
                 console.log(
                     "[Profile] Error: (" +
-                    responseCode +
-                    ") - " +
-                    responseStatus.message
+                        responseCode +
+                        ") - " +
+                        responseStatus.message
                 );
 
                 // 409 === Username already taken
