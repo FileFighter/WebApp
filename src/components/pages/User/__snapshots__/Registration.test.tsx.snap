@@ -49,7 +49,7 @@ Object {
                 <input
                   class="form-control"
                   id="formBasicPassword"
-                  placeholder="Must contain one number, uppercase & lowercase letter each"
+                  placeholder="Enter your super secret strong password password."
                   type="password"
                   value=""
                 />
@@ -166,7 +166,7 @@ Object {
               <input
                 class="form-control"
                 id="formBasicPassword"
-                placeholder="Must contain one number, uppercase & lowercase letter each"
+                placeholder="Enter your super secret strong password password."
                 type="password"
                 value=""
               />
