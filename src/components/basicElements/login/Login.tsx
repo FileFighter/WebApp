@@ -146,7 +146,7 @@ export function LoginInput(props: LoginInputInterface) {
             <Row className="mt-4 justify-content-center">
                 <Col className="login-input">
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="formBasicUsername">
+                        <Form.Group controlId="formBasicUsername" className="mb-3">
                             <Form.Control
                                 autoFocus
                                 placeholder="Username"
@@ -158,7 +158,7 @@ export function LoginInput(props: LoginInputInterface) {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword">
+                        <Form.Group controlId="formBasicPassword" className="mb-3">
                             <Form.Control
                                 type="password"
                                 placeholder="Password"
@@ -174,7 +174,7 @@ export function LoginInput(props: LoginInputInterface) {
                             </Form.Text>
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" block>
+                        <Button variant="primary" type="submit" className="w-100">
                             <Spinner
                                 as="span"
                                 animation="grow"
