@@ -79,7 +79,7 @@ export default function Registration(): ReactElement {
             return
         }
 
-        // TODO: remove confirmation-password in backend
+        // FIXME: remove confirmation-password in backend
         registerNewUser(
             newUser.username,
             newUser.password!!,

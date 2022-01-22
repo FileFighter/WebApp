@@ -76,7 +76,7 @@ export default function Profile(): ReactElement {
 
         } else if (user.username === userInput.username) {
             // if the new username is the old one show erorr instead of calling the backend
-            // TODO should we even show something here?
+            // FIXME should we even show something here?
             handleAlertVisibility(
                 DEFAULT_ALERT_DURATION,
                 "danger",
@@ -106,7 +106,6 @@ export default function Profile(): ReactElement {
                         "danger",
                         "Error: Username already taken"
                     );
-
                 } else {
                     handleAlertVisibility(
                         DEFAULT_ALERT_DURATION,

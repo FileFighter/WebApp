@@ -72,7 +72,7 @@ export default function UserInformationInput(
         // check if password is empty
         if (password) {
             // check password strength
-            if (passwordStrength <= REQUIRED_PASSWORD_STRENGTH) {
+            if (passwordStrength < REQUIRED_PASSWORD_STRENGTH) {
                 triggerAlert("Password is not strong enough");
                 return;
             }
