@@ -1,7 +1,6 @@
-import React from "react"
+import React from "react";
 import info_svg from "../../../assets/images/icons/material.io/info-24px.svg";
 import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg";
-
 
 // inner component rendering the checks
 type RuleCheckerProps = {
@@ -27,4 +26,4 @@ const RuleChecker = ({
     );
 };
 
-export { RuleChecker }
+export { RuleChecker };

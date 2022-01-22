@@ -1,10 +1,16 @@
-import React, {ReactElement} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { ReactElement } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/images/logos/logo.png";
-import {Container, Nav, Navbar, NavbarBrand, NavDropdown} from "react-bootstrap";
-import {SystemState} from "../../../background/redux/actions/sytemState";
-import {connect, ConnectedProps} from "react-redux";
-import {logout} from "../../../background/api/auth";
+import {
+    Container,
+    Nav,
+    Navbar,
+    NavbarBrand,
+    NavDropdown
+} from "react-bootstrap";
+import { SystemState } from "../../../background/redux/actions/sytemState";
+import { connect, ConnectedProps } from "react-redux";
+import { logout } from "../../../background/api/auth";
 
 export interface navBarElement_Interface {
     name: string;
@@ -59,7 +65,7 @@ function Header(props: PropsFromRedux): ReactElement {
                     if (element.onClick) element.onClick();
                 }}
             >
-                <span/>
+                <span />
                 <span className="navbar-link-description">{element.text}</span>
             </Nav.Link>
         );
@@ -83,7 +89,7 @@ function Header(props: PropsFromRedux): ReactElement {
                         />
                         FileFighter
                     </NavbarBrand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         {props.username && (
                             <Nav className="navbar-collapse justify-content-end">
@@ -95,9 +101,7 @@ function Header(props: PropsFromRedux): ReactElement {
                                 >
                                     <NavDropdown.Item
                                         onClick={() => {
-                                            navigate(
-                                                "/profile",
-                                            );
+                                            navigate("/profile");
                                         }}
                                     >
                                         Profile

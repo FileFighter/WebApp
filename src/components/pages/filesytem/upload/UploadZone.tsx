@@ -105,7 +105,7 @@ export const UploadZone = (): ReactElement => {
                             handleShow();
                         } else {
                             uploadFiles(
-                                (acceptedFiles as unknown) as File[],
+                                acceptedFiles as unknown as File[],
                                 currentFsItemId
                             );
                         }
@@ -113,7 +113,7 @@ export const UploadZone = (): ReactElement => {
                 );
             } else {
                 uploadFiles(
-                    (acceptedFiles as unknown) as File[],
+                    acceptedFiles as unknown as File[],
                     currentFsItemId
                 );
             }

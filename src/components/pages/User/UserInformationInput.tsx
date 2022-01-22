@@ -9,9 +9,7 @@ import { Button, Form, FormGroup } from "react-bootstrap";
 import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg";
 import info_svg from "../../../assets/images/icons/material.io/info-24px.svg";
 import error_svg from "../../../assets/images/icons/material.io/error-24px.svg";
-import {
-    REQUIRED_PASSWORD_STRENGTH
-} from "../../../background/constants";
+import { REQUIRED_PASSWORD_STRENGTH } from "../../../background/constants";
 import { PasswordStrengthBarWrapper } from "./PasswordStrengthBar";
 import { RuleChecker } from "./RuleChecker";
 import { PasswordFeedback } from "react-password-strength-bar";
@@ -51,7 +49,7 @@ export default function UserInformationInput(
         updatePassword: React.Dispatch<React.SetStateAction<string>>
     ) => {
         newPasswordEvent.preventDefault();
-        let newPassword = newPasswordEvent.target.value.trim()
+        let newPassword = newPasswordEvent.target.value.trim();
         updatePassword(newPassword);
     };
 
@@ -156,8 +154,8 @@ export default function UserInformationInput(
                             !passwordConfirmation
                                 ? info_svg
                                 : passwordsMatch
-                                    ? check_svg
-                                    : error_svg
+                                ? check_svg
+                                : error_svg
                         }
                     />
                     <span className={"sr-only"}>
@@ -168,8 +166,8 @@ export default function UserInformationInput(
                             !passwordConfirmation
                                 ? "text-muted"
                                 : passwordsMatch
-                                    ? "text-success"
-                                    : "text-danger"
+                                ? "text-success"
+                                : "text-danger"
                         }
                     >
                         Passwords must match.

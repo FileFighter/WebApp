@@ -11,7 +11,7 @@ export interface UserInformation {
     username?: string | null;
     groups?: string[] | null;
     password?: string;
-    confirmationPassword?: string;  // TODO remove this.
+    confirmationPassword?: string; // TODO remove this.
 }
 
 /**
@@ -20,7 +20,7 @@ export interface UserInformation {
 // FIXME does this type already exist?
 export interface UpdateUserErrorResponse {
     errorCode: number;
-    error: { statusMessage: string, errorMessage: string };
+    error: { statusMessage: string; errorMessage: string };
 }
 
 export const changeUserInformation = (
@@ -44,8 +44,8 @@ export const changeUserInformation = (
                         statusMessage: error.response.data.status,
                         errorMessage: error.response.data.message
                     }
-                }
+                };
                 reject(errorResponse);
             });
     });
-}
+};

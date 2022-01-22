@@ -7,9 +7,7 @@ import {
     getWindowSize_Interface
 } from "../../../background/methods/windowSize";
 import { getStyleValue } from "../../../background/methods/style";
-import {
-    DEFAULT_ALERT_DURATION,
-} from "../../../background/constants";
+import { DEFAULT_ALERT_DURATION } from "../../../background/constants";
 import UserInformationInput, {
     UserInformationInputInterface
 } from "./UserInformationInput";
@@ -75,8 +73,8 @@ export default function Registration(): ReactElement {
                 DEFAULT_ALERT_DURATION,
                 "danger",
                 "Please specify a password!"
-            )
-            return
+            );
+            return;
         }
 
         // FIXME: remove confirmation-password in backend
@@ -90,9 +88,9 @@ export default function Registration(): ReactElement {
                     DEFAULT_ALERT_DURATION,
                     "success",
                     "Worked: " +
-                    (res.outputMessage
-                        ? res.outputMessage
-                        : res.httpStatus + " " + res.httpMessage)
+                        (res.outputMessage
+                            ? res.outputMessage
+                            : res.httpStatus + " " + res.httpMessage)
                 );
                 toggleSubmitLogo();
             })
@@ -101,9 +99,9 @@ export default function Registration(): ReactElement {
                     DEFAULT_ALERT_DURATION,
                     "danger",
                     "Error: " +
-                    (err.outputMessage
-                        ? err.outputMessage
-                        : err.httpStatus + " " + err.httpMessage)
+                        (err.outputMessage
+                            ? err.outputMessage
+                            : err.httpStatus + " " + err.httpMessage)
                 );
             });
     };
@@ -137,8 +135,12 @@ export default function Registration(): ReactElement {
                 <div className="px-3 w-100">
                     <h1>Create new account</h1>
                     <UserInformationInput
-                        triggerAlert={
-                            (errorMessage: string) => handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", errorMessage)
+                        triggerAlert={(errorMessage: string) =>
+                            handleAlertVisibility(
+                                DEFAULT_ALERT_DURATION,
+                                "danger",
+                                errorMessage
+                            )
                         }
                         submitFunction={handleSubmit}
                     />

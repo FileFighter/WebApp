@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import "./App.css";
-import { BrowserRouter, Route,Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Router from "./Router/Router";
 import PermanentAssets from "./basicElements/PermanentAssets";
 
@@ -79,7 +79,7 @@ function App(props: Props): ReactElement {
                                     path={"/error"}
                                     element={<Error400 needsLogin />}
                                 />
-                                <Route path={"*"} element={<Login/>} />
+                                <Route path={"*"} element={<Login />} />
                             </Routes>
                         </BrowserRouter>
                     </div>

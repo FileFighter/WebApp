@@ -5,9 +5,7 @@ import UserInformationInput, {
 } from "./UserInformationInput";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../background/redux/store";
-import {
-    DEFAULT_ALERT_DURATION,
-} from "../../../background/constants";
+import { DEFAULT_ALERT_DURATION } from "../../../background/constants";
 import {
     changeUserInformation,
     UserInformation,
@@ -65,14 +63,16 @@ export default function Profile(): ReactElement {
     const handleSubmit = async (userInput: UserInformationInputInterface) => {
         console.log("[Profile] handleSubmit");
 
-        let updatedUser: UserInformation = { ...user, username: userInput.username }
+        let updatedUser: UserInformation = {
+            ...user,
+            username: userInput.username
+        };
 
         if (userInput.password) {
             // if the user updated the password
-            const hashedPassword = await hashPassword(userInput.password)
-            updatedUser.password = hashedPassword
-            updatedUser.confirmationPassword = hashedPassword
-
+            const hashedPassword = await hashPassword(userInput.password);
+            updatedUser.password = hashedPassword;
+            updatedUser.confirmationPassword = hashedPassword;
         } else if (user.username === userInput.username) {
             // if the new username is the old one show erorr instead of calling the backend
             // FIXME should we even show something here?
@@ -96,7 +96,12 @@ export default function Profile(): ReactElement {
                 );
             })
             .catch(({ errorCode, error }: UpdateUserErrorResponse) => {
-                console.log("[Profile] Error: (" + errorCode + ") - " + error.errorMessage);
+                console.log(
+                    "[Profile] Error: (" +
+                        errorCode +
+                        ") - " +
+                        error.errorMessage
+                );
 
                 // 409 === Username already taken
                 if (errorCode === 409) {
@@ -119,8 +124,12 @@ export default function Profile(): ReactElement {
         return (
             <>
                 <UserInformationInput
-                    triggerAlert={
-                        (errorMessage: string) => handleAlertVisibility(DEFAULT_ALERT_DURATION, "danger", errorMessage)
+                    triggerAlert={(errorMessage: string) =>
+                        handleAlertVisibility(
+                            DEFAULT_ALERT_DURATION,
+                            "danger",
+                            errorMessage
+                        )
                     }
                     submitFunction={handleSubmit}
                     presets={{ username: user.username ?? "", password: "" }}

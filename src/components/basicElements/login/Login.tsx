@@ -1,11 +1,18 @@
-import React, {Dispatch, FormEvent, ReactElement, SetStateAction, useEffect, useState} from "react";
-import {Button, Col, Form, Image, Row, Spinner} from "react-bootstrap";
-import {loginWithUsernameAndPassword} from "../../../background/api/auth";
+import React, {
+    Dispatch,
+    FormEvent,
+    ReactElement,
+    SetStateAction,
+    useEffect,
+    useState
+} from "react";
+import { Button, Col, Form, Image, Row, Spinner } from "react-bootstrap";
+import { loginWithUsernameAndPassword } from "../../../background/api/auth";
 
 import logo from "../../../assets/images/logos/logoWithWhiteBorder.png";
-import {useLocation, useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RootState} from "../../../background/redux/store";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../background/redux/store";
 
 export interface LoginInputInterface {
     handleSubmit: (event: FormEvent) => void;
@@ -34,7 +41,7 @@ function Login(): ReactElement {
 
     const tokens = useSelector((state: RootState) => state.tokens);
 
-    useEffect(()=>{
+    useEffect(() => {
         if (tokens.refreshToken && tokens.accessToken?.token) {
             if (dest) {
                 navigate(decodeURIComponent(dest));
@@ -42,7 +49,7 @@ function Login(): ReactElement {
                 navigate("/");
             }
         }
-    },[dest,navigate,tokens])
+    }, [dest, navigate, tokens]);
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
@@ -109,7 +116,7 @@ export function LoginHeader() {
     return (
         <div className="login-intro">
             <Row className="justify-content-center">
-                <Image rounded src={logo} height="200px" width="auto"/>
+                <Image rounded src={logo} height="200px" width="auto" />
             </Row>
             <Row className="justify-content-center">
                 <h1>Greetings Traveller!</h1>
