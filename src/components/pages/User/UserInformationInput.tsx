@@ -59,7 +59,7 @@ export default function UserInformationInput(
      * Checks if the username is valid. If the password is not null also check that.
      * Check the password if the passord is required.
      */
-    const handleSubmit = async (event: FormEvent) => {
+    const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
         console.log("[UserInformationInput] handleSubmit");
 

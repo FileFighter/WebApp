@@ -67,7 +67,7 @@ export default function Registration(): ReactElement {
         repositionSubmitLogo();
     }, [registrationContainer, logoSubmit]);
 
-    const handleSubmit = async (newUser: UserInformationInputInterface) => {
+    const handleSubmit = (newUser: UserInformationInputInterface) => {
         console.log("[REGISTRATION] handleSubmit");
 
         if (!newUser.password) {

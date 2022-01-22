@@ -62,7 +62,6 @@ export default function Profile(): ReactElement {
         setIsEditing(!isEditing);
     }
 
-    // TODO why is this async
     const handleSubmit = async (userInput: UserInformationInputInterface) => {
         console.log("[Profile] handleSubmit");
 
