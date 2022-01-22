@@ -10,7 +10,8 @@ import {
 } from "../../../background/constants";
 import {
     changeUserInformation,
-    UserInformation
+    UserInformation,
+    UpdateUserErrorResponse
 } from "../../../background/api/userInformation";
 import edit_svg from "../../../assets/images/icons/material.io/edit_white_24dp.svg";
 import { hashPassword } from "../../../background/methods/passwords";
@@ -57,24 +58,31 @@ export default function Profile(): ReactElement {
     };
 
     function changeEditMode(): void {
-        console.log("[PROFILE] changedEditMode");
+        console.log("[Profile] changedEditMode");
         setIsEditing(!isEditing);
     }
 
     // TODO why is this async
-    // TODO handle 409 differently
-    // TODO handle same username differently
     const handleSubmit = async (userInput: UserInformationInputInterface) => {
-        console.log("[PROFILE] handleSubmit");
+        console.log("[Profile] handleSubmit");
 
         let updatedUser: UserInformation = { ...user, username: userInput.username }
 
-        // if the user updated the password
         if (userInput.password) {
-            // hash password
+            // if the user updated the password
             const hashedPassword = await hashPassword(userInput.password)
             updatedUser.password = hashedPassword
             updatedUser.confirmationPassword = hashedPassword
+
+        } else if (user.username === userInput.username) {
+            // if the new username is the old one show erorr instead of calling the backend
+            // TODO should we even show something here?
+            handleAlertVisibility(
+                DEFAULT_ALERT_DURATION,
+                "danger",
+                "Error: No Changes."
+            );
+            return;
         }
 
         // trigger api call
@@ -88,13 +96,24 @@ export default function Profile(): ReactElement {
                     "Worked: " + res
                 );
             })
-            .catch((err) => {
-                console.log("[PROFILE] Error:" + err);
-                handleAlertVisibility(
-                    DEFAULT_ALERT_DURATION,
-                    "danger",
-                    "Error: " + err
-                );
+            .catch(({ errorCode, error }: UpdateUserErrorResponse) => {
+                console.log("[Profile] Error: (" + errorCode + ") - " + error.errorMessage);
+
+                // 409 === Username already taken
+                if (errorCode === 409) {
+                    handleAlertVisibility(
+                        DEFAULT_ALERT_DURATION,
+                        "danger",
+                        "Error: Username already taken"
+                    );
+
+                } else {
+                    handleAlertVisibility(
+                        DEFAULT_ALERT_DURATION,
+                        "danger",
+                        "Error: " + error.errorMessage
+                    );
+                }
             });
     };
 

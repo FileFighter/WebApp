@@ -14,6 +14,14 @@ export interface UserInformation {
     confirmationPassword?: string;  // TODO remove this.
 }
 
+/**
+ * Interface describing
+ */
+export interface UpdateUserErrorResponse {
+    errorCode: number;
+    error: { statusMessage: string, errorMessage: string }; // TODO does this type already exist?
+}
+
 export const changeUserInformation = (
     userWithNewInformation: UserInformation
 ): Promise<UserState> => {
@@ -29,7 +37,14 @@ export const changeUserInformation = (
                 resolve(response.data);
             })
             .catch((error) => {
-                reject(error.response?.data?.message);
+                const errorResponse: UpdateUserErrorResponse = {
+                    errorCode: error.response.status,
+                    error: {
+                        statusMessage: error.response.data.status,
+                        errorMessage: error.response.data.message
+                    }
+                }
+                reject(errorResponse);
             });
     });
-};
+}
