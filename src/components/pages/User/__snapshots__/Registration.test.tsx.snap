@@ -5,7 +5,6 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-       
       <div
         class="container"
         id="registrationContainer"
@@ -168,11 +167,9 @@ Object {
           style="left: -20px;"
         />
       </div>
-       
     </div>
   </body>,
   "container": <div>
-     
     <div
       class="container"
       id="registrationContainer"
@@ -335,7 +332,6 @@ Object {
         style="left: -20px;"
       />
     </div>
-     
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

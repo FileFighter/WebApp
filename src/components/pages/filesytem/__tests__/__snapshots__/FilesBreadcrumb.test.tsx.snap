@@ -5,7 +5,6 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-       
       <nav
         aria-label="breadcrumb"
       >
@@ -41,11 +40,9 @@ Object {
           </a>
         </ol>
       </nav>
-       
     </div>
   </body>,
   "container": <div>
-     
     <nav
       aria-label="breadcrumb"
     >
@@ -81,7 +78,6 @@ Object {
         </a>
       </ol>
     </nav>
-     
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
