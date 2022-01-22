@@ -1,4 +1,4 @@
-import React, {Dispatch, FormEvent, ReactElement, SetStateAction, useState} from "react";
+import React, {Dispatch, FormEvent, ReactElement, SetStateAction, useEffect, useState} from "react";
 import {Button, Col, Form, Image, Row, Spinner} from "react-bootstrap";
 import {loginWithUsernameAndPassword} from "../../../background/api/auth";
 
@@ -34,13 +34,16 @@ function Login(): ReactElement {
 
     const tokens = useSelector((state: RootState) => state.tokens);
 
-    if (tokens.refreshToken && tokens.accessToken?.token) {
-        if (dest) {
-            navigate(decodeURIComponent(dest));
-        } else {
-            navigate("/");
+    useEffect(()=>{
+        if (tokens.refreshToken && tokens.accessToken?.token) {
+            if (dest) {
+                navigate(decodeURIComponent(dest));
+            } else {
+                navigate("/");
+            }
         }
-    }
+    },[dest,navigate,tokens])
+
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
         setIsLoading(true);

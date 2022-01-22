@@ -1,16 +1,14 @@
 import React from "react";
-import { createMemoryHistory } from "history";
-import { BrowserRouter, Router } from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import store from "../../background/redux/store";
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
 
-export const Wrapper: React.FC = ({ children }) => {
-    const history = createMemoryHistory();
+export const Wrapper: React.FC = ({children}) => {
 
     return (
         <Provider store={store}>
             <BrowserRouter>
-                 {children} 
+                {children}
             </BrowserRouter>
         </Provider>
     );
