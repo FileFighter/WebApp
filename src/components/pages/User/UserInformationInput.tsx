@@ -4,27 +4,27 @@ import React, {
     ReactElement,
     useCallback,
     useEffect,
-    useState
-} from "react";
-import { Button, Form, FormGroup } from "react-bootstrap";
-import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg";
-import info_svg from "../../../assets/images/icons/material.io/info-24px.svg";
-import error_svg from "../../../assets/images/icons/material.io/error-24px.svg";
+    useState,
+} from "react"
+import { Button, Form, FormGroup } from "react-bootstrap"
+import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg"
+import info_svg from "../../../assets/images/icons/material.io/info-24px.svg"
+import error_svg from "../../../assets/images/icons/material.io/error-24px.svg"
 import {
     biggerMaxStrLength,
-    notMinStrLength
-} from "../../../background/methods/checkInput";
-import { deleteSpaces } from "../../../background/methods/dataTypes/strings";
+    notMinStrLength,
+} from "../../../background/methods/checkInput"
+import { deleteSpaces } from "../../../background/methods/dataTypes/strings"
 import {
     DEFAULT_ALERT_DURATION,
     MAX_PASSWORD_LENGTH,
-    MIN_PASSWORD_LENGTH
-} from "../../../background/constants";
+    MIN_PASSWORD_LENGTH,
+} from "../../../background/constants"
 
 export interface UserInformationInputInterface {
-    username: string;
-    password: string;
-    passwordConfirmation?: string;
+    username: string
+    password: string
+    passwordConfirmation?: string
 }
 
 type UserInformationInputProps = {
@@ -40,108 +40,98 @@ type UserInformationInputProps = {
             | "light"
             | "dark",
         message: string
-    ): void;
-    submitFunction(newUser: UserInformationInputInterface): void;
-    presets?: UserInformationInputInterface;
-};
+    ): void
+    submitFunction(newUser: UserInformationInputInterface): void
+    presets?: UserInformationInputInterface
+}
 
 export default function UserInformationInput(
     props: UserInformationInputProps
 ): ReactElement {
-    let { triggerAlert, submitFunction, presets } = props;
-    const [username, setUsername] = useState<string>(presets?.username ?? "");
-    const [password, setPassword] = useState<string>(presets?.password ?? "");
+    let { triggerAlert, submitFunction, presets } = props
+    const [username, setUsername] = useState<string>(presets?.username ?? "")
+    const [password, setPassword] = useState<string>(presets?.password ?? "")
     const [passwordConfirmation, setPasswordConfirmation] = useState<string>(
         presets?.password ?? ""
-    );
-    const [
-        passwordInformationLength,
-        setPasswordInformationLength
-    ] = useState<boolean>(false);
-    const [
-        passwordInformationLowercase,
-        setPasswordInformationLowercase
-    ] = useState<boolean>(false);
-    const [
-        passwordInformationUppercase,
-        setPasswordInformationUppercase
-    ] = useState<boolean>(false);
-    const [
-        passwordInformationNumber,
-        setPasswordInformationNumber
-    ] = useState<boolean>(false);
-    const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+    )
+    const [passwordInformationLength, setPasswordInformationLength] =
+        useState<boolean>(false)
+    const [passwordInformationLowercase, setPasswordInformationLowercase] =
+        useState<boolean>(false)
+    const [passwordInformationUppercase, setPasswordInformationUppercase] =
+        useState<boolean>(false)
+    const [passwordInformationNumber, setPasswordInformationNumber] =
+        useState<boolean>(false)
+    const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true)
 
     const reviewPasswordMatch = useCallback((): void => {
-        setPasswordsMatch(password === passwordConfirmation);
-    }, [password, passwordConfirmation]);
+        setPasswordsMatch(password === passwordConfirmation)
+    }, [password, passwordConfirmation])
 
     useEffect(() => {
-        reviewPasswordMatch();
-    }, [reviewPasswordMatch]);
+        reviewPasswordMatch()
+    }, [reviewPasswordMatch])
 
     const makePasswordInputFitRules = (input: string): [string, boolean] => {
-        input = deleteSpaces(input);
+        input = deleteSpaces(input)
         if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)) {
             triggerAlert(
                 DEFAULT_ALERT_DURATION,
                 "warning",
                 "Maximum password length exceeded. Input was undone."
-            );
-            return [input, false];
+            )
+            return [input, false]
         }
-        return [input, true];
-    };
+        return [input, true]
+    }
 
     const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
-        let newValue: string;
+        event.preventDefault()
+        let newValue: string
 
         let [stringValue, isOK]: [string, boolean] = makePasswordInputFitRules(
             event.target.value
-        );
+        )
         if (!isOK) {
-            newValue = password;
+            newValue = password
         } else {
-            newValue = stringValue;
+            newValue = stringValue
         }
         setPasswordInformationLength(
             !notMinStrLength(newValue, MIN_PASSWORD_LENGTH)
-        );
-        setPasswordInformationLowercase(newValue.match(/[a-z]/) !== null);
-        setPasswordInformationUppercase(newValue.match(/[A-Z]/) !== null);
-        setPasswordInformationNumber(newValue.match(/\d/) !== null);
-        setPassword(newValue);
-    };
+        )
+        setPasswordInformationLowercase(newValue.match(/[a-z]/) !== null)
+        setPasswordInformationUppercase(newValue.match(/[A-Z]/) !== null)
+        setPasswordInformationNumber(newValue.match(/\d/) !== null)
+        setPassword(newValue)
+    }
 
     const handlePasswordConfirmationChange = async (
         event: ChangeEvent<HTMLInputElement>
     ) => {
-        event.preventDefault();
-        let newValue: string;
-        const [stringValue, isOK]: [
-            string,
-            boolean
-        ] = makePasswordInputFitRules(event.target.value);
+        event.preventDefault()
+        let newValue: string
+        const [stringValue, isOK]: [string, boolean] =
+            makePasswordInputFitRules(event.target.value)
         if (!isOK) {
-            newValue = passwordConfirmation;
+            newValue = passwordConfirmation
         } else {
-            newValue = stringValue;
+            newValue = stringValue
         }
-        setPasswordConfirmation(newValue);
-    };
+        setPasswordConfirmation(newValue)
+    }
 
     const handleSubmit = async (event: FormEvent) => {
-        event.preventDefault();
-        console.log("[UserInformationInput] handleSubmit");
-        reviewPasswordMatch();
+        event.preventDefault()
+        console.log("[UserInformationInput] handleSubmit")
+        reviewPasswordMatch()
         let newUser = {
             username: username,
             password: password,
-            passwordConfirmation: passwordConfirmation
-        };
-        submitFunction(newUser);
-    };
+            passwordConfirmation: passwordConfirmation,
+        }
+        submitFunction(newUser)
+    }
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -286,5 +276,5 @@ export default function UserInformationInput(
                 Submit
             </Button>
         </Form>
-    );
+    )
 }

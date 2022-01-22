@@ -7,7 +7,7 @@
   "jsxSingleQuote": false,
   "trailingComma": "es5",
   "bracketSpacing": true,
+  "bracketSameLine": false,
   "arrowParens": "always",
-  "jsxBracketSameLine": false,
   "parser": "typescript",
 }

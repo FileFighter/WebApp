@@ -1,44 +1,44 @@
-import { Button, Form, Modal, Row } from "react-bootstrap";
-import React, { FormEvent, useEffect, useRef, useState } from "react";
-import { createNewFolder } from "../../../../background/api/filesystem";
-import { isFileNameValid } from "../../../../background/methods/filesystem";
-import { useDispatch } from "react-redux";
-import { addToContents } from "../../../../background/redux/actions/filesystem";
+import { Button, Form, Modal, Row } from "react-bootstrap"
+import React, { FormEvent, useEffect, useRef, useState } from "react"
+import { createNewFolder } from "../../../../background/api/filesystem"
+import { isFileNameValid } from "../../../../background/methods/filesystem"
+import { useDispatch } from "react-redux"
+import { addToContents } from "../../../../background/redux/actions/filesystem"
 
 interface Props {
-    handleClose: () => void;
-    currentFsItemId: string;
+    handleClose: () => void
+    currentFsItemId: string
 }
 
 function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
-    const dispatch = useDispatch();
-    const [folderName, setFolderName] = useState("");
-    const [error, setError] = useState("");
+    const dispatch = useDispatch()
+    const [folderName, setFolderName] = useState("")
+    const [error, setError] = useState("")
 
-    const inputElement = useRef<HTMLInputElement>(null);
+    const inputElement = useRef<HTMLInputElement>(null)
     useEffect(() => {
-        inputElement?.current?.focus();
-    }, []);
+        inputElement?.current?.focus()
+    }, [])
 
     function handleApply(event: FormEvent) {
-        event.preventDefault();
-        console.log("[NEW FOLDER ]", folderName);
+        event.preventDefault()
+        console.log("[NEW FOLDER ]", folderName)
         if (!isFileNameValid(folderName)) {
-            setError("The name is not a valid foldername.");
-            return;
+            setError("The name is not a valid foldername.")
+            return
         }
 
         createNewFolder(folderName, currentFsItemId)
             .then((response) => {
-                dispatch(addToContents(response.data));
-                setError("");
-                handleClose();
+                dispatch(addToContents(response.data))
+                setError("")
+                handleClose()
             })
             .catch((error) => {
                 setError(
                     error.response?.data?.message ?? "Something went wrong :("
-                );
-            });
+                )
+            })
     }
 
     return (
@@ -71,7 +71,7 @@ function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
                 </Row>
             </Modal.Footer>
         </Form>
-    );
+    )
 }
 
-export { NewFolderModalContent };
+export { NewFolderModalContent }

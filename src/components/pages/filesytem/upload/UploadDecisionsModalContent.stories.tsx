@@ -1,14 +1,14 @@
-import { storiesOf } from "@storybook/react";
-import { Provider } from "react-redux";
-import store from "../../../../background/redux/store";
-import { BrowserRouter } from "react-router-dom";
-import React, { Reducer, useReducer } from "react";
-import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent";
-import { preflightResultReducer } from "./UploadZone";
+import { storiesOf } from "@storybook/react"
+import { Provider } from "react-redux"
+import store from "../../../../background/redux/store"
+import { BrowserRouter } from "react-router-dom"
+import React, { Reducer, useReducer } from "react"
+import { UploadDecisionsModalContent } from "./UploadDecisionsModalContent"
+import { preflightResultReducer } from "./UploadZone"
 import {
     EditablePreflightEntityOrFile,
-    PeflightEntiesActionTypes
-} from "./preflightTypes";
+    PeflightEntiesActionTypes,
+} from "./preflightTypes"
 
 storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
     const preflightResultInit: EditablePreflightEntityOrFile[] = [
@@ -18,7 +18,7 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
             permissionIsSufficient: true, // can upload and can overwrite
             nameAlreadyInUse: true,
             nameIsValid: true,
-            isFile: true
+            isFile: true,
         },
         {
             name: "fasel",
@@ -26,7 +26,7 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
             permissionIsSufficient: true, // can upload and can overwrite
             nameAlreadyInUse: true,
             nameIsValid: true,
-            isFile: false
+            isFile: false,
         },
         {
             name: "bla.wow",
@@ -34,7 +34,7 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
             permissionIsSufficient: true, // can upload and can overwrite
             nameAlreadyInUse: true,
             nameIsValid: true,
-            isFile: true
+            isFile: true,
         },
         {
             name: "hallo.txt",
@@ -42,7 +42,7 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
             permissionIsSufficient: true, // can upload and can overwrite
             nameAlreadyInUse: true,
             nameIsValid: true,
-            isFile: true
+            isFile: true,
         },
         {
             name: "blub",
@@ -50,7 +50,7 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
             permissionIsSufficient: true, // can upload and can overwrite
             nameAlreadyInUse: true,
             nameIsValid: true,
-            isFile: false
+            isFile: false,
         },
         {
             name: "blubfdhjsgfhj---fsd/",
@@ -58,7 +58,7 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
             permissionIsSufficient: true,
             nameAlreadyInUse: false,
             nameIsValid: false,
-            isFile: false
+            isFile: false,
         },
         {
             name: "notAllowed",
@@ -66,13 +66,13 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
             permissionIsSufficient: false,
             nameAlreadyInUse: false,
             nameIsValid: true,
-            isFile: false
-        }
-    ];
+            isFile: false,
+        },
+    ]
 
     const [preflightResult, setPreflightResultDispatch] = useReducer<
         Reducer<EditablePreflightEntityOrFile[], PeflightEntiesActionTypes>
-    >(preflightResultReducer, preflightResultInit);
+    >(preflightResultReducer, preflightResultInit)
 
     return (
         <Provider store={store}>
@@ -85,5 +85,5 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
                 />
             </BrowserRouter>
         </Provider>
-    );
-});
+    )
+})

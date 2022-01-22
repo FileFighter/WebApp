@@ -1,27 +1,27 @@
-import React, { ReactElement } from "react";
-import { Button, Fade } from "react-bootstrap";
-import { SystemState } from "../../../background/redux/actions/sytemState";
-import { connect, ConnectedProps } from "react-redux";
-import { deleteFsEntities } from "../../../background/api/filesystem";
-import { constants } from "../../../background/constants";
-import { FsEntity } from "../../../background/api/filesystemTypes";
-import { NewFolder } from "./upload/NewFolder";
-import { Search } from "./search/Search";
+import React, { ReactElement } from "react"
+import { Button, Fade } from "react-bootstrap"
+import { SystemState } from "../../../background/redux/actions/sytemState"
+import { connect, ConnectedProps } from "react-redux"
+import { deleteFsEntities } from "../../../background/api/filesystem"
+import { constants } from "../../../background/constants"
+import { FsEntity } from "../../../background/api/filesystemTypes"
+import { NewFolder } from "./upload/NewFolder"
+import { Search } from "./search/Search"
 
 const mapState = (state: SystemState) => ({
     selectedFsEntities: state.filesystem.selectedFsEntities,
-    currentFsItemId: state.filesystem.currentFsItemId
-});
+    currentFsItemId: state.filesystem.currentFsItemId,
+})
 
-const connector = connect(mapState);
+const connector = connect(mapState)
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type PropsFromRedux = ConnectedProps<typeof connector>
 
-type Props = PropsFromRedux & {};
+type Props = PropsFromRedux & {}
 
 function ToolbarActions(props: Props): ReactElement | null {
     function handleDeleteClicked() {
-        deleteFsEntities(props.selectedFsEntities);
+        deleteFsEntities(props.selectedFsEntities)
     }
 
     return (
@@ -69,7 +69,7 @@ function ToolbarActions(props: Props): ReactElement | null {
             <NewFolder />
             <Search />
         </span>
-    );
+    )
 }
 
-export default connector(ToolbarActions);
+export default connector(ToolbarActions)

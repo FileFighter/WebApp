@@ -1,15 +1,12 @@
-import React from "react";
-import {BrowserRouter} from "react-router-dom";
-import store from "../../background/redux/store";
-import {Provider} from "react-redux";
+import React from "react"
+import { BrowserRouter } from "react-router-dom"
+import store from "../../background/redux/store"
+import { Provider } from "react-redux"
 
-export const Wrapper: React.FC = ({children}) => {
-
+export const Wrapper: React.FC = ({ children }) => {
     return (
         <Provider store={store}>
-            <BrowserRouter>
-                {children}
-            </BrowserRouter>
+            <BrowserRouter>{children}</BrowserRouter>
         </Provider>
-    );
-};
+    )
+}

@@ -1,18 +1,18 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import React from "react"
+import { Link, useLocation } from "react-router-dom"
+import { Container } from "react-bootstrap"
 
 interface Props {
-    needsLogin?: boolean;
+    needsLogin?: boolean
 }
 
 export default function Error400({ needsLogin }: Props) {
-    const location = useLocation();
-    const urlSearchParams = new URLSearchParams(location.search);
-    const dest = urlSearchParams.get("dest");
-    const message = urlSearchParams.get("message");
+    const location = useLocation()
+    const urlSearchParams = new URLSearchParams(location.search)
+    const dest = urlSearchParams.get("dest")
+    const message = urlSearchParams.get("message")
 
-    let tryAgainUrl;
+    let tryAgainUrl
     if (dest) {
         tryAgainUrl = needsLogin ? (
             <Link to={"/login?dest=" + encodeURIComponent(dest)}>
@@ -20,7 +20,7 @@ export default function Error400({ needsLogin }: Props) {
             </Link>
         ) : (
             <a href={decodeURIComponent(dest)}> Try again </a> // a tag because we are leaving the spa
-        );
+        )
     }
     return (
         <Container className={"text-center"}>
@@ -32,5 +32,5 @@ export default function Error400({ needsLogin }: Props) {
                 <Link to="/">Go to Home</Link>
             </p>
         </Container>
-    );
+    )
 }

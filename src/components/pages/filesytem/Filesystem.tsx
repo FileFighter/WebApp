@@ -1,11 +1,11 @@
-import React, { ReactElement } from "react";
-import FileList from "./FileList";
-import { ApiActionsInfo } from "./ApiActionsInfo";
-import UploadZone from "./upload/UploadZone";
+import React, { ReactElement } from "react"
+import FileList from "./FileList"
+import { ApiActionsInfo } from "./ApiActionsInfo"
+import UploadZone from "./upload/UploadZone"
 
-export const filesBaseUrl = "/file";
+export const filesBaseUrl = "/file"
 
-type Props = {};
+type Props = {}
 
 function FileSystem(props: Props): ReactElement {
     return (
@@ -25,7 +25,7 @@ function FileSystem(props: Props): ReactElement {
                 <UploadZone />
             </div>
         </div>
-    );
+    )
 }
 
-export default FileSystem;
+export default FileSystem

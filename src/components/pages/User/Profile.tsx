@@ -1,28 +1,28 @@
-import React, { ReactElement, useState } from "react";
-import { Alert, Button, Container } from "react-bootstrap";
+import React, { ReactElement, useState } from "react"
+import { Alert, Button, Container } from "react-bootstrap"
 import UserInformationInput, {
-    UserInformationInputInterface
-} from "./UserInformationInput";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../background/redux/store";
+    UserInformationInputInterface,
+} from "./UserInformationInput"
+import { useSelector } from "react-redux"
+import { RootState } from "../../../background/redux/store"
 import {
     DEFAULT_ALERT_DURATION,
-    MIN_PASSWORD_LENGTH
-} from "../../../background/constants";
+    MIN_PASSWORD_LENGTH,
+} from "../../../background/constants"
 import {
     changeUserInformation,
-    UserInformation
-} from "../../../background/api/userInformation";
-import { notMinStrLength } from "../../../background/methods/checkInput";
-import edit_svg from "../../../assets/images/icons/material.io/edit_white_24dp.svg";
-import { hashPassword } from "../../../background/methods/passwords";
+    UserInformation,
+} from "../../../background/api/userInformation"
+import { notMinStrLength } from "../../../background/methods/checkInput"
+import edit_svg from "../../../assets/images/icons/material.io/edit_white_24dp.svg"
+import { hashPassword } from "../../../background/methods/passwords"
 
 export default function Profile(): ReactElement {
-    const [isEditing, setIsEditing] = useState<boolean>(false);
-    const user = useSelector((state: RootState) => state.user);
+    const [isEditing, setIsEditing] = useState<boolean>(false)
+    const user = useSelector((state: RootState) => state.user)
     const [alertMessage, setAlertMessage] = useState<string>(
         "Error 404: No Message found."
-    );
+    )
     const [alertVariant, setAlertColor] = useState<
         | "primary"
         | "secondary"
@@ -32,8 +32,8 @@ export default function Profile(): ReactElement {
         | "info"
         | "light"
         | "dark"
-    >("success");
-    const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
+    >("success")
+    const [alertVisibility, setAlertVisibility] = useState<boolean>(false)
 
     const handleAlertVisibility = (
         duration: number,
@@ -49,43 +49,43 @@ export default function Profile(): ReactElement {
         message: string
     ) => {
         if (!alertVisibility) {
-            setAlertMessage(message);
-            setAlertColor(color);
-            setAlertVisibility(true);
+            setAlertMessage(message)
+            setAlertColor(color)
+            setAlertVisibility(true)
             setTimeout(() => {
-                setAlertVisibility(false);
-            }, duration);
+                setAlertVisibility(false)
+            }, duration)
         }
-    };
+    }
 
     function changeEditMode(): void {
-        console.log("[PROFILE] changedEditMode");
-        setIsEditing(!isEditing);
+        console.log("[PROFILE] changedEditMode")
+        setIsEditing(!isEditing)
     }
 
     const handleSubmit = async (inputUser: UserInformationInputInterface) => {
-        console.log("[PROFILE] handleSubmit");
+        console.log("[PROFILE] handleSubmit")
         let newUser: UserInformation = {
             groups: user.groups,
-            userId: user.userId
-        };
+            userId: user.userId,
+        }
         if (!inputUser.username) {
             handleAlertVisibility(
                 DEFAULT_ALERT_DURATION,
                 "danger",
                 "Error: Please choose an username."
-            );
-            return;
+            )
+            return
         }
-        newUser["username"] = inputUser.username;
+        newUser["username"] = inputUser.username
         if (inputUser.password || inputUser.passwordConfirmation) {
             if (inputUser.password !== inputUser.passwordConfirmation) {
                 handleAlertVisibility(
                     DEFAULT_ALERT_DURATION,
                     "danger",
                     "Error: Password and password confirmation must match."
-                );
-                return;
+                )
+                return
             }
             if (
                 inputUser.password.match(/\d/) == null ||
@@ -97,31 +97,31 @@ export default function Profile(): ReactElement {
                     DEFAULT_ALERT_DURATION,
                     "danger",
                     "Error: Please pay attention to the notes below the input fields."
-                );
-                return;
+                )
+                return
             }
-            newUser["password"] = await hashPassword(inputUser.password);
-            newUser["confirmationPassword"] = newUser["password"];
+            newUser["password"] = await hashPassword(inputUser.password)
+            newUser["confirmationPassword"] = newUser["password"]
         }
 
         await changeUserInformation(newUser)
             .then((res) => {
-                changeEditMode();
+                changeEditMode()
                 handleAlertVisibility(
                     DEFAULT_ALERT_DURATION,
                     "success",
                     "Worked: " + res
-                );
+                )
             })
             .catch((err) => {
-                console.log("Error:" + err);
+                console.log("Error:" + err)
                 handleAlertVisibility(
                     DEFAULT_ALERT_DURATION,
                     "danger",
                     "Error: " + err
-                );
-            });
-    };
+                )
+            })
+    }
 
     function EditProfile(): ReactElement {
         return (
@@ -140,7 +140,7 @@ export default function Profile(): ReactElement {
                     <p>{alertMessage}</p>
                 </Alert>
             </>
-        );
+        )
     }
 
     function DisplayProfile(): ReactElement {
@@ -153,12 +153,12 @@ export default function Profile(): ReactElement {
                     <dt>Groups</dt>
                     <dd>
                         {user.groups?.map((value: string) => {
-                            return value + " ";
+                            return value + " "
                         })}
                     </dd>
                 </dl>
             </div>
-        );
+        )
     }
 
     return (
@@ -180,5 +180,5 @@ export default function Profile(): ReactElement {
             </div>
             {isEditing ? <EditProfile /> : <DisplayProfile />}
         </Container>
-    );
+    )
 }

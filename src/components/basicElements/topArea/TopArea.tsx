@@ -1,6 +1,6 @@
-import { TopBanner } from "./TopBanner";
-import Header from "./Header";
-import React from "react";
+import { TopBanner } from "./TopBanner"
+import Header from "./Header"
+import React from "react"
 
 export default function HeadArea() {
     return (
@@ -8,5 +8,5 @@ export default function HeadArea() {
             <TopBanner />
             <Header />
         </div>
-    );
+    )
 }
