@@ -10,7 +10,6 @@ export interface navBarElement_Interface {
     name: string;
     text: string;
     link: string;
-    deviantVisibleLink?: string;
     logo: string | null;
     onClick?: (...sth: any) => any;
 }
@@ -31,7 +30,6 @@ function Header(props: PropsFromRedux): ReactElement {
             name: "health",
             text: "Health",
             link: "/health",
-            deviantVisibleLink: "/health",
             logo: null
         },
         {
@@ -56,7 +54,7 @@ function Header(props: PropsFromRedux): ReactElement {
             <Nav.Link
                 className="nav-link nav-item"
                 key={"navBarElement-" + element.name}
-                onClick={(event: any) => {
+                onClick={() => {
                     navigate(element.link);
                     if (element.onClick) element.onClick();
                 }}
@@ -72,7 +70,7 @@ function Header(props: PropsFromRedux): ReactElement {
             <Navbar bg="primary" expand="lg" sticky="top" collapseOnSelect>
                 <Container>
                     <NavbarBrand
-                        onClick={(event: any) => {
+                        onClick={() => {
                             navigate("/file");
                         }}
                     >
@@ -96,7 +94,7 @@ function Header(props: PropsFromRedux): ReactElement {
                                     className="text-center"
                                 >
                                     <NavDropdown.Item
-                                        onClick={(event: any) => {
+                                        onClick={() => {
                                             navigate(
                                                 "/profile",
                                             );
@@ -105,7 +103,7 @@ function Header(props: PropsFromRedux): ReactElement {
                                         Profile
                                     </NavDropdown.Item>
                                     <NavDropdown.Item
-                                        onClick={(event: any) => {
+                                        onClick={() => {
                                             logout();
                                         }}
                                     >
