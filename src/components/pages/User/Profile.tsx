@@ -62,16 +62,26 @@ export default function Profile(): ReactElement {
     }
 
     // TODO why is this async
-    const handleSubmit = async (inputUser: UserInformationInputInterface) => {
+    // TODO handle 409 differently
+    // TODO handle same username differently
+    const handleSubmit = async (userInput: UserInformationInputInterface) => {
         console.log("[PROFILE] handleSubmit");
-        // hash password
-        const hashedPassword = await hashPassword(inputUser.password)
+
+        let updatedUser: UserInformation = { ...user, username: userInput.username }
+
+        // if the user updated the password
+        if (userInput.password) {
+            // hash password
+            const hashedPassword = await hashPassword(userInput.password)
+            updatedUser.password = hashedPassword
+            updatedUser.confirmationPassword = hashedPassword
+        }
 
         // trigger api call
-        let updatedUser = { password: hashedPassword, confirmationPassword: hashedPassword, ...user }
         await changeUserInformation(updatedUser)
             .then((res) => {
                 changeEditMode();
+                // FIXME this does never appear, because we rerender it and this gets lost
                 handleAlertVisibility(
                     DEFAULT_ALERT_DURATION,
                     "success",

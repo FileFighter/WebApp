@@ -69,56 +69,43 @@ export default function Registration(): ReactElement {
 
     const handleSubmit = async (newUser: UserInformationInputInterface) => {
         console.log("[REGISTRATION] handleSubmit");
-        if (!newUser.username) {
+
+        if (!newUser.password) {
             handleAlertVisibility(
                 DEFAULT_ALERT_DURATION,
                 "danger",
-                "Error: Please choose an username."
-            );
-        } else if (newUser.password !== newUser.passwordConfirmation) {
-            handleAlertVisibility(
-                DEFAULT_ALERT_DURATION,
-                "danger",
-                "Error: Password and password confirmation must match."
-            );
-        } else if (
-            newUser.password.match(/\d/) == null ||
-            newUser.password.match(/[a-z]/) == null ||
-            newUser.password.match(/[A-Z]/) == null
-        ) {
-            handleAlertVisibility(
-                DEFAULT_ALERT_DURATION,
-                "danger",
-                "Error: Please pay attention to the notes below the input fields."
-            );
-        } else {
-            registerNewUser(
-                newUser.username,
-                newUser.password,
-                newUser.passwordConfirmation
+                "Please specify a password!"
             )
-                .then((res) => {
-                    handleAlertVisibility(
-                        DEFAULT_ALERT_DURATION,
-                        "success",
-                        "Worked: " +
-                        (res.outputMessage
-                            ? res.outputMessage
-                            : res.httpStatus + " " + res.httpMessage)
-                    );
-                    toggleSubmitLogo();
-                })
-                .catch((err) => {
-                    handleAlertVisibility(
-                        DEFAULT_ALERT_DURATION,
-                        "danger",
-                        "Error: " +
-                        (err.outputMessage
-                            ? err.outputMessage
-                            : err.httpStatus + " " + err.httpMessage)
-                    );
-                });
+            return
         }
+
+        // TODO: remove confirmation-password in backend
+        registerNewUser(
+            newUser.username,
+            newUser.password!!,
+            newUser.password!!
+        )
+            .then((res) => {
+                handleAlertVisibility(
+                    DEFAULT_ALERT_DURATION,
+                    "success",
+                    "Worked: " +
+                    (res.outputMessage
+                        ? res.outputMessage
+                        : res.httpStatus + " " + res.httpMessage)
+                );
+                toggleSubmitLogo();
+            })
+            .catch((err) => {
+                handleAlertVisibility(
+                    DEFAULT_ALERT_DURATION,
+                    "danger",
+                    "Error: " +
+                    (err.outputMessage
+                        ? err.outputMessage
+                        : err.httpStatus + " " + err.httpMessage)
+                );
+            });
     };
 
     const handleAlertVisibility = (

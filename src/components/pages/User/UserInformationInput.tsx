@@ -9,7 +9,6 @@ import { Button, Form, FormGroup } from "react-bootstrap";
 import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg";
 import info_svg from "../../../assets/images/icons/material.io/info-24px.svg";
 import error_svg from "../../../assets/images/icons/material.io/error-24px.svg";
-import { deleteSpaces } from "../../../background/methods/dataTypes/strings";
 import {
     REQUIRED_PASSWORD_STRENGTH
 } from "../../../background/constants";
@@ -19,7 +18,7 @@ import { PasswordFeedback } from "react-password-strength-bar";
 
 export interface UserInformationInputInterface {
     username: string;
-    password: string;
+    password?: string;
 }
 
 type UserInformationInputProps = {
@@ -56,32 +55,43 @@ export default function UserInformationInput(
         updatePassword(newPassword);
     };
 
+    /**
+     * Checks if the username is valid. If the password is not null also check that.
+     * Check the password if the passord is required.
+     */
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         console.log("[UserInformationInput] handleSubmit");
 
+        // check if username is valid
+        if (!username) {
+            triggerAlert("Please specify a username.");
+            return;
+        }
+
         // check if password is empty
-        if (!password) {
-            triggerAlert("Please specify a password.");
-            return;
-        }
+        if (password) {
+            // check password strength
+            if (passwordStrength <= REQUIRED_PASSWORD_STRENGTH) {
+                triggerAlert("Password is not strong enough");
+                return;
+            }
 
-        // check password strength
-        if (passwordStrength <= REQUIRED_PASSWORD_STRENGTH) {
-            triggerAlert("Password is not strong enough");
-            return;
-        }
+            // check if passwords match
+            if (!passwordsMatch) {
+                triggerAlert("Password is not strong enough");
+                return;
+            }
 
-        // check if passwords match
-        if (!passwordsMatch) {
-            triggerAlert("Password is not strong enough");
-            return;
+            submitFunction({
+                username: username,
+                password: password
+            });
+        } else {
+            submitFunction({
+                username: username
+            });
         }
-
-        submitFunction({
-            username: username,
-            password: password,
-        });
     };
 
     const parsePasswordStrengthFeedback = (
