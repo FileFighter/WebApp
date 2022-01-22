@@ -54,70 +54,6 @@ Object {
                   type="password"
                   value=""
                 />
-                <div>
-                  <img
-                    alt="status icon password length"
-                    src="info-24px.svg"
-                  />
-                  <span
-                    class="sr-only"
-                  >
-                    Missing: 
-                  </span>
-                  <span
-                    class="text-muted"
-                  >
-                    Passwords must be between 8 and 20 characters.
-                  </span>
-                </div>
-                <div>
-                  <img
-                    alt="status icon password contains uppercase character"
-                    src="info-24px.svg"
-                  />
-                  <span
-                    class="sr-only"
-                  >
-                    Missing: 
-                  </span>
-                  <span
-                    class="text-muted"
-                  >
-                    Passwords must be at least contain 1 uppercase character.
-                  </span>
-                </div>
-                <div>
-                  <img
-                    alt="status icon password contains lowercase character"
-                    src="info-24px.svg"
-                  />
-                  <span
-                    class="sr-only"
-                  >
-                    Missing: 
-                  </span>
-                  <span
-                    class="text-muted"
-                  >
-                    Passwords must be at least contain 1 lowercase character.
-                  </span>
-                </div>
-                <div>
-                  <img
-                    alt="status icon password contains number"
-                    src="info-24px.svg"
-                  />
-                  <span
-                    class="sr-only"
-                  >
-                    Missing: 
-                  </span>
-                  <span
-                    class="text-muted"
-                  >
-                    Passwords must be at least contain 1 number.
-                  </span>
-                </div>
               </div>
               <div
                 class="form-group"
@@ -134,6 +70,22 @@ Object {
                   type="password"
                   value=""
                 />
+                <div>
+                  <img
+                    alt="status icon password length"
+                    src="info-24px.svg"
+                  />
+                  <span
+                    class="sr-only"
+                  >
+                    Missing: 
+                  </span>
+                  <span
+                    class="text-muted"
+                  >
+                    Passwords must be at least strong.
+                  </span>
+                </div>
                 <div>
                   <img
                     alt="status icon passwords match"
@@ -221,70 +173,6 @@ Object {
                 type="password"
                 value=""
               />
-              <div>
-                <img
-                  alt="status icon password length"
-                  src="info-24px.svg"
-                />
-                <span
-                  class="sr-only"
-                >
-                  Missing: 
-                </span>
-                <span
-                  class="text-muted"
-                >
-                  Passwords must be between 8 and 20 characters.
-                </span>
-              </div>
-              <div>
-                <img
-                  alt="status icon password contains uppercase character"
-                  src="info-24px.svg"
-                />
-                <span
-                  class="sr-only"
-                >
-                  Missing: 
-                </span>
-                <span
-                  class="text-muted"
-                >
-                  Passwords must be at least contain 1 uppercase character.
-                </span>
-              </div>
-              <div>
-                <img
-                  alt="status icon password contains lowercase character"
-                  src="info-24px.svg"
-                />
-                <span
-                  class="sr-only"
-                >
-                  Missing: 
-                </span>
-                <span
-                  class="text-muted"
-                >
-                  Passwords must be at least contain 1 lowercase character.
-                </span>
-              </div>
-              <div>
-                <img
-                  alt="status icon password contains number"
-                  src="info-24px.svg"
-                />
-                <span
-                  class="sr-only"
-                >
-                  Missing: 
-                </span>
-                <span
-                  class="text-muted"
-                >
-                  Passwords must be at least contain 1 number.
-                </span>
-              </div>
             </div>
             <div
               class="form-group"
@@ -301,6 +189,22 @@ Object {
                 type="password"
                 value=""
               />
+              <div>
+                <img
+                  alt="status icon password length"
+                  src="info-24px.svg"
+                />
+                <span
+                  class="sr-only"
+                >
+                  Missing: 
+                </span>
+                <span
+                  class="text-muted"
+                >
+                  Passwords must be at least strong.
+                </span>
+              </div>
               <div>
                 <img
                   alt="status icon passwords match"
