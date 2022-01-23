@@ -118,7 +118,7 @@ function FileListHeader(props: TReduxProps): ReactElement {
         <Row>
             {/*Checkbox*/}
             <Col xs={fileListSize.checkbox.xs} md={fileListSize.checkbox.md}>
-                <Form.Group controlId="formBasicCheckbox">
+                <Form.Group controlId="formBasicCheckbox" className={"pl-3"}>
                     <Form.Check
                         checked={allAreSelected}
                         type="checkbox"

@@ -149,7 +149,7 @@ export const UploadDecisionsModalContent = ({
                         <th className="fw-40">New Name</th>
                         <th className="fw-20">
                             {isFolders ? "Merge" : "Overwrite"}
-                            <Form.Group>
+                            <Form.Group className="pl-4 mb-3">
                                 <Form.Check
                                     type="checkbox"
                                     checked={

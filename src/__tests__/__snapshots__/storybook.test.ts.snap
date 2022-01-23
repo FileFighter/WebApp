@@ -73,7 +73,6 @@ exports[`Storyshots Filesystem FilesystemContextMenu 1`] = `
 >
   <button
     aria-expanded={false}
-    aria-haspopup={true}
     className="no-after btn-sm dropdown-toggle btn btn-primary"
     disabled={false}
     id="fileListItemDropdownButton-34-button"
@@ -99,28 +98,16 @@ exports[`Storyshots Filesystem NewFolderModal 1`] = `
       Create new Directory
     </div>
     <button
-      className="close"
+      aria-label="Close"
+      className="btn-close"
       onClick={[Function]}
       type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-      <span
-        className="sr-only"
-      >
-        Close
-      </span>
-    </button>
+    />
   </div>
   <div
     className="modal-body"
   >
-    <div
-      className="form-group"
-    >
+    <div>
       <label
         className="form-label"
         htmlFor="formFolderName"
@@ -178,9 +165,7 @@ Array [
       >
         Search for files or folders
       </div>
-      <div
-        className="form-group"
-      >
+      <div>
         <label
           className="form-label"
           htmlFor="searchValue"
@@ -198,21 +183,11 @@ Array [
       </div>
     </div>
     <button
-      className="close"
+      aria-label="Close"
+      className="btn-close"
       onClick={[Function]}
       type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-      <span
-        className="sr-only"
-      >
-        Close
-      </span>
-    </button>
+    />
   </div>,
   <div
     className="modal-body"
@@ -237,21 +212,11 @@ Array [
       Uploading
     </div>
     <button
-      className="close"
+      aria-label="Close"
+      className="btn-close"
       onClick={[Function]}
       type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-      <span
-        className="sr-only"
-      >
-        Close
-      </span>
-    </button>
+    />
   </div>,
   <div
     className="modal-body"
@@ -264,8 +229,7 @@ Array [
       >
         <div
           className="bg-body border list-group-item"
-          data-rb-event-key={null}
-          disabled={false}
+          data-rr-ui-event-key={null}
           onClick={[Function]}
         >
           fasel
@@ -273,8 +237,7 @@ Array [
         </div>
         <div
           className="bg-body border list-group-item"
-          data-rb-event-key={null}
-          disabled={false}
+          data-rr-ui-event-key={null}
           onClick={[Function]}
         >
           fasel/blub
@@ -290,8 +253,7 @@ Array [
       >
         <div
           className="bg-body border list-group-item"
-          data-rb-event-key={null}
-          disabled={false}
+          data-rr-ui-event-key={null}
           onClick={[Function]}
         >
           bla.txt
@@ -299,8 +261,7 @@ Array [
         </div>
         <div
           className="bg-body border list-group-item"
-          data-rb-event-key={null}
-          disabled={false}
+          data-rr-ui-event-key={null}
           onClick={[Function]}
         >
           fasel/bla.wow
@@ -408,10 +369,9 @@ exports[`Storyshots Filesystem default 1`] = `
                 <a
                   aria-disabled={true}
                   className="mx-1 btn btn-outline-secondary btn-sm disabled"
-                  href="http://localhost/data/download?ids="
                   onClick={[Function]}
                   onKeyDown={[Function]}
-                  tabIndex={-1}
+                  role="button"
                 >
                   Download
                 </a>
@@ -433,14 +393,14 @@ exports[`Storyshots Filesystem default 1`] = `
               className="col-md-1 col-2"
             >
               <div
-                className="form-group"
+                className="pl-3"
               >
                 <div
-                  className="form-check"
+                  className=""
                 >
                   <input
                     checked={false}
-                    className="form-check-input position-static"
+                    className="form-check-input"
                     disabled={false}
                     id="formBasicCheckbox"
                     onChange={[Function]}
@@ -619,7 +579,7 @@ exports[`Storyshots Login default 1`] = `
         onSubmit={[Function]}
       >
         <div
-          className="form-group"
+          className="mb-3"
         >
           <input
             autoComplete="username"
@@ -632,7 +592,7 @@ exports[`Storyshots Login default 1`] = `
           />
         </div>
         <div
-          className="form-group"
+          className="mb-3"
         >
           <input
             autoComplete="current-password"
@@ -650,7 +610,7 @@ exports[`Storyshots Login default 1`] = `
           </small>
         </div>
         <button
-          className="btn btn-primary btn-block"
+          className="w-100 btn btn-primary"
           disabled={false}
           type="submit"
         >
@@ -668,7 +628,7 @@ exports[`Storyshots Login default 1`] = `
           Sign in
         </button>
         <div
-          className="mt-3 justify-content-center form-group"
+          className="mt-3 justify-content-center"
         >
           <div
             className="form-check"
@@ -719,7 +679,7 @@ exports[`Storyshots Login interactionArea 1`] = `
         onSubmit={[Function]}
       >
         <div
-          className="form-group"
+          className="mb-3"
         >
           <input
             autoComplete="username"
@@ -732,7 +692,7 @@ exports[`Storyshots Login interactionArea 1`] = `
           />
         </div>
         <div
-          className="form-group"
+          className="mb-3"
         >
           <input
             autoComplete="current-password"
@@ -750,7 +710,7 @@ exports[`Storyshots Login interactionArea 1`] = `
           </small>
         </div>
         <button
-          className="btn btn-primary btn-block"
+          className="w-100 btn btn-primary"
           disabled={false}
           type="submit"
         >
@@ -768,7 +728,7 @@ exports[`Storyshots Login interactionArea 1`] = `
           Sign in
         </button>
         <div
-          className="mt-3 justify-content-center form-group"
+          className="mt-3 justify-content-center"
         >
           <div
             className="form-check"
@@ -850,7 +810,7 @@ exports[`Storyshots Login onlyInput 1`] = `
         onSubmit={[Function]}
       >
         <div
-          className="form-group"
+          className="mb-3"
         >
           <input
             autoComplete="username"
@@ -863,7 +823,7 @@ exports[`Storyshots Login onlyInput 1`] = `
           />
         </div>
         <div
-          className="form-group"
+          className="mb-3"
         >
           <input
             autoComplete="current-password"
@@ -881,7 +841,7 @@ exports[`Storyshots Login onlyInput 1`] = `
           </small>
         </div>
         <button
-          className="btn btn-primary btn-block"
+          className="w-100 btn btn-primary"
           disabled={false}
           type="submit"
         >
@@ -899,7 +859,7 @@ exports[`Storyshots Login onlyInput 1`] = `
           Sign in
         </button>
         <div
-          className="mt-3 justify-content-center form-group"
+          className="mt-3 justify-content-center"
         >
           <div
             className="form-check"
@@ -1005,9 +965,7 @@ exports[`Storyshots Registration default 1`] = `
         className=""
         onSubmit={[Function]}
       >
-        <div
-          className="form-group"
-        >
+        <div>
           <label
             className="form-label"
             htmlFor="formBasicUsername"
@@ -1022,9 +980,7 @@ exports[`Storyshots Registration default 1`] = `
             value=""
           />
         </div>
-        <div
-          className="form-group"
-        >
+        <div>
           <label
             className="form-label"
             htmlFor="formBasicPassword"
@@ -1040,9 +996,7 @@ exports[`Storyshots Registration default 1`] = `
             value=""
           />
         </div>
-        <div
-          className="form-group"
-        >
+        <div>
           <label
             className="form-label"
             htmlFor="formConfirmPassword"

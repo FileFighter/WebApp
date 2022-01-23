@@ -36,7 +36,7 @@ const UploadDecisionsTableRow = ({
         [preflightEntity.path, setPreflightResultDispatch]
     )
     const onNameInputLeaver = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
+        (event) => {
             console.log("onNameInputLeaver")
             let val = event.target.value
 
@@ -102,7 +102,7 @@ const UploadDecisionsTableRow = ({
                 )}
             </td>
             <td>
-                <Form.Group>
+                <Form.Group className="pl-4 mb-3">
                     <Form.Check
                         disabled={
                             !preflightEntity.nameIsValid ||
