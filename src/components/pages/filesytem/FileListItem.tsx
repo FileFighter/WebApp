@@ -57,7 +57,7 @@ function FileListItem(props: Props): ReactElement {
                 md={fileListSize.checkbox.md}
                 className="fileRow"
             >
-                <Form.Group controlId="formBasicCheckbox">
+                <Form.Group controlId="formBasicCheckbox" className={"pl-3"}>
                     <Form.Check
                         checked={isSelected}
                         type="checkbox"

@@ -21,9 +21,7 @@ Object {
             <form
               class=""
             >
-              <div
-                class="form-group"
-              >
+              <div>
                 <label
                   class="form-label"
                   for="formBasicUsername"
@@ -37,9 +35,7 @@ Object {
                   value=""
                 />
               </div>
-              <div
-                class="form-group"
-              >
+              <div>
                 <label
                   class="form-label"
                   for="formBasicPassword"
@@ -118,9 +114,7 @@ Object {
                   </span>
                 </div>
               </div>
-              <div
-                class="form-group"
-              >
+              <div>
                 <label
                   class="form-label"
                   for="formConfirmPassword"
@@ -186,9 +180,7 @@ Object {
           <form
             class=""
           >
-            <div
-              class="form-group"
-            >
+            <div>
               <label
                 class="form-label"
                 for="formBasicUsername"
@@ -202,9 +194,7 @@ Object {
                 value=""
               />
             </div>
-            <div
-              class="form-group"
-            >
+            <div>
               <label
                 class="form-label"
                 for="formBasicPassword"
@@ -283,9 +273,7 @@ Object {
                 </span>
               </div>
             </div>
-            <div
-              class="form-group"
-            >
+            <div>
               <label
                 class="form-label"
                 for="formConfirmPassword"
