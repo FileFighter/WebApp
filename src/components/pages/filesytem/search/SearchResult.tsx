@@ -1,18 +1,18 @@
-import { FsEntity } from "../../../../background/api/filesystemTypes";
-import React, { ReactElement } from "react";
-import { Link } from "react-router-dom";
-import { Col, Row } from "react-bootstrap";
-import { getPathWithoutName } from "../../../../background/methods/filesystem";
-import FileIcon from "../fileIcon/FileIcon";
-import FileItemContextMenu from "../FileItemContextMenu";
+import { FsEntity } from "../../../../background/api/filesystemTypes"
+import React, { ReactElement } from "react"
+import { Link } from "react-router-dom"
+import { Col, Row } from "react-bootstrap"
+import { getPathWithoutName } from "../../../../background/methods/filesystem"
+import FileIcon from "../fileIcon/FileIcon"
+import FileItemContextMenu from "../FileItemContextMenu"
 
 interface Props {
-    fsEntity: FsEntity;
-    handleClose: () => void;
+    fsEntity: FsEntity
+    handleClose: () => void
 }
 
 function SearchResult({ fsEntity, handleClose }: Props): ReactElement {
-    const pathWithoutName = getPathWithoutName(fsEntity.path, fsEntity.name);
+    const pathWithoutName = getPathWithoutName(fsEntity.path, fsEntity.name)
     return (
         <Row className="m-0">
             <Col xs={1} className="p-0">
@@ -41,7 +41,7 @@ function SearchResult({ fsEntity, handleClose }: Props): ReactElement {
                 </Link>
             </Col>
         </Row>
-    );
+    )
 }
 
-export default SearchResult;
+export default SearchResult

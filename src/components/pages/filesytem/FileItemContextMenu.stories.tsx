@@ -1,6 +1,6 @@
-import { storiesOf } from "@storybook/react";
-import React from "react";
-import FileItemContextMenu from "./FileItemContextMenu";
+import { storiesOf } from "@storybook/react"
+import React from "react"
+import FileItemContextMenu from "./FileItemContextMenu"
 
 const item = {
     fileSystemId: 34,
@@ -12,9 +12,9 @@ const item = {
     lastUpdated: 1621427873,
     type: "APPLICATION",
     mimeType: "application/octet-stream",
-    shared: false
-};
+    shared: false,
+}
 
 storiesOf("Filesystem", module).add("FilesystemContextMenu", () => {
-    return <FileItemContextMenu fsEntity={item} />;
-});
+    return <FileItemContextMenu fsEntity={item} />
+})

@@ -1,26 +1,26 @@
-import { SystemState } from "../../../background/redux/actions/sytemState";
-import { connect, ConnectedProps } from "react-redux";
-import React, { ReactElement } from "react";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { FsEntity } from "../../../background/api/filesystemTypes";
-import { clearSelected } from "../../../background/redux/actions/filesystem";
+import { SystemState } from "../../../background/redux/actions/sytemState"
+import { connect, ConnectedProps } from "react-redux"
+import React, { ReactElement } from "react"
+import { OverlayTrigger, Tooltip } from "react-bootstrap"
+import { FsEntity } from "../../../background/api/filesystemTypes"
+import { clearSelected } from "../../../background/redux/actions/filesystem"
 
 const mapState = (state: SystemState) => ({
-    selectedFsEntities: state.filesystem.selectedFsEntities
-});
+    selectedFsEntities: state.filesystem.selectedFsEntities,
+})
 
 const mapDispatch = {
-    clearSelected
-};
+    clearSelected,
+}
 
-const connector = connect(mapState, mapDispatch);
+const connector = connect(mapState, mapDispatch)
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type PropsFromRedux = ConnectedProps<typeof connector>
 
-type Props = PropsFromRedux & {};
+type Props = PropsFromRedux & {}
 
 function SelectedFsEntities(props: Props): ReactElement {
-    if (props.selectedFsEntities?.length < 1) return <span>{}</span>;
+    if (props.selectedFsEntities?.length < 1) return <span>{}</span>
 
     return (
         <div>
@@ -39,7 +39,7 @@ function SelectedFsEntities(props: Props): ReactElement {
                                     >
                                         {e.path}
                                     </li>
-                                );
+                                )
                             })}
                         </ul>
                     </Tooltip>
@@ -73,7 +73,7 @@ function SelectedFsEntities(props: Props): ReactElement {
                 </button>
             </OverlayTrigger>
         </div>
-    );
+    )
 }
 
-export default connector(SelectedFsEntities);
+export default connector(SelectedFsEntities)

@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm test  -- --watchAll=false
 eslint --max-warnings 0 src --ext .ts --ext .tsx --cache
+npm test  -- --watchAll=false

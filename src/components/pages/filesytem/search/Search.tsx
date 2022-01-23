@@ -1,11 +1,11 @@
-import React, { ReactElement, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
-import { SearchModalContent } from "./SearchModalContent";
+import React, { ReactElement, useState } from "react"
+import { Button, Modal } from "react-bootstrap"
+import { SearchModalContent } from "./SearchModalContent"
 
 function Search(): ReactElement {
-    const [showModal, setShowModal] = useState(false);
-    const handleClose = () => setShowModal(false);
-    const handleShow = () => setShowModal(true);
+    const [showModal, setShowModal] = useState(false)
+    const handleClose = () => setShowModal(false)
+    const handleShow = () => setShowModal(true)
 
     return (
         <>
@@ -27,7 +27,7 @@ function Search(): ReactElement {
                 <SearchModalContent handleClose={handleClose} />
             </Modal>
         </>
-    );
+    )
 }
 
-export { Search };
+export { Search }

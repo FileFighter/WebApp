@@ -1,40 +1,40 @@
-import { FsEntity } from "../../../background/api/filesystemTypes";
-import React, { ReactElement, useState } from "react";
-import { ClearSelected } from "../../../background/redux/actions/filesystemTypes";
-import { Col, Form, Row } from "react-bootstrap";
+import { FsEntity } from "../../../background/api/filesystemTypes"
+import React, { ReactElement, useState } from "react"
+import { ClearSelected } from "../../../background/redux/actions/filesystemTypes"
+import { Col, Form, Row } from "react-bootstrap"
 import {
     clearSelected,
-    replaceSelected
-} from "../../../background/redux/actions/filesystem";
-import { connect, ConnectedProps } from "react-redux";
-import { SystemState } from "../../../background/redux/actions/sytemState";
-import fileListSize from "./fileListSize";
+    replaceSelected,
+} from "../../../background/redux/actions/filesystem"
+import { connect, ConnectedProps } from "react-redux"
+import { SystemState } from "../../../background/redux/actions/sytemState"
+import fileListSize from "./fileListSize"
 
 interface FileListHeaderInterface {
-    allAreSelected: boolean;
-    filesAndFolders: FsEntity[];
-    setFilesAndFolders: (content: FsEntity[]) => {};
+    allAreSelected: boolean
+    filesAndFolders: FsEntity[]
+    setFilesAndFolders: (content: FsEntity[]) => {}
 }
 
 export const mapState = (state: SystemState) => ({
     filesystem: {
         selectedFsEntities: state.filesystem.selectedFsEntities,
         folderContents: state.filesystem.folderContents,
-        currentFsItemId: state.filesystem.currentFsItemId
-    }
-});
+        currentFsItemId: state.filesystem.currentFsItemId,
+    },
+})
 
 // this takes the redux actions and maps them to the props
 const mapDispatch = {
     clearSelected,
-    replaceSelected
-};
+    replaceSelected,
+}
 
-const connector = connect(mapState, mapDispatch);
+const connector = connect(mapState, mapDispatch)
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type PropsFromRedux = ConnectedProps<typeof connector>
 
-type TReduxProps = PropsFromRedux & FileListHeaderInterface;
+type TReduxProps = PropsFromRedux & FileListHeaderInterface
 
 function FileListHeader(props: TReduxProps): ReactElement {
     const {
@@ -42,39 +42,39 @@ function FileListHeader(props: TReduxProps): ReactElement {
         filesAndFolders,
         setFilesAndFolders,
         clearSelected,
-        replaceSelected
-    } = props;
+        replaceSelected,
+    } = props
 
-    const [sortIncreasing, setSortIncreasing] = useState<boolean>(false);
-    const [sortedBy, setSortedBy] = useState<keyof FsEntity | null>(null);
+    const [sortIncreasing, setSortIncreasing] = useState<boolean>(false)
+    const [sortedBy, setSortedBy] = useState<keyof FsEntity | null>(null)
 
     const handleSelectAllChanged = (): void | ClearSelected => {
         if (allAreSelected) {
-            return clearSelected();
+            return clearSelected()
         }
         if (filesAndFolders) {
-            replaceSelected([...filesAndFolders]);
+            replaceSelected([...filesAndFolders])
         }
-    };
+    }
 
     function handleSortClick(property: keyof FsEntity): void {
         if (!filesAndFolders || filesAndFolders.length < 2) {
-            return;
+            return
         }
 
-        setSortingOrder(property);
-        let toSort = [...(filesAndFolders ?? [])];
+        setSortingOrder(property)
+        let toSort = [...(filesAndFolders ?? [])]
 
-        toSort.sort(getSortingFunction(property));
-        setFilesAndFolders(sortIncreasing ? toSort.reverse() : toSort);
+        toSort.sort(getSortingFunction(property))
+        setFilesAndFolders(sortIncreasing ? toSort.reverse() : toSort)
     }
 
     function setSortingOrder(property: keyof FsEntity): void {
         if (sortedBy === property) {
-            return setSortIncreasing(!sortIncreasing);
+            return setSortIncreasing(!sortIncreasing)
         }
-        setSortedBy(property);
-        setSortIncreasing(true);
+        setSortedBy(property)
+        setSortIncreasing(true)
     }
 
     function getSortingFunction(
@@ -86,7 +86,7 @@ function FileListHeader(props: TReduxProps): ReactElement {
                 return (a: any, b: any) =>
                     a[property] - b[property] === 0
                         ? a.fileSystemId - b.fileSystemId
-                        : a[property] - b[property];
+                        : a[property] - b[property]
             case "name":
             case "type":
                 return (a: any, b: any) =>
@@ -96,7 +96,7 @@ function FileListHeader(props: TReduxProps): ReactElement {
                         ? a.fileSystemId - b.fileSystemId
                         : a[property]
                               .toLowerCase()
-                              .localeCompare(b[property].toLowerCase());
+                              .localeCompare(b[property].toLowerCase())
             case "lastUpdated":
             default:
                 return (a: any, b: any) =>
@@ -110,7 +110,7 @@ function FileListHeader(props: TReduxProps): ReactElement {
                               .toLowerCase()
                               .localeCompare(
                                   b.lastUpdatedBy.username.toLowerCase()
-                              );
+                              )
         }
     }
 
@@ -176,7 +176,7 @@ function FileListHeader(props: TReduxProps): ReactElement {
             </Col>
             <Col xs={fileListSize.border.xs} className="border-top my-2" />
         </Row>
-    );
+    )
 }
 
-export default connector(FileListHeader);
+export default connector(FileListHeader)

@@ -1,63 +1,63 @@
-import React, { useEffect, useState } from "react";
-import logo from "../../../assets/images/logos/logo.png";
-import { Container, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
+import React, { useEffect, useState } from "react"
+import logo from "../../../assets/images/logos/logo.png"
+import { Container, OverlayTrigger, Table, Tooltip } from "react-bootstrap"
 import {
     callBackendHealth,
     DataIntegrity,
-    SystemHealthData
-} from "../../../background/api/api";
+    SystemHealthData,
+} from "../../../background/api/api"
 import {
     audioOnOff,
-    setAudioVolumeByID
-} from "../../../background/methods/sound";
-import { getDurationAsString } from "../../../background/methods/dataTypes/time";
-import { hasKey } from "../../../background/methods/dataTypes/objects/ObjectKeysTS";
-import { formatBytes } from "../../../background/methods/dataTypes/bytes";
-import { FFLoading } from "../../basicElements/Loading";
-import traffic_light from "../../../assets/images/icons/material.io/traffic_light.svg";
+    setAudioVolumeByID,
+} from "../../../background/methods/sound"
+import { getDurationAsString } from "../../../background/methods/dataTypes/time"
+import { hasKey } from "../../../background/methods/dataTypes/objects/ObjectKeysTS"
+import { formatBytes } from "../../../background/methods/dataTypes/bytes"
+import { FFLoading } from "../../basicElements/Loading"
+import traffic_light from "../../../assets/images/icons/material.io/traffic_light.svg"
 
 export default function Health() {
     const [systemHealthData, setSystemHealthData] = useState<
         SystemHealthData | null | "loading"
-    >("loading");
-    const errorMsg = "not reachable";
+    >("loading")
+    const errorMsg = "not reachable"
 
     useEffect(() => {
-        updateVariables();
-    }, []);
+        updateVariables()
+    }, [])
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            updateVariables();
-        }, 60000);
+            updateVariables()
+        }, 60000)
         // Clear timeout if the component is unmounted
-        return () => clearTimeout(timer);
-    });
+        return () => clearTimeout(timer)
+    })
 
     function updateVariables(): void {
         Promise.all([callBackendHealth()])
             .then(([data]) => {
-                setSystemHealthData(data);
+                setSystemHealthData(data)
             })
             .catch(() => {
-                setSystemHealthData(null);
-            });
+                setSystemHealthData(null)
+            })
     }
 
     function getPathOfDataIntegrity(dataIntegrity: string): string {
         if (hasKey(DataIntegrity, dataIntegrity)) {
-            return DataIntegrity[dataIntegrity];
+            return DataIntegrity[dataIntegrity]
         }
-        console.log("[HEALTH] Couldn't parse SystemHealth string to enum.");
-        return errorMsg;
+        console.log("[HEALTH] Couldn't parse SystemHealth string to enum.")
+        return errorMsg
     }
 
     function HealthContainer(): JSX.Element {
         if (systemHealthData === null) {
-            return <p>{errorMsg}</p>;
+            return <p>{errorMsg}</p>
         }
         if (systemHealthData === "loading") {
-            return <FFLoading />;
+            return <FFLoading />
         } else {
             return (
                 <Container>
@@ -124,7 +124,7 @@ export default function Health() {
                         </tbody>
                     </Table>
                 </Container>
-            );
+            )
         }
     }
 
@@ -136,12 +136,12 @@ export default function Health() {
                 src={logo}
                 alt="Logo FileFighter"
                 onClick={() => {
-                    setAudioVolumeByID("audio_viking", 0.5);
-                    audioOnOff("audio_viking");
+                    setAudioVolumeByID("audio_viking", 0.5)
+                    audioOnOff("audio_viking")
                 }}
             />
 
             <HealthContainer />
         </Container>
-    );
+    )
 }

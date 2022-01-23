@@ -1,53 +1,53 @@
-import { FsEntity } from "../../../background/api/filesystemTypes";
-import React, { ReactElement } from "react";
-import { Col, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { getDateAsStringFromTimestamp } from "../../../background/methods/dataTypes/time";
-import { formatBytes } from "../../../background/methods/dataTypes/bytes";
-import { connect, ConnectedProps } from "react-redux";
-import { SystemState } from "../../../background/redux/actions/sytemState";
+import { FsEntity } from "../../../background/api/filesystemTypes"
+import React, { ReactElement } from "react"
+import { Col, Form } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import { getDateAsStringFromTimestamp } from "../../../background/methods/dataTypes/time"
+import { formatBytes } from "../../../background/methods/dataTypes/bytes"
+import { connect, ConnectedProps } from "react-redux"
+import { SystemState } from "../../../background/redux/actions/sytemState"
 import {
     addToSelected,
-    removeFromSelected
-} from "../../../background/redux/actions/filesystem";
-import FileIcon from "./fileIcon/FileIcon";
-import FileItemContextMenu from "./FileItemContextMenu";
-import fileListSize from "./fileListSize";
+    removeFromSelected,
+} from "../../../background/redux/actions/filesystem"
+import FileIcon from "./fileIcon/FileIcon"
+import FileItemContextMenu from "./FileItemContextMenu"
+import fileListSize from "./fileListSize"
 
 const mapState = (state: SystemState) => ({
     filesystem: {
-        selectedFsEntities: state.filesystem.selectedFsEntities
-    }
-});
+        selectedFsEntities: state.filesystem.selectedFsEntities,
+    },
+})
 
 // this takes the redux actions and maps them to the props
 const mapDispatch = {
     addToSelected,
-    removeFromSelected
-};
+    removeFromSelected,
+}
 
-const connector = connect(mapState, mapDispatch);
+const connector = connect(mapState, mapDispatch)
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type PropsFromRedux = ConnectedProps<typeof connector>
 
 type Props = PropsFromRedux & {
-    fileListItem: FsEntity;
-};
+    fileListItem: FsEntity
+}
 
 function FileListItem(props: Props): ReactElement {
     let isSelected = !!props.filesystem.selectedFsEntities.find(
         (e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId
-    );
+    )
 
     const handleSelectedChanged = () => {
         if (!isSelected) {
-            return props.addToSelected(props.fileListItem);
+            return props.addToSelected(props.fileListItem)
         }
-        props.removeFromSelected(props.fileListItem);
-    };
+        props.removeFromSelected(props.fileListItem)
+    }
 
     const isFolder =
-        props.fileListItem.type && props.fileListItem.type === "FOLDER";
+        props.fileListItem.type && props.fileListItem.type === "FOLDER"
 
     return (
         <>
@@ -120,7 +120,7 @@ function FileListItem(props: Props): ReactElement {
                 {formatBytes(props.fileListItem.size)}
             </Col>
         </>
-    );
+    )
 }
 
-export default connector(FileListItem);
+export default connector(FileListItem)
