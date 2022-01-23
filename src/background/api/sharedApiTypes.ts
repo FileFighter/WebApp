@@ -3,6 +3,6 @@
  */
 // FIXME implement it if needed.
 export interface ApiStatusResponse {
-    responseCode: number;
-    responseStatus: { statusMessage: string; message: string };
+    responseCode: number
+    responseStatus: { statusMessage: string; message: string }
 }

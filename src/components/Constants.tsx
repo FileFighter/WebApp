@@ -1,8 +1,8 @@
-import React, { ReactElement } from "react";
-import App from "./App";
+import React, { ReactElement } from "react"
+import App from "./App"
 
-import { Provider } from "react-redux";
-import store from "../background/redux/store";
+import { Provider } from "react-redux"
+import store from "../background/redux/store"
 
 function Constants(): ReactElement {
     // userinfos
@@ -12,7 +12,7 @@ function Constants(): ReactElement {
         <Provider store={store}>
             <App />
         </Provider>
-    );
+    )
 }
 
-export default Constants;
+export default Constants

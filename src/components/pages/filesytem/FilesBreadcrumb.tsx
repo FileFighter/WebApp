@@ -1,14 +1,14 @@
-import React, { ReactElement } from "react";
-import { Breadcrumb } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { filesBaseUrl } from "./Filesystem";
+import React, { ReactElement } from "react"
+import { Breadcrumb } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import { filesBaseUrl } from "./Filesystem"
 
 type Props = {
-    path: string;
-};
+    path: string
+}
 
 export function FilesBreadcrumb(props: Props): ReactElement {
-    const folders = props.path.split("/").filter((s: string) => s);
+    const folders = props.path.split("/").filter((s: string) => s)
     return (
         <Breadcrumb>
             <Link
@@ -37,8 +37,8 @@ export function FilesBreadcrumb(props: Props): ReactElement {
                     >
                         {folder}{" "}
                     </Link>
-                );
+                )
             })}
         </Breadcrumb>
-    );
+    )
 }

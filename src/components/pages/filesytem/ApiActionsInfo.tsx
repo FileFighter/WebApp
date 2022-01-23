@@ -1,17 +1,17 @@
-import { ReactElement } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../background/redux/store";
+import { ReactElement } from "react"
+import { useSelector } from "react-redux"
+import { RootState } from "../../../background/redux/store"
 
 export const ApiActionsInfo = (): ReactElement => {
     const ongoingActions = useSelector(
         (state: RootState) => state.apiActions.actions
-    );
+    )
 
     return (
         <>
             {ongoingActions
                 .sort((a, b) => {
-                    return a.timestamp - b.timestamp;
+                    return a.timestamp - b.timestamp
                 })
                 .map((a) => (
                     <div key={a.key}>
@@ -27,5 +27,5 @@ export const ApiActionsInfo = (): ReactElement => {
                     </div>
                 ))}
         </>
-    );
-};
+    )
+}

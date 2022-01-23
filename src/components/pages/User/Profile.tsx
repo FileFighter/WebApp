@@ -1,25 +1,25 @@
-import React, { ReactElement, useState } from "react";
-import { Alert, Button, Container } from "react-bootstrap";
+import React, { ReactElement, useState } from "react"
+import { Alert, Button, Container } from "react-bootstrap"
 import UserInformationInput, {
-    UserInformationInputInterface
-} from "./UserInformationInput";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../background/redux/store";
-import { DEFAULT_ALERT_DURATION } from "../../../background/constants";
+    UserInformationInputInterface,
+} from "./UserInformationInput"
+import { useSelector } from "react-redux"
+import { RootState } from "../../../background/redux/store"
+import { DEFAULT_ALERT_DURATION } from "../../../background/constants"
 import {
     changeUserInformation,
-    UserInformation
-} from "../../../background/api/userInformation";
-import { ApiStatusResponse } from "../../../background/api/sharedApiTypes";
-import edit_svg from "../../../assets/images/icons/material.io/edit_white_24dp.svg";
-import { hashPassword } from "../../../background/methods/passwords";
+    UserInformation,
+} from "../../../background/api/userInformation"
+import { ApiStatusResponse } from "../../../background/api/sharedApiTypes"
+import edit_svg from "../../../assets/images/icons/material.io/edit_white_24dp.svg"
+import { hashPassword } from "../../../background/methods/passwords"
 
 export default function Profile(): ReactElement {
-    const [isEditing, setIsEditing] = useState<boolean>(false);
-    const user = useSelector((state: RootState) => state.user);
+    const [isEditing, setIsEditing] = useState<boolean>(false)
+    const user = useSelector((state: RootState) => state.user)
     const [alertMessage, setAlertMessage] = useState<string>(
         "Error 404: No Message found."
-    );
+    )
     const [alertVariant, setAlertColor] = useState<
         | "primary"
         | "secondary"
@@ -29,8 +29,8 @@ export default function Profile(): ReactElement {
         | "info"
         | "light"
         | "dark"
-    >("success");
-    const [alertVisibility, setAlertVisibility] = useState<boolean>(false);
+    >("success")
+    const [alertVisibility, setAlertVisibility] = useState<boolean>(false)
 
     const handleAlertVisibility = (
         duration: number,
@@ -46,33 +46,33 @@ export default function Profile(): ReactElement {
         message: string
     ) => {
         if (!alertVisibility) {
-            setAlertMessage(message);
-            setAlertColor(color);
-            setAlertVisibility(true);
+            setAlertMessage(message)
+            setAlertColor(color)
+            setAlertVisibility(true)
             setTimeout(() => {
-                setAlertVisibility(false);
-            }, duration);
+                setAlertVisibility(false)
+            }, duration)
         }
-    };
+    }
 
     function changeEditMode(): void {
-        console.log("[Profile] changedEditMode");
-        setIsEditing(!isEditing);
+        console.log("[Profile] changedEditMode")
+        setIsEditing(!isEditing)
     }
 
     const handleSubmit = async (userInput: UserInformationInputInterface) => {
-        console.log("[Profile] handleSubmit");
+        console.log("[Profile] handleSubmit")
 
         let updatedUser: UserInformation = {
             ...user,
-            username: userInput.username
-        };
+            username: userInput.username,
+        }
 
         if (userInput.password) {
             // if the user updated the password
-            const hashedPassword = await hashPassword(userInput.password);
-            updatedUser.password = hashedPassword;
-            updatedUser.confirmationPassword = hashedPassword;
+            const hashedPassword = await hashPassword(userInput.password)
+            updatedUser.password = hashedPassword
+            updatedUser.confirmationPassword = hashedPassword
         } else if (user.username === userInput.username) {
             // if the new username is the old one show erorr instead of calling the backend
             // FIXME should we even show something here?
@@ -80,20 +80,20 @@ export default function Profile(): ReactElement {
                 DEFAULT_ALERT_DURATION,
                 "danger",
                 "Error: No Changes."
-            );
-            return;
+            )
+            return
         }
 
         // trigger api call
         await changeUserInformation(updatedUser)
             .then((res) => {
-                changeEditMode();
+                changeEditMode()
                 // FIXME this does never appear, because we rerender it and this gets lost
                 handleAlertVisibility(
                     DEFAULT_ALERT_DURATION,
                     "success",
                     "Worked: " + res
-                );
+                )
             })
             .catch(({ responseStatus, responseCode }: ApiStatusResponse) => {
                 console.log(
@@ -101,7 +101,7 @@ export default function Profile(): ReactElement {
                         responseCode +
                         ") - " +
                         responseStatus.message
-                );
+                )
 
                 // 409 === Username already taken
                 if (responseCode === 409) {
@@ -109,16 +109,16 @@ export default function Profile(): ReactElement {
                         DEFAULT_ALERT_DURATION,
                         "danger",
                         "Error: Username already taken"
-                    );
+                    )
                 } else {
                     handleAlertVisibility(
                         DEFAULT_ALERT_DURATION,
                         "danger",
                         "Error: " + responseStatus.message
-                    );
+                    )
                 }
-            });
-    };
+            })
+    }
 
     function EditProfile(): ReactElement {
         return (
@@ -143,7 +143,7 @@ export default function Profile(): ReactElement {
                     <p>{alertMessage}</p>
                 </Alert>
             </>
-        );
+        )
     }
 
     function DisplayProfile(): ReactElement {
@@ -156,12 +156,12 @@ export default function Profile(): ReactElement {
                     <dt>Groups</dt>
                     <dd>
                         {user.groups?.map((value: string) => {
-                            return value + " ";
+                            return value + " "
                         })}
                     </dd>
                 </dl>
             </div>
-        );
+        )
     }
 
     return (
@@ -183,5 +183,5 @@ export default function Profile(): ReactElement {
             </div>
             {isEditing ? <EditProfile /> : <DisplayProfile />}
         </Container>
-    );
+    )
 }

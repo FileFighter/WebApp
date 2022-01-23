@@ -1,9 +1,9 @@
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import "../../../style/custom.scss";
-import Login, { LoginHeader, LoginInput, LoginInteractionArea } from "./Login";
-import { action } from "@storybook/addon-actions";
-import { Wrapper } from "../../../dev/testUtils/Wrapper";
+import React from "react"
+import { storiesOf } from "@storybook/react"
+import "../../../style/custom.scss"
+import Login, { LoginHeader, LoginInput, LoginInteractionArea } from "./Login"
+import { action } from "@storybook/addon-actions"
+import { Wrapper } from "../../../dev/testUtils/Wrapper"
 
 storiesOf("Login", module)
     .add("default", () => (
@@ -50,4 +50,4 @@ storiesOf("Login", module)
                 errorMessage={""}
             />
         </Wrapper>
-    ));
+    ))

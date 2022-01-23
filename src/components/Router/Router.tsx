@@ -1,13 +1,13 @@
-import React, { ReactElement } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import Health from "../pages/health/Health";
-import Error404 from "../pages/errors/Error404";
-import Login from "../basicElements/login/Login";
-import Registration from "../pages/User/Registration";
-import FileSystem, { filesBaseUrl } from "../pages/filesytem/Filesystem";
-import Profile from "../pages/User/Profile";
-import Error400 from "../pages/errors/Error400";
-import BackendRedirect from "./BackendRedirect";
+import React, { ReactElement } from "react"
+import { Navigate, Route, Routes } from "react-router-dom"
+import Health from "../pages/health/Health"
+import Error404 from "../pages/errors/Error404"
+import Login from "../basicElements/login/Login"
+import Registration from "../pages/User/Registration"
+import FileSystem, { filesBaseUrl } from "../pages/filesytem/Filesystem"
+import Profile from "../pages/User/Profile"
+import Error400 from "../pages/errors/Error400"
+import BackendRedirect from "./BackendRedirect"
 
 export default function Router(): ReactElement {
     return (
@@ -27,5 +27,5 @@ export default function Router(): ReactElement {
             <Route path={"/api"} element={<BackendRedirect />} />
             <Route path={"*"} element={<Error404 />} />
         </Routes>
-    );
+    )
 }
