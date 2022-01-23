@@ -5,13 +5,14 @@ import { hostname, userPath } from "./api"
 import store from "../redux/store"
 import { updateUser } from "../redux/actions/user"
 import { UserState } from "../redux/actions/userTypes"
+import { ApiStatusResponse } from "../api/sharedApiTypes"
 
 export interface UserInformation {
     userId: number | null
     username?: string | null
     groups?: string[] | null
     password?: string
-    confirmationPassword?: string
+    confirmationPassword?: string // FIXME remove this in the backend
 }
 
 export const changeUserInformation = (
@@ -29,7 +30,14 @@ export const changeUserInformation = (
                 resolve(response.data)
             })
             .catch((error) => {
-                reject(error.response?.data?.message)
+                const errorResponse: ApiStatusResponse = {
+                    responseCode: error.response.status,
+                    responseStatus: {
+                        statusMessage: error.response.data.status,
+                        message: error.response.data.message,
+                    },
+                }
+                reject(errorResponse)
             })
     })
 }

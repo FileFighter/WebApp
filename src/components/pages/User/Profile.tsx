@@ -5,15 +5,12 @@ import UserInformationInput, {
 } from "./UserInformationInput"
 import { useSelector } from "react-redux"
 import { RootState } from "../../../background/redux/store"
-import {
-    DEFAULT_ALERT_DURATION,
-    MIN_PASSWORD_LENGTH,
-} from "../../../background/constants"
+import { DEFAULT_ALERT_DURATION } from "../../../background/constants"
 import {
     changeUserInformation,
     UserInformation,
 } from "../../../background/api/userInformation"
-import { notMinStrLength } from "../../../background/methods/checkInput"
+import { ApiStatusResponse } from "../../../background/api/sharedApiTypes"
 import edit_svg from "../../../assets/images/icons/material.io/edit_white_24dp.svg"
 import { hashPassword } from "../../../background/methods/passwords"
 
@@ -59,67 +56,67 @@ export default function Profile(): ReactElement {
     }
 
     function changeEditMode(): void {
-        console.log("[PROFILE] changedEditMode")
+        console.log("[Profile] changedEditMode")
         setIsEditing(!isEditing)
     }
 
-    const handleSubmit = async (inputUser: UserInformationInputInterface) => {
-        console.log("[PROFILE] handleSubmit")
-        let newUser: UserInformation = {
-            groups: user.groups,
-            userId: user.userId,
+    const handleSubmit = async (userInput: UserInformationInputInterface) => {
+        console.log("[Profile] handleSubmit")
+
+        let updatedUser: UserInformation = {
+            ...user,
+            username: userInput.username,
         }
-        if (!inputUser.username) {
+
+        if (userInput.password) {
+            // if the user updated the password
+            const hashedPassword = await hashPassword(userInput.password)
+            updatedUser.password = hashedPassword
+            updatedUser.confirmationPassword = hashedPassword
+        } else if (user.username === userInput.username) {
+            // if the new username is the old one show erorr instead of calling the backend
+            // FIXME should we even show something here?
             handleAlertVisibility(
                 DEFAULT_ALERT_DURATION,
                 "danger",
-                "Error: Please choose an username."
+                "Error: No Changes."
             )
             return
         }
-        newUser["username"] = inputUser.username
-        if (inputUser.password || inputUser.passwordConfirmation) {
-            if (inputUser.password !== inputUser.passwordConfirmation) {
-                handleAlertVisibility(
-                    DEFAULT_ALERT_DURATION,
-                    "danger",
-                    "Error: Password and password confirmation must match."
-                )
-                return
-            }
-            if (
-                inputUser.password.match(/\d/) == null ||
-                inputUser.password.match(/[a-z]/) == null ||
-                inputUser.password.match(/[A-Z]/) == null ||
-                notMinStrLength(inputUser.password, MIN_PASSWORD_LENGTH)
-            ) {
-                handleAlertVisibility(
-                    DEFAULT_ALERT_DURATION,
-                    "danger",
-                    "Error: Please pay attention to the notes below the input fields."
-                )
-                return
-            }
-            newUser["password"] = await hashPassword(inputUser.password)
-            newUser["confirmationPassword"] = newUser["password"]
-        }
 
-        await changeUserInformation(newUser)
+        // trigger api call
+        await changeUserInformation(updatedUser)
             .then((res) => {
                 changeEditMode()
+                // FIXME this does never appear, because we rerender it and this gets lost
                 handleAlertVisibility(
                     DEFAULT_ALERT_DURATION,
                     "success",
                     "Worked: " + res
                 )
             })
-            .catch((err) => {
-                console.log("Error:" + err)
-                handleAlertVisibility(
-                    DEFAULT_ALERT_DURATION,
-                    "danger",
-                    "Error: " + err
+            .catch(({ responseStatus, responseCode }: ApiStatusResponse) => {
+                console.log(
+                    "[Profile] Error: (" +
+                        responseCode +
+                        ") - " +
+                        responseStatus.message
                 )
+
+                // 409 === Username already taken
+                if (responseCode === 409) {
+                    handleAlertVisibility(
+                        DEFAULT_ALERT_DURATION,
+                        "danger",
+                        "Error: Username already taken"
+                    )
+                } else {
+                    handleAlertVisibility(
+                        DEFAULT_ALERT_DURATION,
+                        "danger",
+                        "Error: " + responseStatus.message
+                    )
+                }
             })
     }
 
@@ -127,7 +124,13 @@ export default function Profile(): ReactElement {
         return (
             <>
                 <UserInformationInput
-                    triggerAlert={handleAlertVisibility}
+                    triggerAlert={(errorMessage: string) =>
+                        handleAlertVisibility(
+                            DEFAULT_ALERT_DURATION,
+                            "danger",
+                            errorMessage
+                        )
+                    }
                     submitFunction={handleSubmit}
                     presets={{ username: user.username ?? "", password: "" }}
                 />

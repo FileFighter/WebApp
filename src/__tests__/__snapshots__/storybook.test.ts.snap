@@ -991,7 +991,22 @@ exports[`Storyshots Registration default 1`] = `
             className="form-control"
             id="formBasicPassword"
             onChange={[Function]}
-            placeholder="Must contain one number, uppercase & lowercase letter each"
+            placeholder="Enter your super secret strong password password."
+            type="password"
+            value=""
+          />
+        </div>
+        <div>
+          <label
+            className="form-label"
+            htmlFor="formConfirmPassword"
+          >
+            Re-enter password
+          </label>
+          <input
+            className="form-control"
+            id="formConfirmPassword"
+            onChange={[Function]}
             type="password"
             value=""
           />
@@ -1008,72 +1023,9 @@ exports[`Storyshots Registration default 1`] = `
             <span
               className="text-muted"
             >
-              Passwords must be between 8 and 20 characters.
+              Passwords must be at least strong.
             </span>
           </div>
-          <div>
-            <img
-              alt="status icon password contains uppercase character"
-              src="info-24px.svg"
-            />
-            <span
-              className="sr-only"
-            >
-              Missing: 
-            </span>
-            <span
-              className="text-muted"
-            >
-              Passwords must be at least contain 1 uppercase character.
-            </span>
-          </div>
-          <div>
-            <img
-              alt="status icon password contains lowercase character"
-              src="info-24px.svg"
-            />
-            <span
-              className="sr-only"
-            >
-              Missing: 
-            </span>
-            <span
-              className="text-muted"
-            >
-              Passwords must be at least contain 1 lowercase character.
-            </span>
-          </div>
-          <div>
-            <img
-              alt="status icon password contains number"
-              src="info-24px.svg"
-            />
-            <span
-              className="sr-only"
-            >
-              Missing: 
-            </span>
-            <span
-              className="text-muted"
-            >
-              Passwords must be at least contain 1 number.
-            </span>
-          </div>
-        </div>
-        <div>
-          <label
-            className="form-label"
-            htmlFor="formConfirmPassword"
-          >
-            Re-enter password
-          </label>
-          <input
-            className="form-control"
-            id="formConfirmPassword"
-            onChange={[Function]}
-            type="password"
-            value=""
-          />
           <div>
             <img
               alt="status icon passwords match"

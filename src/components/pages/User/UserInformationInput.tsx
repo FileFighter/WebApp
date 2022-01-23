@@ -2,7 +2,6 @@ import React, {
     ChangeEvent,
     FormEvent,
     ReactElement,
-    useCallback,
     useEffect,
     useState,
 } from "react"
@@ -10,37 +9,18 @@ import { Button, Form, FormGroup } from "react-bootstrap"
 import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg"
 import info_svg from "../../../assets/images/icons/material.io/info-24px.svg"
 import error_svg from "../../../assets/images/icons/material.io/error-24px.svg"
-import {
-    biggerMaxStrLength,
-    notMinStrLength,
-} from "../../../background/methods/checkInput"
-import { deleteSpaces } from "../../../background/methods/dataTypes/strings"
-import {
-    DEFAULT_ALERT_DURATION,
-    MAX_PASSWORD_LENGTH,
-    MIN_PASSWORD_LENGTH,
-} from "../../../background/constants"
+import { REQUIRED_PASSWORD_STRENGTH } from "../../../background/constants"
+import { PasswordStrengthBarWrapper } from "./PasswordStrengthBar"
+import { RuleChecker } from "./RuleChecker"
+import { PasswordFeedback } from "react-password-strength-bar"
 
 export interface UserInformationInputInterface {
     username: string
-    password: string
-    passwordConfirmation?: string
+    password?: string
 }
 
 type UserInformationInputProps = {
-    triggerAlert(
-        duration: number,
-        color:
-            | "primary"
-            | "secondary"
-            | "success"
-            | "danger"
-            | "warning"
-            | "info"
-            | "light"
-            | "dark",
-        message: string
-    ): void
+    triggerAlert(errorMessage: string): void
     submitFunction(newUser: UserInformationInputInterface): void
     presets?: UserInformationInputInterface
 }
@@ -54,83 +34,76 @@ export default function UserInformationInput(
     const [passwordConfirmation, setPasswordConfirmation] = useState<string>(
         presets?.password ?? ""
     )
-    const [passwordInformationLength, setPasswordInformationLength] =
-        useState<boolean>(false)
-    const [passwordInformationLowercase, setPasswordInformationLowercase] =
-        useState<boolean>(false)
-    const [passwordInformationUppercase, setPasswordInformationUppercase] =
-        useState<boolean>(false)
-    const [passwordInformationNumber, setPasswordInformationNumber] =
-        useState<boolean>(false)
+
+    // states to check passwords
     const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true)
+    const [passwordStrength, setPasswordStrength] = useState<number>(0)
 
-    const reviewPasswordMatch = useCallback((): void => {
-        setPasswordsMatch(password === passwordConfirmation)
-    }, [password, passwordConfirmation])
-
+    // re-check passwords are equal after change
     useEffect(() => {
-        reviewPasswordMatch()
-    }, [reviewPasswordMatch])
+        setPasswordsMatch(password === passwordConfirmation)
+    }, [password, passwordConfirmation, setPasswordsMatch])
 
-    const makePasswordInputFitRules = (input: string): [string, boolean] => {
-        input = deleteSpaces(input)
-        if (biggerMaxStrLength(input, MAX_PASSWORD_LENGTH)) {
-            triggerAlert(
-                DEFAULT_ALERT_DURATION,
-                "warning",
-                "Maximum password length exceeded. Input was undone."
-            )
-            return [input, false]
-        }
-        return [input, true]
-    }
-
-    const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault()
-        let newValue: string
-
-        let [stringValue, isOK]: [string, boolean] = makePasswordInputFitRules(
-            event.target.value
-        )
-        if (!isOK) {
-            newValue = password
-        } else {
-            newValue = stringValue
-        }
-        setPasswordInformationLength(
-            !notMinStrLength(newValue, MIN_PASSWORD_LENGTH)
-        )
-        setPasswordInformationLowercase(newValue.match(/[a-z]/) !== null)
-        setPasswordInformationUppercase(newValue.match(/[A-Z]/) !== null)
-        setPasswordInformationNumber(newValue.match(/\d/) !== null)
-        setPassword(newValue)
-    }
-
-    const handlePasswordConfirmationChange = async (
-        event: ChangeEvent<HTMLInputElement>
+    const newHandlePasswordChange = (
+        newPasswordEvent: ChangeEvent<HTMLInputElement>,
+        updatePassword: React.Dispatch<React.SetStateAction<string>>
     ) => {
-        event.preventDefault()
-        let newValue: string
-        const [stringValue, isOK]: [string, boolean] =
-            makePasswordInputFitRules(event.target.value)
-        if (!isOK) {
-            newValue = passwordConfirmation
-        } else {
-            newValue = stringValue
-        }
-        setPasswordConfirmation(newValue)
+        newPasswordEvent.preventDefault()
+        let newPassword = newPasswordEvent.target.value.trim()
+        updatePassword(newPassword)
     }
 
-    const handleSubmit = async (event: FormEvent) => {
+    /**
+     * Checks if the username is valid. If the password is not null also check that.
+     * Check the password if the passord is required.
+     */
+    const handleSubmit = (event: FormEvent) => {
         event.preventDefault()
         console.log("[UserInformationInput] handleSubmit")
-        reviewPasswordMatch()
-        let newUser = {
-            username: username,
-            password: password,
-            passwordConfirmation: passwordConfirmation,
+
+        // check if username is valid
+        if (!username) {
+            triggerAlert("Please specify a username!")
+            return
         }
-        submitFunction(newUser)
+
+        // check if password is empty
+        if (password) {
+            // check password strength
+            if (passwordStrength < REQUIRED_PASSWORD_STRENGTH) {
+                triggerAlert("Password is not strong enough!")
+                return
+            }
+
+            // check if passwords match
+            if (!passwordsMatch) {
+                triggerAlert("Passwords do not match!")
+                return
+            }
+
+            submitFunction({
+                username: username,
+                password: password,
+            })
+        } else {
+            submitFunction({
+                username: username,
+            })
+        }
+    }
+
+    const parsePasswordStrengthFeedback = (
+        score: number,
+        feedback: PasswordFeedback
+    ) => {
+        setPasswordStrength(score)
+        // FIXME one could implement some kind of hint system.
+        /*
+        console.log(score);
+        console.log(feedback);
+        if (feedback.warning) {
+        }
+        */
     }
 
     return (
@@ -147,94 +120,18 @@ export default function UserInformationInput(
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                     type="password"
-                    placeholder="Must contain one number, uppercase & lowercase letter each"
+                    placeholder="Enter your super secret strong password password."
                     value={password}
                     onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handlePasswordChange(event)
+                        newHandlePasswordChange(event, setPassword)
                     }
                 />
-                <div>
-                    <img
-                        alt={"status icon password length"}
-                        src={passwordInformationLength ? check_svg : info_svg}
-                    />
-                    <span className={"sr-only"}>
-                        {passwordInformationLength ? "Done: " : "Missing: "}
-                    </span>
-                    <span
-                        className={
-                            passwordInformationLength
-                                ? "text-success"
-                                : "text-muted"
-                        }
-                    >
-                        Passwords must be between 8 and 20 characters.
-                    </span>
-                </div>
-                <div>
-                    <img
-                        alt={
-                            "status icon password contains uppercase character"
-                        }
-                        src={
-                            passwordInformationUppercase ? check_svg : info_svg
-                        }
-                    />
-                    <span className={"sr-only"}>
-                        {passwordInformationUppercase ? "Done: " : "Missing: "}
-                    </span>
-                    <span
-                        className={
-                            passwordInformationUppercase
-                                ? "text-success"
-                                : "text-muted"
-                        }
-                    >
-                        Passwords must be at least contain 1 uppercase
-                        character.
-                    </span>
-                </div>
-                <div>
-                    <img
-                        alt={
-                            "status icon password contains lowercase character"
-                        }
-                        src={
-                            passwordInformationLowercase ? check_svg : info_svg
-                        }
-                    />
-                    <span className={"sr-only"}>
-                        {passwordInformationLowercase ? "Done: " : "Missing: "}
-                    </span>
-                    <span
-                        className={
-                            passwordInformationLowercase
-                                ? "text-success"
-                                : "text-muted"
-                        }
-                    >
-                        Passwords must be at least contain 1 lowercase
-                        character.
-                    </span>
-                </div>
-                <div>
-                    <img
-                        alt={"status icon password contains number"}
-                        src={passwordInformationNumber ? check_svg : info_svg}
-                    />
-                    <span className={"sr-only"}>
-                        {passwordInformationNumber ? "Done: " : "Missing: "}
-                    </span>
-                    <span
-                        className={
-                            passwordInformationNumber
-                                ? "text-success"
-                                : "text-muted"
-                        }
-                    >
-                        Passwords must be at least contain 1 number.
-                    </span>
-                </div>
+                <PasswordStrengthBarWrapper
+                    currentPassword={password}
+                    scoreChangeCallback={(score, feedback) =>
+                        parsePasswordStrengthFeedback(score, feedback)
+                    }
+                />
             </Form.Group>
             <Form.Group controlId="formConfirmPassword">
                 <Form.Label>Re-enter password</Form.Label>
@@ -242,8 +139,13 @@ export default function UserInformationInput(
                     type="password"
                     value={passwordConfirmation}
                     onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handlePasswordConfirmationChange(event)
+                        newHandlePasswordChange(event, setPasswordConfirmation)
                     }
+                />
+                <RuleChecker
+                    ruleToCheck={passwordStrength >= REQUIRED_PASSWORD_STRENGTH}
+                    ruleDesc={"Passwords must be at least strong."}
+                    imageAlt={"status icon password length"}
                 />
                 <div>
                     <img

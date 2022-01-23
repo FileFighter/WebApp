@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useState } from "react"
 import { Alert, Container, Row } from "react-bootstrap"
-import { notMinStrLength } from "../../../background/methods/checkInput"
 import fileFighter from "../../../assets/images/logos/adventurer-run.gif"
 import { registerNewUser } from "../../../background/api/registration"
 import {
@@ -8,10 +7,7 @@ import {
     getWindowSize_Interface,
 } from "../../../background/methods/windowSize"
 import { getStyleValue } from "../../../background/methods/style"
-import {
-    DEFAULT_ALERT_DURATION,
-    MIN_PASSWORD_LENGTH,
-} from "../../../background/constants"
+import { DEFAULT_ALERT_DURATION } from "../../../background/constants"
 import UserInformationInput, {
     UserInformationInputInterface,
 } from "./UserInformationInput"
@@ -69,59 +65,45 @@ export default function Registration(): ReactElement {
         repositionSubmitLogo()
     }, [registrationContainer, logoSubmit])
 
-    const handleSubmit = async (newUser: UserInformationInputInterface) => {
+    const handleSubmit = (newUser: UserInformationInputInterface) => {
         console.log("[REGISTRATION] handleSubmit")
-        if (!newUser.username) {
+
+        if (!newUser.password) {
             handleAlertVisibility(
                 DEFAULT_ALERT_DURATION,
                 "danger",
-                "Error: Please choose an username."
+                "Please specify a password!"
             )
-        } else if (newUser.password !== newUser.passwordConfirmation) {
-            handleAlertVisibility(
-                DEFAULT_ALERT_DURATION,
-                "danger",
-                "Error: Password and password confirmation must match."
-            )
-        } else if (
-            newUser.password.match(/\d/) == null ||
-            newUser.password.match(/[a-z]/) == null ||
-            newUser.password.match(/[A-Z]/) == null ||
-            notMinStrLength(newUser.password, MIN_PASSWORD_LENGTH)
-        ) {
-            handleAlertVisibility(
-                DEFAULT_ALERT_DURATION,
-                "danger",
-                "Error: Please pay attention to the notes below the input fields."
-            )
-        } else {
-            registerNewUser(
-                newUser.username,
-                newUser.password,
-                newUser.passwordConfirmation
-            )
-                .then((res) => {
-                    handleAlertVisibility(
-                        DEFAULT_ALERT_DURATION,
-                        "success",
-                        "Worked: " +
-                            (res.outputMessage
-                                ? res.outputMessage
-                                : res.httpStatus + " " + res.httpMessage)
-                    )
-                    toggleSubmitLogo()
-                })
-                .catch((err) => {
-                    handleAlertVisibility(
-                        DEFAULT_ALERT_DURATION,
-                        "danger",
-                        "Error: " +
-                            (err.outputMessage
-                                ? err.outputMessage
-                                : err.httpStatus + " " + err.httpMessage)
-                    )
-                })
+            return
         }
+
+        // FIXME: remove confirmation-password in backend
+        registerNewUser(
+            newUser.username,
+            newUser.password!!,
+            newUser.password!!
+        )
+            .then((res) => {
+                handleAlertVisibility(
+                    DEFAULT_ALERT_DURATION,
+                    "success",
+                    "Worked: " +
+                        (res.outputMessage
+                            ? res.outputMessage
+                            : res.httpStatus + " " + res.httpMessage)
+                )
+                toggleSubmitLogo()
+            })
+            .catch((err) => {
+                handleAlertVisibility(
+                    DEFAULT_ALERT_DURATION,
+                    "danger",
+                    "Error: " +
+                        (err.outputMessage
+                            ? err.outputMessage
+                            : err.httpStatus + " " + err.httpMessage)
+                )
+            })
     }
 
     const handleAlertVisibility = (
@@ -153,7 +135,13 @@ export default function Registration(): ReactElement {
                 <div className="px-3 w-100">
                     <h1>Create new account</h1>
                     <UserInformationInput
-                        triggerAlert={handleAlertVisibility}
+                        triggerAlert={(errorMessage: string) =>
+                            handleAlertVisibility(
+                                DEFAULT_ALERT_DURATION,
+                                "danger",
+                                errorMessage
+                            )
+                        }
                         submitFunction={handleSubmit}
                     />
                     <Alert
