@@ -1,5 +1,5 @@
-import React, {useCallback} from "react"
-import {Form} from "react-bootstrap"
+import React, { useCallback } from "react"
+import { Form } from "react-bootstrap"
 import {
     EditablePreflightEntityOrFile,
     PeflightEntiesActionTypes,
@@ -17,9 +17,9 @@ interface Props {
 }
 
 const UploadDecisionsTableRow = ({
-                                     preflightEntity,
-                                     setPreflightResultDispatch,
-                                 }: Props) => {
+    preflightEntity,
+    setPreflightResultDispatch,
+}: Props) => {
     const onNameChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             let val = event.target.value
@@ -37,8 +37,8 @@ const UploadDecisionsTableRow = ({
     )
     const onNameInputLeaver = useCallback(
         (event) => {
-            console.log("onNameInputLeaver");
-            let val = event.target.value;
+            console.log("onNameInputLeaver")
+            let val = event.target.value
 
             const change: PreflightUpdateName = {
                 type: PREFLIGHT_UPDATE_NAME,
@@ -84,7 +84,7 @@ const UploadDecisionsTableRow = ({
                             preflightEntity.overwrite
                                 ? preflightEntity.name
                                 : preflightEntity.newName ??
-                                preflightEntity.name
+                                  preflightEntity.name
                         }
                         onChange={onNameChange}
                         onBlur={onNameInputLeaver}
