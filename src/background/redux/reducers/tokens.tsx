@@ -6,14 +6,14 @@ import {
     CookieStatus,
     REMOVE_TOKENS,
     TokenActionsTypes,
-    TokensState
-} from "../actions/tokenTypes";
+    TokensState,
+} from "../actions/tokenTypes"
 
 const initialState: TokensState = {
     refreshToken: null,
     accessToken: null,
-    checkedCookies: CookieStatus.NOT_STARTED
-};
+    checkedCookies: CookieStatus.NOT_STARTED,
+}
 
 export default function tokens(
     state = initialState,
@@ -21,38 +21,38 @@ export default function tokens(
 ) {
     switch (action.type) {
         case ADD_REFRESH_TOKEN: {
-            console.log("[Redux] adding refreshToken");
-            const refreshToken: string = action.payload;
+            console.log("[Redux] adding refreshToken")
+            const refreshToken: string = action.payload
             return {
                 refreshToken: refreshToken,
                 accessToken: state.accessToken,
-                checkedCookies: state.checkedCookies
-            };
+                checkedCookies: state.checkedCookies,
+            }
         }
         case ADD_ACCESS_TOKEN: {
-            console.log("[Redux] adding accessToken");
-            const accessToken: AccessToken = action.payload;
+            console.log("[Redux] adding accessToken")
+            const accessToken: AccessToken = action.payload
             return {
                 refreshToken: state.refreshToken,
                 accessToken: accessToken,
-                checkedCookies: state.checkedCookies
-            };
+                checkedCookies: state.checkedCookies,
+            }
         }
         case REMOVE_TOKENS: {
             return {
                 refreshToken: null,
                 accessToken: null,
-                checkedCookies: state.checkedCookies
-            };
+                checkedCookies: state.checkedCookies,
+            }
         }
         case CHECKED_COOKIES: {
             return {
                 refreshToken: state.refreshToken,
                 accessToken: state.accessToken,
-                checkedCookies: action.payload
-            };
+                checkedCookies: action.payload,
+            }
         }
         default:
-            return state;
+            return state
     }
 }

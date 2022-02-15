@@ -9,25 +9,25 @@ import {
     NextFsEntity,
     NextFsEntityPayload,
     REPLACE_API_ACTION,
-    ReplaceApiAction
-} from "./apiActionsTypes";
+    ReplaceApiAction,
+} from "./apiActionsTypes"
 
 export const addApiAction = (content: ApiAction): AddApiAction => ({
     type: ADD_API_ACTION,
-    payload: content
-});
+    payload: content,
+})
 
 export const replaceApiAction = (content: ApiAction): ReplaceApiAction => ({
     type: REPLACE_API_ACTION,
-    payload: content
-});
+    payload: content,
+})
 
 export const changeStatus = (content: ChangeStatusPayload): ChangeStatus => ({
     type: CHANGE_STATUS,
-    payload: content
-});
+    payload: content,
+})
 
 export const nextFsEntity = (content: NextFsEntityPayload): NextFsEntity => ({
     type: NEXT_FS_ENTITY,
-    payload: content
-});
+    payload: content,
+})

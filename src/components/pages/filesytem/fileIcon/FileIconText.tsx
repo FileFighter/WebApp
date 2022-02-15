@@ -1,14 +1,14 @@
-import React from "react";
+import React from "react"
 import FileIcon, {
     FileIconInterface,
-    IconPreferencesInterface
-} from "./FileIcon";
-import { getFileExtension } from "../../../../background/methods/filesystem";
+    IconPreferencesInterface,
+} from "./FileIcon"
+import { getFileExtension } from "../../../../background/methods/filesystem"
 import {
     FileEarmarkCodeIcon,
     FileEarmarkRichtextIcon,
-    FileEarmarkTextIcon
-} from "../../../../assets/images/icons/reactSvgIcons/SymbolFile";
+    FileEarmarkTextIcon,
+} from "../../../../assets/images/icons/reactSvgIcons/SymbolFile"
 
 export default function FileIconText(
     ICON_PREFERENCES: IconPreferencesInterface,
@@ -21,10 +21,10 @@ export default function FileIconText(
         case "jsx":
         case "ts":
         case "tsx":
-            return <FileEarmarkCodeIcon {...ICON_PREFERENCES} />;
+            return <FileEarmarkCodeIcon {...ICON_PREFERENCES} />
         case "html":
-            return <FileEarmarkRichtextIcon {...ICON_PREFERENCES} />;
+            return <FileEarmarkRichtextIcon {...ICON_PREFERENCES} />
         default:
-            return <FileEarmarkTextIcon {...ICON_PREFERENCES} />;
+            return <FileEarmarkTextIcon {...ICON_PREFERENCES} />
     }
 }

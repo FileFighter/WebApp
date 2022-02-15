@@ -1,6 +1,6 @@
-import Footer from "./Footer";
-import { BottomBanner } from "./BottomBanner";
-import React from "react";
+import Footer from "./Footer"
+import { BottomBanner } from "./BottomBanner"
+import React from "react"
 
 export default function BottomArea() {
     return (
@@ -8,5 +8,5 @@ export default function BottomArea() {
             <Footer />
             <BottomBanner />
         </div>
-    );
+    )
 }

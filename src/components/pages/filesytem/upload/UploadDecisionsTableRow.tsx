@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { Form } from "react-bootstrap";
+import React, { useCallback } from "react"
+import { Form } from "react-bootstrap"
 import {
     EditablePreflightEntityOrFile,
     PeflightEntiesActionTypes,
@@ -8,65 +8,65 @@ import {
     PREFLIGHT_UPDATE_NAME,
     PreflightChangeName,
     PreflightToggleOverwrite,
-    PreflightUpdateName
-} from "./preflightTypes";
+    PreflightUpdateName,
+} from "./preflightTypes"
 
 interface Props {
-    preflightEntity: EditablePreflightEntityOrFile;
-    setPreflightResultDispatch: (a: PeflightEntiesActionTypes) => void;
+    preflightEntity: EditablePreflightEntityOrFile
+    setPreflightResultDispatch: (a: PeflightEntiesActionTypes) => void
 }
 
 const UploadDecisionsTableRow = ({
     preflightEntity,
-    setPreflightResultDispatch
+    setPreflightResultDispatch,
 }: Props) => {
     const onNameChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
-            let val = event.target.value;
+            let val = event.target.value
 
             const change: PreflightChangeName = {
                 type: PREFLIGHT_CHANGE_NAME,
                 payload: {
                     path: preflightEntity.path,
-                    newName: val
-                }
-            };
-            setPreflightResultDispatch(change);
+                    newName: val,
+                },
+            }
+            setPreflightResultDispatch(change)
         },
         [preflightEntity.path, setPreflightResultDispatch]
-    );
+    )
     const onNameInputLeaver = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            console.log("onNameInputLeaver");
-            let val = event.target.value;
+        (event) => {
+            console.log("onNameInputLeaver")
+            let val = event.target.value
 
             const change: PreflightUpdateName = {
                 type: PREFLIGHT_UPDATE_NAME,
                 payload: {
                     path: preflightEntity.path,
-                    newName: val
-                }
-            };
-            setPreflightResultDispatch(change);
+                    newName: val,
+                },
+            }
+            setPreflightResultDispatch(change)
         },
         [preflightEntity.path, setPreflightResultDispatch]
-    );
+    )
     const onSelectedChange = useCallback(() => {
         const change: PreflightToggleOverwrite = {
             type: PREFLIGHT_TOGGLE_OVERWRITE,
             payload: {
                 path: preflightEntity.path,
-                overwrite: !preflightEntity.overwrite
-            }
-        };
-        setPreflightResultDispatch(change);
-    }, [preflightEntity, setPreflightResultDispatch]);
+                overwrite: !preflightEntity.overwrite,
+            },
+        }
+        setPreflightResultDispatch(change)
+    }, [preflightEntity, setPreflightResultDispatch])
 
     let requiresNameChange =
         (!preflightEntity.nameIsValid ||
             (!preflightEntity.permissionIsSufficient &&
                 preflightEntity.overwrite)) &&
-        !preflightEntity.newName;
+        !preflightEntity.newName
     return (
         <tr key={preflightEntity.path}>
             <td>
@@ -102,7 +102,7 @@ const UploadDecisionsTableRow = ({
                 )}
             </td>
             <td>
-                <Form.Group>
+                <Form.Group className="pl-4 mb-3">
                     <Form.Check
                         disabled={
                             !preflightEntity.nameIsValid ||
@@ -115,7 +115,7 @@ const UploadDecisionsTableRow = ({
                 </Form.Group>
             </td>
         </tr>
-    );
-};
+    )
+}
 
-export default UploadDecisionsTableRow;
+export default UploadDecisionsTableRow

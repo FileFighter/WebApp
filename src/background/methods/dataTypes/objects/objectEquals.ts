@@ -1,18 +1,18 @@
 function objectEquals(object1: object | any, object2: object | any): boolean {
-    let areEqual = true;
+    let areEqual = true
 
     //keylength
     if (Object.keys(object1).length === Object.keys(object2).length)
-        return false;
+        return false
 
     //compare keys
     Object.keys(object1).forEach((key) => {
         if (object1[key] !== object2[key]) {
-            areEqual = false;
+            areEqual = false
         }
-    });
+    })
 
-    return areEqual;
+    return areEqual
 }
 
-export default objectEquals;
+export default objectEquals
