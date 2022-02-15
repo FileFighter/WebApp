@@ -22,9 +22,9 @@ jobs:
       # and run all Cypress tests
       - name: Start FE and run jest tests
         run: |
-            npm ci
-            npm test -- --watchAll=false
-            npm start &
+            yarn install --immutable --immutable-cache --check-cache
+            yarn test -- --watchAll=false
+            yarn start &
       - name: Wait
         uses: iFaxity/wait-on-action@v1
         with:

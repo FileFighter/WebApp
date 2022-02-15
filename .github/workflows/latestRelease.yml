@@ -25,18 +25,18 @@ jobs:
       -
         name: Checkout frontend
         run: |
-          npm ci
+          yarn install --immutable --immutable-cache --check-cache
       -
         name: Update Sonar
         run: |
-          npm run-script sonar
+          yarn run sonar
         env:
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
           SONAR_PASSWORD: ${{ secrets.SONAR_PASSWORD }}
       -
         name: Build Frontend
         run: |
-          npm run-script build
+          yarn run build
           cp -r build webapp_provider/public
       -
         name: Login to DockerHub

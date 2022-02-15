@@ -18,8 +18,8 @@ jobs:
           cache: 'npm'
       - name: Build frontend
         run: |
-          npm ci
-          npm run-script build
+          yarn install --immutable --immutable-cache --check-cache
+          yarn run build
           cp -r build webapp_provider/public
       - name: Login to DockerHub
         uses: docker/login-action@v1
