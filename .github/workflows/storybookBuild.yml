@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          cache: 'npm'
+          cache: 'yarn'
       - name: Build storybook
         run: |
           yarn install --immutable --immutable-cache --check-cache
