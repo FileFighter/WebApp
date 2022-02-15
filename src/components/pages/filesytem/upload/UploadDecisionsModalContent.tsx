@@ -1,96 +1,96 @@
-import React, { ReactElement, useState } from "react";
-import { Button, Form, ListGroup, Modal, Row, Table } from "react-bootstrap";
-import UploadDecisionsTableRow from "./UploadDecisionsTableRow";
+import React, { ReactElement, useState } from "react"
+import { Button, Form, ListGroup, Modal, Row, Table } from "react-bootstrap"
+import UploadDecisionsTableRow from "./UploadDecisionsTableRow"
 import {
     EditableFileWithPreflightInfo,
     EditablePreflightEntityOrFile,
     PeflightEntiesActionTypes,
     PREFLIGHT_ADD_ENTITIES,
     PREFLIGHT_TOGGLE_ALL,
-    PreflightEntity
-} from "./preflightTypes";
+    PreflightEntity,
+} from "./preflightTypes"
 import {
     uploadFiles,
-    uploadPreflight
-} from "../../../../background/api/filesystem";
-import { preflightResultCombine } from "./preflightResponseParser";
-import { FFLoading } from "../../../basicElements/Loading";
+    uploadPreflight,
+} from "../../../../background/api/filesystem"
+import { preflightResultCombine } from "./preflightResponseParser"
+import { FFLoading } from "../../../basicElements/Loading"
 
 interface Props {
-    handleClose: () => void;
-    preflightResult: EditablePreflightEntityOrFile[];
-    setPreflightResultDispatch: (a: PeflightEntiesActionTypes) => void;
-    fsItemIdToUpload: string;
+    handleClose: () => void
+    preflightResult: EditablePreflightEntityOrFile[]
+    setPreflightResultDispatch: (a: PeflightEntiesActionTypes) => void
+    fsItemIdToUpload: string
 }
 
 export const UploadDecisionsModalContent = ({
     handleClose,
     preflightResult,
     setPreflightResultDispatch,
-    fsItemIdToUpload
+    fsItemIdToUpload,
 }: Props): ReactElement => {
-    const [currentPage, setCurrentPage] = useState(0);
-    const [showAllFiles, setShowAllFiles] = useState(false);
-    const [showAllFolders, setShowAllFolders] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const nextPage = () => setCurrentPage(currentPage + 1);
-    const [selectAllFolders, setSelectAllFolders] = useState(false);
-    const [selectAllFiles, setSelectAllFiles] = useState(false);
-    const listLimitForFilesAndFolder = 2;
+    const [currentPage, setCurrentPage] = useState(0)
+    const [showAllFiles, setShowAllFiles] = useState(false)
+    const [showAllFolders, setShowAllFolders] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const nextPage = () => setCurrentPage(currentPage + 1)
+    const [selectAllFolders, setSelectAllFolders] = useState(false)
+    const [selectAllFiles, setSelectAllFiles] = useState(false)
+    const listLimitForFilesAndFolder = 2
 
     const updateSelectAll = (isFolder: boolean) => {
-        let newValue;
+        let newValue
         if (isFolder) {
-            setSelectAllFolders(!selectAllFolders);
-            newValue = !selectAllFolders;
+            setSelectAllFolders(!selectAllFolders)
+            newValue = !selectAllFolders
         } else {
-            setSelectAllFiles(!selectAllFiles);
-            newValue = !selectAllFiles;
+            setSelectAllFiles(!selectAllFiles)
+            newValue = !selectAllFiles
         }
         setPreflightResultDispatch({
             type: PREFLIGHT_TOGGLE_ALL,
-            payload: { isFolders: isFolder, newValue: newValue }
-        });
-    };
+            payload: { isFolders: isFolder, newValue: newValue },
+        })
+    }
 
     const handleApply = () => {
-        setLoading(true);
+        setLoading(true)
         uploadPreflight(
             preflightResult.filter(
                 (e: EditablePreflightEntityOrFile) => e.isFile
             ) as EditableFileWithPreflightInfo[],
             fsItemIdToUpload
         ).then((response: PreflightEntity[]) => {
-            const combined = preflightResultCombine(preflightResult, response);
+            const combined = preflightResultCombine(preflightResult, response)
 
             const actionsNeeded = combined.some(
                 (e: EditablePreflightEntityOrFile) =>
                     !e.permissionIsSufficient ||
                     !e.nameIsValid ||
                     (e.nameAlreadyInUse && !e.overwrite)
-            );
+            )
 
             if (actionsNeeded) {
                 setPreflightResultDispatch({
                     type: PREFLIGHT_ADD_ENTITIES,
-                    payload: combined
-                });
+                    payload: combined,
+                })
             } else {
                 uploadFiles(
                     combined.filter(
                         (f: EditablePreflightEntityOrFile) => f.isFile
                     ) as EditableFileWithPreflightInfo[],
                     fsItemIdToUpload
-                );
-                handleClose();
+                )
+                handleClose()
                 setPreflightResultDispatch({
                     type: PREFLIGHT_ADD_ENTITIES,
-                    payload: []
-                });
+                    payload: [],
+                })
             }
-            setLoading(false);
-        });
-    };
+            setLoading(false)
+        })
+    }
 
     const handleOverWriteAll = () => {
         uploadFiles(
@@ -98,26 +98,26 @@ export const UploadDecisionsModalContent = ({
                 (f: EditablePreflightEntityOrFile) => f.isFile
             ) as EditableFileWithPreflightInfo[],
             fsItemIdToUpload
-        );
-        handleClose();
+        )
+        handleClose()
         setPreflightResultDispatch({
             type: PREFLIGHT_ADD_ENTITIES,
-            payload: []
-        });
-    };
+            payload: [],
+        })
+    }
 
     const foldersToMerge = preflightResult.filter(
         (f: EditablePreflightEntityOrFile) => !f.isFile && f.nameAlreadyInUse
-    );
+    )
     const entitiesWithInvalidName = preflightResult.filter(
         (f: EditablePreflightEntityOrFile) => !f.nameIsValid
-    );
+    )
     const filesToOverwrite = preflightResult.filter(
         (f: EditablePreflightEntityOrFile) => f.isFile && f.nameAlreadyInUse
-    );
+    )
     const insufficientPermission = preflightResult.filter(
         (f: EditablePreflightEntityOrFile) => !f.permissionIsSufficient
-    );
+    )
 
     const smallFileList = (files: EditablePreflightEntityOrFile[]) => {
         return (
@@ -128,8 +128,8 @@ export const UploadDecisionsModalContent = ({
                     </ListGroup.Item>
                 ))}
             </ListGroup>
-        );
-    };
+        )
+    }
 
     const changeNamesOrOverwriteTable = (
         files: EditablePreflightEntityOrFile[],
@@ -149,7 +149,7 @@ export const UploadDecisionsModalContent = ({
                         <th className="fw-40">New Name</th>
                         <th className="fw-20">
                             {isFolders ? "Merge" : "Overwrite"}
-                            <Form.Group>
+                            <Form.Group className="pl-4 mb-3">
                                 <Form.Check
                                     type="checkbox"
                                     checked={
@@ -173,15 +173,15 @@ export const UploadDecisionsModalContent = ({
                                 }
                                 preflightEntity={f}
                             />
-                        );
+                        )
                     })}
                 </tbody>
             </Table>
-        );
-    };
+        )
+    }
 
     if (loading) {
-        return <FFLoading />;
+        return <FFLoading />
     }
 
     if (currentPage === 0)
@@ -271,7 +271,7 @@ export const UploadDecisionsModalContent = ({
                     </Row>
                 </Modal.Footer>
             </>
-        );
+        )
     else
         return (
             <>
@@ -303,7 +303,7 @@ export const UploadDecisionsModalContent = ({
                             {changeNamesOrOverwriteTable(
                                 [
                                     ...entitiesWithInvalidName,
-                                    ...insufficientPermission
+                                    ...insufficientPermission,
                                 ],
                                 false
                             )}
@@ -326,5 +326,5 @@ export const UploadDecisionsModalContent = ({
                     </Row>
                 </Modal.Footer>
             </>
-        );
-};
+        )
+}

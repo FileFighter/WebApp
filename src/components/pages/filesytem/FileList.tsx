@@ -1,35 +1,35 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import { getFolderContents } from "../../../background/api/filesystem";
-import { FsEntity } from "../../../background/api/filesystemTypes";
-import { Col, Container, Row } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
-import { FilesBreadcrumb } from "./FilesBreadcrumb";
-import { filesBaseUrl } from "./Filesystem";
-import FileListItem from "./FileListItem";
-import { SystemState } from "../../../background/redux/actions/sytemState";
+import React, { ReactElement, useEffect, useState } from "react"
+import { getFolderContents } from "../../../background/api/filesystem"
+import { FsEntity } from "../../../background/api/filesystemTypes"
+import { Col, Container, Row } from "react-bootstrap"
+import { useLocation } from "react-router-dom"
+import { FilesBreadcrumb } from "./FilesBreadcrumb"
+import { filesBaseUrl } from "./Filesystem"
+import FileListItem from "./FileListItem"
+import { SystemState } from "../../../background/redux/actions/sytemState"
 import {
     addToSelected,
     clearSelected,
     setContents,
     setCurrentFsItemId,
-    setCurrentPath
-} from "../../../background/redux/actions/filesystem";
-import { connect, ConnectedProps } from "react-redux";
-import { FFLoading } from "../../basicElements/Loading";
-import { AxiosResponse } from "axios";
-import FileListHeader from "./FileListHeader";
-import SelectedFsEntities from "./SelectedFsEntities";
-import ToolbarActions from "./ToolbarActions";
-import fileListSize from "./fileListSize";
+    setCurrentPath,
+} from "../../../background/redux/actions/filesystem"
+import { connect, ConnectedProps } from "react-redux"
+import { FFLoading } from "../../basicElements/Loading"
+import { AxiosResponse } from "axios"
+import FileListHeader from "./FileListHeader"
+import SelectedFsEntities from "./SelectedFsEntities"
+import ToolbarActions from "./ToolbarActions"
+import fileListSize from "./fileListSize"
 
 const mapState = (state: SystemState) => ({
     filesystem: {
         selectedFsEntities: state.filesystem.selectedFsEntities,
         folderContents: state.filesystem.folderContents,
         currentFsItemId: state.filesystem.currentFsItemId,
-        currentPath: state.filesystem.currentPath
-    }
-});
+        currentPath: state.filesystem.currentPath,
+    },
+})
 
 // this takes the redux actions and maps them to the props
 const mapDispatch = {
@@ -37,82 +37,82 @@ const mapDispatch = {
     clearSelected,
     setContents,
     setCurrentFsItemId,
-    setCurrentPath
-};
+    setCurrentPath,
+}
 
-const connector = connect(mapState, mapDispatch);
+const connector = connect(mapState, mapDispatch)
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type PropsFromRedux = ConnectedProps<typeof connector>
 
-type reduxProps = PropsFromRedux & {};
+type reduxProps = PropsFromRedux & {}
 
 function FileList(props: reduxProps): ReactElement {
-    let location = useLocation();
+    let location = useLocation()
 
-    const path = props.filesystem.currentPath;
+    const path = props.filesystem.currentPath
 
-    const filesAndFolders: FsEntity[] = props.filesystem.folderContents;
-    const setFilesAndFolders = props.setContents;
-    const [error, setError] = useState<string>("");
-    const [loading, setLoading] = useState(true);
+    const filesAndFolders: FsEntity[] = props.filesystem.folderContents
+    const setFilesAndFolders = props.setContents
+    const [error, setError] = useState<string>("")
+    const [loading, setLoading] = useState(true)
     const allAreSelected =
         filesAndFolders?.length ===
             props.filesystem.selectedFsEntities.length &&
-        !!filesAndFolders?.length;
+        !!filesAndFolders?.length
 
-    const clearSelected = props.clearSelected;
-    const setContents = props.setContents;
-    const setCurrentPath = props.setCurrentPath;
-    const setCurrentFsItemId = props.setCurrentFsItemId;
+    const clearSelected = props.clearSelected
+    const setContents = props.setContents
+    const setCurrentPath = props.setCurrentPath
+    const setCurrentFsItemId = props.setCurrentFsItemId
 
     useEffect((): void => {
         function updateStates(newPath: string): void {
             getFolderContents(newPath)
                 .then((response: AxiosResponse<FsEntity[]>) => {
-                    console.log("got folder content", response);
-                    setLoading(false);
+                    console.log("got folder content", response)
+                    setLoading(false)
                     setContents([
                         ...response.data.filter(
                             (fsEntity: FsEntity) => fsEntity.type === "FOLDER"
                         ),
                         ...response.data.filter(
                             (fsEntity: FsEntity) => fsEntity.type !== "FOLDER"
-                        )
-                    ]);
-                    setError("");
-                    setCurrentFsItemId(response.headers["x-ff-current"]);
+                        ),
+                    ])
+                    setError("")
+                    setCurrentFsItemId(response.headers["x-ff-current"])
                 })
                 .catch((err) => {
-                    setError(err.response?.data?.message);
-                    setFilesAndFolders([]);
-                });
+                    setError(err.response?.data?.message)
+                    setFilesAndFolders([])
+                })
         }
-        const newPath = location.pathname.slice(filesBaseUrl.length) || "/";
-        setCurrentPath(newPath);
-        clearSelected();
-        setLoading(true);
-        updateStates(newPath);
+        const newPath = location.pathname.slice(filesBaseUrl.length) || "/"
+        setCurrentPath(newPath)
+        clearSelected()
+        setLoading(true)
+        updateStates(newPath)
     }, [
         setContents,
         setCurrentFsItemId,
         setFilesAndFolders,
         clearSelected,
         setCurrentPath,
-        location
-    ]);
+        location,
+    ])
 
     function FileListStatus(): ReactElement {
         if (error && !filesAndFolders.length) {
-            return <Col className={"text-center"}>{error}</Col>;
+            return <Col className={"text-center"}>{error}</Col>
         }
         if (loading) {
-            return <FFLoading />;
+            return <FFLoading />
         }
         if (filesAndFolders.length === 0) {
-            return <Col className={"text-center"}>Nothing to see here.</Col>;
+            return <Col className={"text-center"}>Nothing to see here.</Col>
         }
 
-        return <></>;
+        return <></>
     }
 
     // console.log("[FileList path]" + path, filesAndFolders);
@@ -150,11 +150,11 @@ function FileList(props: reduxProps): ReactElement {
                             />
                             {/*</React.Fragment>*/}
                         </Row>
-                    );
+                    )
                 })}
             </div>
         </Container>
-    );
+    )
 }
 
-export default connector(FileList);
+export default connector(FileList)

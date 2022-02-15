@@ -1,1 +1,162 @@
-[{"fileSystemId":594,"path":"/admin/bike2dh/.git","name":".git","size":2.8742263E7,"owner":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdatedBy":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdated":1621493233,"type":"FOLDER","mimeType":null,"shared":false},{"fileSystemId":667,"path":"/admin/bike2dh/.idea","name":".idea","size":1153.0,"owner":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdatedBy":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdated":1621493233,"type":"FOLDER","mimeType":null,"shared":false},{"fileSystemId":674,"path":"/admin/bike2dh/.gitignore","name":".gitignore","size":215.0,"owner":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdatedBy":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdated":1621493233,"type":"APPLICATION","mimeType":"application/octet-stream","shared":false},{"fileSystemId":675,"path":"/admin/bike2dh/client","name":"client","size":1.2949691E7,"owner":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdatedBy":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdated":1621493251,"type":"FOLDER","mimeType":null,"shared":false},{"fileSystemId":864,"path":"/admin/bike2dh/server","name":"server","size":252872.0,"owner":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdatedBy":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdated":1621493253,"type":"FOLDER","mimeType":null,"shared":false},{"fileSystemId":900,"path":"/admin/bike2dh/build.sh","name":"build.sh","size":510.0,"owner":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdatedBy":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdated":1621493253,"type":"TEXT","mimeType":"text/x-sh","shared":false},{"fileSystemId":901,"path":"/admin/bike2dh/build_local.sh","name":"build_local.sh","size":265.0,"owner":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdatedBy":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdated":1621493253,"type":"TEXT","mimeType":"text/x-sh","shared":false},{"fileSystemId":902,"path":"/admin/bike2dh/.github","name":".github","size":384242.0,"owner":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdatedBy":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdated":1621493256,"type":"FOLDER","mimeType":null,"shared":false},{"fileSystemId":966,"path":"/admin/bike2dh/readme.md","name":"README.md","size":3532.0,"owner":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdatedBy":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdated":1621493256,"type":"APPLICATION","mimeType":"application/octet-stream","shared":false},{"fileSystemId":967,"path":"/admin/bike2dh/.prettierignore","name":".prettierignore","size":125.0,"owner":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdatedBy":{"userId":1,"username":"Admin","groups":["ADMIN"]},"lastUpdated":1621493256,"type":"APPLICATION","mimeType":"application/octet-stream","shared":false}]
+[
+    {
+        "fileSystemId": 594,
+        "path": "/admin/bike2dh/.git",
+        "name": ".git",
+        "size": 2.8742263e7,
+        "owner": { "userId": 1, "username": "Admin", "groups": ["ADMIN"] },
+        "lastUpdatedBy": {
+            "userId": 1,
+            "username": "Admin",
+            "groups": ["ADMIN"]
+        },
+        "lastUpdated": 1621493233,
+        "type": "FOLDER",
+        "mimeType": null,
+        "shared": false
+    },
+    {
+        "fileSystemId": 667,
+        "path": "/admin/bike2dh/.idea",
+        "name": ".idea",
+        "size": 1153.0,
+        "owner": { "userId": 1, "username": "Admin", "groups": ["ADMIN"] },
+        "lastUpdatedBy": {
+            "userId": 1,
+            "username": "Admin",
+            "groups": ["ADMIN"]
+        },
+        "lastUpdated": 1621493233,
+        "type": "FOLDER",
+        "mimeType": null,
+        "shared": false
+    },
+    {
+        "fileSystemId": 674,
+        "path": "/admin/bike2dh/.gitignore",
+        "name": ".gitignore",
+        "size": 215.0,
+        "owner": { "userId": 1, "username": "Admin", "groups": ["ADMIN"] },
+        "lastUpdatedBy": {
+            "userId": 1,
+            "username": "Admin",
+            "groups": ["ADMIN"]
+        },
+        "lastUpdated": 1621493233,
+        "type": "APPLICATION",
+        "mimeType": "application/octet-stream",
+        "shared": false
+    },
+    {
+        "fileSystemId": 675,
+        "path": "/admin/bike2dh/client",
+        "name": "client",
+        "size": 1.2949691e7,
+        "owner": { "userId": 1, "username": "Admin", "groups": ["ADMIN"] },
+        "lastUpdatedBy": {
+            "userId": 1,
+            "username": "Admin",
+            "groups": ["ADMIN"]
+        },
+        "lastUpdated": 1621493251,
+        "type": "FOLDER",
+        "mimeType": null,
+        "shared": false
+    },
+    {
+        "fileSystemId": 864,
+        "path": "/admin/bike2dh/server",
+        "name": "server",
+        "size": 252872.0,
+        "owner": { "userId": 1, "username": "Admin", "groups": ["ADMIN"] },
+        "lastUpdatedBy": {
+            "userId": 1,
+            "username": "Admin",
+            "groups": ["ADMIN"]
+        },
+        "lastUpdated": 1621493253,
+        "type": "FOLDER",
+        "mimeType": null,
+        "shared": false
+    },
+    {
+        "fileSystemId": 900,
+        "path": "/admin/bike2dh/build.sh",
+        "name": "build.sh",
+        "size": 510.0,
+        "owner": { "userId": 1, "username": "Admin", "groups": ["ADMIN"] },
+        "lastUpdatedBy": {
+            "userId": 1,
+            "username": "Admin",
+            "groups": ["ADMIN"]
+        },
+        "lastUpdated": 1621493253,
+        "type": "TEXT",
+        "mimeType": "text/x-sh",
+        "shared": false
+    },
+    {
+        "fileSystemId": 901,
+        "path": "/admin/bike2dh/build_local.sh",
+        "name": "build_local.sh",
+        "size": 265.0,
+        "owner": { "userId": 1, "username": "Admin", "groups": ["ADMIN"] },
+        "lastUpdatedBy": {
+            "userId": 1,
+            "username": "Admin",
+            "groups": ["ADMIN"]
+        },
+        "lastUpdated": 1621493253,
+        "type": "TEXT",
+        "mimeType": "text/x-sh",
+        "shared": false
+    },
+    {
+        "fileSystemId": 902,
+        "path": "/admin/bike2dh/.github",
+        "name": ".github",
+        "size": 384242.0,
+        "owner": { "userId": 1, "username": "Admin", "groups": ["ADMIN"] },
+        "lastUpdatedBy": {
+            "userId": 1,
+            "username": "Admin",
+            "groups": ["ADMIN"]
+        },
+        "lastUpdated": 1621493256,
+        "type": "FOLDER",
+        "mimeType": null,
+        "shared": false
+    },
+    {
+        "fileSystemId": 966,
+        "path": "/admin/bike2dh/readme.md",
+        "name": "README.md",
+        "size": 3532.0,
+        "owner": { "userId": 1, "username": "Admin", "groups": ["ADMIN"] },
+        "lastUpdatedBy": {
+            "userId": 1,
+            "username": "Admin",
+            "groups": ["ADMIN"]
+        },
+        "lastUpdated": 1621493256,
+        "type": "APPLICATION",
+        "mimeType": "application/octet-stream",
+        "shared": false
+    },
+    {
+        "fileSystemId": 967,
+        "path": "/admin/bike2dh/.prettierignore",
+        "name": ".prettierignore",
+        "size": 125.0,
+        "owner": { "userId": 1, "username": "Admin", "groups": ["ADMIN"] },
+        "lastUpdatedBy": {
+            "userId": 1,
+            "username": "Admin",
+            "groups": ["ADMIN"]
+        },
+        "lastUpdated": 1621493256,
+        "type": "APPLICATION",
+        "mimeType": "application/octet-stream",
+        "shared": false
+    }
+]

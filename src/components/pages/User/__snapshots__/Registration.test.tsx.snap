@@ -5,7 +5,6 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-       
       <div
         class="container"
         id="registrationContainer"
@@ -22,9 +21,7 @@ Object {
             <form
               class=""
             >
-              <div
-                class="form-group"
-              >
+              <div>
                 <label
                   class="form-label"
                   for="formBasicUsername"
@@ -38,9 +35,7 @@ Object {
                   value=""
                 />
               </div>
-              <div
-                class="form-group"
-              >
+              <div>
                 <label
                   class="form-label"
                   for="formBasicPassword"
@@ -50,7 +45,21 @@ Object {
                 <input
                   class="form-control"
                   id="formBasicPassword"
-                  placeholder="Must contain one number, uppercase & lowercase letter each"
+                  placeholder="Enter your super secret strong password password."
+                  type="password"
+                  value=""
+                />
+              </div>
+              <div>
+                <label
+                  class="form-label"
+                  for="formConfirmPassword"
+                >
+                  Re-enter password
+                </label>
+                <input
+                  class="form-control"
+                  id="formConfirmPassword"
                   type="password"
                   value=""
                 />
@@ -67,73 +76,9 @@ Object {
                   <span
                     class="text-muted"
                   >
-                    Passwords must be between 8 and 20 characters.
+                    Passwords must be at least strong.
                   </span>
                 </div>
-                <div>
-                  <img
-                    alt="status icon password contains uppercase character"
-                    src="info-24px.svg"
-                  />
-                  <span
-                    class="sr-only"
-                  >
-                    Missing: 
-                  </span>
-                  <span
-                    class="text-muted"
-                  >
-                    Passwords must be at least contain 1 uppercase character.
-                  </span>
-                </div>
-                <div>
-                  <img
-                    alt="status icon password contains lowercase character"
-                    src="info-24px.svg"
-                  />
-                  <span
-                    class="sr-only"
-                  >
-                    Missing: 
-                  </span>
-                  <span
-                    class="text-muted"
-                  >
-                    Passwords must be at least contain 1 lowercase character.
-                  </span>
-                </div>
-                <div>
-                  <img
-                    alt="status icon password contains number"
-                    src="info-24px.svg"
-                  />
-                  <span
-                    class="sr-only"
-                  >
-                    Missing: 
-                  </span>
-                  <span
-                    class="text-muted"
-                  >
-                    Passwords must be at least contain 1 number.
-                  </span>
-                </div>
-              </div>
-              <div
-                class="form-group"
-              >
-                <label
-                  class="form-label"
-                  for="formConfirmPassword"
-                >
-                  Re-enter password
-                </label>
-                <input
-                  class="form-control"
-                  id="formConfirmPassword"
-                  type="password"
-                  value=""
-                />
                 <div>
                   <img
                     alt="status icon passwords match"
@@ -168,11 +113,9 @@ Object {
           style="left: -20px;"
         />
       </div>
-       
     </div>
   </body>,
   "container": <div>
-     
     <div
       class="container"
       id="registrationContainer"
@@ -189,9 +132,7 @@ Object {
           <form
             class=""
           >
-            <div
-              class="form-group"
-            >
+            <div>
               <label
                 class="form-label"
                 for="formBasicUsername"
@@ -205,9 +146,7 @@ Object {
                 value=""
               />
             </div>
-            <div
-              class="form-group"
-            >
+            <div>
               <label
                 class="form-label"
                 for="formBasicPassword"
@@ -217,7 +156,21 @@ Object {
               <input
                 class="form-control"
                 id="formBasicPassword"
-                placeholder="Must contain one number, uppercase & lowercase letter each"
+                placeholder="Enter your super secret strong password password."
+                type="password"
+                value=""
+              />
+            </div>
+            <div>
+              <label
+                class="form-label"
+                for="formConfirmPassword"
+              >
+                Re-enter password
+              </label>
+              <input
+                class="form-control"
+                id="formConfirmPassword"
                 type="password"
                 value=""
               />
@@ -234,73 +187,9 @@ Object {
                 <span
                   class="text-muted"
                 >
-                  Passwords must be between 8 and 20 characters.
+                  Passwords must be at least strong.
                 </span>
               </div>
-              <div>
-                <img
-                  alt="status icon password contains uppercase character"
-                  src="info-24px.svg"
-                />
-                <span
-                  class="sr-only"
-                >
-                  Missing: 
-                </span>
-                <span
-                  class="text-muted"
-                >
-                  Passwords must be at least contain 1 uppercase character.
-                </span>
-              </div>
-              <div>
-                <img
-                  alt="status icon password contains lowercase character"
-                  src="info-24px.svg"
-                />
-                <span
-                  class="sr-only"
-                >
-                  Missing: 
-                </span>
-                <span
-                  class="text-muted"
-                >
-                  Passwords must be at least contain 1 lowercase character.
-                </span>
-              </div>
-              <div>
-                <img
-                  alt="status icon password contains number"
-                  src="info-24px.svg"
-                />
-                <span
-                  class="sr-only"
-                >
-                  Missing: 
-                </span>
-                <span
-                  class="text-muted"
-                >
-                  Passwords must be at least contain 1 number.
-                </span>
-              </div>
-            </div>
-            <div
-              class="form-group"
-            >
-              <label
-                class="form-label"
-                for="formConfirmPassword"
-              >
-                Re-enter password
-              </label>
-              <input
-                class="form-control"
-                id="formConfirmPassword"
-                type="password"
-                value=""
-              />
               <div>
                 <img
                   alt="status icon passwords match"
@@ -335,7 +224,6 @@ Object {
         style="left: -20px;"
       />
     </div>
-     
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

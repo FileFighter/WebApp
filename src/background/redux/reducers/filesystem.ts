@@ -9,16 +9,16 @@ import {
     REPLACE_SELECTED,
     SET_CONTENTS,
     SET_CURRENT_FSITEMID,
-    SET_CURRENT_PATH
-} from "../actions/filesystemTypes";
-import { FsEntity } from "../../api/filesystemTypes";
+    SET_CURRENT_PATH,
+} from "../actions/filesystemTypes"
+import { FsEntity } from "../../api/filesystemTypes"
 
 const initialState: FilesystemState = {
     selectedFsEntities: [],
     folderContents: [],
     currentFsItemId: "-1",
-    currentPath: ""
-};
+    currentPath: "",
+}
 
 export default function filesystem(
     state = initialState,
@@ -26,16 +26,16 @@ export default function filesystem(
 ): FilesystemState {
     switch (action.type) {
         case ADD_TO_SELECTED: {
-            console.log("[REDUX] ADD_TO_SELECTED", action.payload);
+            console.log("[REDUX] ADD_TO_SELECTED", action.payload)
             return {
                 selectedFsEntities: [
                     ...state.selectedFsEntities,
-                    action.payload
+                    action.payload,
                 ], //concat because it does not modify the original array
                 folderContents: state.folderContents,
                 currentFsItemId: state.currentFsItemId,
-                currentPath: state.currentPath
-            };
+                currentPath: state.currentPath,
+            }
         }
         case REMOVE_FROM_SELECTED: {
             return {
@@ -45,34 +45,34 @@ export default function filesystem(
                 ), //filter return a new array
                 folderContents: state.folderContents,
                 currentFsItemId: state.currentFsItemId,
-                currentPath: state.currentPath
-            };
+                currentPath: state.currentPath,
+            }
         }
         case CLEAR_SELECTED: {
-            console.log("Clear Selected");
+            console.log("Clear Selected")
             return {
                 selectedFsEntities: [],
                 folderContents: state.folderContents,
                 currentFsItemId: state.currentFsItemId,
-                currentPath: state.currentPath
-            };
+                currentPath: state.currentPath,
+            }
         }
         case REPLACE_SELECTED: {
-            console.log("Replace Selected");
+            console.log("Replace Selected")
             return {
                 selectedFsEntities: action.payload,
                 folderContents: state.folderContents,
                 currentFsItemId: state.currentFsItemId,
-                currentPath: state.currentPath
-            };
+                currentPath: state.currentPath,
+            }
         }
         case SET_CONTENTS: {
             return {
                 selectedFsEntities: state.selectedFsEntities,
                 folderContents: action.payload,
                 currentFsItemId: state.currentFsItemId,
-                currentPath: state.currentPath
-            };
+                currentPath: state.currentPath,
+            }
         }
         case ADD_TO_CONTENTS: {
             return {
@@ -81,11 +81,11 @@ export default function filesystem(
                     ...state.folderContents.filter((fsEntity: FsEntity) =>
                         dontReplaceFsEntity(fsEntity, action.payload)
                     ),
-                    action.payload
+                    action.payload,
                 ],
                 currentFsItemId: state.currentFsItemId,
-                currentPath: state.currentPath
-            };
+                currentPath: state.currentPath,
+            }
         }
         case REMOVE_FROM_CONTENTS: {
             return {
@@ -95,27 +95,27 @@ export default function filesystem(
                         fse.fileSystemId !== action.payload.fileSystemId
                 ),
                 currentFsItemId: state.currentFsItemId,
-                currentPath: state.currentPath
-            };
+                currentPath: state.currentPath,
+            }
         }
         case SET_CURRENT_FSITEMID: {
             return {
                 selectedFsEntities: state.selectedFsEntities,
                 folderContents: state.folderContents,
                 currentFsItemId: action.payload,
-                currentPath: state.currentPath
-            };
+                currentPath: state.currentPath,
+            }
         }
         case SET_CURRENT_PATH: {
             return {
                 selectedFsEntities: state.selectedFsEntities,
                 folderContents: state.folderContents,
                 currentFsItemId: state.currentFsItemId,
-                currentPath: action.payload
-            };
+                currentPath: action.payload,
+            }
         }
         default:
-            return state;
+            return state
     }
 }
 const dontReplaceFsEntity = (
@@ -125,5 +125,5 @@ const dontReplaceFsEntity = (
     return (
         existingFsEntity.fileSystemId !== newFsEntity.fileSystemId &&
         existingFsEntity.path !== newFsEntity.path
-    );
-};
+    )
+}

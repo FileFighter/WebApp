@@ -1,20 +1,20 @@
-import React, { ReactElement, useCallback } from "react";
-import { Dropdown } from "react-bootstrap";
-import { constants } from "../../../background/constants";
-import { FsEntity } from "../../../background/api/filesystemTypes";
-import { deleteFsEntities } from "../../../background/api/filesystem";
+import React, { ReactElement, useCallback } from "react"
+import { Dropdown } from "react-bootstrap"
+import { constants } from "../../../background/constants"
+import { FsEntity } from "../../../background/api/filesystemTypes"
+import { deleteFsEntities } from "../../../background/api/filesystem"
 
 interface FileItemContextMenuInterface {
-    fsEntity: FsEntity;
+    fsEntity: FsEntity
 }
 
 interface DropdownItemTitleInterface {
-    icon?: string;
-    description: string;
-    selectedID: number;
-    target?: string;
-    onclick?: () => void;
-    disabled?: boolean;
+    icon?: string
+    description: string
+    selectedID: number
+    target?: string
+    onclick?: () => void
+    disabled?: boolean
 }
 
 const DropdownItem = (props: DropdownItemTitleInterface): ReactElement => {
@@ -23,8 +23,8 @@ const DropdownItem = (props: DropdownItemTitleInterface): ReactElement => {
         description,
         target,
         disabled = false,
-        onclick = () => {}
-    } = props;
+        onclick = () => {},
+    } = props
     return (
         <Dropdown.Item href={target} disabled={disabled} onClick={onclick}>
             <span className="d-flex w-100">
@@ -34,11 +34,11 @@ const DropdownItem = (props: DropdownItemTitleInterface): ReactElement => {
                 <span className="flex-grow-1"> {description}</span>
             </span>
         </Dropdown.Item>
-    );
-};
+    )
+}
 
 const DropdownItemDownload = (props: DropdownItemTitleInterface) => {
-    const { icon, description, selectedID, disabled = false } = props;
+    const { icon, description, selectedID, disabled = false } = props
     return (
         <Dropdown.Item
             disabled={disabled}
@@ -52,14 +52,15 @@ const DropdownItemDownload = (props: DropdownItemTitleInterface) => {
                 <span className="flex-grow-1"> {description}</span>
             </span>
         </Dropdown.Item>
-    );
-};
+    )
+}
 
 function FileItemContextMenu(props: FileItemContextMenuInterface) {
-    const deleteAction = useCallback(() => deleteFsEntities([props.fsEntity]), [
-        props.fsEntity
-    ]);
-    const id = props.fsEntity.fileSystemId;
+    const deleteAction = useCallback(
+        () => deleteFsEntities([props.fsEntity]),
+        [props.fsEntity]
+    )
+    const id = props.fsEntity.fileSystemId
 
     return (
         <Dropdown
@@ -104,7 +105,7 @@ function FileItemContextMenu(props: FileItemContextMenuInterface) {
                 />
             </Dropdown.Menu>
         </Dropdown>
-    );
+    )
 }
 
-export default FileItemContextMenu;
+export default FileItemContextMenu

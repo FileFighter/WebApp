@@ -3,65 +3,69 @@ import React, {
     FormEvent,
     ReactElement,
     SetStateAction,
-    useState
-} from "react";
-import { Button, Col, Form, Image, Row, Spinner } from "react-bootstrap";
-import { loginWithUsernameAndPassword } from "../../../background/api/auth";
+    useEffect,
+    useState,
+} from "react"
+import { Button, Col, Form, Image, Row, Spinner } from "react-bootstrap"
+import { loginWithUsernameAndPassword } from "../../../background/api/auth"
 
-import logo from "../../../assets/images/logos/logoWithWhiteBorder.png";
-import { useHistory, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../background/redux/store";
+import logo from "../../../assets/images/logos/logoWithWhiteBorder.png"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { RootState } from "../../../background/redux/store"
 
 export interface LoginInputInterface {
-    handleSubmit: (event: FormEvent) => void;
-    username: string | number | string[] | undefined;
-    setUsername: Dispatch<SetStateAction<string>>;
-    password: string | number | string[] | undefined;
-    setPassword: Dispatch<SetStateAction<string>>;
-    isLoading: boolean;
-    setIsLoading: Dispatch<SetStateAction<boolean>>;
-    stayLoggedIn: boolean;
-    setStayLoggedIn: Dispatch<SetStateAction<boolean>>;
-    errorMessage: string | null;
+    handleSubmit: (event: FormEvent) => void
+    username: string | number | string[] | undefined
+    setUsername: Dispatch<SetStateAction<string>>
+    password: string | number | string[] | undefined
+    setPassword: Dispatch<SetStateAction<string>>
+    isLoading: boolean
+    setIsLoading: Dispatch<SetStateAction<boolean>>
+    stayLoggedIn: boolean
+    setStayLoggedIn: Dispatch<SetStateAction<boolean>>
+    errorMessage: string | null
 }
 
 function Login(): ReactElement {
-    const [userName, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [stayLoggedIn, setStayLoggedIn] = useState<boolean>(true);
-    const [errorMessage, setErrorMessage] = useState<string>("");
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [userName, setUsername] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
+    const [stayLoggedIn, setStayLoggedIn] = useState<boolean>(true)
+    const [errorMessage, setErrorMessage] = useState<string>("")
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    const location = useLocation();
-    const urlSearchParams = new URLSearchParams(location.search);
-    const dest = urlSearchParams.get("dest");
-    const history = useHistory();
+    const location = useLocation()
+    const urlSearchParams = new URLSearchParams(location.search)
+    const dest = urlSearchParams.get("dest")
+    const navigate = useNavigate()
 
-    const tokens = useSelector((state: RootState) => state.tokens);
+    const tokens = useSelector((state: RootState) => state.tokens)
 
-    if (tokens.refreshToken && tokens.accessToken?.token) {
-        if (dest) {
-            history.push(decodeURIComponent(dest));
-        } else {
-            history.push("/");
+    useEffect(() => {
+        if (tokens.refreshToken && tokens.accessToken?.token) {
+            if (dest) {
+                navigate(decodeURIComponent(dest))
+            } else {
+                navigate("/")
+            }
         }
-    }
+    }, [dest, navigate, tokens])
+
     const handleSubmit = (event: FormEvent) => {
-        event.preventDefault();
-        setIsLoading(true);
+        event.preventDefault()
+        setIsLoading(true)
         loginWithUsernameAndPassword(userName, password, stayLoggedIn)
             .then(() => {
                 //nothing to do here :)
-                setErrorMessage("");
-                setIsLoading(false);
+                setErrorMessage("")
+                setIsLoading(false)
             })
             .catch((error) => {
-                console.log(error);
-                setIsLoading(false);
-                setErrorMessage(error.response?.data.message);
-            });
-    };
+                console.log(error)
+                setIsLoading(false)
+                setErrorMessage(error.response?.data.message)
+            })
+    }
 
     return (
         <LoginInteractionArea
@@ -76,7 +80,7 @@ function Login(): ReactElement {
             setStayLoggedIn={setStayLoggedIn}
             errorMessage={errorMessage}
         />
-    );
+    )
 }
 
 export function LoginInteractionArea(props: LoginInputInterface) {
@@ -90,8 +94,8 @@ export function LoginInteractionArea(props: LoginInputInterface) {
         setIsLoading,
         stayLoggedIn,
         setStayLoggedIn,
-        errorMessage
-    } = props;
+        errorMessage,
+    } = props
     return (
         <LoginInput
             handleSubmit={handleSubmit}
@@ -105,7 +109,7 @@ export function LoginInteractionArea(props: LoginInputInterface) {
             setStayLoggedIn={setStayLoggedIn}
             errorMessage={errorMessage}
         />
-    );
+    )
 }
 
 export function LoginHeader() {
@@ -121,7 +125,7 @@ export function LoginHeader() {
                 <h2>Be welcome at FileFighter</h2>
             </Row>
         </div>
-    );
+    )
 }
 
 export function LoginInput(props: LoginInputInterface) {
@@ -134,15 +138,18 @@ export function LoginInput(props: LoginInputInterface) {
         isLoading,
         stayLoggedIn,
         setStayLoggedIn,
-        errorMessage
-    } = props;
+        errorMessage,
+    } = props
 
     return (
         <div>
             <Row className="mt-4 justify-content-center">
                 <Col className="login-input">
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="formBasicUsername">
+                        <Form.Group
+                            controlId="formBasicUsername"
+                            className="mb-3"
+                        >
                             <Form.Control
                                 autoFocus
                                 placeholder="Username"
@@ -154,7 +161,10 @@ export function LoginInput(props: LoginInputInterface) {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword">
+                        <Form.Group
+                            controlId="formBasicPassword"
+                            className="mb-3"
+                        >
                             <Form.Control
                                 type="password"
                                 placeholder="Password"
@@ -170,7 +180,11 @@ export function LoginInput(props: LoginInputInterface) {
                             </Form.Text>
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" block>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            className="w-100"
+                        >
                             <Spinner
                                 as="span"
                                 animation="grow"
@@ -204,7 +218,7 @@ export function LoginInput(props: LoginInputInterface) {
                 </Col>
             </Row>
         </div>
-    );
+    )
 }
 
-export default Login;
+export default Login

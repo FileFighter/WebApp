@@ -1,6 +1,6 @@
-import React, { ReactElement } from "react";
-import { Container } from "react-bootstrap";
-import github from "super-tiny-icons/images/svg/github.svg";
+import React, { ReactElement } from "react"
+import { Container } from "react-bootstrap"
+import github from "super-tiny-icons/images/svg/github.svg"
 
 export default function Footer(): ReactElement {
     return (
@@ -44,5 +44,5 @@ export default function Footer(): ReactElement {
                 </div>
             </Container>
         </footer>
-    );
+    )
 }

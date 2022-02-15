@@ -1,6 +1,6 @@
-import React from "react";
-import Spinner from "react-bootstrap/Spinner";
-import { Container } from "react-bootstrap";
+import React from "react"
+import Spinner from "react-bootstrap/Spinner"
+import { Container } from "react-bootstrap"
 
 export function FFLoading(): JSX.Element {
     return (
@@ -11,5 +11,5 @@ export function FFLoading(): JSX.Element {
                 <span className="sr-only">Loading...</span>
             </Spinner>
         </Container>
-    );
+    )
 }
