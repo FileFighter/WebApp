@@ -17,14 +17,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          cache: 'npm'
+          cache: 'yarn'
       # Install NPM dependencies, build the webpage and start it
       # and run all Cypress tests
       - name: Start FE and run jest tests
         run: |
-            npm ci
-            npm test -- --watchAll=false
-            npm start &
+            yarn install --immutable --immutable-cache --check-cache
+            yarn test -- --watchAll=false
+            yarn start &
       - name: Wait
         uses: iFaxity/wait-on-action@v1
         with:

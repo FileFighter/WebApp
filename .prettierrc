@@ -9,5 +9,5 @@
   "bracketSpacing": true,
   "bracketSameLine": false,
   "arrowParens": "always",
-  "parser": "typescript",
+  "parser": "typescript"
 }

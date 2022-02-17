@@ -15,11 +15,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          cache: 'npm'
+          cache: 'yarn'
       - name: Build storybook
         run: |
-          npm ci
-          npm run build-storybook
+          yarn install --immutable --immutable-cache --check-cache
+          yarn run build-storybook
           cp -r storybook-static  storybook_provider/public
       - name: Login to DockerHub
         uses: docker/login-action@v1

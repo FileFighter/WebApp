@@ -369,6 +369,8 @@ exports[`Storyshots Filesystem default 1`] = `
                 <a
                   aria-disabled={true}
                   className="mx-1 btn btn-outline-secondary btn-sm disabled"
+                  disabled={true}
+                  href="http://localhost/data/download?ids="
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="button"

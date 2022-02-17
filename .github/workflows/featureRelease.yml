@@ -24,22 +24,22 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          cache: 'npm'
+          cache: 'yarn'
       -
         name: Checkout frontend
         run: |
-            npm ci
+          yarn install --immutable --immutable-cache --check-cache
       -
         name: Update Sonar
         run: |
-          npm run-script sonar
+          yarn run sonar
         env:
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
           SONAR_PASSWORD: ${{ secrets.SONAR_PASSWORD }}
       -
         name: Build frontend
         run: |
-          npm run-script build
+          yarn run build
           cp -r build webapp_provider/public
       -
         name: Login to DockerHub
