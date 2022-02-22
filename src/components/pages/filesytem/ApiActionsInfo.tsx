@@ -1,8 +1,8 @@
-import { ReactElement } from "react"
+import React from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "../../../background/redux/store"
 
-export const ApiActionsInfo = (): ReactElement => {
+export const ApiActionsInfo = (): JSX.Element => {
     const ongoingActions = useSelector(
         (state: RootState) => state.apiActions.actions
     )
