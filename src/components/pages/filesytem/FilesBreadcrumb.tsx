@@ -35,7 +35,7 @@ export function FilesBreadcrumb(props: Props): ReactElement {
                         }
                         key={i}
                     >
-                        {folder}{" "}
+                        {decodeURI(folder)}
                     </Link>
                 )
             })}

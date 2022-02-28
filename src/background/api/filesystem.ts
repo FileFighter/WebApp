@@ -32,7 +32,7 @@ export const getFolderContents = (path: string) => {
     return new Promise<AxiosResponse<FsEntity[]>>((resolve, reject) => {
         let config = {
             headers: {
-                "X-FF-PATH": path,
+                "X-FF-PATH": decodeURI(path),
             },
         }
         Axios.get<FsEntity[]>(hostname + filesystemPath + "contents", config)

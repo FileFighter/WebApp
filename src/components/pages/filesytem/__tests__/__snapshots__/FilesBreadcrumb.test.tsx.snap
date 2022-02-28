@@ -22,21 +22,18 @@ Object {
             href="/file/bla"
           >
             bla
-             
           </a>
           <a
             class="breadcrumb-item"
             href="/file/bla/fasel"
           >
             fasel
-             
           </a>
           <a
             class="breadcrumb-item active"
             href="/file/bla/fasel/file"
           >
             file
-             
           </a>
         </ol>
       </nav>
@@ -60,21 +57,18 @@ Object {
           href="/file/bla"
         >
           bla
-           
         </a>
         <a
           class="breadcrumb-item"
           href="/file/bla/fasel"
         >
           fasel
-           
         </a>
         <a
           class="breadcrumb-item active"
           href="/file/bla/fasel/file"
         >
           file
-           
         </a>
       </ol>
     </nav>
