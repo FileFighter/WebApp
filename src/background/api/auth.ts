@@ -127,6 +127,7 @@ const getOwnUserData = () => {
 
 export const logout = () => {
     store.dispatch(removeTokens())
+    window.location.reload()
     deleteCookie(cookieName)
 }
 
