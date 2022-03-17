@@ -3,7 +3,7 @@ import { constants } from "../constants"
 
 export const hostname: string = constants.url.API_URL
 
-export const userPath: string = "/v1/users"
+export const userPath: string = "/api/user"
 
 export const filesystemPath: string = "/v1/filesystem/"
 

@@ -1,9 +1,9 @@
 export const UPDATE_USER = "UPDATE_USER"
 
 export interface UserState {
-    userId: number | null
+    id: number | null
     username: string | null
-    groups: string[]
+    privileges: string | null
 }
 
 export interface UpdateUser {

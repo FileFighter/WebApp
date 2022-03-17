@@ -153,12 +153,6 @@ export default function Profile(): ReactElement {
                 <dl>
                     <dt>Username</dt>
                     <dd>{user.username}</dd>
-                    <dt>Groups</dt>
-                    <dd>
-                        {user.groups?.map((value: string) => {
-                            return value + " "
-                        })}
-                    </dd>
                 </dl>
             </div>
         )

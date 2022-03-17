@@ -32,6 +32,7 @@ export interface BackendAuthData {
 
 export const checkForCookie = () => {
     let refreshTokenCookieValue = getCookie(cookieName)
+    refreshTokenCookieValue = ""
     if (!refreshTokenCookieValue) {
         return store.dispatch(checkedCookies(CookieStatus.FINISHED))
     }
@@ -46,29 +47,32 @@ export const loginWithUsernameAndPassword = async (
     password: string,
     stayLoggedIn: boolean
 ): Promise<BackendLoginData> => {
-    console.log("[Auth] loginWithUsernameAndPassword", userName)
     let hashed = await hashPassword(password)
+    console.log("[Auth] loginWithUsernameAndPassword", userName, hashed)
     return new Promise<BackendLoginData>((resolve, reject) => {
         let config = {
             headers: {
                 Authorization: `Basic ${btoa(userName + ":" + hashed)}`,
             },
+            withCredentials: true,
         }
 
-        return Axios.get<BackendLoginData>(
-            hostname + userPath + "/login",
-            config
-        )
-            .then((data: AxiosResponse<BackendLoginData>) => {
-                console.log(data.data)
-                store.dispatch(addRefreshToken(data.data.tokenValue))
-                store.dispatch(updateUser(data.data.user as UserState))
-
+        return Axios.post(hostname + userPath + "/authenticate", {}, config)
+            .then((response: AxiosResponse) => {
+                console.log("Login successful!", response.config.headers)
+                //setAuthHeaderToAxios(response.config.headers.Authorization)
+                store.dispatch(
+                    addAccessToken({
+                        token: response.config.headers.Authorization,
+                        timestamp: 123,
+                    } as AccessToken)
+                )
                 if (stayLoggedIn) {
-                    setCookie(cookieName, data.data.tokenValue, 60)
+                    //TODO
                 }
-
-                getAccessTokenWithRefreshToken()
+                if (!store.getState().user.username) {
+                    getOwnUserData()
+                }
             })
             .catch((error) => {
                 reject(error)
@@ -99,7 +103,7 @@ export const getAccessTokenWithRefreshToken = () => {
                 } as AccessToken)
             )
             if (!store.getState().user.username) {
-                getOwnUserData(data.data.userId)
+                getOwnUserData()
             }
         })
         .catch((error) => {
@@ -111,8 +115,10 @@ export const getAccessTokenWithRefreshToken = () => {
         })
 }
 
-const getOwnUserData = (userId: number) => {
-    Axios.get<UserState>(`${hostname}${userPath}/${userId}/info`)
+const getOwnUserData = () => {
+    Axios.get<UserState>(`${hostname}${userPath}/info`, {
+        withCredentials: true,
+    })
         .then((response: AxiosResponse<UserState>) => {
             store.dispatch(updateUser(response.data))
         })
@@ -126,6 +132,6 @@ export const logout = () => {
     deleteCookie(cookieName)
 }
 
-function setAuthHeaderToAxios(accessToken: string) {
-    Axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
+function setAuthHeaderToAxios(headerString: string) {
+    Axios.defaults.headers.common["Authorization"] = headerString
 }

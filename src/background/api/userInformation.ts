@@ -8,9 +8,8 @@ import { UserState } from "../redux/actions/userTypes"
 import { ApiStatusResponse } from "../api/sharedApiTypes"
 
 export interface UserInformation {
-    userId: number | null
+    id: number | null
     username?: string | null
-    groups?: string[] | null
     password?: string
     confirmationPassword?: string // FIXME remove this in the backend
 }
@@ -22,7 +21,7 @@ export const changeUserInformation = (
     console.log(userWithNewInformation)
     return new Promise((resolve, reject) => {
         return Axios.put(
-            `${hostname}${userPath}/${userWithNewInformation.userId}/edit`,
+            `${hostname}${userPath}/${userWithNewInformation.id}/edit`,
             userWithNewInformation
         )
             .then((response: AxiosResponse<UserState>) => {

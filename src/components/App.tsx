@@ -54,7 +54,7 @@ function App(props: Props): ReactElement {
     )
 
     if (props.tokens.checkedCookies === CookieStatus.FINISHED) {
-        if (props.tokens.refreshToken && props.tokens.accessToken?.token) {
+        if (props.tokens.accessToken?.token) {
             return (
                 <div className="App h-100 d-flex flex-column">
                     <BrowserRouter>
