@@ -1,5 +1,6 @@
 interface constantsdef {
     url: { API_URL: string; FH_URL: string }
+    axios: { withCredentials: boolean }
 }
 
 const prod: constantsdef = {
@@ -7,6 +8,7 @@ const prod: constantsdef = {
         API_URL: window.location.origin + "/api",
         FH_URL: window.location.origin + "/data",
     },
+    axios: { withCredentials: false },
 }
 
 const dev: constantsdef = {
@@ -18,6 +20,7 @@ const dev: constantsdef = {
         //FH_URL: "http://localhost/data"
         FH_URL: "https://demo.filefighter.de/data",
     },
+    axios: { withCredentials: true },
 }
 export const constants = process.env.NODE_ENV === "development" ? dev : prod
 

@@ -22,7 +22,7 @@ export const registerNewUser = async (
         const newUser = {
             username: username,
             password: hashedPassword,
-            confirmationPassword: hashedPassword,
+            privileges: "USER",
         }
 
         return Axios.post(hostname + userPath + "/register", newUser)

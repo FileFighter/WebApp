@@ -11,9 +11,10 @@ import {
     removeTokens,
 } from "../redux/actions/tokens"
 import { AccessToken, CookieStatus } from "../redux/actions/tokenTypes"
-import { deleteCookie, getCookie, setCookie } from "../methods/cookies"
+import { deleteCookie, getCookie } from "../methods/cookies"
 import { updateUser } from "../redux/actions/user"
 import { hashPassword } from "../methods/passwords"
+import { constants } from "../constants"
 
 // reference: https://daveceddia.com/access-redux-store-outside-react/
 
@@ -50,17 +51,16 @@ export const loginWithUsernameAndPassword = async (
     let hashed = await hashPassword(password)
     console.log("[Auth] loginWithUsernameAndPassword", userName, hashed)
     return new Promise<BackendLoginData>((resolve, reject) => {
+        Axios.defaults.withCredentials = constants.axios.withCredentials
         let config = {
             headers: {
                 Authorization: `Basic ${btoa(userName + ":" + hashed)}`,
             },
-            withCredentials: true,
         }
 
         return Axios.post(hostname + userPath + "/authenticate", {}, config)
             .then((response: AxiosResponse) => {
                 console.log("Login successful!", response.config.headers)
-                //setAuthHeaderToAxios(response.config.headers.Authorization)
                 store.dispatch(
                     addAccessToken({
                         token: response.config.headers.Authorization,
@@ -116,9 +116,7 @@ export const getAccessTokenWithRefreshToken = () => {
 }
 
 const getOwnUserData = () => {
-    Axios.get<UserState>(`${hostname}${userPath}/info`, {
-        withCredentials: true,
-    })
+    Axios.get<UserState>(`${hostname}${userPath}/info`)
         .then((response: AxiosResponse<UserState>) => {
             store.dispatch(updateUser(response.data))
         })

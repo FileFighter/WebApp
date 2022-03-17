@@ -46,7 +46,7 @@ function Header(props: PropsFromRedux): ReactElement {
         },
     ]
 
-    if (props.privileges == "ADMIN") {
+    if (props.privileges === "ADMIN") {
         navBarElements.push({
             name: "registration",
             text: "Registration",

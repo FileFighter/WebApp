@@ -72,7 +72,6 @@ export default function Profile(): ReactElement {
             // if the user updated the password
             const hashedPassword = await hashPassword(userInput.password)
             updatedUser.password = hashedPassword
-            updatedUser.confirmationPassword = hashedPassword
         } else if (user.username === userInput.username) {
             // if the new username is the old one show erorr instead of calling the backend
             // FIXME should we even show something here?
