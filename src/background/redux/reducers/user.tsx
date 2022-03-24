@@ -1,9 +1,9 @@
 import { UPDATE_USER, UserActionTypes, UserState } from "../actions/userTypes"
 
 const initialState: UserState = {
-    groups: [],
-    userId: null,
+    id: null,
     username: null,
+    privileges: null,
 }
 
 export default function users(state = initialState, action: UserActionTypes) {

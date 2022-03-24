@@ -22,7 +22,7 @@ export interface navBarElement_Interface {
 
 const mapState = (state: SystemState) => ({
     username: state.user.username,
-    groups: state.user.groups,
+    privileges: state.user.privileges,
 })
 
 const connector = connect(mapState)
@@ -46,7 +46,7 @@ function Header(props: PropsFromRedux): ReactElement {
         },
     ]
 
-    if (props.groups.includes("ADMIN")) {
+    if (props.privileges === "ADMIN") {
         navBarElements.push({
             name: "registration",
             text: "Registration",

@@ -940,10 +940,6 @@ exports[`Storyshots Profile default 1`] = `
         Username
       </dt>
       <dd />
-      <dt>
-        Groups
-      </dt>
-      <dd />
     </dl>
   </div>
 </div>
