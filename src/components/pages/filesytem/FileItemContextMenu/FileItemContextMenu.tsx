@@ -35,7 +35,7 @@ const DropdownItemDownload = (props: DropdownItemTitleInterface) => {
     return (
         <Dropdown.Item
             disabled={disabled}
-            href={constants.url.FH_URL + "/download?ids=" + fsEntity.id}
+            href={constants.url.FH_URL + "/download" + fsEntity.path}
             download
         >
             <span className="d-flex w-100">

@@ -100,15 +100,14 @@ export const uploadFiles = (
                 .then((response: AxiosResponse<[FsEntity]>) => {
                     const currentPath = store.getState().filesystem.currentPath
 
-                    const fsEntityToShow = response.data.find(
-                        (fsEntity: FsEntity) =>
+                    response.data
+                        .filter((fsEntity: FsEntity) =>
                             isFsEntityInFolder(fsEntity, currentPath)
-                    )
+                        )
+                        .forEach((fsEntityToShow) =>
+                            store.dispatch(addToContents(fsEntityToShow))
+                        )
 
-                    console.log("uploads", fsEntityToShow, response.data)
-                    if (fsEntityToShow) {
-                        store.dispatch(addToContents(fsEntityToShow))
-                    }
                     resolve(response)
                 })
                 .catch((error) => reject(error))
@@ -120,7 +119,7 @@ export const uploadFiles = (
 export const deleteFsEntities = (files: FsEntity[]) => {
     const apiCall = (fsEntity: FsEntity) => {
         return new Promise((resolve, reject) => {
-            Axios.delete<FsEntity[]>(fhHostname + "/delete/" + fsEntity.id)
+            Axios.delete<FsEntity[]>(fhHostname + "/delete" + fsEntity.path)
                 .then((response: AxiosResponse<FsEntity[]>) => {
                     response.data.forEach((e) => {
                         store.dispatch(removeFromContents(e))

@@ -10,7 +10,7 @@ import { Search } from "./search/Search"
 
 const mapState = (state: SystemState) => ({
     selectedFsEntities: state.filesystem.selectedFsEntities,
-    currentFsItemId: state.filesystem.currentFsItemId,
+    currentPath: state.filesystem.currentPath,
 })
 
 const connector = connect(mapState)
@@ -38,17 +38,15 @@ function ToolbarActions(props: Props): ReactElement | null {
             </Fade> */}
             <Fade in={props.selectedFsEntities.length > 0}>
                 <span>
-                    {props.currentFsItemId !== "-1" && (
-                        <Button
-                            size="sm"
-                            variant="outline-secondary"
-                            onClick={handleDeleteClicked}
-                            disabled={props.selectedFsEntities.length < 1}
-                            className="mx-1"
-                        >
-                            Delete
-                        </Button>
-                    )}
+                    <Button
+                        size="sm"
+                        variant="outline-secondary"
+                        onClick={handleDeleteClicked}
+                        disabled={props.selectedFsEntities.length < 1}
+                        className="mx-1"
+                    >
+                        Delete
+                    </Button>
                     <Button
                         size="sm"
                         variant="outline-secondary"
@@ -56,9 +54,11 @@ function ToolbarActions(props: Props): ReactElement | null {
                         className="mx-1"
                         href={
                             constants.url.FH_URL +
-                            "/download?ids=" +
+                            "/download" +
+                            props.currentPath +
+                            "?children=" +
                             props.selectedFsEntities.map((e: FsEntity) =>
-                                e.id.toString()
+                                e.name.toString()
                             )
                         }
                     >
