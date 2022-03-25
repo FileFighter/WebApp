@@ -5,7 +5,7 @@ export const hostname: string = constants.url.API_URL
 
 export const userPath: string = "/api/user"
 
-export const filesystemPath: string = "/v1/filesystem/"
+export const filesystemPath: string = "/api/filesystem/"
 
 enum DataIntegrity {
     STABLE = "bg-success",

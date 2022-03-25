@@ -20,14 +20,14 @@ interface Props {
     handleClose: () => void
     preflightResult: EditablePreflightEntityOrFile[]
     setPreflightResultDispatch: (a: PeflightEntiesActionTypes) => void
-    fsItemIdToUpload: string
+    parentPath: string
 }
 
 export const UploadDecisionsModalContent = ({
     handleClose,
     preflightResult,
     setPreflightResultDispatch,
-    fsItemIdToUpload,
+    parentPath,
 }: Props): ReactElement => {
     const [currentPage, setCurrentPage] = useState(0)
     const [showAllFiles, setShowAllFiles] = useState(false)
@@ -59,7 +59,7 @@ export const UploadDecisionsModalContent = ({
             preflightResult.filter(
                 (e: EditablePreflightEntityOrFile) => e.isFile
             ) as EditableFileWithPreflightInfo[],
-            fsItemIdToUpload
+            parentPath
         ).then((response: PreflightEntity[]) => {
             const combined = preflightResultCombine(preflightResult, response)
 
@@ -80,7 +80,7 @@ export const UploadDecisionsModalContent = ({
                     combined.filter(
                         (f: EditablePreflightEntityOrFile) => f.isFile
                     ) as EditableFileWithPreflightInfo[],
-                    fsItemIdToUpload
+                    parentPath
                 )
                 handleClose()
                 setPreflightResultDispatch({
@@ -97,7 +97,7 @@ export const UploadDecisionsModalContent = ({
             preflightResult.filter(
                 (f: EditablePreflightEntityOrFile) => f.isFile
             ) as EditableFileWithPreflightInfo[],
-            fsItemIdToUpload
+            parentPath
         )
         handleClose()
         setPreflightResultDispatch({

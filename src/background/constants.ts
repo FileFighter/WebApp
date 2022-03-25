@@ -16,9 +16,9 @@ const dev: constantsdef = {
         //API_URL: "https://demo.filefighter.de/api",
         API_URL: "http://localhost:8080",
         //API_URL: "http://localhost/api",
-        //FH_URL: "http://localhost:5000/data"
+        FH_URL: "http://localhost:5000/data",
         //FH_URL: "http://localhost/data"
-        FH_URL: "https://demo.filefighter.de/data",
+        //   FH_URL: "https://demo.filefighter.de/data",
     },
     axios: { withCredentials: true },
 }

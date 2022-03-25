@@ -20,7 +20,7 @@ storiesOf("Filesystem", module).add("NewFolderModal", () => {
             <BrowserRouter>
                 <NewFolderModalContent
                     handleClose={() => {}}
-                    currentFsItemId={"2"}
+                    currentPath={"2"}
                 />
             </BrowserRouter>
         </Provider>

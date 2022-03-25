@@ -1,6 +1,9 @@
 import React, { ReactElement, useEffect, useState } from "react"
 import { getFolderContents } from "../../../background/api/filesystem"
-import { FsEntity } from "../../../background/api/filesystemTypes"
+import {
+    ContentsResource,
+    FsEntity,
+} from "../../../background/api/filesystemTypes"
 import { Col, Container, Row } from "react-bootstrap"
 import { useLocation } from "react-router-dom"
 import { FilesBreadcrumb } from "./FilesBreadcrumb"
@@ -68,15 +71,15 @@ function FileList(props: reduxProps): ReactElement {
     useEffect((): void => {
         function updateStates(newPath: string): void {
             getFolderContents(newPath)
-                .then((response: AxiosResponse<FsEntity[]>) => {
+                .then((response: AxiosResponse<ContentsResource>) => {
                     console.log("got folder content", response)
                     setLoading(false)
                     setContents([
-                        ...response.data.filter(
-                            (fsEntity: FsEntity) => fsEntity.type === "FOLDER"
+                        ...response.data.inodes.filter(
+                            (fsEntity: FsEntity) => fsEntity.mimeType === null
                         ),
-                        ...response.data.filter(
-                            (fsEntity: FsEntity) => fsEntity.type !== "FOLDER"
+                        ...response.data.inodes.filter(
+                            (fsEntity: FsEntity) => fsEntity.mimeType !== null
                         ),
                     ])
                     setError("")

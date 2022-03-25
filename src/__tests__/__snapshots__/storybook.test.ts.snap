@@ -379,6 +379,14 @@ exports[`Storyshots Filesystem default 1`] = `
                 </a>
               </span>
               <button
+                className="mx-1 btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                New Folder
+              </button>
+              <button
                 className="ml-1 btn btn-outline-secondary btn-sm"
                 disabled={false}
                 onClick={[Function]}
@@ -479,7 +487,38 @@ exports[`Storyshots Filesystem default 1`] = `
   <div
     className="flex-shrink-0"
     id="uploadZone"
-  />
+  >
+    <div
+      className="text-center border py-4 mx-3"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragEnter={[Function]}
+      onDragLeave={[Function]}
+      onDragOver={[Function]}
+      onDrop={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <input
+        autoComplete="off"
+        multiple={true}
+        onChange={[Function]}
+        onClick={[Function]}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+        tabIndex={-1}
+        type="file"
+      />
+      <p>
+        Drag 'n' drop files or folders here, or click to select files
+      </p>
+    </div>
+  </div>
 </div>
 `;
 

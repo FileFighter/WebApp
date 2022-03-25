@@ -40,8 +40,7 @@ export default function filesystem(
         case REMOVE_FROM_SELECTED: {
             return {
                 selectedFsEntities: state.selectedFsEntities.filter(
-                    (e: FsEntity) =>
-                        e.fileSystemId !== action.payload.fileSystemId
+                    (e: FsEntity) => e.id !== action.payload.id
                 ), //filter return a new array
                 folderContents: state.folderContents,
                 currentFsItemId: state.currentFsItemId,
@@ -91,8 +90,7 @@ export default function filesystem(
             return {
                 selectedFsEntities: state.selectedFsEntities,
                 folderContents: state.folderContents.filter(
-                    (fse: FsEntity) =>
-                        fse.fileSystemId !== action.payload.fileSystemId
+                    (fse: FsEntity) => fse.id !== action.payload.id
                 ),
                 currentFsItemId: state.currentFsItemId,
                 currentPath: state.currentPath,
@@ -123,7 +121,7 @@ const dontReplaceFsEntity = (
     newFsEntity: FsEntity
 ): boolean => {
     return (
-        existingFsEntity.fileSystemId !== newFsEntity.fileSystemId &&
+        existingFsEntity.id !== newFsEntity.id &&
         existingFsEntity.path !== newFsEntity.path
     )
 }

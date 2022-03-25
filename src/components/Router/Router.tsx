@@ -23,8 +23,8 @@ export default function Router(): ReactElement {
             <Route path={"/registration"} element={<Registration />} />
             <Route path={"/profile"} element={<Profile />} />
             <Route path={"/error"} element={<Error400 />} />
-            <Route path={"/data"} element={<BackendRedirect />} />
-            <Route path={"/api"} element={<BackendRedirect />} />
+            <Route path={"/data/*"} element={<BackendRedirect />} />
+            <Route path={"/api/*"} element={<BackendRedirect />} />
             <Route path={"*"} element={<Error404 />} />
         </Routes>
     )

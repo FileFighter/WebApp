@@ -26,7 +26,7 @@ export const isFsEntityInFolder = (fsEntity: FsEntity, path: string) => {
     let fsEntityPath = getPathWithoutName(fsEntity.path, fsEntity.name)
     fsEntityPath = removeTrailingBackslash(fsEntityPath)
 
-    return fsEntityPath === path.toLocaleLowerCase()
+    return fsEntityPath.toLocaleLowerCase() === path.toLocaleLowerCase()
 }
 
 export const getFileExtension = (fileName: string): string => {

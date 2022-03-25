@@ -46,10 +46,10 @@ export const UploadZone = (): ReactElement => {
     }
     const handleShow = () => setShowUploadDialog(true)
 
-    const currentFsItemId = useSelector(
-        (state: RootState) => state.filesystem.currentFsItemId
+    const currentPath = useSelector(
+        (state: RootState) => state.filesystem.currentPath
     )
-    const [fsItemIdToUpload, setFsItemIdToUpload] = useState(currentFsItemId)
+    const [parentPath, setParentPath] = useState(currentPath)
     const currentFsContent = useSelector(
         (state: RootState) => state.filesystem.folderContents
     )
@@ -72,6 +72,7 @@ export const UploadZone = (): ReactElement => {
                     )
                 }
             )
+            preflightNeeded = false
             console.log(
                 "[Upload Zone, add files]",
                 acceptedFiles,
@@ -79,43 +80,41 @@ export const UploadZone = (): ReactElement => {
             )
 
             if (preflightNeeded) {
-                setFsItemIdToUpload(currentFsItemId)
-                uploadPreflight(acceptedFiles, currentFsItemId).then(
-                    (response) => {
-                        const actionsNeeded = response.some(
-                            (e: PreflightEntity) =>
-                                !e.permissionIsSufficient ||
-                                e.nameAlreadyInUse ||
-                                !e.nameIsValid
+                setParentPath(parentPath)
+                uploadPreflight(acceptedFiles, parentPath).then((response) => {
+                    const actionsNeeded = response.some(
+                        (e: PreflightEntity) =>
+                            !e.permissionIsSufficient ||
+                            e.nameAlreadyInUse ||
+                            !e.nameIsValid
+                    )
+                    if (actionsNeeded) {
+                        const combined = preflightResultCombine(
+                            acceptedFiles,
+                            response
                         )
-                        if (actionsNeeded) {
-                            const combined = preflightResultCombine(
-                                acceptedFiles,
-                                response
-                            )
-                            console.log("combined", combined)
+                        console.log("combined", combined)
 
-                            setPreflightResultDispatch({
-                                type: PREFLIGHT_ADD_ENTITIES,
-                                payload: [
-                                    ...combined,
-                                    ...response.filter((f) => !f.isFile),
-                                ],
-                            })
-                            handleShow()
-                        } else {
-                            uploadFiles(
-                                acceptedFiles as unknown as File[],
-                                currentFsItemId
-                            )
-                        }
+                        setPreflightResultDispatch({
+                            type: PREFLIGHT_ADD_ENTITIES,
+                            payload: [
+                                ...combined,
+                                ...response.filter((f) => !f.isFile),
+                            ],
+                        })
+                        handleShow()
+                    } else {
+                        uploadFiles(
+                            acceptedFiles as unknown as File[],
+                            parentPath
+                        )
                     }
-                )
+                })
             } else {
-                uploadFiles(acceptedFiles as unknown as File[], currentFsItemId)
+                uploadFiles(acceptedFiles as unknown as File[], currentPath)
             }
         },
-        [currentFsItemId, currentFsContent]
+        [parentPath, currentPath, currentFsContent]
     )
 
     const [preflightResult, setPreflightResultDispatch] = useReducer<
@@ -127,9 +126,6 @@ export const UploadZone = (): ReactElement => {
         onDrop,
     })
 
-    if (currentFsItemId === "-1") {
-        return <></>
-    }
     return (
         <>
             <div {...getRootProps()} className={"text-center border py-4 mx-3"}>
@@ -155,7 +151,7 @@ export const UploadZone = (): ReactElement => {
                     handleClose={handleClose}
                     preflightResult={preflightResult}
                     setPreflightResultDispatch={setPreflightResultDispatch}
-                    fsItemIdToUpload={fsItemIdToUpload}
+                    parentPath={parentPath}
                 />
             </Modal>
         </>

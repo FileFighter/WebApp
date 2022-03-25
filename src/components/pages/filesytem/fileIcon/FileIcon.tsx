@@ -23,21 +23,17 @@ const ICON_PREFERENCES: IconPreferencesInterface = {
 }
 
 export interface FileIconInterface {
-    type: string
-    mimeType: string
+    mimeType: string | null
     name: string
 }
 
 function FileIcon(props: FileIconInterface): ReactElement {
     //https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
-    const { type, name } = props
-    if (type.toUpperCase() === "FOLDER")
-        return <FolderIcon {...ICON_PREFERENCES} />
+    const { mimeType, name } = props
+    if (!mimeType) return <FolderIcon {...ICON_PREFERENCES} />
     if (getFileExtension(name) === "")
         return <FileEarmarkIcon {...ICON_PREFERENCES} />
-    switch (type.toLowerCase()) {
-        case "folder":
-            return <FolderIcon {...ICON_PREFERENCES} />
+    switch (mimeType.split("/")[0].toLowerCase()) {
         case "text":
             return <FileIconText {...ICON_PREFERENCES} {...props} />
         case "image":
@@ -51,7 +47,7 @@ function FileIcon(props: FileIconInterface): ReactElement {
             return (
                 <FileIconApplication
                     ICON_PREFERENCES={ICON_PREFERENCES}
-                    FileInformation={props}
+                    fileInformation={props}
                 />
             )
     }

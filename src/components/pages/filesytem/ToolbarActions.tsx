@@ -58,7 +58,7 @@ function ToolbarActions(props: Props): ReactElement | null {
                             constants.url.FH_URL +
                             "/download?ids=" +
                             props.selectedFsEntities.map((e: FsEntity) =>
-                                e.fileSystemId.toString()
+                                e.id.toString()
                             )
                         }
                     >

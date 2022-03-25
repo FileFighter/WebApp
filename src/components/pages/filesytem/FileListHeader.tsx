@@ -88,7 +88,7 @@ function FileListHeader(props: TReduxProps): ReactElement {
                         ? a.fileSystemId - b.fileSystemId
                         : a[property] - b[property]
             case "name":
-            case "type":
+            case "mimeType":
                 return (a: any, b: any) =>
                     a[property]
                         .toLowerCase()
@@ -131,7 +131,7 @@ function FileListHeader(props: TReduxProps): ReactElement {
                 xs={fileListSize.icon.xs}
                 md={fileListSize.icon.md}
                 className="text-center"
-                onClick={() => handleSortClick("type")}
+                onClick={() => handleSortClick("mimeType")}
             >
                 {"Type"}
             </Col>

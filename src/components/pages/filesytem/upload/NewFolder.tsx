@@ -1,21 +1,16 @@
 import { useSelector } from "react-redux"
 import React, { ReactElement, useState } from "react"
 import { RootState } from "../../../../background/redux/store"
-import { Button } from "react-bootstrap"
-import { Modal } from "react-bootstrap"
+import { Button, Modal } from "react-bootstrap"
 import { NewFolderModalContent } from "./NewFolderModalContent"
 
 function NewFolder(): ReactElement {
-    const currentFsItemId = useSelector(
-        (state: RootState) => state.filesystem.currentFsItemId
+    const currentPath = useSelector(
+        (state: RootState) => state.filesystem.currentPath
     )
     const [showModal, setShowModal] = useState(false)
     const handleClose = () => setShowModal(false)
     const handleShow = () => setShowModal(true)
-
-    if (currentFsItemId === "-1") {
-        return <></>
-    }
 
     return (
         <>
@@ -34,7 +29,7 @@ function NewFolder(): ReactElement {
             >
                 <NewFolderModalContent
                     handleClose={handleClose}
-                    currentFsItemId={currentFsItemId}
+                    currentPath={currentPath}
                 />
             </Modal>
         </>

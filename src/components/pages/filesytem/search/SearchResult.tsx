@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { Col, Row } from "react-bootstrap"
 import { getPathWithoutName } from "../../../../background/methods/filesystem"
 import FileIcon from "../fileIcon/FileIcon"
-import FileItemContextMenu from "../FileItemContextMenu"
+import FileItemContextMenu from "../FileItemContextMenu/FileItemContextMenu"
 
 interface Props {
     fsEntity: FsEntity
@@ -16,11 +16,7 @@ function SearchResult({ fsEntity, handleClose }: Props): ReactElement {
     return (
         <Row className="m-0">
             <Col xs={1} className="p-0">
-                <FileIcon
-                    type={fsEntity.type}
-                    mimeType={fsEntity.mimeType}
-                    name={fsEntity.name}
-                />
+                <FileIcon mimeType={fsEntity.mimeType} name={fsEntity.name} />
             </Col>
             <Col xs={2}>
                 <FileItemContextMenu fsEntity={fsEntity} />
@@ -31,7 +27,7 @@ function SearchResult({ fsEntity, handleClose }: Props): ReactElement {
             <Col xs={6} className="text-truncate">
                 <Link
                     to={
-                        fsEntity.path && fsEntity.type === "FOLDER"
+                        fsEntity.path && fsEntity.mimeType === null
                             ? `/file${fsEntity.path ?? ""}`
                             : `/file${pathWithoutName}#${fsEntity.name}`
                     }

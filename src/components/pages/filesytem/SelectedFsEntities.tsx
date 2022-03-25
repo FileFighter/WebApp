@@ -35,7 +35,7 @@ function SelectedFsEntities(props: Props): ReactElement {
                                         className={
                                             "list-group-item list-group-item-dark"
                                         }
-                                        key={e.fileSystemId}
+                                        key={e.id}
                                     >
                                         {e.path}
                                     </li>

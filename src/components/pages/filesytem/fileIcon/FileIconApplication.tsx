@@ -14,15 +14,15 @@ import FileIconVideo from "./FileIconVideo"
 
 export default function FileIconApplication(props: {
     ICON_PREFERENCES: IconPreferencesInterface
-    FileInformation: FileIconInterface
+    fileInformation: FileIconInterface
 }) {
-    const { ICON_PREFERENCES, FileInformation } = props
+    const { ICON_PREFERENCES, fileInformation } = props
     // console.log("-------------------------");
     // console.log(getFileExtension(FileInformation.name.toLowerCase()));
     // console.table(FileInformation);
     // console.log(getMimeType(FileInformation.mimeType));
     // console.log("_________________________");
-    switch (getFileExtension(FileInformation.name.toLowerCase())) {
+    switch (getFileExtension(fileInformation.name.toLowerCase())) {
         case "avi":
         case "mp4":
         case "mpeg":
@@ -47,7 +47,7 @@ export default function FileIconApplication(props: {
             return <FileEarmarkZipIcon {...ICON_PREFERENCES} />
         default: {
             if (
-                FileInformation.mimeType.toLowerCase() ===
+                fileInformation.mimeType?.toLowerCase() ===
                 "application/octet-stream"
             ) {
                 //mime default type

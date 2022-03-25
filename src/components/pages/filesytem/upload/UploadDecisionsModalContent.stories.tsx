@@ -81,7 +81,7 @@ storiesOf("Filesystem", module).add("UploadDecisionsModal", () => {
                     handleClose={() => {}}
                     preflightResult={preflightResult}
                     setPreflightResultDispatch={setPreflightResultDispatch}
-                    fsItemIdToUpload="1"
+                    parentPath="/"
                 />
             </BrowserRouter>
         </Provider>

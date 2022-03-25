@@ -7,10 +7,10 @@ import { addToContents } from "../../../../background/redux/actions/filesystem"
 
 interface Props {
     handleClose: () => void
-    currentFsItemId: string
+    currentPath: string
 }
 
-function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
+function NewFolderModalContent({ handleClose, currentPath }: Props) {
     const dispatch = useDispatch()
     const [folderName, setFolderName] = useState("")
     const [error, setError] = useState("")
@@ -28,7 +28,7 @@ function NewFolderModalContent({ handleClose, currentFsItemId }: Props) {
             return
         }
 
-        createNewFolder(folderName, currentFsItemId)
+        createNewFolder(folderName, currentPath)
             .then((response) => {
                 dispatch(addToContents(response.data))
                 setError("")

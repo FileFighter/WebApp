@@ -1,20 +1,13 @@
 import React, { ReactElement, useCallback } from "react"
 import { Dropdown } from "react-bootstrap"
-import { constants } from "../../../background/constants"
-import { FsEntity } from "../../../background/api/filesystemTypes"
-import { deleteFsEntities } from "../../../background/api/filesystem"
+import { constants } from "../../../../background/constants"
+import { FsEntity } from "../../../../background/api/filesystemTypes"
+import { deleteFsEntities } from "../../../../background/api/filesystem"
+import { DropdownItemTitleInterface } from "./DropdownItemTitleInterface"
+import { DropdownItemRename } from "./DropdownItemRename"
 
 interface FileItemContextMenuInterface {
     fsEntity: FsEntity
-}
-
-interface DropdownItemTitleInterface {
-    icon?: string
-    description: string
-    selectedID: number
-    target?: string
-    onclick?: () => void
-    disabled?: boolean
 }
 
 const DropdownItem = (props: DropdownItemTitleInterface): ReactElement => {
@@ -38,11 +31,11 @@ const DropdownItem = (props: DropdownItemTitleInterface): ReactElement => {
 }
 
 const DropdownItemDownload = (props: DropdownItemTitleInterface) => {
-    const { icon, description, selectedID, disabled = false } = props
+    const { icon, description, fsEntity, disabled = false } = props
     return (
         <Dropdown.Item
             disabled={disabled}
-            href={constants.url.FH_URL + "/download?ids=" + selectedID}
+            href={constants.url.FH_URL + "/download?ids=" + fsEntity.id}
             download
         >
             <span className="d-flex w-100">
@@ -60,16 +53,16 @@ function FileItemContextMenu(props: FileItemContextMenuInterface) {
         () => deleteFsEntities([props.fsEntity]),
         [props.fsEntity]
     )
-    const id = props.fsEntity.fileSystemId
+    const fsEntity = props.fsEntity
 
     return (
         <Dropdown
-            id={"fileListItemDropdownButton-" + id}
+            id={"fileListItemDropdownButton-" + fsEntity.id}
             className="fileListItemDropdownButton"
         >
             <Dropdown.Toggle
                 variant="primary"
-                id={"fileListItemDropdownButton-" + id + "-button"}
+                id={"fileListItemDropdownButton-" + fsEntity.id + "-button"}
                 className="no-after btn-sm"
             >
                 &#9679;&#9679;&#9679;
@@ -79,27 +72,31 @@ function FileItemContextMenu(props: FileItemContextMenuInterface) {
                 <DropdownItem
                     icon="&#128393;"
                     description="Rename"
-                    selectedID={id}
+                    fsEntity={fsEntity}
                     target="#/action-1"
                     disabled={true}
                 />
                 <DropdownItemDownload
                     icon="&#128190;"
                     description="Download"
-                    selectedID={id}
+                    fsEntity={fsEntity}
                 />
                 {/* @ts-ignore */}
                 <DropdownItem
                     icon="&#9959;"
                     description="Delete"
                     onclick={deleteAction}
-                    selectedID={id}
+                    fsEntity={fsEntity}
+                />
+                <DropdownItemRename
+                    description="Rename"
+                    fsEntity={props.fsEntity}
                 />
                 <Dropdown.Divider />
                 <DropdownItem
                     icon="&#10551;"
                     description="Share"
-                    selectedID={id}
+                    fsEntity={fsEntity}
                     target={"#/action-4"}
                     disabled={true}
                 />

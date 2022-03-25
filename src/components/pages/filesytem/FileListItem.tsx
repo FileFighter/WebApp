@@ -11,7 +11,7 @@ import {
     removeFromSelected,
 } from "../../../background/redux/actions/filesystem"
 import FileIcon from "./fileIcon/FileIcon"
-import FileItemContextMenu from "./FileItemContextMenu"
+import FileItemContextMenu from "./FileItemContextMenu/FileItemContextMenu"
 import fileListSize from "./fileListSize"
 
 const mapState = (state: SystemState) => ({
@@ -36,7 +36,7 @@ type Props = PropsFromRedux & {
 
 function FileListItem(props: Props): ReactElement {
     let isSelected = !!props.filesystem.selectedFsEntities.find(
-        (e: FsEntity) => e.fileSystemId === props.fileListItem.fileSystemId
+        (e: FsEntity) => e.id === props.fileListItem.id
     )
 
     const handleSelectedChanged = () => {
@@ -46,8 +46,7 @@ function FileListItem(props: Props): ReactElement {
         props.removeFromSelected(props.fileListItem)
     }
 
-    const isFolder =
-        props.fileListItem.type && props.fileListItem.type === "FOLDER"
+    const isFolder = props.fileListItem.mimeType === null
 
     return (
         <>
@@ -68,7 +67,6 @@ function FileListItem(props: Props): ReactElement {
             {/*Icon*/}
             <Col xs={fileListSize.icon.xs} md={fileListSize.icon.md}>
                 <FileIcon
-                    type={props.fileListItem.type}
                     mimeType={props.fileListItem.mimeType}
                     name={props.fileListItem.name}
                 />
@@ -92,7 +90,7 @@ function FileListItem(props: Props): ReactElement {
                         isFolder
                             ? `/file${props.fileListItem.path ?? ""}`
                             : "/data/preview/" +
-                              props.fileListItem.fileSystemId +
+                              props.fileListItem.id +
                               "/" +
                               props.fileListItem.name
                     }

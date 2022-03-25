@@ -12,20 +12,22 @@ export interface PermissionSet {
 }
 
 export interface User {
-    userId: number
+    id: number
     username: string
-    groups: string[]
+    privileges: string
 }
 
 export interface FsEntity {
-    owner: User
     lastUpdatedBy: User
-    fileSystemId: number
+    id: number
     lastUpdated: number
     name: string
     path: string
-    shared: boolean
     size: number
-    type: string
     mimeType: string
+}
+
+export interface ContentsResource {
+    owner: User
+    inodes: FsEntity[]
 }

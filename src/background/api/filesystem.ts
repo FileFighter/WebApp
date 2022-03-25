@@ -1,4 +1,4 @@
-import { FsEntity } from "./filesystemTypes"
+import { ContentsResource, FsEntity } from "./filesystemTypes"
 import { filesystemPath, hostname } from "./api"
 import Axios, { AxiosError, AxiosResponse } from "axios"
 import { constants } from "../constants"
@@ -29,21 +29,26 @@ const fhHostname = constants.url.FH_URL
 
 export const getFolderContents = (path: string) => {
     console.log("[Get folder content", path)
-    return new Promise<AxiosResponse<FsEntity[]>>((resolve, reject) => {
+    return new Promise<AxiosResponse<ContentsResource>>((resolve, reject) => {
         let config = {
             headers: {
                 "X-FF-PATH": decodeURI(path),
             },
         }
-        Axios.get<FsEntity[]>(hostname + filesystemPath + "contents", config)
-            .then((response: AxiosResponse<FsEntity[]>) => resolve(response))
+        Axios.get<ContentsResource>(
+            hostname + filesystemPath + "contents",
+            config
+        )
+            .then((response: AxiosResponse<ContentsResource>) =>
+                resolve(response)
+            )
             .catch((error) => reject(error))
     })
 }
 
 export const uploadPreflight = (
     files: File[] | EditableFileWithPreflightInfo[],
-    parentFolderID: string
+    parentPath: string
 ): Promise<PreflightEntity[]> => {
     const postData = files.map((f: File | EditableFileWithPreflightInfo) => ({
         // @ts-ignore
@@ -56,7 +61,7 @@ export const uploadPreflight = (
     }))
     return new Promise<PreflightEntity[]>((resolve, reject) => {
         Axios.post<PreflightEntity[]>(
-            hostname + filesystemPath + parentFolderID + "/upload/preflight",
+            hostname + filesystemPath + "/upload/preflight",
             postData
         )
             .then((response: AxiosResponse<PreflightEntity[]>) => {
@@ -68,34 +73,30 @@ export const uploadPreflight = (
 
 export const uploadFiles = (
     files: File[] | EditableFileWithPreflightInfo[],
-    parentFolderID: string
+    parentPath: string
 ) => {
     console.log(
         "[API filesystem] uploading files to folderID",
-        parentFolderID,
+        parentPath,
         files
     )
     const apiCall = (file: File | EditableFileWithPreflightInfo) => {
         return new Promise((resolve, reject) => {
             let formData = new FormData()
             formData.append("file", file)
-            Axios.post<[FsEntity]>(
-                fhHostname + "/upload/" + parentFolderID,
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        // @ts-ignore
-                        "X-FF-NAME": file.newName ?? file.name,
-                        // @ts-ignore
-                        "X-FF-PATH": file.newPath ?? file.path,
-                        "X-FF-SIZE": file.size,
-                    },
-                    onUploadProgress(progress) {
-                        console.log("upload progress:", progress)
-                    },
-                }
-            )
+            Axios.post<[FsEntity]>(fhHostname + "/upload", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    // @ts-ignore
+                    "X-FF-RELATIVE-PATH": file.newPath ?? file.path,
+                    // @ts-ignore
+                    "X-FF-PARENT-PATH": parentPath,
+                    "X-FF-SIZE": file.size,
+                },
+                onUploadProgress(progress) {
+                    console.log("upload progress:", progress)
+                },
+            })
                 .then((response: AxiosResponse<[FsEntity]>) => {
                     const currentPath = store.getState().filesystem.currentPath
 
@@ -104,6 +105,7 @@ export const uploadFiles = (
                             isFsEntityInFolder(fsEntity, currentPath)
                     )
 
+                    console.log("uploads", fsEntityToShow, response.data)
                     if (fsEntityToShow) {
                         store.dispatch(addToContents(fsEntityToShow))
                     }
@@ -118,9 +120,7 @@ export const uploadFiles = (
 export const deleteFsEntities = (files: FsEntity[]) => {
     const apiCall = (fsEntity: FsEntity) => {
         return new Promise((resolve, reject) => {
-            Axios.delete<FsEntity[]>(
-                fhHostname + "/delete/" + fsEntity.fileSystemId
-            )
+            Axios.delete<FsEntity[]>(fhHostname + "/delete/" + fsEntity.id)
                 .then((response: AxiosResponse<FsEntity[]>) => {
                     response.data.forEach((e) => {
                         store.dispatch(removeFromContents(e))
@@ -136,15 +136,24 @@ export const deleteFsEntities = (files: FsEntity[]) => {
 
 export const createNewFolder = (
     folderName: string,
-    parentFolderID: string
+    parentFolderPath: string
 ): Promise<AxiosResponse<FsEntity>> => {
-    const body = { name: folderName }
+    const body = { name: folderName, parentPath: parentFolderPath }
 
     return new Promise((resolve, reject) => {
-        Axios.post<FsEntity>(
-            hostname + filesystemPath + parentFolderID + "/folder/create",
-            body
-        )
+        Axios.post<FsEntity>(hostname + filesystemPath + "folder/create", body)
+            .then((response: AxiosResponse<FsEntity>) => resolve(response))
+            .catch((error: AxiosError) => reject(error))
+    })
+}
+
+export const renameFsEntity = (
+    newName: string,
+    path: string
+): Promise<AxiosResponse<FsEntity>> => {
+    const body = { path: path, newName: newName }
+    return new Promise((resolve, reject) => {
+        Axios.put<FsEntity>(hostname + filesystemPath + "rename", body)
             .then((response: AxiosResponse<FsEntity>) => resolve(response))
             .catch((error: AxiosError) => reject(error))
     })
