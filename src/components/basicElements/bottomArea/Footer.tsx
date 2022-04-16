@@ -2,6 +2,10 @@ import React, { ReactElement } from "react"
 import { Container } from "react-bootstrap"
 import github from "super-tiny-icons/images/svg/github.svg"
 
+/**
+ * It returns a footer component containing the names of the FileFighter creators and links to their GitHub profiles.
+ * @return footer component
+ */
 export default function Footer(): ReactElement {
     return (
         <footer className="footer mt-autotext-white bg-primary">

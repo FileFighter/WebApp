@@ -1,3 +1,15 @@
+/**
+ * @interface
+ * @param {tableSizeElementInterface} checkbox
+ * @param {tableSizeElementInterface} icon
+ * @param {tableSizeElementInterface} contextMenu
+ * @param {tableSizeElementInterface} name
+ * @param {tableSizeElementInterface} modifiedBy
+ * @param {tableSizeElementInterface} modifiedOn
+ * @param {tableSizeElementInterface} size
+ * @param {Object} border
+ */
+
 interface tableSizesInterface {
     checkbox: tableSizeElementInterface
     icon: tableSizeElementInterface
@@ -9,11 +21,19 @@ interface tableSizesInterface {
     border: { xs: number }
 }
 
+/**
+ * @interface
+ * @param {number} xs
+ * @param {number} md
+ */
 interface tableSizeElementInterface {
     xs: number
     md: number
 }
 
+/**
+ * Defining the tableSizes object.
+ */
 const tableSizes: tableSizesInterface = {
     checkbox: {
         xs: 2,

@@ -14,6 +14,19 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { RootState } from "../../../background/redux/store"
 
+/**
+ * @interface
+ * @param {(event: FormEvent) => void} handleSubmit
+ * @param {string | number | string[] | undefined} username
+ * @param {Dispatch<SetStateAction<string>>} setUsername
+ * @param {string | number | string[] | undefined} password
+ * @param {Dispatch<SetStateAction<string>>} setPassword
+ * @param {boolean} isLoading
+ * @param {Dispatch<SetStateAction<boolean>>} setIsLoading
+ * @param {boolean} stayLoggedIn
+ * @param {Dispatch<SetStateAction<boolean>>} setStayLoggedIn
+ * @param {string | null} errorMessage
+ */
 export interface LoginInputInterface {
     handleSubmit: (event: FormEvent) => void
     username: string | number | string[] | undefined
@@ -27,6 +40,10 @@ export interface LoginInputInterface {
     errorMessage: string | null
 }
 
+/**
+ * It renders a LoginInteractionArea component, passing it a bunch of state and functions
+ * @returns A ReactElement for Login provided with needed states and functions as props
+ */
 function Login(): ReactElement {
     const [userName, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")

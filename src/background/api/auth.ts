@@ -19,17 +19,32 @@ import { hashPassword } from "../methods/passwords"
 
 const cookieName: string = "refreshToken"
 
+/**
+ * @interface
+ * @param {string} tokenValue
+ * @param {UserState} user
+ */
 export interface BackendLoginData {
     tokenValue: string
     user: UserState
 }
 
+/**
+ * @interface
+ * @param {string} tokenValue
+ * @param {number} userId
+ * @param {number} validUntil
+ */
 export interface BackendAuthData {
     tokenValue: string
     userId: number
     validUntil: number
 }
 
+/**
+ * If there's a refresh token cookie, add it to the store and get an access token with it
+ * @returns the dispatch of the action creator checkedCookies.
+ */
 export const checkForCookie = () => {
     let refreshTokenCookieValue = getCookie(cookieName)
     if (!refreshTokenCookieValue) {
@@ -41,6 +56,14 @@ export const checkForCookie = () => {
     getAccessTokenWithRefreshToken()
 }
 
+/**
+ * It takes a username and password, hashes the password, and sends it to the backend. If the backend returns a valid
+ * response, it stores the refresh token in the Redux store and in a cookie
+ * @param {string} userName The username of the user
+ * @param {string} password The password of the user
+ * @param {boolean} stayLoggedIn
+ * @returns A promise that resolves to a BackendLoginData object.
+ */
 export const loginWithUsernameAndPassword = async (
     userName: string,
     password: string,
@@ -76,6 +99,10 @@ export const loginWithUsernameAndPassword = async (
     })
 }
 
+/**
+ * It gets the refresh token from the Redux store, sends it to the backend, and if the backend returns a new access token,
+ * it sets the access token in the Redux store and gets the user data from the backend
+ */
 export const getAccessTokenWithRefreshToken = () => {
     console.log("getAccessTokenWithRefreshToken")
 
@@ -111,7 +138,12 @@ export const getAccessTokenWithRefreshToken = () => {
         })
 }
 
-const getOwnUserData = (userId: number) => {
+/**
+ * @private
+ * It makes a GET request to the server, and if the request is successful, it updates the user state in the Redux store
+ * @param {number} userId The userId of the user you want to get the data of.
+ */
+export const getOwnUserData = (userId: number) => {
     Axios.get<UserState>(`${hostname}${userPath}/${userId}/info`)
         .then((response: AxiosResponse<UserState>) => {
             store.dispatch(updateUser(response.data))
@@ -121,11 +153,19 @@ const getOwnUserData = (userId: number) => {
         })
 }
 
+/**
+ * It removes the tokens from the Redux store and deletes the cookie
+ */
 export const logout = () => {
     store.dispatch(removeTokens())
     deleteCookie(cookieName)
 }
 
-function setAuthHeaderToAxios(accessToken: string) {
+/**
+ * @private
+ * It sets the Authorization header to the Axios instance
+ * @param {string} accessToken The access token that you want to set to the header.
+ */
+export function setAuthHeaderToAxios(accessToken: string) {
     Axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
 }

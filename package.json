@@ -10,7 +10,8 @@
     "storybook": "start-storybook -p 6006 -s public --no-dll",
     "build-storybook": "build-storybook -s public --no-dll",
     "sonar": "SONAR_LOGIN=$SONAR_LOGIN SONAR_PASSWORD=$SONAR_PASSWORD node src/sonar-scanner.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "docs": "documentation build src/ --parse-extension ts --parse-extension tsx --require-extension ts --require-extension tsx --require-extension d.ts --format html --github --output docs"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,6 +31,7 @@
   "dependencies": {
     "axios": "0.21.4",
     "bootstrap": "4.6.1",
+    "documentation": "^13.2.5",
     "react": "17.0.2",
     "react-bootstrap": "2.1.2",
     "react-dom": "17.0.2",

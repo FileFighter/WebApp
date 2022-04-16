@@ -14,6 +14,11 @@ import { PasswordStrengthBarWrapper } from "./PasswordStrengthBar"
 import { RuleChecker } from "./RuleChecker"
 import { PasswordFeedback } from "react-password-strength-bar"
 
+/**
+ * @interface
+ * @param {string} username
+ * @param {string} [password]
+ */
 export interface UserInformationInputInterface {
     username: string
     password?: string
@@ -55,7 +60,7 @@ export default function UserInformationInput(
 
     /**
      * Checks if the username is valid. If the password is not null also check that.
-     * Check the password if the passord is required.
+     * Check the password if the password is required.
      */
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault()

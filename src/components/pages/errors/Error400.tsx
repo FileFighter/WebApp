@@ -2,11 +2,20 @@ import React from "react"
 import { Link, useLocation } from "react-router-dom"
 import { Container } from "react-bootstrap"
 
-interface Props {
+/**
+ * Props for Error 400 page
+ * @param {boolean} [needsLogin] is user not logged-in?
+ */
+export interface Error400Props {
     needsLogin?: boolean
 }
 
-export default function Error400({ needsLogin }: Props) {
+/**
+ * FileFighter's HTTP 400 Error Page
+ * @param needsLogin Does user need new login?
+ * @returns Error 400 page
+ */
+export default function Error400({ needsLogin }: Error400Props) {
     const location = useLocation()
     const urlSearchParams = new URLSearchParams(location.search)
     const dest = urlSearchParams.get("dest")

@@ -14,6 +14,10 @@ import { ApiStatusResponse } from "../../../background/api/sharedApiTypes"
 import edit_svg from "../../../assets/images/icons/material.io/edit_white_24dp.svg"
 import { hashPassword } from "../../../background/methods/passwords"
 
+/**
+ * It renders a page with a title, a button to edit the profile and either a form to edit the profile or a display of the
+ * profile information
+ */
 export default function Profile(): ReactElement {
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const user = useSelector((state: RootState) => state.user)

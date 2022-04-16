@@ -4,6 +4,10 @@ import "./style/custom.scss"
 import * as serviceWorker from "./serviceWorker"
 import Constants from "./components/Constants"
 
+/**
+ * The main entry point
+ * Rendering the `Constants` component to the `root` element in the `index.html` file.
+ */
 ReactDOM.render(
     <React.StrictMode>
         <Constants />

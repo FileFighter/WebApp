@@ -68,6 +68,14 @@ function mergeObjectArraysByProperty(
     return [...arr, ...leftArray, ...rightArray]
 }
 
+/**
+ * It takes an array of objects, a property name, and a boolean, and returns a sorted array of objects
+ * @param {any} originalArray - The array of objects to sort.
+ * @param {keyof FsEntity} propertyName - The name of the property to sort by.
+ * @param {boolean} sortIncreasing - true if you want to sort in ascending order, false if you want to sort in
+ * descending order
+ * @returns An array of objects sorted by the propertyName
+ */
 export function sortObjectsInArrayByProperty(
     originalArray: any,
     propertyName: keyof FsEntity,

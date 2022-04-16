@@ -1,5 +1,10 @@
 import React, { ReactElement } from "react"
 
+/**
+ * It returns a div with invisible assets like audios.
+ * Those are placed in the site's header bar to be accessible from every page.
+ * @returns A ReactElement for invisible assets which should be accessible from every (sub) page
+ */
 export default function PermanentAssets(): ReactElement {
     return (
         <div>

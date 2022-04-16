@@ -11,7 +11,11 @@ type PasswordStrengthBarWrapperArgs = {
     scoreChangeCallback: (score: number, feedback: PasswordFeedback) => void
 }
 
-// a small component wrapping the password strength checks by lazy loading the component if necessary.
+/**
+ * A component wrapping the password strength checks by lazy loading the component if necessary.
+ * @returns password strength bar or null, depending on if user already inserted a password
+ */
+
 const PasswordStrengthBarWrapper = ({
     currentPassword,
     scoreChangeCallback,

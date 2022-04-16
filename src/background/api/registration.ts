@@ -2,12 +2,25 @@ import Axios, { AxiosError, AxiosResponse } from "axios"
 import { hostname, userPath } from "./api"
 import { hashPassword } from "../methods/passwords"
 
+/**
+ * @interface
+ * @param {number} httpStatus
+ * @param {string} httpMessage
+ * @param {string} [outputMessage]
+ */
 export interface IRegisterServerResponse {
     httpStatus: number
     httpMessage: string
     outputMessage?: string
 }
 
+/**
+ * This function takes in a username, password, and passwordConfirmation and registers a new user
+ * @param {string} username The username of the user you want to create
+ * @param {string} password The password that the user entered
+ * @param {string} passwordConfirmation
+ * @returns A promise that resolves to an IRegisterServerResponse object.
+ */
 export const registerNewUser = async (
     username: string,
     password: string,

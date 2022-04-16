@@ -1,0 +1,5861 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset='utf-8'>
+  <title>webapp_frontend 0.1.0 | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' rel='stylesheet'>
+  <link href='assets/style.css' rel='stylesheet'>
+  <link href='assets/github.css' rel='stylesheet'>
+  <link href='assets/split.css' rel='stylesheet'>
+</head>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'>webapp_frontend</h3>
+          <div class='mb1'><code>0.1.0</code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            spellcheck='false'
+            autocapitalize='off'
+            autocorrect='off'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#systemhealthdata'
+                  class="">
+                  SystemHealthData
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#callbackendhealth'
+                  class="">
+                  callBackendHealth
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#backendlogindata'
+                  class="">
+                  BackendLoginData
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#backendauthdata'
+                  class="">
+                  BackendAuthData
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#checkforcookie'
+                  class="">
+                  checkForCookie
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#loginwithusernameandpassword'
+                  class="">
+                  loginWithUsernameAndPassword
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getaccesstokenwithrefreshtoken'
+                  class="">
+                  getAccessTokenWithRefreshToken
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#logout'
+                  class="">
+                  logout
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getfoldercontents'
+                  class="">
+                  getFolderContents
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#uploadpreflight'
+                  class="">
+                  uploadPreflight
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#uploadfiles'
+                  class="">
+                  uploadFiles
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#deletefsentities'
+                  class="">
+                  deleteFsEntities
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#createnewfolder'
+                  class="">
+                  createNewFolder
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#searchfsentities'
+                  class="">
+                  searchFsEntities
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#permissionset'
+                  class="">
+                  PermissionSet
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#user'
+                  class="">
+                  User
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#fsentity'
+                  class="">
+                  FsEntity
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#iregisterserverresponse'
+                  class="">
+                  IRegisterServerResponse
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#registernewuser'
+                  class="">
+                  registerNewUser
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#apistatusresponse'
+                  class="">
+                  ApiStatusResponse
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#userinformation'
+                  class="">
+                  UserInformation
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#changeuserinformation'
+                  class="">
+                  changeUserInformation
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getcookie'
+                  class="">
+                  getCookie
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setcookie'
+                  class="">
+                  setCookie
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#dividearraybycondition'
+                  class="">
+                  divideArrayByCondition
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#formatbytes'
+                  class="">
+                  formatBytes
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#objectequals'
+                  class="">
+                  objectEquals
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#haskey'
+                  class="">
+                  hasKey
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#reversestring'
+                  class="">
+                  reverseString
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#stringreplacesubstringonetimefrombeginningandend'
+                  class="">
+                  stringReplaceSubstringOneTimeFromBeginningAndEnd
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#deletespaces'
+                  class="">
+                  deleteSpaces
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#trimstring'
+                  class="">
+                  trimString
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#trimstringwithdotsatend'
+                  class="">
+                  trimStringWithDotsAtEnd
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#gettimestamp'
+                  class="">
+                  getTimeStamp
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#gettimestampfromdate'
+                  class="">
+                  getTimeStampFromDate
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getrelativetime'
+                  class="">
+                  getRelativeTime
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getdateasstringfromtimestamp'
+                  class="">
+                  getDateAsStringFromTimestamp
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getdurationasstring'
+                  class="">
+                  getDurationAsString
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getpathwithoutname'
+                  class="">
+                  getPathWithoutName
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#removetrailingbackslash'
+                  class="">
+                  removeTrailingBackslash
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#removeleadingbackslash'
+                  class="">
+                  removeLeadingBackslash
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#isfsentityinfolder'
+                  class="">
+                  isFsEntityInFolder
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getfileextension'
+                  class="">
+                  getFileExtension
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#isfilenamevalid'
+                  class="">
+                  isFileNameValid
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#genitiveofword'
+                  class="">
+                  genitiveOfWord
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#hashpassword'
+                  class="">
+                  hashPassword
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#scrolltoelement'
+                  class="">
+                  scrollToElement
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#redirect'
+                  class="">
+                  redirect
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#sha256'
+                  class="">
+                  sha256
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#playaudiobyid'
+                  class="">
+                  playAudioByID
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#pauseaudiobyid'
+                  class="">
+                  pauseAudioByID
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setaudiovolumebyid'
+                  class="">
+                  setAudioVolumeByID
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#audioonoff'
+                  class="">
+                  audioOnOff
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getstylevalue'
+                  class="">
+                  getStyleValue
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getwindowsize_interface'
+                  class="">
+                  getWindowSize_Interface
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getwindowsize'
+                  class="">
+                  getWindowSize
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addapiaction'
+                  class="">
+                  addApiAction
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#replaceapiaction'
+                  class="">
+                  replaceApiAction
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#changestatus'
+                  class="">
+                  changeStatus
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#nextfsentity'
+                  class="">
+                  nextFsEntity
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#ffloading'
+                  class="">
+                  FFLoading
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#headarea'
+                  class="">
+                  HeadArea
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#error400props'
+                  class="">
+                  Error400Props
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#error400'
+                  class="">
+                  Error400
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#handlesubmit'
+                  class="">
+                  handleSubmit
+                  
+                </a>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='https://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='systemhealthdata'>
+      SystemHealthData
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/api.ts#L25-L32'>
+      <span>src/background/api/api.ts</span>
+      </a>
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>SystemHealthData</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>uptimeInSeconds</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    how long since system started
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>userCount</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    number of registered users
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>dataIntegrity</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    status of data integrity (stable, possible risk, unstable)
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>deployment</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>usedStorageInBytes</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    size of all stored data in bytes
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>version</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    system's version
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='callbackendhealth'>
+      callBackendHealth
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/api.ts#L39-L49'>
+      <span>src/background/api/api.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It returns a promise that resolves to a SystemHealthData object</p>
+
+    <div class='pre p1 fill-light mt0'>callBackendHealth(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#systemhealthdata">SystemHealthData</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#systemhealthdata">SystemHealthData</a>></code>:
+        A promise that resolves to a SystemHealthData object.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='backendlogindata'>
+      BackendLoginData
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/auth.ts#L27-L30'>
+      <span>src/background/api/auth.ts</span>
+      </a>
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>BackendLoginData</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>tokenValue</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>user</span> <code class='quiet'>(UserState)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='backendauthdata'>
+      BackendAuthData
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/auth.ts#L38-L42'>
+      <span>src/background/api/auth.ts</span>
+      </a>
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>BackendAuthData</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>tokenValue</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>userId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>validUntil</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='checkforcookie'>
+      checkForCookie
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/auth.ts#L48-L57'>
+      <span>src/background/api/auth.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>If there's a refresh token cookie, add it to the store and get an access token with it</p>
+
+    <div class='pre p1 fill-light mt0'>checkForCookie</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        the dispatch of the action creator checkedCookies.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='loginwithusernameandpassword'>
+      loginWithUsernameAndPassword
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/auth.ts#L67-L100'>
+      <span>src/background/api/auth.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes a username and password, hashes the password, and sends it to the backend. If the backend returns a valid
+response, it stores the refresh token in the Redux store and in a cookie</p>
+
+    <div class='pre p1 fill-light mt0'>loginWithUsernameAndPassword</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>userName</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The username of the user
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>password</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The password of the user
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>stayLoggedIn</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#backendlogindata">BackendLoginData</a>></code>:
+        A promise that resolves to a BackendLoginData object.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getaccesstokenwithrefreshtoken'>
+      getAccessTokenWithRefreshToken
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/auth.ts#L106-L139'>
+      <span>src/background/api/auth.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It gets the refresh token from the Redux store, sends it to the backend, and if the backend returns a new access token,
+it sets the access token in the Redux store and gets the user data from the backend</p>
+
+    <div class='pre p1 fill-light mt0'>getAccessTokenWithRefreshToken</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='logout'>
+      logout
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/auth.ts#L159-L162'>
+      <span>src/background/api/auth.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It removes the tokens from the Redux store and deletes the cookie</p>
+
+    <div class='pre p1 fill-light mt0'>logout</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getfoldercontents'>
+      getFolderContents
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/filesystem.ts#L35-L47'>
+      <span>src/background/api/filesystem.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes a path, and returns a promise that resolves to an array of FsEntity objects</p>
+
+    <div class='pre p1 fill-light mt0'>getFolderContents</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>path</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The path to the folder you want to get the contents of.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        A promise that resolves to an AxiosResponse&#x3C;FsEntity[]>
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='uploadpreflight'>
+      uploadPreflight
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/filesystem.ts#L55-L78'>
+      <span>src/background/api/filesystem.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes a list of files and a parent folder ID and sends a preflight upload request to the backend</p>
+
+    <div class='pre p1 fill-light mt0'>uploadPreflight</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>files</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;File> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;EditableFileWithPreflightInfo>))</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>parentFolderID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The ID of the folder you want to upload the files to.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;PreflightEntity>></code>:
+        An array of PreflightEntity objects
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='uploadfiles'>
+      uploadFiles
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/filesystem.ts#L85-L132'>
+      <span>src/background/api/filesystem.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It uploads files to the server</p>
+
+    <div class='pre p1 fill-light mt0'>uploadFiles</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>files</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;File> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;EditableFileWithPreflightInfo>))</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>parentFolderID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The ID of the folder to upload the files to.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='deletefsentities'>
+      deleteFsEntities
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/filesystem.ts#L138-L155'>
+      <span>src/background/api/filesystem.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes an array of files and folders, and then it calls the API to delete them</p>
+
+    <div class='pre p1 fill-light mt0'>deleteFsEntities</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>files</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#fsentity">FsEntity</a>>)</code>
+	    The files to be deleted
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='createnewfolder'>
+      createNewFolder
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/filesystem.ts#L164-L178'>
+      <span>src/background/api/filesystem.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>This function creates a new folder with the given name in the given parent folder.</p>
+
+    <div class='pre p1 fill-light mt0'>createNewFolder</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>folderName</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the folder to be created
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>parentFolderID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The ID of the folder you want to create the new folder in.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;AxiosResponse&#x3C;<a href="#fsentity">FsEntity</a>>></code>:
+        A promise that resolves to an AxiosResponse
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='searchfsentities'>
+      searchFsEntities
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/filesystem.ts#L185-L195'>
+      <span>src/background/api/filesystem.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It returns a promise that resolves to an AxiosResponse&#x3C;FsEntity[]> of files matching the request</p>
+
+    <div class='pre p1 fill-light mt0'>searchFsEntities</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>searchString</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The string to search for.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;AxiosResponse&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#fsentity">FsEntity</a>>>></code>:
+        A promise that resolves to an AxiosResponse&#x3C;FsEntity[]>
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='permissionset'>
+      PermissionSet
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/filesystemTypes.ts#L14-L19'>
+      <span>src/background/api/filesystemTypes.ts</span>
+      </a>
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>PermissionSet</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>editableForGroups</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>editableForUsers</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;UsersSet>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>visibleForGroups</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>visibleForUsers</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;UsersSet>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='user'>
+      User
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/filesystemTypes.ts#L27-L31'>
+      <span>src/background/api/filesystemTypes.ts</span>
+      </a>
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>User</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>userId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Id of the user
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>username</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    name of user
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>groups</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</code>
+	    list of groups user is part of
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='fsentity'>
+      FsEntity
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/filesystemTypes.ts#L46-L57'>
+      <span>src/background/api/filesystemTypes.ts</span>
+      </a>
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>FsEntity</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>owner</span> <code class='quiet'>(<a href="#user">User</a>)</code>
+	    User who owns file
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>lastUpdatedBy</span> <code class='quiet'>(<a href="#user">User</a>)</code>
+	    last user to update file
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>fileSystemId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    file's id
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>lastUpdated</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    timestamp when file was last updated
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    name of file
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>path</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    path to file
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>shared</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    is file shared with other user(s)?
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>size</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    file's size
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>type</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>mimeType</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='iregisterserverresponse'>
+      IRegisterServerResponse
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/registration.ts#L11-L15'>
+      <span>src/background/api/registration.ts</span>
+      </a>
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>IRegisterServerResponse</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>httpStatus</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>httpMessage</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>outputMessage</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='registernewuser'>
+      registerNewUser
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/registration.ts#L24-L65'>
+      <span>src/background/api/registration.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>This function takes in a username, password, and passwordConfirmation and registers a new user</p>
+
+    <div class='pre p1 fill-light mt0'>registerNewUser</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>username</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The username of the user you want to create
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>password</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The password that the user entered
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>passwordConfirmation</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#iregisterserverresponse">IRegisterServerResponse</a>></code>:
+        A promise that resolves to an IRegisterServerResponse object.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='apistatusresponse'>
+      ApiStatusResponse
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/sharedApiTypes.ts#L8-L12'>
+      <span>src/background/api/sharedApiTypes.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Interface describing the standard return value of the backend
+NOT IMPLEMENTED</p>
+
+    <div class='pre p1 fill-light mt0'>ApiStatusResponse</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>responseCode</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='userinformation'>
+      UserInformation
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/userInformation.ts#L18-L24'>
+      <span>src/background/api/userInformation.ts</span>
+      </a>
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>UserInformation</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>userId</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | null))</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>username</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | null)?)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>groups</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | null)?)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>password</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>confirmationPassword</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='changeuserinformation'>
+      changeUserInformation
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/api/userInformation.ts#L31-L56'>
+      <span>src/background/api/userInformation.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes an updated user object, sends it to the backend, and then updates the confirmed user in the redux store</p>
+
+    <div class='pre p1 fill-light mt0'>changeUserInformation</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>userWithNewInformation</span> <code class='quiet'>(<a href="#userinformation">UserInformation</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;UserState></code>:
+        A promise that resolves to a UserState object.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getcookie'>
+      getCookie
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/cookies.ts#L6-L20'>
+      <span>src/background/methods/cookies.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Given a cookie name, return the value of the cookie</p>
+
+    <div class='pre p1 fill-light mt0'>getCookie(cname: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cname</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the cookie to retrieve.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        The value of the cookie.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setcookie'>
+      setCookie
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/cookies.ts#L28-L33'>
+      <span>src/background/methods/cookies.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Set a cookie with a value and an expiration date</p>
+
+    <div class='pre p1 fill-light mt0'>setCookie(cname: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, cValue: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, exDays: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cname</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the cookie.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cValue</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The value of the cookie.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>exDays</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The number of days the cookie will be valid.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='dividearraybycondition'>
+      divideArrayByCondition
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/arrays.ts#L8-L22'>
+      <span>src/background/methods/dataTypes/arrays.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes an array and a condition, and returns an array of two arrays, the first of which contains all the elements of
+the input array that satisfy the condition, and the second of which contains all the elements that don't</p>
+
+    <div class='pre p1 fill-light mt0'>divideArrayByCondition(input: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;T>, condition: function (a: T): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>input</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;T>)</code>
+	    The array to be divided
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>condition</span> <code class='quiet'>(function (a: T): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    (a: T) => boolean
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        array of two (divided) arrays
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='formatbytes'>
+      formatBytes
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/bytes.ts#L8-L28'>
+      <span>src/background/methods/dataTypes/bytes.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes a number of bytes and returns a string with the number of bytes formatted in a human-readable way</p>
+
+    <div class='pre p1 fill-light mt0'>formatBytes(bytes: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, decimals: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>bytes</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The number of bytes to format.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>decimals</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
+            = <code>2</code>)</code>
+	    The number of decimals to show.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        A string with the size of the file in bytes, kilobytes, megabytes, gigabytes, terabytes, petabytes, exabytes,
+zettabytes, or yottabytes.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='objectequals'>
+      objectEquals
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/objects/objectEquals.ts#L7-L22'>
+      <span>src/background/methods/dataTypes/objects/objectEquals.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It compares the keys of two objects and returns true if they are equal</p>
+
+    <div class='pre p1 fill-light mt0'>objectEquals(object1: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a> | any), object2: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a> | any)): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>object1</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a> | any))</code>
+	    The first object to compare.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>object2</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a> | any))</code>
+	    The second object to compare.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
+        are objects equal in sense of having the same keys?
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='haskey'>
+      hasKey
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/objects/ObjectKeysTS.ts#L15-L17'>
+      <span>src/background/methods/dataTypes/objects/ObjectKeysTS.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>"If the key is in the object, return true, otherwise return false."</p>
+<p>The keyof any is a special type that represents the union of all property names of a given type</p>
+
+    <div class='pre p1 fill-light mt0'>hasKey(obj: O, key: any): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>obj</span> <code class='quiet'>(O)</code>
+	    The object to check for the key.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>key</span> <code class='quiet'>(any)</code>
+	    keyof any
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        does the given object have the given key
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='reversestring'>
+      reverseString
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/strings.ts#L6-L9'>
+      <span>src/background/methods/dataTypes/strings.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>If the string is empty, return an empty string, otherwise return the reverse of the string</p>
+
+    <div class='pre p1 fill-light mt0'>reverseString(string: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>string</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    the string to reverse
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        The last character of the string is being returned first, followed by the second to last character, and so on.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='stringreplacesubstringonetimefrombeginningandend'>
+      stringReplaceSubstringOneTimeFromBeginningAndEnd
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/strings.ts#L21-L31'>
+      <span>src/background/methods/dataTypes/strings.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Replace a substring in a string, but only once, from the beginning and end of the string.</p>
+
+    <div class='pre p1 fill-light mt0'>stringReplaceSubstringOneTimeFromBeginningAndEnd(string: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, substring: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, replaceWith: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>string</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The string to be modified.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>substring</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The substring to replace.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>replaceWith</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The string to replace the substring with.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        The string with the first and last instances of the substring replaced with the replaceWith string.
+
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// returns &quot;Muad&#x27;DibPaulAtreidesPaulMuad&#x27;Dib&quot;</span>
+<span class="hljs-keyword">let</span> newString = stringReplaceSubstringOneTimeFromBeginningAndEnd(<span class="hljs-string">&quot;PaulPaulAtreidesPaulPaul&quot;</span>,<span class="hljs-string">&quot;Paul&quot;</span>,<span class="hljs-string">&quot;Muad&#x27;Dib&quot;</span>);</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='deletespaces'>
+      deleteSpaces
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/strings.ts#L38-L40'>
+      <span>src/background/methods/dataTypes/strings.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>This function takes a string and returns a string with all spaces removed.</p>
+
+    <div class='pre p1 fill-light mt0'>deleteSpaces(string: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>string</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The string to be modified.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        A string with all spaces removed.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='trimstring'>
+      trimString
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/strings.ts#L48-L50'>
+      <span>src/background/methods/dataTypes/strings.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>If the string is longer than the maxLength, return a substring of the string, otherwise return the string.</p>
+
+    <div class='pre p1 fill-light mt0'>trimString(string: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, maxLength: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>string</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The string to trim.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>maxLength</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The maximum length of the string.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        string or shortened string
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='trimstringwithdotsatend'>
+      trimStringWithDotsAtEnd
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/strings.ts#L59-L64'>
+      <span>src/background/methods/dataTypes/strings.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes a string and a maximum length, and returns a string that is at most the maximum length, with an ellipsis at the
+end if the string was longer than the maximum length</p>
+
+    <div class='pre p1 fill-light mt0'>trimStringWithDotsAtEnd(string: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, maxLength: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>string</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The string to trim.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>maxLength</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The maximum length of the string.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        A string with an ellipsis at the end.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='gettimestamp'>
+      getTimeStamp
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/time.ts#L5-L7'>
+      <span>src/background/methods/dataTypes/time.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>GetTimeStamp() returns the current time in seconds.</p>
+
+    <div class='pre p1 fill-light mt0'>getTimeStamp(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+        The current time in seconds.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='gettimestampfromdate'>
+      getTimeStampFromDate
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/time.ts#L14-L16'>
+      <span>src/background/methods/dataTypes/time.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes a date object and returns a timestamp</p>
+
+    <div class='pre p1 fill-light mt0'>getTimeStampFromDate(date: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date">Date</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>date</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date">Date</a>)</code>
+	    The date you want to convert to a timestamp.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+        A timestamp in seconds
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getrelativetime'>
+      getRelativeTime
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/time.ts#L26-L54'>
+      <span>src/background/methods/dataTypes/time.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes a timestamp and returns a human-readable string that describes how long ago that timestamp was</p>
+
+    <div class='pre p1 fill-light mt0'>getRelativeTime(ts: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>ts</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The timestamp in seconds.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        A string
+
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// returns &quot;just now&quot;</span>
+<span class="hljs-keyword">let</span> time = getRelativeTime(<span class="hljs-number">42</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getdateasstringfromtimestamp'>
+      getDateAsStringFromTimestamp
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/time.ts#L61-L72'>
+      <span>src/background/methods/dataTypes/time.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes a timestamp and returns a string with the date in the format "DD.MM.YYYY"</p>
+
+    <div class='pre p1 fill-light mt0'>getDateAsStringFromTimestamp(ts: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>ts</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The timestamp you want to convert to a date string.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        A string
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getdurationasstring'>
+      getDurationAsString
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/dataTypes/time.ts#L81-L95'>
+      <span>src/background/methods/dataTypes/time.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes a number of seconds and returns a string that represents the number of days, hours, minutes, and seconds that
+number of seconds represents</p>
+
+    <div class='pre p1 fill-light mt0'>getDurationAsString(duration: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>duration</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The duration of the video in seconds.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        A string that represents the duration in days, hours, minutes, and seconds.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getpathwithoutname'>
+      getPathWithoutName
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/filesystem.ts#L10-L15'>
+      <span>src/background/methods/filesystem.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes a path with a file name and returns the path without the file name</p>
+
+    <div class='pre p1 fill-light mt0'>getPathWithoutName</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>pathWithName</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The path with the name of the file.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the file.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        The path without the name.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='removetrailingbackslash'>
+      removeTrailingBackslash
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/filesystem.ts#L22-L27'>
+      <span>src/background/methods/filesystem.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>If the last character of the path is a forward slash, remove it.</p>
+
+    <div class='pre p1 fill-light mt0'>removeTrailingBackslash</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>path</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The path to remove the trailing backslash from.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        A function that takes a string and returns a string.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='removeleadingbackslash'>
+      removeLeadingBackslash
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/filesystem.ts#L34-L39'>
+      <span>src/background/methods/filesystem.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>If the path starts with a forward slash, remove it.</p>
+
+    <div class='pre p1 fill-light mt0'>removeLeadingBackslash</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>path</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The path to the file you want to read.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        A function that takes a string and returns a string.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='isfsentityinfolder'>
+      isFsEntityInFolder
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/filesystem.ts#L47-L52'>
+      <span>src/background/methods/filesystem.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It returns true if the given fsEntity is in the given folder</p>
+
+    <div class='pre p1 fill-light mt0'>isFsEntityInFolder</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>fsEntity</span> <code class='quiet'>(<a href="#fsentity">FsEntity</a>)</code>
+	    The FsEntity that we want to check if it's in the folder.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>path</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The path of the folder you want to check if the fsEntity is in.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        A boolean value.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getfileextension'>
+      getFileExtension
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/filesystem.ts#L60-L63'>
+      <span>src/background/methods/filesystem.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It reverses the string, finds the position of the first period, then reverses the string again and returns the substring
+from the beginning of the string to the position of the period</p>
+
+    <div class='pre p1 fill-light mt0'>getFileExtension</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>fileName</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the file you want to get the extension of.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        The file extension of the file name.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='isfilenamevalid'>
+      isFileNameValid
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/filesystem.ts#L71-L73'>
+      <span>src/background/methods/filesystem.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It returns true if the name is not empty, does not contain a slash, and does not contain any of the following
+characters: ~ # @ * + : ! ? &#x26; % &#x3C; > | " ^ \</p>
+
+    <div class='pre p1 fill-light mt0'>isFileNameValid</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the file to be created.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        A function that takes a string and returns a boolean.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='genitiveofword'>
+      genitiveOfWord
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/grammar/germanGrammar.ts#L7-L18'>
+      <span>src/background/methods/grammar/germanGrammar.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It checks if name allows to add an s for its genitive. If not it adds an apostrophe
+to the end of the name, otherwise it adds an "s"</p>
+
+    <div class='pre p1 fill-light mt0'>genitiveOfWord(name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    the name of the item
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        The genitive of the word.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='hashpassword'>
+      hashPassword
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/passwords.ts#L16-L28'>
+      <span>src/background/methods/passwords.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Hashes a password using the SHA-256 algorithm.</p>
+
+    <div class='pre p1 fill-light mt0'>hashPassword(password: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>password</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The password to hash.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        The hash of the password.
+
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// returns 7B1A454E41944B1FD6EB9AC7B1CA6998C4D9263650D257B9B54D0A8FA8A2EFD5</span>
+<span class="hljs-keyword">let</span> hashedPassword = <span class="hljs-keyword">await</span> hashPassword(<span class="hljs-string">&quot;Here1AmHere1Remain.&quot;</span>);</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='scrolltoelement'>
+      scrollToElement
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/redirect.ts#L7-L19'>
+      <span>src/background/methods/redirect.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It scrolls to the element with the given id, and if the event is not null, it prevents the default action of the event</p>
+
+    <div class='pre p1 fill-light mt0'>scrollToElement</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>history</span> <code class='quiet'>({push: function (path: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): void})</code>
+	    This is the history object from React Router.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The id of the element to scroll to
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>event</span> <code class='quiet'>({preventDefault: function (): void}?)</code>
+	    The event that triggered the scroll.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='redirect'>
+      redirect
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/redirect.ts#L28-L36'>
+      <span>src/background/methods/redirect.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Prevent the default event and redirect to a new path, but only if it's different from the current path.</p>
+
+    <div class='pre p1 fill-light mt0'>redirect</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>history</span> <code class='quiet'>({push: function (path: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): void})</code>
+	    { push: (path: string) => void }
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>path</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The path to redirect to.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>event</span> <code class='quiet'>({preventDefault: function (): void}?)</code>
+	    The event that triggered the redirect.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='sha256'>
+      sha256
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/sha256.js#L9-L108'>
+      <span>src/background/methods/sha256.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes a string, converts it to a series of numbers, and then runs those numbers through a series of 64 rounds of
+hashing</p>
+
+    <div class='pre p1 fill-light mt0'>sha256(ascii: any): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>ascii</span> <code class='quiet'>(any)</code>
+	    The string to be hashed.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        The SHA256 hash of the input string.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='playaudiobyid'>
+      playAudioByID
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/sound.js#L5-L7'>
+      <span>src/background/methods/sound.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Plays audio of given HTML <strong>audio</strong> element</p>
+
+    <div class='pre p1 fill-light mt0'>playAudioByID(audioID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>audioID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the HTML audio player element
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='pauseaudiobyid'>
+      pauseAudioByID
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/sound.js#L15-L17'>
+      <span>src/background/methods/sound.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Pauses audio of given HTML <strong>audio</strong> element</p>
+
+    <div class='pre p1 fill-light mt0'>pauseAudioByID(audioID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>audioID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the HTML 
+<strong>audio</strong>
+ player element
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>pauseAudioByID(<span class="hljs-string">&quot;dune_OST_player&quot;</span>);</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setaudiovolumebyid'>
+      setAudioVolumeByID
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/sound.js#L24-L27'>
+      <span>src/background/methods/sound.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Sets audio volume of given HTML <strong>audio</strong> element</p>
+
+    <div class='pre p1 fill-light mt0'>setAudioVolumeByID(audioID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, volume: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>audioID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the HTML 
+<strong>audio</strong>
+ player element
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>volume</span> <code class='quiet'>(any)</code>
+	    The volume to set the audio to.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='audioonoff'>
+      audioOnOff
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/sound.js#L38-L44'>
+      <span>src/background/methods/sound.js</span>
+      </a>
+    
+  </div>
+  
+
+  <h2>Description</h2>
+<p>Toggles (Start/Stop) given HTML <strong>audio</strong> element</p>
+<h2>Usage</h2>
+<p>This function is used by:</p>
+<ul>
+<li>the FF-MusicController</li>
+</ul>
+<h2>Function</h2>
+
+    <div class='pre p1 fill-light mt0'>audioOnOff(audioID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>audioID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the HTML 
+<strong>audio</strong>
+ player element
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getstylevalue'>
+      getStyleValue
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/style.js#L8-L22'>
+      <span>src/background/methods/style.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Get the value of a CSS property of an element
+(SO-copy <a href="https://stackoverflow.com/questions/5227909/how-to-get-an-elements-padding-value-using-javascript">stackoverflow.com</a>)</p>
+
+    <div class='pre p1 fill-light mt0'>getStyleValue(element: any, strCssRule: any): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element</span> <code class='quiet'>(any)</code>
+	    The element to get the style from.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>strCssRule</span> <code class='quiet'>(any)</code>
+	    The CSS rule you want to get the value of.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        The value of the css property.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getwindowsize_interface'>
+      getWindowSize_Interface
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/windowSize.ts#L6-L9'>
+      <span>src/background/methods/windowSize.ts</span>
+      </a>
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>getWindowSize_Interface</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>viewportWidth</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>viewportHeight</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getwindowsize'>
+      getWindowSize
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/methods/windowSize.ts#L15-L44'>
+      <span>src/background/methods/windowSize.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It returns the width and height of the browser window</p>
+
+    <div class='pre p1 fill-light mt0'>getWindowSize(): <a href="#getwindowsize_interface">getWindowSize_Interface</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="#getwindowsize_interface">getWindowSize_Interface</a></code>:
+        An object with two properties, viewportHeight and viewportWidth.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addapiaction'>
+      addApiAction
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/redux/actions/apiActions.ts#L19-L22'>
+      <span>src/background/redux/actions/apiActions.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes an ApiAction and returns an AddApiAction</p>
+
+    <div class='pre p1 fill-light mt0'>addApiAction</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>content</span> <code class='quiet'>(ApiAction)</code>
+	    this is the type of the payload that will be passed to the reducer.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>AddApiAction</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='replaceapiaction'>
+      replaceApiAction
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/redux/actions/apiActions.ts#L28-L31'>
+      <span>src/background/redux/actions/apiActions.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It returns an object with a type property and a payload property</p>
+
+    <div class='pre p1 fill-light mt0'>replaceApiAction</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>content</span> <code class='quiet'>(ApiAction)</code>
+	    this is the content of the action that you want to replace.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>ReplaceApiAction</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='changestatus'>
+      changeStatus
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/redux/actions/apiActions.ts#L37-L40'>
+      <span>src/background/redux/actions/apiActions.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It takes a ChangeStatusPayload object and returns a ChangeStatus action</p>
+
+    <div class='pre p1 fill-light mt0'>changeStatus</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>content</span> <code class='quiet'>(ChangeStatusPayload)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>ChangeStatus</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='nextfsentity'>
+      nextFsEntity
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/background/redux/actions/apiActions.ts#L46-L49'>
+      <span>src/background/redux/actions/apiActions.ts</span>
+      </a>
+    
+  </div>
+  
+
+  <p>It returns an object with a type property and a payload property</p>
+
+    <div class='pre p1 fill-light mt0'>nextFsEntity</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>content</span> <code class='quiet'>(NextFsEntityPayload)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>NextFsEntity</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='ffloading'>
+      FFLoading
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/components/basicElements/Loading.tsx#L9-L19'>
+      <span>src/components/basicElements/Loading.tsx</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Overlay the page with FileFighter's loading animation</p>
+
+    <div class='pre p1 fill-light mt0'>new FFLoading(): JSX.Element</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>JSX.Element</code>:
+        Container containing loading animation (covers whole page)
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='headarea'>
+      HeadArea
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/components/basicElements/topArea/HeadArea.tsx#L9-L16'>
+      <span>src/components/basicElements/topArea/HeadArea.tsx</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Get HeadArea of the page containing TopBanner and Header</p>
+
+    <div class='pre p1 fill-light mt0'>new HeadArea(): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        The HeadArea
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='error400props'>
+      Error400Props
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/components/pages/errors/Error400.tsx#L9-L11'>
+      <span>src/components/pages/errors/Error400.tsx</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Props for Error 400 page</p>
+
+    <div class='pre p1 fill-light mt0'>Error400Props</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>needsLogin</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?)</code>
+	    is user not logged-in?
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='error400'>
+      Error400
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/components/pages/errors/Error400.tsx#L18-L45'>
+      <span>src/components/pages/errors/Error400.tsx</span>
+      </a>
+    
+  </div>
+  
+
+  <p>FileFighter's HTTP 400 Error Page</p>
+
+    <div class='pre p1 fill-light mt0'>new Error400(needsLogin: <a href="#error400props">Error400Props</a>): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>needsLogin</span> <code class='quiet'>(<a href="#error400props">Error400Props</a>)</code>
+	    Does user need new login?
+
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>needsLogin.needsLogin</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        Error 400 page
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='handlesubmit'>
+      handleSubmit
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/FileFighter/WebApp/blob/e695a4244af4a08ea9c71cf0b029a9b8232e2dd8/src/components/pages/User/UserInformationInput.tsx#L60-L93'>
+      <span>src/components/pages/User/UserInformationInput.tsx</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Checks if the username is valid. If the password is not null also check that.
+Check the password if the passord is required.</p>
+
+    <div class='pre p1 fill-light mt0'>handleSubmit</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>event</span> <code class='quiet'>(FormEvent)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+      </div>
+    </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>

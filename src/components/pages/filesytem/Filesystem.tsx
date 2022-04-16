@@ -5,8 +5,16 @@ import UploadZone from "./upload/UploadZone"
 
 export const filesBaseUrl = "/file"
 
+/**
+ * @typedef {Object} Props
+ */
 type Props = {}
 
+/**
+ * Renders a div containing the FileList, ApiActionsInfo and the UploadZone for files
+ * @param {Props} props
+ * @returns A ReactElement
+ */
 function FileSystem(props: Props): ReactElement {
     return (
         <div className="d-flex flex-column align-content-between justify-content-between h-100">
