@@ -27,6 +27,10 @@ export interface LoginInputInterface {
     errorMessage: string | null
 }
 
+/**
+ * It renders a LoginInteractionArea component, passing it a bunch of state and functions
+ * @returns A ReactElement for Login provided with needed states and functions as props
+ */
 function Login(): ReactElement {
     const [userName, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")

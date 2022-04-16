@@ -2,6 +2,10 @@ import React from "react"
 import Spinner from "react-bootstrap/Spinner"
 import { Container } from "react-bootstrap"
 
+/**
+ * Overlay the page with FileFighter's loading animation
+ * @returns Container containing loading animation (covers whole page)
+ */
 export function FFLoading(): JSX.Element {
     return (
         <Container

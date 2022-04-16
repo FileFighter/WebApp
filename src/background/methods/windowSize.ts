@@ -2,6 +2,11 @@ export interface getWindowSize_Interface {
     viewportWidth: number
     viewportHeight: number
 }
+
+/**
+ * It returns the width and height of the browser window
+ * @returns An object with two properties, viewportHeight and viewportWidth.
+ */
 export function getWindowSize(): getWindowSize_Interface {
     let viewportwidth: number
     let viewportheight: number

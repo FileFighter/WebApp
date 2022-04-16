@@ -1,4 +1,4 @@
-interface tableSizesInterface {
+export interface tableSizesInterface {
     checkbox: tableSizeElementInterface
     icon: tableSizeElementInterface
     contextMenu: tableSizeElementInterface
@@ -9,11 +9,14 @@ interface tableSizesInterface {
     border: { xs: number }
 }
 
-interface tableSizeElementInterface {
+export interface tableSizeElementInterface {
     xs: number
     md: number
 }
 
+/**
+ * Defining the tableSizes object.
+ */
 const tableSizes: tableSizesInterface = {
     checkbox: {
         xs: 2,

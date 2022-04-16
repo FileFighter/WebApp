@@ -32,6 +32,9 @@ interface EditableEntity {
     error?: EditableEntityError
 }
 
+/**
+ * @enum
+ */
 export enum EditableEntityError {
     "ALREADYEXITS" = "Name already exits",
     "INVALIDNAME" = "Name is invalid",

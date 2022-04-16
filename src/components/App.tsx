@@ -5,7 +5,7 @@ import Router from "./Router/Router"
 import PermanentAssets from "./basicElements/PermanentAssets"
 
 import Login, { LoginHeader } from "./basicElements/login/Login"
-import HeadArea from "./basicElements/topArea/TopArea"
+import HeadArea from "./basicElements/topArea/HeadArea"
 import BottomArea from "./basicElements/bottomArea/BottomArea"
 
 import { connect, ConnectedProps } from "react-redux"

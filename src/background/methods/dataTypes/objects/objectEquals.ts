@@ -1,3 +1,9 @@
+/**
+ * It compares the keys of two objects and returns true if they are equal
+ * @param {object | any} object1 - The first object to compare.
+ * @param {object | any} object2 - The second object to compare.
+ * @returns are objects equal in sense of having the same keys?
+ */
 function objectEquals(object1: object | any, object2: object | any): boolean {
     let areEqual = true
 

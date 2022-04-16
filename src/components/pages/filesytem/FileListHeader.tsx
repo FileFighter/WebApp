@@ -10,7 +10,7 @@ import { connect, ConnectedProps } from "react-redux"
 import { SystemState } from "../../../background/redux/actions/sytemState"
 import fileListSize from "./fileListSize"
 
-interface FileListHeaderInterface {
+export interface FileListHeaderInterface {
     allAreSelected: boolean
     filesAndFolders: FsEntity[]
     setFilesAndFolders: (content: FsEntity[]) => {}

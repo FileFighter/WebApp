@@ -16,6 +16,9 @@ import { formatBytes } from "../../../background/methods/dataTypes/bytes"
 import { FFLoading } from "../../basicElements/Loading"
 import traffic_light from "../../../assets/images/icons/material.io/traffic_light.svg"
 
+/**
+ * It's a React component that displays the system health of the backend
+ */
 export default function Health() {
     const [systemHealthData, setSystemHealthData] = useState<
         SystemHealthData | null | "loading"

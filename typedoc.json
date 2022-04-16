@@ -1,0 +1,19 @@
+{
+  "tsconfig": "tsconfig.json",
+  "includes": "src",
+  "exclude": [
+    "./**/*.stories.*",
+    "./**/__tests__/*",
+    "sonar-scanner.js",
+    "serviceWorker.ts",
+    "react-app-env.d.ts",
+    "setupTests"
+  ],
+  "out": "docs-td",
+  "readme": "README.md",
+  "entryPointStrategy": "Expand",
+  "entryPoints": [
+    "./src"
+  ],
+  "categorizeByGroup": true
+}

@@ -5,7 +5,7 @@ import { hostname, userPath } from "./api"
 import store from "../redux/store"
 import { updateUser } from "../redux/actions/user"
 import { UserState } from "../redux/actions/userTypes"
-import { ApiStatusResponse } from "../api/sharedApiTypes"
+import { ApiStatusResponse } from "./sharedApiTypes"
 
 export interface UserInformation {
     userId: number | null
@@ -15,6 +15,11 @@ export interface UserInformation {
     confirmationPassword?: string // FIXME remove this in the backend
 }
 
+/**
+ * It takes an updated user object, sends it to the backend, and then updates the confirmed user in the redux store
+ * @param {UserInformation} userWithNewInformation
+ * @returns A promise that resolves to a UserState object.
+ */
 export const changeUserInformation = (
     userWithNewInformation: UserInformation
 ): Promise<UserState> => {

@@ -55,7 +55,7 @@ export default function UserInformationInput(
 
     /**
      * Checks if the username is valid. If the password is not null also check that.
-     * Check the password if the passord is required.
+     * Check the password if the password is required.
      */
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault()
@@ -143,7 +143,7 @@ export default function UserInformationInput(
                     }
                 />
                 <RuleChecker
-                    ruleToCheck={passwordStrength >= REQUIRED_PASSWORD_STRENGTH}
+                    isRuleMet={passwordStrength >= REQUIRED_PASSWORD_STRENGTH}
                     ruleDesc={"Passwords must be at least strong."}
                     imageAlt={"status icon password length"}
                 />

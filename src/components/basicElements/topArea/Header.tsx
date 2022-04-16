@@ -20,6 +20,10 @@ export interface navBarElement_Interface {
     onClick?: (...sth: any) => any
 }
 
+/**
+ * It takes a SystemState object and returns an object with a username and groups property
+ * @param {SystemState} state - this is the state of the entire system.
+ */
 const mapState = (state: SystemState) => ({
     username: state.user.username,
     groups: state.user.groups,
@@ -29,6 +33,11 @@ const connector = connect(mapState)
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
+/**
+ * It returns a header element containing the logo, project name and navigation menu
+ * @param props
+ * @return A header element with project details and navbar
+ */
 function Header(props: PropsFromRedux): ReactElement {
     const navigate = useNavigate()
     const navBarElements: navBarElement_Interface[] = [

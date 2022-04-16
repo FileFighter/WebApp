@@ -27,6 +27,11 @@ import { isFsEntityInFolder } from "../methods/filesystem"
 
 const fhHostname = constants.url.FH_URL
 
+/**
+ * It takes a path, and returns a promise that resolves to an array of FsEntity objects
+ * @param {string} path The path to the folder you want to get the contents of.
+ * @returns A promise that resolves to an AxiosResponse<FsEntity[]>
+ */
 export const getFolderContents = (path: string) => {
     console.log("[Get folder content", path)
     return new Promise<AxiosResponse<FsEntity[]>>((resolve, reject) => {
@@ -41,6 +46,12 @@ export const getFolderContents = (path: string) => {
     })
 }
 
+/**
+ * It takes a list of files and a parent folder ID and sends a preflight upload request to the backend
+ * @param {File[] | EditableFileWithPreflightInfo[]} files
+ * @param {string} parentFolderID The ID of the folder you want to upload the files to.
+ * @returns An array of PreflightEntity objects
+ */
 export const uploadPreflight = (
     files: File[] | EditableFileWithPreflightInfo[],
     parentFolderID: string
@@ -66,6 +77,11 @@ export const uploadPreflight = (
     })
 }
 
+/**
+ * It uploads files to the server
+ * @param {File[] | EditableFileWithPreflightInfo[]} files
+ * @param {string} parentFolderID The ID of the folder to upload the files to.
+ */
 export const uploadFiles = (
     files: File[] | EditableFileWithPreflightInfo[],
     parentFolderID: string
@@ -115,6 +131,10 @@ export const uploadFiles = (
     handleMultipleApiActions(files, apiCall, ApiActionType.UPLOAD)
 }
 
+/**
+ * It takes an array of files and folders, and then it calls the API to delete them
+ * @param {FsEntity[]} files The files to be deleted
+ */
 export const deleteFsEntities = (files: FsEntity[]) => {
     const apiCall = (fsEntity: FsEntity) => {
         return new Promise((resolve, reject) => {
@@ -134,6 +154,13 @@ export const deleteFsEntities = (files: FsEntity[]) => {
     handleMultipleApiActions(files, apiCall, ApiActionType.DELETE)
 }
 
+/**
+ * This function creates a new folder with the given name in the given parent folder.
+ *
+ * @param {string} folderName - The name of the folder to be created
+ * @param {string} parentFolderID - The ID of the folder you want to create the new folder in.
+ * @returns A promise that resolves to an AxiosResponse<FsEntity>
+ */
 export const createNewFolder = (
     folderName: string,
     parentFolderID: string
@@ -150,6 +177,11 @@ export const createNewFolder = (
     })
 }
 
+/**
+ * It returns a promise that resolves to an AxiosResponse<FsEntity[]> of files matching the request
+ * @param {string} searchString - The string to search for.
+ * @returns A promise that resolves to an AxiosResponse<FsEntity[]>
+ */
 export const searchFsEntities = (
     searchString: string
 ): Promise<AxiosResponse<FsEntity[]>> => {

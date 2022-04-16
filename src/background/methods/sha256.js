@@ -1,5 +1,11 @@
 // taken from https://stackoverflow.com/questions/59777670/how-can-i-hash-a-string-with-sha256-in-js
 
+/**
+ * It takes a string, converts it to a series of numbers, and then runs those numbers through a series of 64 rounds of
+ * hashing
+ * @param ascii - The string to be hashed.
+ * @returns The SHA256 hash of the input string.
+ */
 export default function sha256(ascii) {
     function rightRotate(value, amount) {
         return (value >>> amount) | (value << (32 - amount))

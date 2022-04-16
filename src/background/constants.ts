@@ -1,4 +1,4 @@
-interface constantsdef {
+export interface constantsdef {
     url: { API_URL: string; FH_URL: string }
 }
 

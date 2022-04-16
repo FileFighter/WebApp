@@ -13,15 +13,24 @@ enum DataIntegrity {
     UNSTABLE = "bg-danger",
 }
 
-interface SystemHealthData {
+export interface SystemHealthData {
+    /** how long since system started */
     uptimeInSeconds: number
+    /** number of registered users */
     userCount: number
+    /** status of data integrity (stable, possible risk, unstable) */
     dataIntegrity: string
     deployment: string
+    /** size of all stored data in bytes */
     usedStorageInBytes: number
+    /** system's version */
     version: string
 }
 
+/**
+ * It returns a promise that resolves to a SystemHealthData object
+ * @returns A promise that resolves to a SystemHealthData object.
+ */
 function callBackendHealth(): Promise<SystemHealthData> {
     return new Promise((resolve, reject) => {
         Axios.get(`${hostname}/health`)
@@ -35,4 +44,3 @@ function callBackendHealth(): Promise<SystemHealthData> {
 }
 
 export { callBackendHealth, DataIntegrity }
-export type { SystemHealthData }

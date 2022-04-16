@@ -1,3 +1,8 @@
+/**
+ * Given a cookie name, return the value of the cookie
+ * @param cname - The name of the cookie to retrieve.
+ * @returns {string} The value of the cookie.
+ */
 export function getCookie(cname: string) {
     let name = cname + "="
     let decodedCookie = decodeURIComponent(document.cookie)
@@ -14,11 +19,17 @@ export function getCookie(cname: string) {
     return ""
 }
 
-export function setCookie(cname: string, cvalue: string, exdays: number) {
+/**
+ * Set a cookie with a value and an expiration date
+ * @param {string} cname - The name of the cookie.
+ * @param {string} cValue - The value of the cookie.
+ * @param {number} exDays - The number of days the cookie will be valid.
+ */
+export function setCookie(cname: string, cValue: string, exDays: number) {
     let d = new Date()
-    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000)
+    d.setTime(d.getTime() + exDays * 24 * 60 * 60 * 1000)
     let expires = "expires=" + d.toUTCString()
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
+    document.cookie = cname + "=" + cValue + ";" + expires + ";path=/"
 }
 
 export function deleteCookie(cname: string) {
