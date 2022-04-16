@@ -1,6 +1,5 @@
 import Axios from "axios"
 import { constants } from "../constants"
-import exp from "constants"
 
 export const hostname: string = constants.url.API_URL
 

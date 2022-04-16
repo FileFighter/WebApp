@@ -1,5 +1,3 @@
-import exp from "constants"
-
 export interface tableSizesInterface {
     checkbox: tableSizeElementInterface
     icon: tableSizeElementInterface
