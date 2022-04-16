@@ -366,11 +366,19 @@ exports[`Storyshots Filesystem default 1`] = `
               <span
                 className="fade"
               >
+                <button
+                  className="mx-1 btn btn-outline-secondary btn-sm"
+                  disabled={true}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Delete
+                </button>
                 <a
                   aria-disabled={true}
                   className="mx-1 btn btn-outline-secondary btn-sm disabled"
                   disabled={true}
-                  href="http://localhost/data/download?ids="
+                  href="http://localhost/data/download/?children="
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="button"

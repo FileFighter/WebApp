@@ -23,7 +23,11 @@ function SearchModalContent({ handleClose }: Props): ReactElement {
 
     useEffect(() => {
         function refreshSearch(newValue: string) {
-            if (!requestOngoing && lastRequestValue !== newValue) {
+            if (
+                !requestOngoing &&
+                lastRequestValue !== newValue &&
+                newValue.length > 3
+            ) {
                 setRequestOngoing(true)
                 searchFsEntities(newValue)
                     .then((response) => {
