@@ -45,7 +45,15 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 // this defines the component props and also adds the redux imported props
 type Props = PropsFromRedux
 
-function App(props: Props): ReactElement {
+/**
+ * **The WebApp's main component.**
+ *
+ * Contains whole visible WebApp including the Router, subdivision in HeadArea, Page and BottomArea as well as the PermanentAssets.
+ * If user is not logged in and wants to access to internal resources, it shows an error page, else it redirects to the login page
+ * @param props e.g. Tokens and User, extracted from Redux
+ * @return The App component
+ */
+export function App(props: Props): ReactElement {
     console.log(
         "[App] props.tokens: ",
         props.tokens.refreshToken,
@@ -95,4 +103,7 @@ function App(props: Props): ReactElement {
     }
 }
 
+/**
+ * Returns component containing the App component connected to Redux.
+ */
 export default connector(App)
