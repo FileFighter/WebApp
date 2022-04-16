@@ -3,15 +3,10 @@ import info_svg from "../../../assets/images/icons/material.io/info-24px.svg"
 import check_svg from "../../../assets/images/icons/material.io/check_circle-24px.svg"
 
 // inner component rendering the checks
-/**
- * @typedef {Object} RuleCheckProps
- * @property {boolean} isRuleMet
- * @property {string} ruleDesc
- * @property {string} imageAlt alt text for image
- */
-type RuleCheckerProps = {
+export interface RuleCheckerProps {
     isRuleMet: boolean
     ruleDesc: string
+    /** Alt text for image*/
     imageAlt: string
 }
 /**

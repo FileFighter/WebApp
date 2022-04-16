@@ -7,14 +7,6 @@ import { updateUser } from "../redux/actions/user"
 import { UserState } from "../redux/actions/userTypes"
 import { ApiStatusResponse } from "./sharedApiTypes"
 
-/**
- * @interface
- * @param {number|null} userId
- * @param {string|null} [username]
- * @param {string[]|null} [groups]
- * @param {string} [password]
- * @param {string} [confirmationPassword]
- */
 export interface UserInformation {
     userId: number | null
     username?: string | null

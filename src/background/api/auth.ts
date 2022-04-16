@@ -19,22 +19,11 @@ import { hashPassword } from "../methods/passwords"
 
 const cookieName: string = "refreshToken"
 
-/**
- * @interface
- * @param {string} tokenValue
- * @param {UserState} user
- */
 export interface BackendLoginData {
     tokenValue: string
     user: UserState
 }
 
-/**
- * @interface
- * @param {string} tokenValue
- * @param {number} userId
- * @param {number} validUntil
- */
 export interface BackendAuthData {
     tokenValue: string
     userId: number

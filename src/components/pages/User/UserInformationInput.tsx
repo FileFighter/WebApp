@@ -14,11 +14,6 @@ import { PasswordStrengthBarWrapper } from "./PasswordStrengthBar"
 import { RuleChecker } from "./RuleChecker"
 import { PasswordFeedback } from "react-password-strength-bar"
 
-/**
- * @interface
- * @property {string} username
- * @property {string} [password]
- */
 export interface UserInformationInputInterface {
     username: string
     password?: string

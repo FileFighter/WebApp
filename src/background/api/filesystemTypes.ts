@@ -4,13 +4,6 @@ export interface UsersSet {
     username: string
 }
 
-/**
- * @interface
- * @param {string[]} editableForGroups
- * @param {UsersSet[]} editableForUsers
- * @param {string[]} visibleForGroups
- * @param {UsersSet[]} visibleForUsers
- */
 export interface PermissionSet {
     editableForGroups: string[]
     editableForUsers: UsersSet[]
@@ -18,39 +11,29 @@ export interface PermissionSet {
     visibleForUsers: UsersSet[]
 }
 
-/**
- * @interface
- * @param {number} userId Id of the user
- * @param {string} username name of user
- * @param {string[]} groups list of groups user is part of
- */
 export interface User {
     userId: number
     username: string
+    /** list of groups user is part of */
     groups: string[]
 }
 
-/**
- * @interface
- * @param {User} owner User who owns file
- * @param {User} lastUpdatedBy last user to update file
- * @param {number} fileSystemId file's id
- * @param {number} lastUpdated timestamp when file was last updated
- * @param {string} name name of file
- * @param {string} path path to file
- * @param {boolean} shared is file shared with other user(s)?
- * @param {number} size file's size
- * @param {string} type
- * @param {string} mimeType
- */
 export interface FsEntity {
+    /** User who owns file */
     owner: User
+    /** last user to update file */
     lastUpdatedBy: User
+    /** file's id */
     fileSystemId: number
+    /** timestamp when file was last updated */
     lastUpdated: number
+    /** name of file*/
     name: string
+    /** path to file*/
     path: string
+    /** is file shared with other user(s)?*/
     shared: boolean
+    /** file's size */
     size: number
     type: string
     mimeType: string

@@ -1,8 +1,3 @@
-/**
- * @interface
- * @param {number} viewportWidth
- * @param {number} viewportHeight
- */
 export interface getWindowSize_Interface {
     viewportWidth: number
     viewportHeight: number

@@ -20,8 +20,10 @@ function getTimeStampFromDate(date: Date): number {
  * @param {number} ts - The timestamp in seconds.
  * @returns A string
  * @example
+ * ```
  * // returns "just now"
  * let time = getRelativeTime(42)
+ * ```
  */
 function getRelativeTime(ts: number): string {
     const diff = Number(new Date()) - ts * 1000

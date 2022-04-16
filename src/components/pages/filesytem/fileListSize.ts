@@ -1,16 +1,6 @@
-/**
- * @interface
- * @param {tableSizeElementInterface} checkbox
- * @param {tableSizeElementInterface} icon
- * @param {tableSizeElementInterface} contextMenu
- * @param {tableSizeElementInterface} name
- * @param {tableSizeElementInterface} modifiedBy
- * @param {tableSizeElementInterface} modifiedOn
- * @param {tableSizeElementInterface} size
- * @param {Object} border
- */
+import exp from "constants"
 
-interface tableSizesInterface {
+export interface tableSizesInterface {
     checkbox: tableSizeElementInterface
     icon: tableSizeElementInterface
     contextMenu: tableSizeElementInterface
@@ -21,12 +11,7 @@ interface tableSizesInterface {
     border: { xs: number }
 }
 
-/**
- * @interface
- * @param {number} xs
- * @param {number} md
- */
-interface tableSizeElementInterface {
+export interface tableSizeElementInterface {
     xs: number
     md: number
 }

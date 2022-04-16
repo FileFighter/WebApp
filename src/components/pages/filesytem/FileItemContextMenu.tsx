@@ -4,11 +4,11 @@ import { constants } from "../../../background/constants"
 import { FsEntity } from "../../../background/api/filesystemTypes"
 import { deleteFsEntities } from "../../../background/api/filesystem"
 
-interface FileItemContextMenuInterface {
+export interface FileItemContextMenuInterface {
     fsEntity: FsEntity
 }
 
-interface DropdownItemTitleInterface {
+export interface DropdownItemTitleInterface {
     icon?: string
     description: string
     selectedID: number

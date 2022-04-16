@@ -2,12 +2,6 @@ import Axios, { AxiosError, AxiosResponse } from "axios"
 import { hostname, userPath } from "./api"
 import { hashPassword } from "../methods/passwords"
 
-/**
- * @interface
- * @param {number} httpStatus
- * @param {string} httpMessage
- * @param {string} [outputMessage]
- */
 export interface IRegisterServerResponse {
     httpStatus: number
     httpMessage: string

@@ -1,5 +1,6 @@
 import Axios from "axios"
 import { constants } from "../constants"
+import exp from "constants"
 
 export const hostname: string = constants.url.API_URL
 
@@ -13,21 +14,17 @@ enum DataIntegrity {
     UNSTABLE = "bg-danger",
 }
 
-/**
- * @interface
- * @param {number} uptimeInSeconds how long since system started
- * @param {number} userCount number of registered users
- * @param {string} dataIntegrity status of data integrity (stable, possible risk, unstable)
- * @param {string} deployment
- * @param {number} usedStorageInBytes size of all stored data in bytes
- * @param {string} version system's version
- */
-interface SystemHealthData {
+export interface SystemHealthData {
+    /** how long since system started */
     uptimeInSeconds: number
+    /** number of registered users */
     userCount: number
+    /** status of data integrity (stable, possible risk, unstable) */
     dataIntegrity: string
     deployment: string
+    /** size of all stored data in bytes */
     usedStorageInBytes: number
+    /** system's version */
     version: string
 }
 
@@ -48,4 +45,3 @@ function callBackendHealth(): Promise<SystemHealthData> {
 }
 
 export { callBackendHealth, DataIntegrity }
-export type { SystemHealthData }

@@ -15,8 +15,10 @@ export function reverseString(string: string): string {
  * @param {string} replaceWith - The string to replace the substring with.
  * @returns The string with the first and last instances of the substring replaced with the replaceWith string.
  * @example
+ * ```
  * // returns "Muad'DibPaulAtreidesPaulMuad'Dib"
  * let newString = stringReplaceSubstringOneTimeFromBeginningAndEnd("PaulPaulAtreidesPaulPaul","Paul","Muad'Dib");
+ * ```
  */
 export function stringReplaceSubstringOneTimeFromBeginningAndEnd(
     string: string,

@@ -12,14 +12,6 @@ import { SystemState } from "../../../background/redux/actions/sytemState"
 import { connect, ConnectedProps } from "react-redux"
 import { logout } from "../../../background/api/auth"
 
-/**
- * @interface
- * @param {string} name
- * @param {string} text
- * @param {string} link
- * @param {string | null} logo
- * @param {(...sth: any) => any} [onClick]
- */
 export interface navBarElement_Interface {
     name: string
     text: string

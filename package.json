@@ -11,7 +11,8 @@
     "build-storybook": "build-storybook -s public --no-dll",
     "sonar": "SONAR_LOGIN=$SONAR_LOGIN SONAR_PASSWORD=$SONAR_PASSWORD node src/sonar-scanner.js",
     "prepare": "husky install",
-    "docs": "documentation build src/ --parse-extension ts --parse-extension tsx --require-extension ts --require-extension tsx --require-extension d.ts --format html --github --output docs"
+    "docs": "documentation build src/ --parse-extension ts --parse-extension tsx --require-extension ts --require-extension tsx --require-extension d.ts --format html --github --output docs",
+    "docs-td": "typedoc"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -81,6 +82,7 @@
     "react-is": "17.0.2",
     "react-test-renderer": "17.0.2",
     "sonarqube-scanner": "2.8.1",
+    "typedoc": "^0.22.15",
     "typescript": "4.3.5",
     "webpack": "5"
   }
