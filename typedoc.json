@@ -16,5 +16,5 @@
     "./src"
   ],
   "categorizeByGroup": true,
-  "theme": "hierarchy"
+  "theme": "hierarchy",
 }
