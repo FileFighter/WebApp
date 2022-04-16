@@ -9,11 +9,15 @@
     "react-app-env.d.ts",
     "setupTests"
   ],
-  "out": "docs-td",
+  "out": "docs",
   "readme": "README.md",
   "entryPointStrategy": "Expand",
   "entryPoints": [
     "./src"
   ],
-  "categorizeByGroup": true
+  "categorizeByGroup": true,
+  "plugin": [
+    "./node_modules/typedoc-theme-hierarchy/dist/index.js"
+  ],
+  "theme": "hierarchy"
 }
