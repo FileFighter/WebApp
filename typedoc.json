@@ -9,11 +9,17 @@
     "react-app-env.d.ts",
     "setupTests"
   ],
-  "out": "docs-td",
+  "out": "docs",
   "readme": "README.md",
   "entryPointStrategy": "Expand",
   "entryPoints": [
     "./src"
   ],
-  "categorizeByGroup": true
+  "categorizeByGroup": true,
+  "theme": "hierarchy",
+  "customTitle": "FileFighter WebApp - Documentation",
+  "customDescription": "API-Documentation for FileFighter's Web App",
+  "favicon": "docs_assets/favicon_blue.ico",
+  "footerTypedocVersion": true,
+  "footerDate": true
 }

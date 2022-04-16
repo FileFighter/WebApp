@@ -15671,6 +15671,28 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typedoc-plugin-extras@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/typedoc-plugin-extras/-/typedoc-plugin-extras-2.2.3.tgz#fb292b66f68e450d049251036d6528e4c5badfd4"
+  integrity sha512-G4sLPKHO/Q2AB3arxy8Co0jdvO6glGCHtGOUxiiR/Kx1fz+C+/ZbN6Jxu3qi7nyVVW5sX39bW26w+7EjpxicqQ==
+
+typedoc-plugin-mdn-links@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/typedoc-plugin-mdn-links/-/typedoc-plugin-mdn-links-1.0.6.tgz#4ef9f2d5c1780cccd7955a45c197520f33526460"
+  integrity sha512-ee+uJXZH8vXzi5wpXBc+Wgjt30hQdRE3SyUvAHVoBbHsoqkGbs4hMTDo9mU8aQsZ2MZkve0nTmN3eVc79YN/Qg==
+
+typedoc-plugin-rename-defaults@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/typedoc-plugin-rename-defaults/-/typedoc-plugin-rename-defaults-0.5.1.tgz#1a99e1300f4a4ea360881b42f80d14b5ab166dba"
+  integrity sha512-1YMk56/LrYV61c3oWYZuua/y5W0Zy/u6gaXZ1iWwxiUXEg9UG/Z83HuFrPT5rMcjlQSxwcVTayWbLStPTz9Aog==
+
+typedoc-theme-hierarchy@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/typedoc-theme-hierarchy/-/typedoc-theme-hierarchy-1.1.1.tgz#9d919036580463a6e8ec2356ca634ccc4942c790"
+  integrity sha512-oh1U7NNtiDs1F9gfxVIxpE5pTVcv/2gQTSa03H+mUZEiUKF16VvSm8moqiU4v/4PkYX+5LErdPSirk+0N4O1uw==
+  dependencies:
+    fs-extra "^10.0.0"
+
 typedoc@^0.22.15:
   version "0.22.15"
   resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.22.15.tgz#c6ad7ed9d017dc2c3a06c9189cb392bd8e2d8c3f"
