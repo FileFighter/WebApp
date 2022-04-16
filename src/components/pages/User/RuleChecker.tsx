@@ -5,33 +5,36 @@ import check_svg from "../../../assets/images/icons/material.io/check_circle-24p
 // inner component rendering the checks
 /**
  * @typedef {Object} RuleCheckProps
- * @property {boolean} ruleToCheck
+ * @property {boolean} isRuleMet
  * @property {string} ruleDesc
- * @property {string} imageAlt path to image
+ * @property {string} imageAlt alt text for image
  */
 type RuleCheckerProps = {
-    ruleToCheck: boolean
+    isRuleMet: boolean
     ruleDesc: string
     imageAlt: string
 }
 /**
- * Reviews if a rule is to check because it was fulfilled and returns a component containing positive checks or warnings, depending on the result
+ * Reviews if a rule is to check because it was fulfilled and returns a component containing positive checks or warnings, depending on the result.
  * Consists of an image (check or info), a "Done" or "Missing" information and a description of the rule
- * @param {RuleCheckerProps}
+ * @param {RuleCheckerProps} ruleInfos
+ * @param {boolean} ruleInfos.isRuleMet Is rule fulfilled or are there things missing
+ * @param {string} ruleInfos.ruleDesc Description of rule
+ * @param {string} ruleInfos.imageAlt Alt text for done/missing-icons
  * @returns A React component
  */
 const RuleChecker = ({
-    ruleToCheck,
+    isRuleMet,
     ruleDesc,
     imageAlt,
 }: RuleCheckerProps): JSX.Element => {
     return (
         <div>
-            <img alt={imageAlt} src={ruleToCheck ? check_svg : info_svg} />
+            <img alt={imageAlt} src={isRuleMet ? check_svg : info_svg} />
             <span className={"sr-only"}>
-                {ruleToCheck ? "Done: " : "Missing: "}
+                {isRuleMet ? "Done: " : "Missing: "}
             </span>
-            <span className={ruleToCheck ? "text-success" : "text-muted"}>
+            <span className={isRuleMet ? "text-success" : "text-muted"}>
                 {ruleDesc}
             </span>
         </div>

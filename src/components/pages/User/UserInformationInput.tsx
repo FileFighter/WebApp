@@ -16,8 +16,8 @@ import { PasswordFeedback } from "react-password-strength-bar"
 
 /**
  * @interface
- * @param {string} username
- * @param {string} [password]
+ * @property {string} username
+ * @property {string} [password]
  */
 export interface UserInformationInputInterface {
     username: string
@@ -148,7 +148,7 @@ export default function UserInformationInput(
                     }
                 />
                 <RuleChecker
-                    ruleToCheck={passwordStrength >= REQUIRED_PASSWORD_STRENGTH}
+                    isRuleMet={passwordStrength >= REQUIRED_PASSWORD_STRENGTH}
                     ruleDesc={"Passwords must be at least strong."}
                     imageAlt={"status icon password length"}
                 />
