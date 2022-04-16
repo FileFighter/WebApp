@@ -15671,6 +15671,11 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typedoc-plugin-rename-defaults@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/typedoc-plugin-rename-defaults/-/typedoc-plugin-rename-defaults-0.5.1.tgz#1a99e1300f4a4ea360881b42f80d14b5ab166dba"
+  integrity sha512-1YMk56/LrYV61c3oWYZuua/y5W0Zy/u6gaXZ1iWwxiUXEg9UG/Z83HuFrPT5rMcjlQSxwcVTayWbLStPTz9Aog==
+
 typedoc-theme-hierarchy@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/typedoc-theme-hierarchy/-/typedoc-theme-hierarchy-1.1.1.tgz#9d919036580463a6e8ec2356ca634ccc4942c790"

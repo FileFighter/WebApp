@@ -17,7 +17,8 @@
   ],
   "categorizeByGroup": true,
   "plugin": [
-    "./node_modules/typedoc-theme-hierarchy/dist/index.js"
+    "./node_modules/typedoc-theme-hierarchy/dist/index.js",
+    "./node_modules/typedoc-plugin-rename-defaults/dist/index.js"
   ],
   "theme": "hierarchy"
 }
