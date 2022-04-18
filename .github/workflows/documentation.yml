@@ -7,22 +7,33 @@ on:
       - 'src/**'
 
 jobs:
-  Generate_Documentation_on_Master_Push:
+  Generate_Documentation:
       runs-on: ubuntu-latest
       steps:
-      -
-        name: Set up Project
+      - name: Set up Project
         uses: actions/checkout@v2
-      -
-        name: Set up Node.js environment
+      - name: Set up Node.js environment
         uses: actions/setup-node@v2
         with:
           node-version: 16
           cache: 'yarn'
-      -
-        name: Checkout frontend
+      - name: Checkout docs branch and hardsync with master
+        run: |
+          git checkout gh-pages 2>/dev/null || git checkout -b gh-pages
+          git reset --hard master
+      - name: Setup yarn
         run: |
           yarn install --immutable --immutable-cache --check-cache
-      - 
-        name: Generate Documentation
+      - name: Generate Documentation
         run: yarn docs
+      - name: setup git config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      - name: Commit
+        run: |
+          TIMESTAMP=`date +%s` 
+          git add docs
+          git commit -m "Generated docs: $TIMESTAMP"
+      - name: Push
+        run: git push -u origin gh-pages
