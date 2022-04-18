@@ -34,6 +34,6 @@ jobs:
         run: |
           TIMESTAMP=`date +%s` 
           git add docs
-          git commit -m "Generated docs: $TIMESTAMP"
+          git commit --no-verify -m "Generated docs: $TIMESTAMP"
       - name: Push
         run: git push -f -u origin gh-pages
