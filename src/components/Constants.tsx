@@ -5,7 +5,7 @@ import { Provider } from "react-redux"
 import store from "../background/redux/store"
 
 /**
- * The function returns a Redux Provider component that wraps the App component
+ * The function returns a Redux Provider component that wraps the App component.
  * @returns The App component is being returned.
  */
 function Constants(): ReactElement {
