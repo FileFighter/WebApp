@@ -36,4 +36,4 @@ jobs:
           git add docs
           git commit --no-verify -m "Generated docs: $TIMESTAMP"
       - name: Push
-        run: git push -f -u origin gh-pages
+        run: git push -f -u origin gh-pages --no-verify
