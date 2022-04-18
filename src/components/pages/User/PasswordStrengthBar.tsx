@@ -12,7 +12,7 @@ const PasswordStrengthBar = React.lazy(
  * @property {string} currentPassword The password to check.
  * @property {(number, PasswordFeedback) => void} scoreChangeCallback A function which receives the password's strength and reacts to it.
  */
-type PasswordStrengthBarWrapperArgs = {
+export type PasswordStrengthBarWrapperArgs = {
     currentPassword: string
     scoreChangeCallback: (score: number, feedback: PasswordFeedback) => void
 }
