@@ -1,0 +1,28 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'src/**'
+
+jobs:
+  Generate_Documentation_on_Master_Push:
+      runs-on: ubuntu-latest
+      steps:
+      -
+        name: Set up Project
+        uses: actions/checkout@v2
+      -
+        name: Set up Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'yarn'
+      -
+        name: Checkout frontend
+        run: |
+          yarn install --immutable --immutable-cache --check-cache
+      - 
+        name: Generate Documentation
+        run: yarn docs
