@@ -8,19 +8,22 @@ const PasswordStrengthBar = React.lazy(
 
 /**
  * PasswordStrengthBarWrapper component's parameter type.
- * @typedef {Object} PasswordStrengthBarWrapperArgs
- * @property {string} currentPassword The password to check.
- * @property {(number, PasswordFeedback) => void} scoreChangeCallback A function which receives the password's strength and reacts to it.
  */
 export type PasswordStrengthBarWrapperArgs = {
+    /** The password to check. */
     currentPassword: string
+    /**
+     * A function which receives the password's strength and reacts to it.
+     * @param score The score rating the quality of the password.
+     * @param feedback Object containing information regarding the feedback's design.
+     */
     scoreChangeCallback: (score: number, feedback: PasswordFeedback) => void
 }
 
 /**
  * A component wrapping the password strength checks by lazy loading the component if necessary.
  * @param {PasswordStrengthBarWrapperArgs}
- * @returns password strength bar or null, depending on if user already inserted a password
+ * @returns PasswordStrengthBar or null, depending on if user already inserted a password.
  */
 
 const PasswordStrengthBarWrapper = ({
