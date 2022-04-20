@@ -102,27 +102,29 @@ function Header(props: PropsFromRedux): ReactElement {
                     <Navbar.Collapse id="basic-navbar-nav">
                         {props.username && (
                             <Nav className="navbar-collapse justify-content-end">
-                                {final}
-                                <NavDropdown
-                                    title={props.username}
-                                    id="basic-nav-dropdown"
-                                    className="text-center"
-                                >
-                                    <NavDropdown.Item
-                                        onClick={() => {
-                                            navigate("/profile")
-                                        }}
+                                <>
+                                    {final}
+                                    <NavDropdown
+                                        title={props.username}
+                                        id="basic-nav-dropdown"
+                                        className="text-center"
                                     >
-                                        Profile
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item
-                                        onClick={() => {
-                                            logout()
-                                        }}
-                                    >
-                                        Logout
-                                    </NavDropdown.Item>
-                                </NavDropdown>
+                                        <NavDropdown.Item
+                                            onClick={() => {
+                                                navigate("/profile")
+                                            }}
+                                        >
+                                            Profile
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item
+                                            onClick={() => {
+                                                logout()
+                                            }}
+                                        >
+                                            Logout
+                                        </NavDropdown.Item>
+                                    </NavDropdown>
+                                </>
                             </Nav>
                         )}
                     </Navbar.Collapse>
