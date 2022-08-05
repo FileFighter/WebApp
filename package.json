@@ -32,7 +32,7 @@
     "axios": "0.26.1",
     "bootstrap": "4.6.2",
     "react": "17.0.2",
-    "react-bootstrap": "2.1.2",
+    "react-bootstrap": "2.5.0",
     "react-dom": "17.0.2",
     "react-dropzone": "11.7.1",
     "react-password-strength-bar": "0.4.1",
