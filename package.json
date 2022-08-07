@@ -29,7 +29,7 @@
     ]
   },
   "dependencies": {
-    "axios": "0.26.1",
+    "axios": "0.27.2",
     "bootstrap": "4.6.2",
     "react": "17.0.2",
     "react-bootstrap": "2.1.2",
