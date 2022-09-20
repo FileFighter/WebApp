@@ -5,7 +5,9 @@ export const getPathWithoutName = (
     pathWithName: string,
     name: string
 ): string => {
-    return pathWithName.substr(0, pathWithName.lastIndexOf(name.toLowerCase()))
+    return pathWithName
+        .toLowerCase()
+        .substr(0, pathWithName.toLowerCase().lastIndexOf(name.toLowerCase()))
 }
 
 export const removeTrailingBackslash = (path: string): string => {
@@ -25,7 +27,6 @@ export const removeLeadingBackslash = (path: string): string => {
 export const isFsEntityInFolder = (fsEntity: FsEntity, path: string) => {
     let fsEntityPath = getPathWithoutName(fsEntity.path, fsEntity.name)
     fsEntityPath = removeTrailingBackslash(fsEntityPath)
-
     return fsEntityPath.toLocaleLowerCase() === path.toLocaleLowerCase()
 }
 
