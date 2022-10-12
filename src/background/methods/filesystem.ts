@@ -5,12 +5,12 @@ export const getPathWithoutName = (
     pathWithName: string,
     name: string
 ): string => {
-    return pathWithName
-        .toLowerCase()
-        .substr(0, pathWithName.toLowerCase().lastIndexOf(name.toLowerCase()))
+    const lenght = pathWithName.toLowerCase().lastIndexOf(name.toLowerCase())
+    return pathWithName.toLowerCase().substr(0, lenght)
 }
 
 export const removeTrailingBackslash = (path: string): string => {
+    if (path === "/") return path
     if (path.lastIndexOf("/") + 1 === path.length) {
         return path.substr(0, path.length - 1)
     }
