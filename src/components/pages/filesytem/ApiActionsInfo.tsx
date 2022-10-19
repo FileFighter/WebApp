@@ -1,3 +1,4 @@
+import { ApiAction } from "background/redux/actions/apiActionsTypes"
 import React from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "../../../background/redux/store"
@@ -13,17 +14,17 @@ export const ApiActionsInfo = (): JSX.Element => {
                 .sort((a, b) => {
                     return a.timestamp - b.timestamp
                 })
-                .map((a) => (
-                    <div key={a.key}>
+                .map((action: ApiAction) => (
+                    <div key={action.key}>
                         <span className={"px-2"}>
-                            {a.status} {a.type}
+                            {action.status} {action.type}
                         </span>
-                        {a.totalAmount > 1 && (
+                        {action.totalAmount > 1 && (
                             <span className={"px-2"}>
-                                {a.progress + 1} / {a.totalAmount}
+                                {action.progress + 1} / {action.totalAmount}
                             </span>
                         )}
-                        {a.currentFsEntity.name}
+                        {action.currentFsEntity.name}
                     </div>
                 ))}
         </>
