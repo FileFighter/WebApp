@@ -4,6 +4,7 @@ import {
     removeLeadingBackslash,
     removeTrailingBackslash,
     isFsEntityInFolder,
+    getFileExtension,
 } from "../filesystem"
 
 describe("Filesystem functions", () => {
@@ -48,5 +49,11 @@ describe("Filesystem functions", () => {
         } as FsEntity
         let result2 = isFsEntityInFolder(fsEntity1, "/someFolder")
         expect(result2).toEqual(true)
+    })
+
+    test("Get file extension works", () => {
+        expect(getFileExtension("file.txt")).toEqual("txt")
+        expect(getFileExtension("noext")).toEqual("")
+        expect(getFileExtension("some.txt.gz.tar.pdf")).toEqual("pdf")
     })
 })
