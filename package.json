@@ -39,7 +39,7 @@
     "react-redux": "7.2.8",
     "react-router-dom": "6.2.2",
     "react-scripts": "5.0.1",
-    "redux": "4.1.2",
+    "redux": "4.2.0",
     "redux-types": "2.0.3",
     "sass": "1.49.9",
     "super-tiny-icons": "0.4.0"
