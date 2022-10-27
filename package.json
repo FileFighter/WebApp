@@ -65,7 +65,7 @@
     "@types/react-bootstrap": "0.32.30",
     "@types/react-dom": "17.0.17",
     "@types/react-redux": "7.1.24",
-    "@types/react-router-dom": "5.1.9",
+    "@types/react-router-dom": "5.3.3",
     "axios-mock-adapter": "1.20.0",
     "babel-loader": "8.1.0",
     "cypress": "9.5.4",
