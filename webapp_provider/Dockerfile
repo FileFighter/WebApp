@@ -1,5 +1,5 @@
 # dockerfile
-FROM nginx:1.23.1
+FROM nginx:1.23.2
 RUN apt-get update && apt-get upgrade -y
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/nginx.conf
