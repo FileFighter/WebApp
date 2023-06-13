@@ -13203,14 +13203,13 @@ rc-config-loader@^4.1.0:
     json5 "^2.1.2"
     require-from-string "^2.0.2"
 
-rc-util@5.22.4:
-  version "5.22.4"
-  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-5.22.4.tgz#7bbff3163216d58c93939c22c37a719c654f7289"
-  integrity sha512-KNZNgUix/1eAObTE1jjCSP3bh2eOFvMgdLIUp0mlTdUdWhcFi8dIvnBLHJoDL30MhhBz4Ra2QyW0QUIvvT8bKg==
+rc-util@5.33.1:
+  version "5.33.1"
+  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-5.33.1.tgz#96e5814400e04b819bace502b6ca40a67f3be37f"
+  integrity sha512-oMs2OIV/2lUCF8nllevzLccneyxAzdSOaHSs5y91qOLdqaLbIMsuL49C6/DhF/WKMqiAKEKGdVk2F1sB5HQe9A==
   dependencies:
     "@babel/runtime" "^7.18.3"
     react-is "^16.12.0"
-    shallowequal "^1.1.0"
 
 rc@^1.2.8:
   version "1.2.8"
