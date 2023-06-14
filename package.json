@@ -66,7 +66,7 @@
     "@types/react-dom": "17.0.18",
     "@types/react-redux": "7.1.24",
     "@types/react-router-dom": "5.3.3",
-    "axios-mock-adapter": "1.20.0",
+    "axios-mock-adapter": "1.21.5",
     "babel-loader": "8.1.0",
     "cypress": "9.5.4",
     "eslint": "^8.9.0",
